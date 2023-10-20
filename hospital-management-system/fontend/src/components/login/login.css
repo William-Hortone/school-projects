@@ -1,0 +1,33 @@
+.app__register {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.app__register-section {
+  width: 400px;
+  height: 500px;
+  background-color: aquamarine;
+}
+.app__register-section h2,
+p {
+  text-align: center;
+}
+.app__register-section form {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 0.5rem;
+}
+input {
+  height: 30px;
+  padding: 0 0.5rem;
+}
+button {
+  margin-top: 1rem;
+  padding: 0.7rem 0;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}
