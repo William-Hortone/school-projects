@@ -1,6 +1,6 @@
 .app__dDetails {
   width: 70%;
-  height: 500px;
+  height: auto;
   padding: 2rem;
   margin: 0 auto;
   background-color: aqua;
@@ -15,7 +15,8 @@ h1 {
   flex-direction: column;
   gap: 0.5rem;
 }
-.details-section-one {
+.details-section-one,
+.details-section-three {
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -24,6 +25,7 @@ h1 {
 .section-two-content {
   display: flex;
   gap: 2rem;
+  margin: 1rem 0;
 }
 .container-one,
 .container-two {
@@ -41,4 +43,14 @@ h1 {
 .dropdown {
   width: 250px;
   padding: 0.5rem 0;
+}
+.details-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.divider {
+  width: 80%;
+  height: 2px;
+  background-color: #ffffffa8;
 }

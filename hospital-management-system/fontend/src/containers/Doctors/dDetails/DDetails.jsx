@@ -12,9 +12,10 @@ const DDetails = () => {
           <Input placeholder="Doctor ID" name="doctorID" />
         </div>
         <div className="details-section-two">
-          <h4>
-            Personal Details <span />
-          </h4>
+          <div className="details-title">
+            <h4> Personal Detail</h4>
+            <div className="divider" />
+          </div>
           <div className="section-two-content">
             <div className="container-one">
               <div className="input-field">
@@ -38,7 +39,7 @@ const DDetails = () => {
                   name="doctorAddress"
                   id=""
                   cols="30"
-                  rows="10"
+                  rows="5"
                 ></textarea>
               </div>
             </div>
@@ -62,6 +63,49 @@ const DDetails = () => {
               <div className="input-field">
                 <label form="Specialization"> Specialization:</label>
                 <Input placeholder="Specialization" name="Specialization" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="details-section-three-global">
+          <div className="details-title">
+            <h4>Employees Details</h4>
+            <div className="divider" />
+          </div>
+          <div className="details-section-three">
+            <div className="container-one">
+              <div className="input-field">
+                <label form="PermanentDoctor"> Doctor Type</label>
+                <select className="dropdown" name="PermanentDoctor" id="">
+                  <option value="Visiting Doctor">Visiting Doctor</option>
+                  <option value="Permanent Doctor">Permanent Doctor</option>
+                </select>
+              </div>
+              <div className="input-field">
+                <label form="doctorAddress"> Notes:</label>
+                <textarea
+                  name="doctorAddress"
+                  id=""
+                  cols="32"
+                  rows="5"
+                ></textarea>
+              </div>
+            </div>
+            <div className="container-two">
+              <div className="input-field">
+                <label form="VisitingCharge"> Visiting Charge:</label>
+                <Input placeholder="Visiting Charge" name="VisitingCharge" />
+              </div>
+              <div className="input-field">
+                <label form="ChannelingCharge"> Channeling Charge:</label>
+                <Input
+                  placeholder="Channeling Charge:"
+                  name="ChannelingCharge"
+                />
+              </div>
+              <div className="input-field">
+                <label form="basicSalary"> Basic salary:</label>
+                <Input placeholder="Basic salary" name="basicSalary" />
               </div>
             </div>
           </div>
