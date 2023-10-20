@@ -1,0 +1,44 @@
+.app__dDetails {
+  width: 70%;
+  height: 500px;
+  padding: 2rem;
+  margin: 0 auto;
+  background-color: aqua;
+}
+h1 {
+  text-align: center;
+}
+.app__dDetails-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.details-section-one {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.section-two-content {
+  display: flex;
+  gap: 2rem;
+}
+.container-one,
+.container-two {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.input-field {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dropdown {
+  width: 250px;
+  padding: 0.5rem 0;
+}

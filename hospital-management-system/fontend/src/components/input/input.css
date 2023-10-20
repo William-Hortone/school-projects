@@ -1,0 +1,6 @@
+.app__input {
+  width: 250px;
+}
+.app__input input {
+  width: 100%;
+}
