@@ -19,19 +19,34 @@ const DoctorMenu = ({ setShowSubmitBtn, handleRefresh }) => {
   return (
     <div className="app__doctorMenu">
       <div className="app__doctorMenu-header">
-        <ButtonSkip btnName="First One" />
-        <ButtonSkip btnName="Preview" />
+        <ButtonSkip iconName="doubleLeft" color="green" />
+        <ButtonSkip iconName="arrowLeft" color="blue" />
         <input type="text" placeholder="Record No" value="Record: 10" />
-        <ButtonSkip btnName="Last One" />
-        <ButtonSkip btnName="Next" />
+        <ButtonSkip iconName="arrowRight" color="blue" />
+        <ButtonSkip iconName="doubleRight" color="green" />
       </div>
       <div className="app__doctorMenu-container">
-        <ButtonAction btnName="Add" onClick={handleAddDoctor} />
-        <ButtonAction btnName="Edit" />
-        <ButtonAction btnName="Delete" />
-        <ButtonAction btnName="Refresh" onClick={handleRefreshDetails} />
-        <ButtonAction btnName="View All" />
-        <ButtonAction btnName="Close" onClick={handleClose} />
+        <ButtonAction
+          iconName="add"
+          btnName="Add"
+          color="green"
+          onClick={handleAddDoctor}
+        />
+        <ButtonAction iconName="edit" btnName="Edit" color="green" />
+        <ButtonAction iconName="delete" btnName="Delete" color="red" />
+        <ButtonAction
+          iconName="refresh"
+          btnName="Refresh"
+          color="blue"
+          onClick={handleRefreshDetails}
+        />
+        <ButtonAction iconName="all" btnName="View All" color="blue" />
+        <ButtonAction
+          iconName="close"
+          btnName="Close"
+          color="red"
+          onClick={handleClose}
+        />
       </div>
     </div>
   );
