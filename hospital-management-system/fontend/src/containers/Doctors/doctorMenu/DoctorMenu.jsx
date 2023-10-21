@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./doctorMenu.css";
 import { ButtonAction, ButtonSkip } from "../../../components";
+import { useNavigate } from "react-router-dom";
 
-const DoctorMenu = () => {
+const DoctorMenu = ({ setShowSubmitBtn, handleRefresh }) => {
+  const navigate = useNavigate();
+  const handleAddDoctor = () => {
+    setShowSubmitBtn(true);
+  };
+  const handleClose = () => {
+    setShowSubmitBtn(false);
+    navigate("/");
+  };
+  const handleRefreshDetails = () => {
+    setShowSubmitBtn(false);
+    handleRefresh();
+  };
   return (
     <div className="app__doctorMenu">
       <div className="app__doctorMenu-header">
@@ -13,12 +26,12 @@ const DoctorMenu = () => {
         <ButtonSkip btnName="Next" />
       </div>
       <div className="app__doctorMenu-container">
-        <ButtonAction btnName="Add" />
+        <ButtonAction btnName="Add" onClick={handleAddDoctor} />
         <ButtonAction btnName="Edit" />
         <ButtonAction btnName="Delete" />
-        <ButtonAction btnName="Refresh" />
+        <ButtonAction btnName="Refresh" onClick={handleRefreshDetails} />
         <ButtonAction btnName="View All" />
-        <ButtonAction btnName="Close" />
+        <ButtonAction btnName="Close" onClick={handleClose} />
       </div>
     </div>
   );

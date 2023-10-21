@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const AdminModel = require("./models/admin");
+const DoctorModel = require("./models/Doctor");
 
 const app = express();
 app.use(express.json());
@@ -29,6 +30,12 @@ app.post("/login", (req, res) => {
         res.json("unknown email");
       }
     })
+    .catch((err) => res.json(err));
+});
+
+app.post("/doctor", (req, res) => {
+  DoctorModel.create(req.body)
+    .then((doctor) => res.json(doctor))
     .catch((err) => res.json(err));
 });
 

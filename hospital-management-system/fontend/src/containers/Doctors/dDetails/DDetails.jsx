@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./dDetails.css";
 import { Input, Select, TextArea } from "../../../components";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const DDetails = () => {
+const DDetails = ({ showSubmitBtn, refreshForm }) => {
+  const form = useRef();
   const [input, setInput] = useState({
     doctorID: "",
     doctorFN: "",
@@ -32,8 +35,36 @@ const DDetails = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("the result of  submit", input);
+    axios
+      .post("http://localhost:3001/doctor", input)
+      .then((res) => {
+        console.log("the response from the backend", res.data);
+        toast.success("Added Successfully");
+      })
+      .catch((err) => toast.error(err.message));
   };
+
+  useEffect(() => {
+    if (refreshForm) {
+      setInput({
+        doctorID: "",
+        doctorFN: "",
+        nicNo: "",
+        doctorLN: "",
+        homePhone: "",
+        mobilePhone: "",
+        Qualifications: "",
+        Specialization: "",
+        VisitingCharge: "",
+        ChannelingCharge: "",
+        basicSalary: "",
+        sex: "",
+        doctorType: "",
+        doctorAddress: "",
+        doctorNotes: "",
+      });
+    }
+  }, [refreshForm]);
 
   const doctorSexOptions = [
     { value: "Men", label: "M" },
@@ -47,16 +78,21 @@ const DDetails = () => {
   return (
     <div className="app__dDetails">
       <h1>Doctor Details</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={form}>
         <div className="app__dDetails-container">
           <div className="details-section-one">
-            <label form="doctorID"> Doctor ID:</label>
-            <Input
-              placeholder="Doctor ID"
-              name="doctorID"
-              value={input.doctorID}
-              handleOnChange={handleOnChange}
-            />
+            <div className="container-one">
+              <div className="input-field">
+                <label form="doctorID"> Doctor ID:</label>
+                <Input
+                  placeholder="Doctor ID"
+                  name="doctorID"
+                  value={input.doctorID}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
+            </div>
+            <div className="container-two"></div>
           </div>
           <div className="details-section-two">
             <div className="details-title">
@@ -210,7 +246,7 @@ const DDetails = () => {
             </div>
           </div>
         </div>
-        <button type="submit">Submit</button>
+        {showSubmitBtn && <button type="submit">Submit</button>}
       </form>
     </div>
   );
