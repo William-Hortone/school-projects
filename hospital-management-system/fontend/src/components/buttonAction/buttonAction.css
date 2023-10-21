@@ -1,0 +1,15 @@
+.btnAction {
+  width: 150px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 0.2rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.btnAction p {
+  text-transform: capitalize;
+}
