@@ -22,7 +22,7 @@ function App() {
       .get("http://localhost:3001/getDoctors")
       .then((res) => {
         setDoctors(res.data);
-        console.log(doctors);
+        // console.log(doctors);
       })
       .catch((err) => console.error(err));
   }, []);

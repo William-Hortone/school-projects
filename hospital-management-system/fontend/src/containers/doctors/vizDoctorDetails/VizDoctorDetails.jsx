@@ -1,22 +1,17 @@
 import React, { useState } from "react";
 import "./vizDoctorDetails.css";
 import { ButtonAction } from "../../../components";
+import { useNavigate } from "react-router-dom";
 
-const VizDoctorDetails = ({ doctors, setDoctors }) => {
+const VizDoctorDetails = ({ doctors }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOptions, setSearchOptions] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [hideData, setHideDada] = useState(false);
   const [hideDataSearched, setHideDataSearched] = useState(true);
 
-  const handleSearchDoctor = () => {
-    console.log("handleSearchDoctor");
-  };
+  const navigate = useNavigate();
 
-  const handleRefresh = () => {
-    setHideDada(false);
-    setHideDataSearched(false);
-  };
   const handleSearch = () => {
     if (searchOptions === "doctorName") {
       const result = doctors.filter((doctor) => doctor.doctorFN === searchTerm);
@@ -26,8 +21,15 @@ const VizDoctorDetails = ({ doctors, setDoctors }) => {
       setSearchResult(result);
     }
     setHideDada(true);
-
     setHideDataSearched(true);
+  };
+
+  const handleRefresh = () => {
+    setHideDada(false);
+    setHideDataSearched(false);
+  };
+  const handleClose = () => {
+    navigate("/");
   };
 
   return (
@@ -114,7 +116,7 @@ const VizDoctorDetails = ({ doctors, setDoctors }) => {
               onClick={handleSearch}
             />
             <ButtonAction
-              iconName="search"
+              iconName="refresh"
               btnName="Refresh"
               color="blue"
               onClick={handleRefresh}
@@ -123,14 +125,8 @@ const VizDoctorDetails = ({ doctors, setDoctors }) => {
               iconName="close"
               btnName="Close"
               color="red"
-              onClick={handleSearchDoctor}
+              onClick={handleClose}
             />
-            {/* <ButtonAction
-              iconName="search"
-              btnName="Search"
-              color="green"
-              onClick={handleSearchDoctor}
-            /> */}
           </div>
           <div className="container-inputs">
             <div className="content">
@@ -151,7 +147,6 @@ const VizDoctorDetails = ({ doctors, setDoctors }) => {
                 placeholder="Search text"
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              {/* <button onClick={handleSearch}>Search</button> */}
             </div>
           </div>
         </div>

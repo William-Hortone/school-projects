@@ -8,8 +8,8 @@ const TextArea = ({ name, value, handleOnChange }) => {
         id={name}
         name={name}
         value={value}
-        cols="32"
-        rows="5"
+        cols="39"
+        rows="7"
         onChange={handleOnChange}
       />
     </div>
