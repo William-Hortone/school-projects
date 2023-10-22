@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const DoctorMenu = ({ setShowSubmitBtn, handleRefresh }) => {
   const navigate = useNavigate();
+
   const handleAddDoctor = () => {
     setShowSubmitBtn(true);
   };
@@ -15,6 +16,10 @@ const DoctorMenu = ({ setShowSubmitBtn, handleRefresh }) => {
   const handleRefreshDetails = () => {
     setShowSubmitBtn(false);
     handleRefresh();
+  };
+  const handleViewAll = () => {
+    setShowSubmitBtn(false);
+    navigate("/vizDoctorD");
   };
   return (
     <div className="app__doctorMenu">
@@ -40,7 +45,12 @@ const DoctorMenu = ({ setShowSubmitBtn, handleRefresh }) => {
           color="blue"
           onClick={handleRefreshDetails}
         />
-        <ButtonAction iconName="all" btnName="View All" color="blue" />
+        <ButtonAction
+          iconName="all"
+          onClick={handleViewAll}
+          btnName="View All"
+          color="blue"
+        />
         <ButtonAction
           iconName="close"
           btnName="Close"

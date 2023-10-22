@@ -7,16 +7,16 @@ const HomeAdmin = () => {
     <div className="app__homeAdmin">
       <div className="app__homeAdmin-container">
         <Link to="/doctorD" className="admin-category">
-          <p>Doctor Details</p>
+          Doctor Details
         </Link>
-        <Link to="/vDoctorD" className="admin-category">
-          <p>View Doctor Details</p>
+        <Link to="/vizDoctorD" className="admin-category">
+          VizDoctorDetails
         </Link>
         <Link to="/mServices" className="admin-category">
-          <p>Medical Services</p>
+          Medical Services
         </Link>
-        <Link to="/vHospitalSD" className="admin-category">
-          <p>View hospital services details</p>
+        <Link to="/vHospitalS" className="admin-category">
+          View hospital services details
         </Link>
       </div>
     </div>

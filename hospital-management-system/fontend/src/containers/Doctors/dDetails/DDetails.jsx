@@ -67,8 +67,8 @@ const DDetails = ({ showSubmitBtn, refreshForm }) => {
   }, [refreshForm]);
 
   const doctorSexOptions = [
-    { value: "Men", label: "M" },
-    { value: "Women", label: "F" },
+    { value: "Man", label: "M" },
+    { value: "Woman", label: "F" },
   ];
   const doctorTypeOptions = [
     { value: "Visiting Doctor", label: "Visiting Doctor" },

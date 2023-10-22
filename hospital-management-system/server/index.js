@@ -39,6 +39,12 @@ app.post("/doctor", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+app.get("/getDoctors", (req, res) => {
+  DoctorModel.find()
+    .then((doctors) => res.json(doctors))
+    .catch((err) => res.json(err));
+});
+
 app.listen(3001, () => {
   console.log("The server is ruining");
 });

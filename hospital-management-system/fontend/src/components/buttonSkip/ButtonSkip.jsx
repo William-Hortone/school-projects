@@ -3,21 +3,20 @@ import "./buttonSkip.css";
 import {
   FaAngleRight,
   FaAngleLeft,
-  FaAngleDoubleRight,
-  FaAngleDoubleLeft,
+  FaFastForward,
+  FaFastBackward,
 } from "react-icons/fa";
 
 const iconComponents = {
   arrowRight: FaAngleRight,
   arrowLeft: FaAngleLeft,
-  doubleRight: FaAngleDoubleRight,
-  doubleLeft: FaAngleDoubleLeft,
+  doubleRight: FaFastForward,
+  doubleLeft: FaFastBackward,
 };
 
 const ButtonSkip = ({ iconName, color }) => {
   const IconComponent = iconComponents[iconName];
   if (!IconComponent) {
-    // Handle the case when an invalid iconName is provided
     return null;
   }
   return (
