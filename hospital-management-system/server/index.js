@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+
 const AdminModel = require("./models/admin");
 const DoctorModel = require("./models/Doctor");
 
@@ -32,6 +33,17 @@ app.post("/login", (req, res) => {
     })
     .catch((err) => res.json(err));
 });
+
+// app.get('/api/doctors', async (req, res) => {
+//   const search = req.query.search;
+//   try {
+//     const doctors = await Doctor.find({ name: new RegExp(search, 'i') });
+//     res.json(doctors);
+//   } catch (error) {
+//     console.error('Error searching for doctors:', error);
+//     res.status(500).json({ error: 'An error occurred while searching for doctors' });
+//   }
+// });
 
 app.post("/doctor", (req, res) => {
   DoctorModel.create(req.body)

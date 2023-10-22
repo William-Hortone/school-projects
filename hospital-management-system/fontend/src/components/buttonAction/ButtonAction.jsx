@@ -8,6 +8,7 @@ import {
   FaUsers,
   FaTrash,
   FaTimes,
+  FaSearch,
 } from "react-icons/fa";
 
 const iconComponents = {
@@ -17,6 +18,7 @@ const iconComponents = {
   close: FaTimes,
   all: FaUsers,
   delete: FaTrash,
+  search: FaSearch,
 };
 
 const ButtonAction = ({ btnName, iconName, onClick, color }) => {
