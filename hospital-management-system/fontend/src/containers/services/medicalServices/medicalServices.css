@@ -20,3 +20,41 @@
 .input-field {
   margin: 1rem 0;
 }
+.input-field input {
+  width: 300px;
+  height: 35px;
+}
+.container-menu {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0.7rem 0;
+  margin: 1.3rem auto;
+}
+.container-menu-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 2rem;
+  border-top: 2px solid #ffffffbd;
+  border-bottom: 2px solid #ffffffbd;
+}
+
+.container-menu-header input {
+  width: 60%;
+  height: 40px;
+  padding: 0.5rem;
+  text-align: center;
+}
+.container-menu-btn {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin: 2rem auto;
+  border: 2px solid #ffffffbd;
+  padding: 2rem;
+  border-radius: 25px;
+}

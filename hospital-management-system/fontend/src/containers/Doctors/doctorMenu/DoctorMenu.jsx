@@ -26,7 +26,12 @@ const DoctorMenu = ({ setShowSubmitBtn, handleRefresh }) => {
       <div className="app__doctorMenu-header">
         <ButtonSkip iconName="doubleLeft" color="green" />
         <ButtonSkip iconName="arrowLeft" color="blue" />
-        <input type="text" placeholder="Record No" value="Record: 10" />
+        <input
+          type="text"
+          placeholder="Record No"
+          onChange=""
+          value="Record: 10"
+        />
         <ButtonSkip iconName="arrowRight" color="blue" />
         <ButtonSkip iconName="doubleRight" color="green" />
       </div>

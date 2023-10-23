@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const AdminModel = require("./models/admin");
 const DoctorModel = require("./models/Doctor");
+const MedicalServicesModel = require("./models/MedicalServices");
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,12 @@ mongoose.connect("mongodb://localhost:27017/hospital");
 app.post("/register", (req, res) => {
   AdminModel.create(req.body)
     .then((admin) => res.json(admin))
+    .catch((err) => res.json(err));
+});
+
+app.post("/medicalServices", (req, res) => {
+  MedicalServicesModel.create(req.body)
+    .then((service) => res.json(service))
     .catch((err) => res.json(err));
 });
 

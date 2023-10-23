@@ -1,10 +1,18 @@
-import React, { useState } from "react";
-import { Input, TextArea } from "../../../components";
+import React, { useRef, useState } from "react";
+import { ButtonAction, ButtonSkip, Input, TextArea } from "../../../components";
 import "./medicalServices.css";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const MedicalServices = () => {
+  const [showBtn, setShowBtn] = useState(false);
   const [input, setInput] = useState({
-    serviceId: "",
+    serviceName: "",
+    amount: "",
+    duration: "",
+    additionalNotes: "",
+  });
+  const [inputRefreshed, setInputRefreshed] = useState({
     serviceName: "",
     amount: "",
     duration: "",
@@ -22,7 +30,21 @@ const MedicalServices = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(input);
+    axios
+      .post("http://localhost:3001/medicalServices", input)
+      .then((res) => {
+        toast.success("Saved Successfully");
+        console.log(res);
+      })
+      .catch((err) => toast.error(err));
+  };
+  const handleAddMedicalServices = () => {
+    setShowBtn(true);
+  };
+  const handleRefresh = () => {
+    setShowBtn(false);
+
+    setInput(inputRefreshed);
   };
   return (
     <div className="app__medicalServices">
@@ -32,12 +54,7 @@ const MedicalServices = () => {
           <form onSubmit={handleSubmit}>
             <div className="input-field">
               <label form="serviceId"> Service ID:</label>
-              <Input
-                placeholder="Service ID"
-                name="serviceId"
-                value={input.serviceId}
-                handleOnChange={handleOnChange}
-              />
+              <input placeholder="Service ID" name="serviceId" value="" />
             </div>
             <div className="input-field">
               <label form="serviceName"> Service name:</label>
@@ -74,8 +91,41 @@ const MedicalServices = () => {
                 handleOnChange={handleOnChange}
               />
             </div>
-            <button type="submit">Submit</button>
+            {showBtn && <button type="submit">Submit</button>}
           </form>
+        </div>
+
+        <div className="container-menu">
+          <div className="container-menu-header">
+            <ButtonSkip iconName="doubleLeft" color="green" />
+            <ButtonSkip iconName="arrowLeft" color="blue" />
+            <input
+              type="text"
+              placeholder="Record No"
+              onChange=""
+              value="Record: 10"
+            />
+            <ButtonSkip iconName="arrowRight" color="blue" />
+            <ButtonSkip iconName="doubleRight" color="green" />
+          </div>
+          <div className="container-menu-btn">
+            <ButtonAction
+              iconName="add"
+              btnName="Add"
+              color="green"
+              onClick={handleAddMedicalServices}
+            />
+            <ButtonAction iconName="edit" btnName="Edit" color="green" />
+            <ButtonAction iconName="delete" btnName="Delete" color="red" />
+            <ButtonAction
+              iconName="refresh"
+              btnName="Refresh"
+              color="blue"
+              onClick={handleRefresh}
+            />
+            <ButtonAction iconName="all" btnName="View All" color="blue" />
+            <ButtonAction iconName="close" btnName="Close" color="red" />
+          </div>
         </div>
       </div>
     </div>
