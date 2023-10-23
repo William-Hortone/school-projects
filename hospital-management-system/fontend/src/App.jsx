@@ -7,8 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   DoctorDetails,
   MedicalServices,
-  // VDoctorDetails,
-  // VHospitalSD,
   ViewHospitalSD,
   VizDoctorDetails,
 } from "./containers";
@@ -17,12 +15,20 @@ import axios from "axios";
 
 function App() {
   const [doctors, setDoctors] = useState([]);
+  const [medicalServices, setMedicalServices] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:3001/getDoctors")
       .then((res) => {
         setDoctors(res.data);
-        // console.log(doctors);
+      })
+      .catch((err) => console.error(err));
+
+    axios
+      .get("http://localhost:3001/getHospitalServices")
+      .then((res) => {
+        console.log(res.data);
+        setMedicalServices(res.data);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -43,7 +49,10 @@ function App() {
           />
 
           <Route path="/mServices" element={<MedicalServices />} />
-          <Route path="/vHospitalS" element={<ViewHospitalSD />} />
+          <Route
+            path="/vHospital"
+            element={<ViewHospitalSD medicalServices={medicalServices} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

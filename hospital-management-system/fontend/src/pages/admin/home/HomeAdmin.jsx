@@ -15,7 +15,7 @@ const HomeAdmin = () => {
         <Link to="/mServices" className="admin-category">
           Medical Services
         </Link>
-        <Link to="/vHospitalS" className="admin-category">
+        <Link to="/vHospital" className="admin-category">
           View hospital services details
         </Link>
       </div>

@@ -64,6 +64,12 @@ app.get("/getDoctors", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+app.get("/getHospitalServices", (req, res) => {
+  MedicalServicesModel.find()
+    .then((medicalsSer) => res.json(medicalsSer))
+    .catch((err) => res.json(err));
+});
+
 app.listen(3001, () => {
   console.log("The server is ruining");
 });

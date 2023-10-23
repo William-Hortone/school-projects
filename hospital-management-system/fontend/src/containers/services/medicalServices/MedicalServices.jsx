@@ -3,6 +3,7 @@ import { ButtonAction, ButtonSkip, Input, TextArea } from "../../../components";
 import "./medicalServices.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const MedicalServices = () => {
   const [showBtn, setShowBtn] = useState(false);
@@ -18,7 +19,7 @@ const MedicalServices = () => {
     duration: "",
     additionalNotes: "",
   });
-
+  const navigate = useNavigate();
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInput({
@@ -43,9 +44,13 @@ const MedicalServices = () => {
   };
   const handleRefresh = () => {
     setShowBtn(false);
-
     setInput(inputRefreshed);
   };
+  const handleClose = () => {
+    setShowBtn(false);
+    navigate("/");
+  };
+
   return (
     <div className="app__medicalServices">
       <div className="app__medicalServices-container">
@@ -124,7 +129,12 @@ const MedicalServices = () => {
               onClick={handleRefresh}
             />
             <ButtonAction iconName="all" btnName="View All" color="blue" />
-            <ButtonAction iconName="close" btnName="Close" color="red" />
+            <ButtonAction
+              iconName="close"
+              btnName="Close"
+              color="red"
+              onClick={handleClose}
+            />
           </div>
         </div>
       </div>

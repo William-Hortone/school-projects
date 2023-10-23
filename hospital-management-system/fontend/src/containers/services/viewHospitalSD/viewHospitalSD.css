@@ -1,4 +1,4 @@
-.app__vDoctorDetails {
+.app__vHospitalDetails {
   width: 100%;
   min-height: 100vh;
   height: auto;
@@ -9,18 +9,18 @@
   background-color: aquamarine;
 }
 
-.app__vDoctorDetails-container {
+.app__vHospitalDetails-container {
   width: 100%;
   height: auto;
   margin: 2rem auto;
   background-color: aliceblue;
 }
-.app__vDoctorDetails-container table {
+.app__vHospitalDetails-container table {
   width: 100%;
   border: 1px solid #000;
 }
 
-.app__vDoctorDetails-container table th {
+.app__vHospitalDetails-container table th {
   border-bottom: 1px solid #000;
   border-right: 1px solid #000;
   padding: 1rem 0;
@@ -37,15 +37,15 @@
   width: 100px;
   border-right: solid 1px #66666671;
   border-bottom: solid 1px #66666671;
+  text-align: center;
 }
-.app__vDoctorDetails-container-btn {
+.app__vHospitalDetails-container-btn {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
   padding: 2rem;
-  background-color: aquamarine;
 }
 .container-btn {
   width: 60%;
