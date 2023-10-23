@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./viewHospitalSD.css";
 import { ButtonAction } from "../../../components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ViewHospitalSD = ({ medicalServices }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,6 +38,7 @@ const ViewHospitalSD = ({ medicalServices }) => {
   const handleClose = () => {
     navigate("/");
   };
+
   return (
     <div>
       <div className="app__vHospitalDetails">

@@ -70,6 +70,28 @@ app.get("/getHospitalServices", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+app.delete("/deleteService/:serviceId", (req, res) => {
+  MedicalServicesModel.findByIdAndRemove(req.params.serviceId)
+    .then((service) => {
+      if (!service) {
+        return res.json("not found");
+      }
+      res.json("success");
+    })
+    .catch((err) => res.status(500).json(err));
+});
+
+app.put("/editService/:serviceId", (req, res) => {
+  MedicalServicesModel.findByIdAndUpdate(req.params.serviceId)
+    .then((service) => {
+      // if (!service) {
+      //   return res.json("not found");
+      // }
+      res.json(service);
+    })
+    .catch((err) => res.status(500).json(err));
+});
+
 app.listen(3001, () => {
   console.log("The server is ruining");
 });

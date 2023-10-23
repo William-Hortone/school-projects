@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const MedicalServices = () => {
   const [showBtn, setShowBtn] = useState(false);
+  const [serviceId, setServiceId] = useState("");
   const [input, setInput] = useState({
     serviceName: "",
     amount: "",
@@ -50,6 +51,46 @@ const MedicalServices = () => {
     setShowBtn(false);
     navigate("/");
   };
+  const handleViewAllMedicalS = () => {
+    setShowBtn(false);
+    navigate("/vHospital");
+  };
+  // console.log(serviceId);
+
+  const handleDelete = (serviceId) => {
+    axios
+      .delete(`http://localhost:3001/deleteService/${serviceId}`)
+      .then((res) => {
+        if (res.data === "success") {
+          toast.success("Delete Successfully");
+        }
+        if (res.data === "not found") {
+          toast.error("Service not found");
+        }
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+  };
+  const handleEdit = (serviceId) => {
+    axios
+      .delete(`http://localhost:3001/editService/${serviceId}`, input)
+      .then((res) => {
+        // if (res.data === "success") {
+        //   toast.success("Updated Successfully");
+        // }
+        // if (res.data === "not found") {
+        //   toast.error("Service not found");
+        // }
+        toast.success("Service updated");
+        console.log(res.data);
+        console.log("the response", res);
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+    handleSubmit();
+  };
 
   return (
     <div className="app__medicalServices">
@@ -59,7 +100,12 @@ const MedicalServices = () => {
           <form onSubmit={handleSubmit}>
             <div className="input-field">
               <label form="serviceId"> Service ID:</label>
-              <input placeholder="Service ID" name="serviceId" value="" />
+              <input
+                placeholder="Service ID"
+                name="serviceId"
+                value={serviceId}
+                onChange={(e) => setServiceId(e.target.value)}
+              />
             </div>
             <div className="input-field">
               <label form="serviceName"> Service name:</label>
@@ -120,15 +166,30 @@ const MedicalServices = () => {
               color="green"
               onClick={handleAddMedicalServices}
             />
-            <ButtonAction iconName="edit" btnName="Edit" color="green" />
-            <ButtonAction iconName="delete" btnName="Delete" color="red" />
+            <ButtonAction
+              iconName="edit"
+              btnName="Edit"
+              color="green"
+              onClick={() => handleEdit(serviceId)}
+            />
+            <ButtonAction
+              iconName="delete"
+              btnName="Delete"
+              color="red"
+              onClick={(e) => handleDelete(serviceId)}
+            />
             <ButtonAction
               iconName="refresh"
               btnName="Refresh"
               color="blue"
               onClick={handleRefresh}
             />
-            <ButtonAction iconName="all" btnName="View All" color="blue" />
+            <ButtonAction
+              iconName="all"
+              btnName="View All"
+              color="blue"
+              onClick={handleViewAllMedicalS}
+            />
             <ButtonAction
               iconName="close"
               btnName="Close"
