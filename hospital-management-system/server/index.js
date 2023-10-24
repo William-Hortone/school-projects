@@ -41,17 +41,6 @@ app.post("/login", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-// app.get('/api/doctors', async (req, res) => {
-//   const search = req.query.search;
-//   try {
-//     const doctors = await Doctor.find({ name: new RegExp(search, 'i') });
-//     res.json(doctors);
-//   } catch (error) {
-//     console.error('Error searching for doctors:', error);
-//     res.status(500).json({ error: 'An error occurred while searching for doctors' });
-//   }
-// });
-
 app.post("/doctor", (req, res) => {
   DoctorModel.create(req.body)
     .then((doctor) => res.json(doctor))
@@ -103,6 +92,67 @@ app.put("/editService/:serviceId", (req, res) => {
       return res.json("success");
     })
     .catch((err) => res.json(err));
+});
+
+app.put("/editDoctor/:doctorId", (req, res) => {
+  const { doctorId } = req.params;
+  const {
+    doctorFN,
+    nicNo,
+    doctorLN,
+    homePhone,
+    mobilePhone,
+    Qualifications,
+    Specialization,
+    VisitingCharge,
+    ChannelingCharge,
+    basicSalary,
+    sex,
+    doctorType,
+    doctorAddress,
+    doctorNotes,
+  } = req.body;
+
+  DoctorModel.findByIdAndUpdate(
+    doctorId,
+    {
+      $set: {
+        doctorFN,
+        nicNo,
+        doctorLN,
+        homePhone,
+        mobilePhone,
+        Qualifications,
+        Specialization,
+        VisitingCharge,
+        ChannelingCharge,
+        basicSalary,
+        sex,
+        doctorType,
+        doctorAddress,
+        doctorNotes,
+      },
+    },
+    { new: true }
+  )
+    .then((doctor) => {
+      if (!doctor) {
+        return res.status(404).json("not found");
+      }
+      return res.json("success");
+    })
+    .catch((err) => res.json(err));
+});
+
+app.delete("/deleteDoctor/:doctorId", (req, res) => {
+  DoctorModel.findByIdAndRemove(req.params.doctorId)
+    .then((doctor) => {
+      if (!doctor) {
+        return res.json("not found");
+      }
+      res.json("success");
+    })
+    .catch((err) => res.status(500).json(err));
 });
 
 app.listen(3001, () => {

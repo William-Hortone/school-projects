@@ -4,20 +4,35 @@ import DDetails from "../dDetails/DDetails";
 import DoctorMenu from "../doctorMenu/DoctorMenu";
 
 const DoctorDetails = () => {
-  const [showSubmitBtn, setShowSubmitBtn] = useState(false);
-  const [refreshForm, setRefreshForm] = useState(false);
+  // const handleAddMedicalServices = (e) => {
+  //   e.preventDefault();
 
-  const handleRefresh = () => {
-    setRefreshForm(!refreshForm);
-  };
+  //   if (
+  //     input.serviceName === "" ||
+  //     input.amount === "" ||
+  //     input.duration === "" ||
+  //     input.additionalNotes === ""
+  //   ) {
+  //     toast.error("Please complete the fields");
+  //   } else {
+  //     axios
+  //       .post("http://localhost:3001/medicalServices", input)
+  //       .then((res) => {
+  //         toast.success("Saved Successfully");
+  //         console.log(res);
+  //       })
+  //       .catch((err) => toast.error(err));
+  //   }
+  //   setAddMedical(true);
+  // };
 
   return (
     <div className="app__doctorDetails">
-      <DDetails showSubmitBtn={showSubmitBtn} refreshForm={refreshForm} />
-      <DoctorMenu
+      <DDetails />
+      {/* <DoctorMenu
         setShowSubmitBtn={setShowSubmitBtn}
         handleRefresh={handleRefresh}
-      />
+      /> */}
     </div>
   );
 };

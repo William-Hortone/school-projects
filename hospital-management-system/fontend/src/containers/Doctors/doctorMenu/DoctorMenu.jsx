@@ -3,22 +3,24 @@ import "./doctorMenu.css";
 import { ButtonAction, ButtonSkip } from "../../../components";
 import { useNavigate } from "react-router-dom";
 
-const DoctorMenu = ({ setShowSubmitBtn, handleRefresh }) => {
+const DoctorMenu = ({
+  handleRefresh,
+  handleAddDoctor,
+  handleEditDoctor,
+  handleDeleteDoctor,
+}) => {
   const navigate = useNavigate();
 
-  const handleAddDoctor = () => {
-    setShowSubmitBtn(true);
-  };
+  // const handleAddDoctor = () => {
+  //   setShowSubmitBtn(true);
+  // };
   const handleClose = () => {
-    setShowSubmitBtn(false);
     navigate("/");
   };
   const handleRefreshDetails = () => {
-    setShowSubmitBtn(false);
     handleRefresh();
   };
   const handleViewAll = () => {
-    setShowSubmitBtn(false);
     navigate("/vizDoctorD");
   };
   return (
@@ -26,12 +28,7 @@ const DoctorMenu = ({ setShowSubmitBtn, handleRefresh }) => {
       <div className="app__doctorMenu-header">
         <ButtonSkip iconName="doubleLeft" color="green" />
         <ButtonSkip iconName="arrowLeft" color="blue" />
-        <input
-          type="text"
-          placeholder="Record No"
-          onChange=""
-          value="Record: 10"
-        />
+        <input type="text" placeholder="Record No" />
         <ButtonSkip iconName="arrowRight" color="blue" />
         <ButtonSkip iconName="doubleRight" color="green" />
       </div>
@@ -40,10 +37,23 @@ const DoctorMenu = ({ setShowSubmitBtn, handleRefresh }) => {
           iconName="add"
           btnName="Add"
           color="green"
+          buttonType="submit"
           onClick={handleAddDoctor}
         />
-        <ButtonAction iconName="edit" btnName="Edit" color="green" />
-        <ButtonAction iconName="delete" btnName="Delete" color="red" />
+        <ButtonAction
+          iconName="edit"
+          btnName="Edit"
+          color="green"
+          buttonType="submit"
+          onClick={handleEditDoctor}
+        />
+        <ButtonAction
+          iconName="delete"
+          btnName="Delete"
+          color="red"
+          buttonType="button"
+          onClick={handleDeleteDoctor}
+        />
         <ButtonAction
           iconName="refresh"
           btnName="Refresh"

@@ -1,9 +1,22 @@
 .app__dDetails {
   width: 70%;
   height: auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   margin: 0 auto;
+  /* background-color: aqua; */
+}
+.app__dDetails-wrapper {
+  width: 100%;
+  height: auto;
+  padding: 2rem;
   background-color: aqua;
+}
+.app__doctorMenuD-container {
+  width: 100% !important;
+  height: auto;
+  padding: 2rem;
+  background-color: aqua;
+  margin-top: 3rem;
 }
 h1 {
   text-align: center;
