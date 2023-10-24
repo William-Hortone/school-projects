@@ -21,7 +21,7 @@ const iconComponents = {
   search: FaSearch,
 };
 
-const ButtonAction = ({ btnName, iconName, onClick, color }) => {
+const ButtonAction = ({ btnName, iconName, onClick, color, buttonType }) => {
   const IconComponent = iconComponents[iconName];
 
   if (!IconComponent) {
@@ -30,9 +30,10 @@ const ButtonAction = ({ btnName, iconName, onClick, color }) => {
 
   return (
     <div className="btnAction" onClick={onClick}>
-      <IconComponent size={24} color={color} />
-
-      <p>{btnName}</p>
+      <button type={buttonType}>
+        <IconComponent size={35} color={color} />
+        <p>{btnName}</p>
+      </button>
     </div>
   );
 };

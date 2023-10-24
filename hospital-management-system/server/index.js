@@ -82,14 +82,27 @@ app.delete("/deleteService/:serviceId", (req, res) => {
 });
 
 app.put("/editService/:serviceId", (req, res) => {
-  MedicalServicesModel.findByIdAndUpdate(req.params.serviceId)
+  const { serviceId } = req.params;
+  const { serviceName, amount, duration, additionalNotes } = req.body;
+  MedicalServicesModel.findByIdAndUpdate(
+    serviceId,
+    {
+      $set: {
+        serviceName,
+        amount,
+        duration,
+        additionalNotes,
+      },
+    },
+    { new: true }
+  )
     .then((service) => {
-      // if (!service) {
-      //   return res.json("not found");
-      // }
-      res.json(service);
+      if (!service) {
+        return res.status(404).json("not found");
+      }
+      return res.json("success");
     })
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => res.json(err));
 });
 
 app.listen(3001, () => {

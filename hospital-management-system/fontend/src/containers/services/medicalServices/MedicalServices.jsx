@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const MedicalServices = () => {
-  const [showBtn, setShowBtn] = useState(false);
+  const [addMedical, setAddMedical] = useState(true);
   const [serviceId, setServiceId] = useState("");
   const [input, setInput] = useState({
     serviceName: "",
@@ -21,6 +21,7 @@ const MedicalServices = () => {
     additionalNotes: "",
   });
   const navigate = useNavigate();
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInput({
@@ -29,33 +30,37 @@ const MedicalServices = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleAddMedicalServices = (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:3001/medicalServices", input)
-      .then((res) => {
-        toast.success("Saved Successfully");
-        console.log(res);
-      })
-      .catch((err) => toast.error(err));
+    if (
+      input.serviceName === "" ||
+      input.amount === "" ||
+      input.duration === "" ||
+      input.additionalNotes === ""
+    ) {
+      toast.error("Please complete the fields");
+    } else {
+      axios
+        .post("http://localhost:3001/medicalServices", input)
+        .then((res) => {
+          toast.success("Saved Successfully");
+          console.log(res);
+        })
+        .catch((err) => toast.error(err));
+    }
+    setAddMedical(true);
   };
-  const handleAddMedicalServices = () => {
-    setShowBtn(true);
-  };
+
   const handleRefresh = () => {
-    setShowBtn(false);
     setInput(inputRefreshed);
   };
   const handleClose = () => {
-    setShowBtn(false);
     navigate("/");
   };
   const handleViewAllMedicalS = () => {
-    setShowBtn(false);
     navigate("/vHospital");
   };
-  // console.log(serviceId);
 
   const handleDelete = (serviceId) => {
     axios
@@ -72,24 +77,25 @@ const MedicalServices = () => {
         toast.error(error);
       });
   };
-  const handleEdit = (serviceId) => {
+
+  const handleEditServices = (e, serviceId) => {
+    e.preventDefault();
     axios
-      .delete(`http://localhost:3001/editService/${serviceId}`, input)
+      .put(`http://localhost:3001/editService/${serviceId}`, input)
       .then((res) => {
-        // if (res.data === "success") {
-        //   toast.success("Updated Successfully");
-        // }
-        // if (res.data === "not found") {
-        //   toast.error("Service not found");
-        // }
-        toast.success("Service updated");
-        console.log(res.data);
-        console.log("the response", res);
+        if (res.data === "success") {
+          toast.success("Service updated successfully");
+        } else if (res.data === "not found") {
+          toast.error("Service not found");
+        } else {
+          toast.error("An error occurred while updating the service");
+        }
       })
-      .catch((error) => {
-        toast.error(error);
+      .catch((err) => {
+        toast.error("An error occurred while updating the service");
       });
-    handleSubmit();
+
+    setAddMedical(false);
   };
 
   return (
@@ -97,7 +103,11 @@ const MedicalServices = () => {
       <div className="app__medicalServices-container">
         <h1>Medical Services</h1>
         <div className="container-field">
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={
+              addMedical ? handleAddMedicalServices : handleEditServices
+            }
+          >
             <div className="input-field">
               <label form="serviceId"> Service ID:</label>
               <input
@@ -142,7 +152,6 @@ const MedicalServices = () => {
                 handleOnChange={handleOnChange}
               />
             </div>
-            {showBtn && <button type="submit">Submit</button>}
           </form>
         </div>
 
@@ -150,12 +159,7 @@ const MedicalServices = () => {
           <div className="container-menu-header">
             <ButtonSkip iconName="doubleLeft" color="green" />
             <ButtonSkip iconName="arrowLeft" color="blue" />
-            <input
-              type="text"
-              placeholder="Record No"
-              onChange=""
-              value="Record: 10"
-            />
+            <input type="text" placeholder="Record No" />
             <ButtonSkip iconName="arrowRight" color="blue" />
             <ButtonSkip iconName="doubleRight" color="green" />
           </div>
@@ -164,36 +168,42 @@ const MedicalServices = () => {
               iconName="add"
               btnName="Add"
               color="green"
+              buttonType="submit"
               onClick={handleAddMedicalServices}
             />
             <ButtonAction
               iconName="edit"
               btnName="Edit"
               color="green"
-              onClick={() => handleEdit(serviceId)}
+              onClick={(e) => handleEditServices(e, serviceId)}
+              buttonType="submit"
             />
             <ButtonAction
               iconName="delete"
               btnName="Delete"
+              buttonType="button"
               color="red"
-              onClick={(e) => handleDelete(serviceId)}
+              onClick={() => handleDelete(serviceId)}
             />
             <ButtonAction
               iconName="refresh"
               btnName="Refresh"
               color="blue"
+              buttonType="button"
               onClick={handleRefresh}
             />
             <ButtonAction
               iconName="all"
               btnName="View All"
               color="blue"
+              buttonType="button"
               onClick={handleViewAllMedicalS}
             />
             <ButtonAction
               iconName="close"
               btnName="Close"
               color="red"
+              buttonType="button"
               onClick={handleClose}
             />
           </div>
