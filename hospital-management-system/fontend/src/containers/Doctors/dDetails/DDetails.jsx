@@ -122,36 +122,24 @@ const DDetails = () => {
   };
 
   const handleDeleteDoctor = (doctorId) => {
-    axios
-      .delete(`http://localhost:3001/deleteDoctor/${doctorId}`)
-      .then((res) => {
-        if (res.data === "success") {
-          toast.success("Delete Successfully");
-        }
-        if (res.data === "not found") {
-          toast.error("Service not found");
-        }
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
+    if (doctorId === undefined || doctorId === "") {
+      toast.error("Please provide an Doctor ID");
+    } else {
+      axios
+        .delete(`http://localhost:3001/deleteDoctor/${doctorId}`)
+        .then((res) => {
+          if (res.data === "success") {
+            toast.success("Delete Successfully");
+          }
+          if (res.data === "not found") {
+            toast.error("Service not found");
+          }
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+    }
   };
-
-  // const handleDelete = (serviceId) => {
-  //   axios
-  //     .delete(`http://localhost:3001/deleteService/${serviceId}`)
-  //     .then((res) => {
-  //       if (res.data === "success") {
-  //         toast.success("Delete Successfully");
-  //       }
-  //       if (res.data === "not found") {
-  //         toast.error("Service not found");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       toast.error(error);
-  //     });
-  // };
 
   return (
     <div className="app__dDetails">

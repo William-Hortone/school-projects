@@ -2,4 +2,40 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+:root {
+  --font-base: "Cormorant Upright", serif;
+  --font-alt: "Open Sans", sans-serif;
+  --color-primary: #135d6c;
+  --color-white: #ffffff;
+  --color-black: #0c0c0c;
+  --color-secondary: #1d1a45;
+}
+body {
+  background: rgb(29, 26, 69);
+  background: linear-gradient(
+    41deg,
+    rgba(29, 26, 69, 1) 0%,
+    rgba(19, 93, 108, 1) 100%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  overflow-x: hidden;
+}
+li {
+  list-style-type: none;
+}
+.btn--primary {
+  margin-top: 1rem;
+  padding: 0.7rem 0;
+  background-color: #33a7be;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.btn--primary:hover {
+  border-radius: 3px;
 }

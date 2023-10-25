@@ -1,10 +1,12 @@
 import React from "react";
 import "./homeAdmin.css";
 import { Link } from "react-router-dom";
+import { Header } from "../../../components";
 
 const HomeAdmin = () => {
   return (
     <div className="app__homeAdmin">
+      <Header />
       <div className="app__homeAdmin-container">
         <Link to="/doctorD" className="admin-category">
           Doctor Details

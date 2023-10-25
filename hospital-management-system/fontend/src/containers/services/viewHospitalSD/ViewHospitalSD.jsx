@@ -36,7 +36,7 @@ const ViewHospitalSD = ({ medicalServices }) => {
     setSearchTerm(refreshValue);
   };
   const handleClose = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (

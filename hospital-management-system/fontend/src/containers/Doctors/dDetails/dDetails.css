@@ -1,9 +1,8 @@
 .app__dDetails {
   width: 70%;
   height: auto;
-  /* padding: 2rem; */
+
   margin: 0 auto;
-  /* background-color: aqua; */
 }
 .app__dDetails-wrapper {
   width: 100%;

@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Login, Register } from "./components";
-import { HomeAdmin } from "./pages";
+import { Home, HomeAdmin } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -38,7 +38,8 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Routes>
-          <Route path="/" element={<HomeAdmin />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<HomeAdmin />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 

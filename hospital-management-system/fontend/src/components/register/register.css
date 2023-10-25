@@ -8,11 +8,23 @@
 .app__register-section {
   width: 400px;
   height: 500px;
-  background-color: aquamarine;
+  background-color: #efefef !important;
+  border-radius: 20px;
+  padding: 2rem;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
 }
-.app__register-section h2,
-p {
+
+.app__register-section p {
   text-align: center;
+  text-transform: none;
+  margin-top: 1rem;
+}
+.app__register-section h2 {
+  text-align: center;
+  color: #f55951;
+  font-weight: 900;
 }
 .app__register-section form {
   display: flex;
@@ -21,13 +33,15 @@ p {
   gap: 0.5rem;
 }
 input {
-  height: 30px;
+  height: 35px !important;
   padding: 0 0.5rem;
-}
-button {
-  margin-top: 1rem;
-  padding: 0.7rem 0;
-  background-color: green;
-  color: white;
-  cursor: pointer;
+  display: block;
+  font-size: 1rem;
+  font-weight: 300;
+  /* padding: 1rem;  */
+  margin: 0.3rem auto;
+  width: 100%;
+  border: 1px solid #777;
+  border-radius: 3px;
+  outline: none;
 }
