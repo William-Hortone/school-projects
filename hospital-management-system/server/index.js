@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-const AdminModel = require("./models/admin");
+// const AdminModel = require("./models/admin");
 const DoctorModel = require("./models/Doctor");
 const MedicalServicesModel = require("./models/MedicalServices");
 
@@ -12,11 +12,11 @@ app.use(cors());
 
 mongoose.connect("mongodb://localhost:27017/hospital");
 
-app.post("/register", (req, res) => {
-  AdminModel.create(req.body)
-    .then((admin) => res.json(admin))
-    .catch((err) => res.json(err));
-});
+// app.post("/register", (req, res) => {
+//   AdminModel.create(req.body)
+//     .then((admin) => res.json(admin))
+//     .catch((err) => res.json(err));
+// });
 
 app.post("/medicalServices", (req, res) => {
   MedicalServicesModel.create(req.body)
@@ -24,22 +24,22 @@ app.post("/medicalServices", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  AdminModel.findOne({ email: email })
-    .then((user) => {
-      if (user) {
-        if (user.password === password) {
-          res.json("success");
-        } else {
-          res.json("wrongPassword");
-        }
-      } else {
-        res.json("unknown email");
-      }
-    })
-    .catch((err) => res.json(err));
-});
+// app.post("/login", (req, res) => {
+//   const { email, password } = req.body;
+//   AdminModel.findOne({ email: email })
+//     .then((user) => {
+//       if (user) {
+//         if (user.password === password) {
+//           res.json("success");
+//         } else {
+//           res.json("wrongPassword");
+//         }
+//       } else {
+//         res.json("unknown email");
+//       }
+//     })
+//     .catch((err) => res.json(err));
+// });
 
 app.post("/doctor", (req, res) => {
   DoctorModel.create(req.body)

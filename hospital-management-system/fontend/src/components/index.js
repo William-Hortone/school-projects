@@ -5,5 +5,17 @@ import ButtonSkip from "./buttonSkip/ButtonSkip";
 import ButtonAction from "./buttonAction/ButtonAction";
 import Select from "./select/Select";
 import TextArea from "./textarea/TextArea";
+import Header from "./header/Header";
+import Footer from "./footer/Footer";
 
-export { Register, Login, Input, ButtonSkip, ButtonAction, Select, TextArea };
+export {
+  Register,
+  Header,
+  Login,
+  Input,
+  ButtonSkip,
+  ButtonAction,
+  Select,
+  TextArea,
+  Footer,
+};

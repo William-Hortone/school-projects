@@ -1,0 +1,43 @@
+.lbvHospital {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #efefef;
+}
+.lbvHospital-container {
+  width: 100%;
+  position: relative;
+  flex: 1;
+  background-image: url("../../assets/hospital.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: center center;
+}
+
+.lbvHospital-container h1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 5vw;
+}
+.lbvHospital-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #00000054;
+}
+
+.lbvHospital-container h1 {
+  z-index: 2;
+}
+.lbvHospital-container h1 span {
+  color: #f55951;
+  z-index: 2;
+}

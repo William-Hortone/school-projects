@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import "./doctorMenu.css";
 import { ButtonAction, ButtonSkip } from "../../../components";
 import { useNavigate } from "react-router-dom";
@@ -11,11 +11,8 @@ const DoctorMenu = ({
 }) => {
   const navigate = useNavigate();
 
-  // const handleAddDoctor = () => {
-  //   setShowSubmitBtn(true);
-  // };
   const handleClose = () => {
-    navigate("/");
+    navigate("/home");
   };
   const handleRefreshDetails = () => {
     handleRefresh();

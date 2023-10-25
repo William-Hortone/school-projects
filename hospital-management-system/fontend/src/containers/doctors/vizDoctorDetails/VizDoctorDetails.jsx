@@ -29,7 +29,7 @@ const VizDoctorDetails = ({ doctors }) => {
     setHideDataSearched(false);
   };
   const handleClose = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (

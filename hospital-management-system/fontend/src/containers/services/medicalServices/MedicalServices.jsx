@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const MedicalServices = () => {
   const [addMedical, setAddMedical] = useState(true);
+
   const [serviceId, setServiceId] = useState("");
   const [input, setInput] = useState({
     serviceName: "",
@@ -56,46 +57,53 @@ const MedicalServices = () => {
     setInput(inputRefreshed);
   };
   const handleClose = () => {
-    navigate("/");
+    navigate("/home");
   };
   const handleViewAllMedicalS = () => {
     navigate("/vHospital");
   };
 
   const handleDelete = (serviceId) => {
-    axios
-      .delete(`http://localhost:3001/deleteService/${serviceId}`)
-      .then((res) => {
-        if (res.data === "success") {
-          toast.success("Delete Successfully");
-        }
-        if (res.data === "not found") {
-          toast.error("Service not found");
-        }
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
+    if (serviceId === undefined || serviceId === "") {
+      toast.error("Please provide a service ID");
+    } else {
+      axios
+        .delete(`http://localhost:3001/deleteService/${serviceId}`)
+        .then((res) => {
+          if (res.data === "success") {
+            toast.success("Delete Successfully");
+          }
+          if (res.data === "not found") {
+            toast.error("Service not found");
+          }
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+    }
   };
 
   const handleEditServices = (e, serviceId) => {
     e.preventDefault();
-    axios
-      .put(`http://localhost:3001/editService/${serviceId}`, input)
-      .then((res) => {
-        if (res.data === "success") {
-          toast.success("Service updated successfully");
-        } else if (res.data === "not found") {
-          toast.error("Service not found");
-        } else {
-          toast.error("An error occurred while updating the service");
-        }
-      })
-      .catch((err) => {
-        toast.error("An error occurred while updating the service");
-      });
-
-    setAddMedical(false);
+    if (serviceId === undefined || serviceId === "") {
+      toast.error("Please complete the fields");
+    } else {
+      axios
+        .put(`http://localhost:3001/editService/${serviceId}`, input)
+        .then((res) => {
+          if (res.data === "success") {
+            toast.success("Service updated successfully");
+          } else if (res.data === "not found") {
+            toast.error("Service not found");
+          } else {
+            toast.error("An error occurred while updating the service");
+          }
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+      setAddMedical(false);
+    }
   };
 
   return (
