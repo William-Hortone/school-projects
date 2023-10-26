@@ -5,10 +5,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #efefef;
+  background-color: #33a7be;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 .btnAction button p {
   text-transform: capitalize;

@@ -1,20 +1,19 @@
 .app__dDetails {
   width: 70%;
   height: auto;
-
   margin: 0 auto;
 }
 .app__dDetails-wrapper {
   width: 100%;
   height: auto;
   padding: 2rem;
-  background-color: aqua;
+  background-color: #efefef;
 }
 .app__doctorMenuD-container {
   width: 100% !important;
   height: auto;
   padding: 2rem;
-  background-color: aqua;
+  background-color: #efefef;
   margin-top: 3rem;
 }
 h1 {
@@ -61,5 +60,5 @@ h1 {
 .divider {
   width: 80%;
   height: 2px;
-  background-color: #ffffffa8;
+  background-color: #00000034;
 }
