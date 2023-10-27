@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Loader from "../loader/Loader";
 import "./register.css";
-
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -44,13 +43,6 @@ const Register = () => {
         <div className="app__register-section">
           <h2>Register</h2>
           <form onSubmit={handleSubmit}>
-            {/* <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            placeholder="Your name"
-            name="name"
-            onChange={(e) => setName(e.target.value)}
-          /> */}
             <label htmlFor="email">Email</label>
             <input
               type="text"

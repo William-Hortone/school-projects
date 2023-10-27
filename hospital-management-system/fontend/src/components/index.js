@@ -7,6 +7,7 @@ import Select from "./select/Select";
 import TextArea from "./textarea/TextArea";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
+import Reset from "./reset/Reset";
 
 export {
   Register,
@@ -18,4 +19,5 @@ export {
   Select,
   TextArea,
   Footer,
+  Reset,
 };

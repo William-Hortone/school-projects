@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Login, Register } from "./components";
+import { Login, Register, Reset } from "./components";
 import { Home, HomeAdmin } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,10 +12,18 @@ import {
 } from "./containers";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+// import {
+//   // GET_DOCTOR_DETAILS,
+//   // fetchDoctorDetails,
+// } from "./redux/slice/doctorSlice";
+import fetchDoctorDetails from "./redux/actions/doctors.action";
 
 function App() {
   const [doctors, setDoctors] = useState([]);
   const [medicalServices, setMedicalServices] = useState([]);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     axios
       .get("http://localhost:3001/getDoctors")
@@ -27,10 +35,12 @@ function App() {
     axios
       .get("http://localhost:3001/getHospitalServices")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setMedicalServices(res.data);
       })
       .catch((err) => console.error(err));
+
+    dispatch(fetchDoctorDetails());
   }, []);
 
   return (
@@ -40,8 +50,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<HomeAdmin />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/reset" element={<Reset />} />
 
           <Route path="/doctorD" element={<DoctorDetails />} />
           <Route
