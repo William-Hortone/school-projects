@@ -13,10 +13,6 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-// import {
-//   // GET_DOCTOR_DETAILS,
-//   // fetchDoctorDetails,
-// } from "./redux/slice/doctorSlice";
 import fetchDoctorDetails from "./redux/actions/doctors.action";
 
 function App() {
@@ -35,13 +31,12 @@ function App() {
     axios
       .get("http://localhost:3001/getHospitalServices")
       .then((res) => {
-        // console.log(res.data);
         setMedicalServices(res.data);
       })
       .catch((err) => console.error(err));
 
     dispatch(fetchDoctorDetails());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
