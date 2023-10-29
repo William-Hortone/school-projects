@@ -11,11 +11,14 @@ import {
   REMOVE_ACTIVE_USER,
 } from "../../redux/slice/authSlice";
 import ShowOnLogin, { ShowOnLogout } from "../hiddenLinks/HiddenLinks";
+import Loader from "../loader/Loader";
 
 const Header = () => {
   const [displayName, setDisplayName] = useState("");
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [signInDate, setSignInDate] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const activeLink = ({ isActive }) =>
     isActive ? "linkActive" : "navbar-link";
 
@@ -58,12 +61,16 @@ const Header = () => {
   }, [dispatch, displayName]);
 
   const handleLogout = () => {
+    setIsLoading(true);
+
     signOut(auth)
       .then(() => {
         toast.success("Logout successful");
+        setIsLoading(false);
         navigate("/");
       })
       .catch((error) => {
+        setIsLoading(false);
         toast.error(error.message);
       });
   };
@@ -72,60 +79,67 @@ const Header = () => {
     setShowUserProfile(!showUserProfile);
   };
   return (
-    <div className="app__header">
-      <h2>
-        <span> LBV.</span>HOSPITAL
-      </h2>
-      <nav className="app__navbar">
-        <ul>
-          <ShowOnLogin>
-            <div className="user-profile">
-              <div onClick={handleShowUserProfile} className="user-icon">
-                <FaUserCircle size={16} />
-                Hi, {displayName}
-              </div>
-              {showUserProfile && (
-                <div className="user-container">
-                  <div className="user-container-section">
-                    <h2>
-                      <FaUserCircle size={16} /> User Infos
-                    </h2>
-                    <p>User name: {displayName}</p>
-                    <p>Logged in as: Admin </p>
-                  </div>
-                  <div className="user-container-section">
-                    <h2>Time Log-in</h2>
-                    <p>{signInDate}</p>
-                  </div>
-                  <div className="user-container-section">
-                    <h2>Today</h2>
-                    <p>
-                      Date: {currentDay}/{currentMonth}/{currentYear} <br />
-                      Time: {currentHour}:{currentMinute}:{currentSecond}
-                    </p>
-                  </div>
+    <>
+      {isLoading && <Loader />}
+      <div className="app__header">
+        <h2>
+          <span> LBV.</span>HOSPITAL
+        </h2>
+        <nav className="app__navbar">
+          <ul>
+            <ShowOnLogin>
+              <div className="user-profile">
+                <div onClick={handleShowUserProfile} className="user-icon">
+                  <FaUserCircle size={16} />
+                  Hi, {displayName}
                 </div>
-              )}
-            </div>
-          </ShowOnLogin>
-          <ShowOnLogout>
-            <NavLink to="/login" className={activeLink}>
-              Login
-            </NavLink>
-          </ShowOnLogout>
-          <ShowOnLogout>
-            <NavLink to="/register" className="navbar-link">
-              Register
-            </NavLink>
-          </ShowOnLogout>
-          <ShowOnLogin>
-            <NavLink to="/home" onClick={handleLogout} className="navbar-link">
-              Logout
-            </NavLink>
-          </ShowOnLogin>
-        </ul>
-      </nav>
-    </div>
+                {showUserProfile && (
+                  <div className="user-container">
+                    <div className="user-container-section">
+                      <h2>
+                        <FaUserCircle size={16} /> User Infos
+                      </h2>
+                      <p>User name: {displayName}</p>
+                      <p>Logged in as: Admin </p>
+                    </div>
+                    <div className="user-container-section">
+                      <h2>Time Log-in</h2>
+                      <p>{signInDate}</p>
+                    </div>
+                    <div className="user-container-section">
+                      <h2>Today</h2>
+                      <p>
+                        Date: {currentDay}/{currentMonth}/{currentYear} <br />
+                        Time: {currentHour}:{currentMinute}:{currentSecond}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </ShowOnLogin>
+            <ShowOnLogout>
+              <NavLink to="/login" className={activeLink}>
+                Login
+              </NavLink>
+            </ShowOnLogout>
+            <ShowOnLogout>
+              <NavLink to="/register" className="navbar-link">
+                Register
+              </NavLink>
+            </ShowOnLogout>
+            <ShowOnLogin>
+              <NavLink
+                to="/home"
+                onClick={handleLogout}
+                className="navbar-link"
+              >
+                Logout
+              </NavLink>
+            </ShowOnLogin>
+          </ul>
+        </nav>
+      </div>
+    </>
   );
 };
 

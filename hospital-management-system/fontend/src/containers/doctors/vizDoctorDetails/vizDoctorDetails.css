@@ -6,7 +6,14 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 2rem 1rem;
-  background-color: aquamarine;
+  background: rgb(29, 26, 69);
+  background: linear-gradient(
+    41deg,
+    rgba(29, 26, 69, 1) 0%,
+    rgba(19, 93, 108, 1) 100%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  margin-top: 100px;
 }
 
 .app__vDoctorDetails-container {
@@ -14,6 +21,9 @@
   height: auto;
   margin: 2rem auto;
   background-color: aliceblue;
+}
+.app__vDoctorDetails h1 {
+  color: #ffff !important;
 }
 .app__vDoctorDetails-container table {
   width: 100%;
@@ -24,10 +34,15 @@
   border-bottom: 1px solid #000;
   border-right: 1px solid #000;
   padding: 1rem 0;
-  background: #86dbd7;
+  background: var(--color-primary);
   white-space: nowrap;
   overflow: hidden;
 }
+.app__vDoctorDetails-container thead th {
+  color: #efefef;
+  font-weight: 300;
+}
+
 .doctor-infos td {
   height: 35px;
   max-width: 100px;
@@ -45,17 +60,14 @@
   align-items: center;
   gap: 2rem;
   padding: 2rem;
-  background-color: aquamarine;
 }
 .container-btn {
   width: 60%;
   border: 2px solid #ffff;
   display: flex;
   justify-content: space-between;
-
   gap: 2rem;
   padding: 1.5rem;
-  /* background-color: red; */
 }
 .container-inputs {
   width: 70%;
@@ -63,7 +75,6 @@
   padding: 1rem 4;
   justify-content: space-between;
   gap: 1.5rem;
-  /* background-color: rgb(72, 255, 0); */
 }
 .content {
   display: flex;
@@ -75,4 +86,7 @@
 .content input {
   width: 250px;
   height: 35px;
+}
+.container-inputs label {
+  color: #fff;
 }

@@ -16,18 +16,10 @@ import { useDispatch } from "react-redux";
 import fetchDoctorDetails from "./redux/actions/doctors.action";
 
 function App() {
-  const [doctors, setDoctors] = useState([]);
   const [medicalServices, setMedicalServices] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/getDoctors")
-      .then((res) => {
-        setDoctors(res.data);
-      })
-      .catch((err) => console.error(err));
-
     axios
       .get("http://localhost:3001/getHospitalServices")
       .then((res) => {
@@ -49,13 +41,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
-
           <Route path="/doctorD" element={<DoctorDetails />} />
-          <Route
-            path="/vizDoctorD"
-            element={<VizDoctorDetails doctors={doctors} />}
-          />
-
+          <Route path="/vizDoctorD" element={<VizDoctorDetails />} />
           <Route path="/mServices" element={<MedicalServices />} />
           <Route
             path="/vHospital"

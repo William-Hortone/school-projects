@@ -1,5 +1,11 @@
 import React, { useRef, useState } from "react";
-import { ButtonAction, ButtonSkip, Input, TextArea } from "../../../components";
+import {
+  ButtonAction,
+  ButtonSkip,
+  Header,
+  Input,
+  TextArea,
+} from "../../../components";
 import "./medicalServices.css";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -108,6 +114,7 @@ const MedicalServices = () => {
 
   return (
     <div className="app__medicalServices">
+      <Header />
       <div className="app__medicalServices-container">
         <h1>Medical Services</h1>
         <div className="container-field">

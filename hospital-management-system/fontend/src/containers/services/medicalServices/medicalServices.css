@@ -2,16 +2,24 @@
   width: 100%;
   height: auto;
   background-color: #efefef;
+  background: rgb(29, 26, 69);
+  background: linear-gradient(
+    41deg,
+    rgba(29, 26, 69, 1) 0%,
+    rgba(19, 93, 108, 1) 100%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  margin-top: 100px;
 }
 .app__medicalServices-container {
   width: 70%;
   margin: 0 auto;
   padding: 2rem;
-  background-color: aquamarine;
+  background-color: #efefef;
 }
 .container-field {
   width: 80%;
-  border: 2px solid #ffff;
+  border: 2px solid var(--color-primary);
   border-radius: 5%;
   padding: 2rem;
   margin: 2rem auto;
@@ -37,8 +45,10 @@
   align-items: center;
   gap: 1.5rem;
   padding: 0.5rem 2rem;
+  background-color: var(--color-primary);
   border-top: 2px solid #ffffffbd;
   border-bottom: 2px solid #ffffffbd;
+  border-radius: 5px;
 }
 
 .container-menu-header input {
@@ -57,4 +67,5 @@
   border: 2px solid #ffffffbd;
   padding: 2rem;
   border-radius: 25px;
+  background-color: var(--color-primary);
 }

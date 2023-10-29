@@ -1,5 +1,6 @@
 .app__doctorDetails {
   width: 100%;
+  margin-top: 100px;
   height: auto;
   background-color: var(--color-primary);
   background: rgb(29, 26, 69);

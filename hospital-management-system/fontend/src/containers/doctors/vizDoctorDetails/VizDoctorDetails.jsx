@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./vizDoctorDetails.css";
-import { ButtonAction } from "../../../components";
+import { ButtonAction, Header } from "../../../components";
 import { useNavigate } from "react-router-dom";
+import { selectDoctorDetails } from "../../../redux/slice/doctorSlice";
+import { useSelector } from "react-redux";
 
-const VizDoctorDetails = ({ doctors }) => {
+const VizDoctorDetails = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOptions, setSearchOptions] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -11,13 +13,19 @@ const VizDoctorDetails = ({ doctors }) => {
   const [hideDataSearched, setHideDataSearched] = useState(true);
 
   const navigate = useNavigate();
+  const doctorDetails = useSelector(selectDoctorDetails);
 
   const handleSearch = () => {
     if (searchOptions === "doctorName") {
-      const result = doctors.filter((doctor) => doctor.doctorFN === searchTerm);
+      const result = doctorDetails.filter(
+        (doctor) => doctor.doctorFN === searchTerm
+      );
       setSearchResult(result);
     } else if (searchOptions === "doctorId") {
-      const result = doctors.filter((doctor) => doctor._id === searchTerm);
+      const result = doctorDetails.filter(
+        (doctor) => doctor._id === searchTerm
+      );
+
       setSearchResult(result);
     }
     setHideDada(true);
@@ -25,6 +33,7 @@ const VizDoctorDetails = ({ doctors }) => {
   };
 
   const handleRefresh = () => {
+    setSearchTerm("");
     setHideDada(false);
     setHideDataSearched(false);
   };
@@ -34,6 +43,7 @@ const VizDoctorDetails = ({ doctors }) => {
 
   return (
     <div>
+      <Header />
       <div className="app__vDoctorDetails">
         <div>
           <h1>View Doctor Details</h1>
@@ -61,7 +71,7 @@ const VizDoctorDetails = ({ doctors }) => {
               </thead>
               <tbody>
                 {!hideData &&
-                  doctors.map((doctor, index) => {
+                  doctorDetails.map((doctor, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
                         <td>{doctor._id}</td>
@@ -146,6 +156,7 @@ const VizDoctorDetails = ({ doctors }) => {
                 <input
                   type="text"
                   placeholder="Search text"
+                  value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>

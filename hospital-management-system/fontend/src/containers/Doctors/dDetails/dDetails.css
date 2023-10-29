@@ -18,6 +18,8 @@
 }
 h1 {
   text-align: center;
+  text-transform: uppercase;
+  color: var(--color-secondary);
 }
 .app__dDetails-container {
   width: 100%;

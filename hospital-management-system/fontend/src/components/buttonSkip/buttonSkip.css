@@ -4,8 +4,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #33a7be;
+  background-color: #efefef;
   padding: 0.5rem;
   cursor: pointer;
   border-radius: 5px;
+  transition: all 0.3s ease;
+}
+.btnSkip:hover {
+  background-color: #ffff;
+  transform: translateY(-2px);
 }

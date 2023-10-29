@@ -5,10 +5,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #33a7be;
+  background-color: #efefef;
   border: none;
   cursor: pointer;
   border-radius: 8px;
+  transition: all 0.5s ease;
+}
+.btnAction button:hover {
+  background-color: #ffff;
+  transform: translateY(-5px);
 }
 .btnAction button p {
   text-transform: capitalize;

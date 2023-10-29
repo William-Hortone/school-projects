@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./viewHospitalSD.css";
-import { ButtonAction } from "../../../components";
+import { ButtonAction, Header } from "../../../components";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const ViewHospitalSD = ({ medicalServices }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,6 +40,7 @@ const ViewHospitalSD = ({ medicalServices }) => {
 
   return (
     <div>
+      <Header />
       <div className="app__vHospitalDetails">
         <div>
           <h1>View Hospital Services Details</h1>

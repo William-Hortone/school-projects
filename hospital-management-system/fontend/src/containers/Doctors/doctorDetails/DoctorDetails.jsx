@@ -5,7 +5,7 @@ import { Header } from "../../../components";
 const DoctorDetails = () => {
   return (
     <div className="app__doctorDetails">
-      {/* <Header /> */}
+      <Header />
       <DDetails />
     </div>
   );
