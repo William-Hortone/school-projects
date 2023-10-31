@@ -23,9 +23,8 @@ const VizDoctorDetails = () => {
       setSearchResult(result);
     } else if (searchOptions === "doctorId") {
       const result = doctorDetails.filter(
-        (doctor) => doctor._id === searchTerm
+        (doctor) => doctor.doctorID === searchTerm
       );
-
       setSearchResult(result);
     }
     setHideDada(true);
@@ -74,7 +73,7 @@ const VizDoctorDetails = () => {
                   doctorDetails.map((doctor, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{doctor._id}</td>
+                        <td>{doctor.doctorID}</td>
                         <td>{doctor.doctorFN}</td>
                         <td>{doctor.nicNo}</td>
                         <td>{doctor.doctorLN}</td>
@@ -96,7 +95,7 @@ const VizDoctorDetails = () => {
                   searchResult.map((doctor, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{doctor._id}</td>
+                        <td>{doctor.doctorID}</td>
                         <td>{doctor.doctorFN}</td>
                         <td>{doctor.nicNo}</td>
                         <td>{doctor.doctorLN}</td>

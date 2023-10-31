@@ -4,12 +4,18 @@ import { Input, Select, TextArea } from "../../../components";
 import axios from "axios";
 import { toast } from "react-toastify";
 import DoctorMenu from "../doctorMenu/DoctorMenu";
+import { selectDoctorDetails } from "../../../redux/slice/doctorSlice";
+
+import { useSelector } from "react-redux";
 
 const DDetails = () => {
   const [refreshForm, setRefreshForm] = useState(false);
-  const [doctorId, setDoctorId] = useState("");
+  const [showAddDoctorBtn, setShowAddDoctorBtn] = useState(false);
+  const [doctorId, setDoctorId] = useState();
   const [addDoctorD, setAddDoctorD] = useState(true);
+  const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [input, setInput] = useState({
+    doctorID: "",
     doctorFN: "",
     nicNo: "",
     doctorLN: "",
@@ -27,6 +33,7 @@ const DDetails = () => {
   });
 
   const form = useRef();
+  const doctorsInfos = useSelector(selectDoctorDetails);
 
   const doctorSexOptions = [
     { value: "Man", label: "M" },
@@ -38,6 +45,7 @@ const DDetails = () => {
   ];
 
   useEffect(() => {
+    setDoctorId(input.doctorID);
     if (refreshForm) {
       setInput({
         doctorFN: "",
@@ -56,7 +64,7 @@ const DDetails = () => {
         doctorNotes: "",
       });
     }
-  }, [refreshForm]);
+  }, [refreshForm, input.doctorID]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -66,36 +74,58 @@ const DDetails = () => {
     });
   };
 
-  const handleAddDoctor = (e) => {
-    e.preventDefault();
-
-    if (
-      input.doctorFN === "" ||
-      input.nicNo === "" ||
-      input.doctorLN === "" ||
-      input.homePhone === "" ||
-      input.mobilePhone === "" ||
-      input.Qualifications === "" ||
-      input.Specialization === "" ||
-      input.VisitingCharge === "" ||
-      input.ChannelingCharge === "" ||
-      input.basicSalary === "" ||
-      input.doctorType === "" ||
-      input.doctorAddress === "" ||
-      input.doctorNotes === ""
-    ) {
-      toast.error("Please complete the fields");
+  const handleAddDoctor = () => {
+    if (doctorsInfos.length === 0) {
+      setInput({
+        ...input,
+        doctorID: "001",
+      });
     } else {
-      axios
-        .post("http://localhost:3001/doctor", input)
-        .then((res) => {
-          console.log("the response from the backend", res.data);
-          toast.success("Added Successfully");
-        })
-        .catch((err) => toast.error(err.message));
+      const lastDoctorID = doctorsInfos[doctorsInfos.length - 1].doctorID;
+      const nextDoctorID = (parseInt(lastDoctorID) + 1)
+        .toString()
+        .padStart(3, "0");
+      setInput({
+        ...input,
+        doctorID: nextDoctorID,
+      });
+      // console.log("the input ", input);
     }
-    setAddDoctorD(true);
+    // console.log("the doctorsInfos ", doctorsInfos);
+
+    setShowAddDoctorBtn(true);
   };
+
+  // const handleAddDoctor = (e) => {
+  //   e.preventDefault();
+
+  //   if (
+  //     input.doctorFN === "" ||
+  //     input.nicNo === "" ||
+  //     input.doctorLN === "" ||
+  //     input.homePhone === "" ||
+  //     input.mobilePhone === "" ||
+  //     input.Qualifications === "" ||
+  //     input.Specialization === "" ||
+  //     input.VisitingCharge === "" ||
+  //     input.ChannelingCharge === "" ||
+  //     input.basicSalary === "" ||
+  //     input.doctorType === "" ||
+  //     input.doctorAddress === "" ||
+  //     input.doctorNotes === ""
+  //   ) {
+  //     toast.error("Please complete the fields");
+  //   } else {
+  //     axios
+  //       .post("http://localhost:3001/doctor", input)
+  //       .then((res) => {
+  //         console.log("the response from the backend", res.data);
+  //         toast.success("Added Successfully");
+  //       })
+  //       .catch((err) => toast.error(err.message));
+  //   }
+  //   setAddDoctorD(true);
+  // };
 
   const handleEditDoctor = (e, doctorId) => {
     e.preventDefault();
@@ -121,7 +151,13 @@ const DDetails = () => {
     setRefreshForm(!refreshForm);
   };
 
-  const handleDeleteDoctor = (doctorId) => {
+  const handleDeleteDoctor = () => {
+    setShowPopupDelete(true);
+  };
+  const handleClosePopup = () => {
+    setShowPopupDelete(false);
+  };
+  const handleSubmitDeleteDoctor = (doctorId) => {
     if (doctorId === undefined || doctorId === "") {
       toast.error("Please provide an Doctor ID");
     } else {
@@ -139,16 +175,30 @@ const DDetails = () => {
           toast.error(error);
         });
     }
+    setShowPopupDelete(false);
+  };
+
+  const handleSubmitAddDoctor = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:3001/doctor", input)
+      .then((res) => {
+        console.log("the response from the backend", res.data);
+        toast.success("Added Successfully");
+      })
+      .catch((err) => toast.error(err.message));
+
+    // console.log(input);
+    setShowAddDoctorBtn(false);
   };
 
   return (
     <div className="app__dDetails">
       <div className="app__dDetails-wrapper">
         <h1>Doctor Details</h1>
-        <form
-          onSubmit={addDoctorD ? handleAddDoctor : handleEditDoctor}
-          ref={form}
-        >
+        {/* onSubmit={addDoctorD ? handleAddDoctor : handleEditDoctor} */}
+        <form onSubmit={handleSubmitAddDoctor} ref={form}>
           <div className="app__dDetails-container">
             <div className="details-section-one">
               <div className="container-one">
@@ -157,8 +207,9 @@ const DDetails = () => {
                   <input
                     placeholder="Doctor ID"
                     name="doctorID"
-                    value={doctorId}
-                    onChange={(e) => setDoctorId(e.target.value)}
+                    value={input.doctorID}
+                    onChange={handleOnChange}
+                    // readOnly
                   />
                 </div>
               </div>
@@ -316,14 +367,30 @@ const DDetails = () => {
               </div>
             </div>
           </div>
+          {showAddDoctorBtn && <button type="submit">submit</button>}
         </form>
+
+        {showPopupDelete && (
+          <div className="delete-popup">
+            <p>
+              Do you really want to delete <br />
+              the doctor with ID of {input.doctorID} ?
+            </p>
+            <div className="delete-buttons">
+              <button onClick={handleClosePopup}> Cancel</button>
+              <button onClick={() => handleSubmitDeleteDoctor(doctorId)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       <div className="app__doctorMenuD-container">
         <DoctorMenu
           handleRefresh={handleRefresh}
           handleAddDoctor={handleAddDoctor}
           handleEditDoctor={(e) => handleEditDoctor(e, doctorId)}
-          handleDeleteDoctor={() => handleDeleteDoctor(doctorId)}
+          handleDeleteDoctor={handleDeleteDoctor}
         />
       </div>
     </div>
