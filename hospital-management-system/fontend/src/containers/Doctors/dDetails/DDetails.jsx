@@ -96,37 +96,6 @@ const DDetails = () => {
     setShowAddDoctorBtn(true);
   };
 
-  // const handleAddDoctor = (e) => {
-  //   e.preventDefault();
-
-  //   if (
-  //     input.doctorFN === "" ||
-  //     input.nicNo === "" ||
-  //     input.doctorLN === "" ||
-  //     input.homePhone === "" ||
-  //     input.mobilePhone === "" ||
-  //     input.Qualifications === "" ||
-  //     input.Specialization === "" ||
-  //     input.VisitingCharge === "" ||
-  //     input.ChannelingCharge === "" ||
-  //     input.basicSalary === "" ||
-  //     input.doctorType === "" ||
-  //     input.doctorAddress === "" ||
-  //     input.doctorNotes === ""
-  //   ) {
-  //     toast.error("Please complete the fields");
-  //   } else {
-  //     axios
-  //       .post("http://localhost:3001/doctor", input)
-  //       .then((res) => {
-  //         console.log("the response from the backend", res.data);
-  //         toast.success("Added Successfully");
-  //       })
-  //       .catch((err) => toast.error(err.message));
-  //   }
-  //   setAddDoctorD(true);
-  // };
-
   const handleEditDoctor = (e, doctorId) => {
     e.preventDefault();
 
@@ -174,6 +143,7 @@ const DDetails = () => {
         .catch((error) => {
           toast.error(error);
         });
+      handleRefresh();
     }
     setShowPopupDelete(false);
   };
@@ -184,12 +154,10 @@ const DDetails = () => {
     axios
       .post("http://localhost:3001/doctor", input)
       .then((res) => {
-        console.log("the response from the backend", res.data);
         toast.success("Added Successfully");
       })
       .catch((err) => toast.error(err.message));
 
-    // console.log(input);
     setShowAddDoctorBtn(false);
   };
 
@@ -367,7 +335,11 @@ const DDetails = () => {
               </div>
             </div>
           </div>
-          {showAddDoctorBtn && <button type="submit">submit</button>}
+          {showAddDoctorBtn && (
+            <button className="submit-btn" type="submit">
+              Submit
+            </button>
+          )}
         </form>
 
         {showPopupDelete && (

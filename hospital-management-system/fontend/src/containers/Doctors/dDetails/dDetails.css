@@ -109,3 +109,10 @@ h1 {
 .delete-buttons button:nth-of-type(2) {
   background-color: red;
 }
+.submit-btn {
+  width: 100px;
+  border-radius: 7px;
+  border: none;
+  background-color: var(--color-primary);
+  font-weight: 600;
+}

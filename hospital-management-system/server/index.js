@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-// const AdminModel = require("./models/admin");
 const DoctorModel = require("./models/Doctor");
 const MedicalServicesModel = require("./models/MedicalServices");
 
@@ -17,23 +16,6 @@ app.post("/medicalServices", (req, res) => {
     .then((service) => res.json(service))
     .catch((err) => res.json(err));
 });
-
-// app.post("/login", (req, res) => {
-//   const { email, password } = req.body;
-//   AdminModel.findOne({ email: email })
-//     .then((user) => {
-//       if (user) {
-//         if (user.password === password) {
-//           res.json("success");
-//         } else {
-//           res.json("wrongPassword");
-//         }
-//       } else {
-//         res.json("unknown email");
-//       }
-//     })
-//     .catch((err) => res.json(err));
-// });
 
 app.post("/doctor", (req, res) => {
   DoctorModel.create(req.body)
@@ -139,8 +121,8 @@ app.put("/editDoctor/:doctorId", (req, res) => {
 });
 
 app.delete("/deleteDoctor/:doctorId", (req, res) => {
-  // const { email, password } = req.body;
-  DoctorModel.findOneAndRemove(req.params.serviceId)
+  const doctorID = req.params.doctorId;
+  DoctorModel.findOneAndRemove({ doctorID: doctorID })
     .then((doctor) => {
       if (!doctor) {
         return res.json("not found");
