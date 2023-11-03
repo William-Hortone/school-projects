@@ -71,54 +71,83 @@ app.put("/editService/:serviceId", (req, res) => {
 });
 
 app.put("/editDoctor/:doctorId", (req, res) => {
-  const { doctorId } = req.params;
-  const {
-    doctorFN,
-    nicNo,
-    doctorLN,
-    homePhone,
-    mobilePhone,
-    Qualifications,
-    Specialization,
-    VisitingCharge,
-    ChannelingCharge,
-    basicSalary,
-    sex,
-    doctorType,
-    doctorAddress,
-    doctorNotes,
-  } = req.body;
+  const id = req.params.doctorId; // Custom doctorID from the URL
+  const updatedData = req.body; // Data to update
 
-  DoctorModel.findByIdAndUpdate(
-    doctorId,
+  // Find the doctor with the custom doctorID and update their details
+  DoctorModel.findOneAndUpdate(
     {
-      $set: {
-        doctorFN,
-        nicNo,
-        doctorLN,
-        homePhone,
-        mobilePhone,
-        Qualifications,
-        Specialization,
-        VisitingCharge,
-        ChannelingCharge,
-        basicSalary,
-        sex,
-        doctorType,
-        doctorAddress,
-        doctorNotes,
-      },
+      doctorID: id,
+    },
+    {
+      $set: updatedData,
     },
     { new: true }
   )
     .then((doctor) => {
       if (!doctor) {
-        return res.status(404).json("not found");
+        return res.json("notfound");
       }
       return res.json("success");
     })
-    .catch((err) => res.json(err));
+    .catch((err) => res.status(500).json(err));
 });
+
+// app.put("/editDoctor/:doctorId", (req, res) => {
+//   const doctorId = req.params.doctorId;
+//   const {
+//     // doctorID,
+//     doctorFN,
+//     nicNo,
+//     doctorLN,
+//     homePhone,
+//     mobilePhone,
+//     Qualifications,
+//     Specialization,
+//     VisitingCharge,
+//     ChannelingCharge,
+//     basicSalary,
+//     sex,
+//     doctorType,
+//     doctorAddress,
+//     doctorNotes,
+//   } = req.body;
+
+//   const dataToUpdate = req.body;
+//   DoctorModel.findOneAndUpdate(
+//     {
+//       DoctorID: doctorId,
+//     },
+//     {
+//       // $set: dataToUpdate,
+//       $set: {
+//         // doctorID,
+//         doctorFN,
+//         nicNo,
+//         doctorLN,
+//         homePhone,
+//         mobilePhone,
+//         Qualifications,
+//         Specialization,
+//         VisitingCharge,
+//         ChannelingCharge,
+//         basicSalary,
+//         sex,
+//         doctorType,
+//         doctorAddress,
+//         doctorNotes,
+//       },
+//     },
+//     { new: true }
+//   )
+//     .then((doctor) => {
+//       if (!doctor) {
+//         return res.status(404).json("not found");
+//       }
+//       return res.json("success");
+//     })
+//     .catch((err) => res.json(err));
+// });
 
 app.delete("/deleteDoctor/:doctorId", (req, res) => {
   const doctorID = req.params.doctorId;
