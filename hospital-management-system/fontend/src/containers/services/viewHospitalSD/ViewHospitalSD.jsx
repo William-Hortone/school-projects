@@ -2,8 +2,10 @@ import { useState } from "react";
 import "./viewHospitalSD.css";
 import { ButtonAction, Header } from "../../../components";
 import { useNavigate } from "react-router-dom";
+import { selectMedicalService } from "../../../redux/slice/medicalServiceSlice";
+import { useSelector } from "react-redux";
 
-const ViewHospitalSD = ({ medicalServices }) => {
+const ViewHospitalSD = ({ medicalSDetails }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOptions, setSearchOptions] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -12,15 +14,16 @@ const ViewHospitalSD = ({ medicalServices }) => {
   const [refreshValue, setRefreshValue] = useState("");
 
   const navigate = useNavigate();
+  const medicalSDetail = useSelector(selectMedicalService);
 
   const handleSearch = () => {
     if (searchOptions === "serviceName") {
-      const result = medicalServices.filter(
+      const result = medicalSDetail.filter(
         (medicalService) => medicalService.serviceName === searchTerm
       );
       setSearchResult(result);
     } else if (searchOptions === "serviceId") {
-      const result = medicalServices.filter(
+      const result = medicalSDetail.filter(
         (medicalService) => medicalService._id === searchTerm
       );
       setSearchResult(result);
@@ -58,7 +61,7 @@ const ViewHospitalSD = ({ medicalServices }) => {
               </thead>
               <tbody>
                 {!hideData &&
-                  medicalServices.map((medicalService, index) => {
+                  medicalSDetail.map((medicalService, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
                         <td>{medicalService._id}</td>
