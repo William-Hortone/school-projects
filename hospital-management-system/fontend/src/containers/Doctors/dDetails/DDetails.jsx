@@ -164,10 +164,7 @@ const DDetails = () => {
       .catch((err) => {
         toast.error(err);
       });
-
-    // setAddDoctorD(false);
     console.log(input);
-    console.log("addDoctorD", addDoctorD);
   };
 
   return (
@@ -175,7 +172,14 @@ const DDetails = () => {
       <div className="app__dDetails-wrapper">
         <h1>Doctor Details</h1>
         {/* onSubmit={addDoctorD ? handleAddDoctor : handleEditDoctor} */}
-        <form onSubmit={(e) => handleSubmitEditDoctor(e, doctorId)} ref={form}>
+        <form
+          onSubmit={
+            addDoctorD
+              ? handleSubmitAddDoctor
+              : (e) => handleSubmitEditDoctor(e, doctorId)
+          }
+          ref={form}
+        >
           <div className="app__dDetails-container">
             <div className="details-section-one">
               <div className="container-one">
@@ -345,11 +349,7 @@ const DDetails = () => {
             </div>
           </div>
           {showAddDoctorBtn && (
-            <button
-              className="submit-btn"
-              // onClick={(e) => handleSubmitEditDoctor(e, doctorId)}
-              type="submit"
-            >
+            <button className="submit-btn" type="submit">
               Submit
             </button>
           )}
@@ -375,7 +375,6 @@ const DDetails = () => {
           handleRefresh={handleRefresh}
           handleAddDoctor={handleAddDoctor}
           handleEditDoctor={handleEditDoctor}
-          // handleEditDoctor={(e) => handleSubmitEditDoctor(e, doctorId)}
           handleDeleteDoctor={handleDeleteDoctor}
         />
       </div>
