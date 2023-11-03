@@ -47,23 +47,18 @@ app.delete("/deleteService/:serviceId", (req, res) => {
 });
 
 app.put("/editService/:serviceId", (req, res) => {
-  const { serviceId } = req.params;
-  const { serviceName, amount, duration, additionalNotes } = req.body;
-  MedicalServicesModel.findByIdAndUpdate(
-    serviceId,
+  const serviceId = req.params.serviceId;
+  const updatedData = req.body;
+  MedicalServicesModel.findOneAndUpdate(
+    { serviceID: serviceId },
     {
-      $set: {
-        serviceName,
-        amount,
-        duration,
-        additionalNotes,
-      },
+      $set: updatedData,
     },
     { new: true }
   )
     .then((service) => {
       if (!service) {
-        return res.status(404).json("not found");
+        return res.json("notfound");
       }
       return res.json("success");
     })
