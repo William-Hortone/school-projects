@@ -11,9 +11,10 @@ import { useSelector } from "react-redux";
 const DDetails = () => {
   const [refreshForm, setRefreshForm] = useState(false);
   const [showAddDoctorBtn, setShowAddDoctorBtn] = useState(false);
-  const [doctorId, setDoctorId] = useState();
+  const [doctorId, setDoctorId] = useState("");
   const [addDoctorD, setAddDoctorD] = useState(true);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
+  const [isInputEnabled, setInputEnabled] = useState(true);
   const [input, setInput] = useState({
     doctorID: "",
     doctorFN: "",
@@ -74,50 +75,9 @@ const DDetails = () => {
     });
   };
 
-  const handleAddDoctor = () => {
-    if (doctorsInfos.length === 0) {
-      setInput({
-        ...input,
-        doctorID: "001",
-      });
-    } else {
-      const lastDoctorID = doctorsInfos[doctorsInfos.length - 1].doctorID;
-      const nextDoctorID = (parseInt(lastDoctorID) + 1)
-        .toString()
-        .padStart(3, "0");
-      setInput({
-        ...input,
-        doctorID: nextDoctorID,
-      });
-      // console.log("the input ", input);
-    }
-    // console.log("the doctorsInfos ", doctorsInfos);
-
-    setShowAddDoctorBtn(true);
-  };
-
-  const handleEditDoctor = (e, doctorId) => {
-    e.preventDefault();
-
-    axios
-      .put(`http://localhost:3001/editDoctor/${doctorId}`, input)
-      .then((res) => {
-        if (res.data === "success") {
-          toast.success("Doctor updated successfully");
-        } else if (res.data === "not found") {
-          toast.error("Service not found");
-        } else {
-          toast.error("An error occurred while updating the service");
-        }
-      })
-      .catch((err) => {
-        toast.error("An error occurred while updating the service");
-      });
-
-    setAddDoctorD(false);
-  };
   const handleRefresh = () => {
     setRefreshForm(!refreshForm);
+    setShowAddDoctorBtn(false);
   };
 
   const handleDeleteDoctor = () => {
@@ -148,6 +108,27 @@ const DDetails = () => {
     setShowPopupDelete(false);
   };
 
+  const handleAddDoctor = () => {
+    if (doctorsInfos.length === 0) {
+      setInput({
+        ...input,
+        doctorID: "001",
+      });
+    } else {
+      const lastDoctorID = doctorsInfos[doctorsInfos.length - 1].doctorID;
+      const nextDoctorID = (parseInt(lastDoctorID) + 1)
+        .toString()
+        .padStart(3, "0");
+      setInput({
+        ...input,
+        doctorID: nextDoctorID,
+      });
+    }
+    setInputEnabled(false);
+    setAddDoctorD(true);
+    setShowAddDoctorBtn(true);
+  };
+
   const handleSubmitAddDoctor = (e) => {
     e.preventDefault();
 
@@ -159,6 +140,31 @@ const DDetails = () => {
       .catch((err) => toast.error(err.message));
 
     setShowAddDoctorBtn(false);
+    setInputEnabled(true);
+  };
+
+  const handleEditDoctor = () => {
+    setShowAddDoctorBtn(true);
+    setAddDoctorD(false);
+  };
+  const handleSubmitEditDoctor = (e, doctorId) => {
+    e.preventDefault();
+
+    axios
+      .put(`http://localhost:3001/editDoctor/${doctorId}`, input)
+      .then((res) => {
+        if (res.data === "success") {
+          toast.success("Doctor updated successfully");
+        } else if (res.data === "notfound") {
+          toast.error("Wrong doctor ID");
+        } else {
+          toast.error("An error occurred while updating the service");
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+    console.log(input);
   };
 
   return (
@@ -166,7 +172,14 @@ const DDetails = () => {
       <div className="app__dDetails-wrapper">
         <h1>Doctor Details</h1>
         {/* onSubmit={addDoctorD ? handleAddDoctor : handleEditDoctor} */}
-        <form onSubmit={handleSubmitAddDoctor} ref={form}>
+        <form
+          onSubmit={
+            addDoctorD
+              ? handleSubmitAddDoctor
+              : (e) => handleSubmitEditDoctor(e, doctorId)
+          }
+          ref={form}
+        >
           <div className="app__dDetails-container">
             <div className="details-section-one">
               <div className="container-one">
@@ -177,7 +190,7 @@ const DDetails = () => {
                     name="doctorID"
                     value={input.doctorID}
                     onChange={handleOnChange}
-                    // readOnly
+                    disabled={!isInputEnabled}
                   />
                 </div>
               </div>
@@ -361,7 +374,7 @@ const DDetails = () => {
         <DoctorMenu
           handleRefresh={handleRefresh}
           handleAddDoctor={handleAddDoctor}
-          handleEditDoctor={(e) => handleEditDoctor(e, doctorId)}
+          handleEditDoctor={handleEditDoctor}
           handleDeleteDoctor={handleDeleteDoctor}
         />
       </div>

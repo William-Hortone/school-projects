@@ -10,7 +10,6 @@ const doctorSlice = createSlice({
   reducers: {
     GET_DOCTORS_DETAILS: (state, action) => {
       state.doctorsDetails = action.payload;
-      // console.log(state.doctorsDetails);
     },
   },
 });

@@ -71,53 +71,25 @@ app.put("/editService/:serviceId", (req, res) => {
 });
 
 app.put("/editDoctor/:doctorId", (req, res) => {
-  const { doctorId } = req.params;
-  const {
-    doctorFN,
-    nicNo,
-    doctorLN,
-    homePhone,
-    mobilePhone,
-    Qualifications,
-    Specialization,
-    VisitingCharge,
-    ChannelingCharge,
-    basicSalary,
-    sex,
-    doctorType,
-    doctorAddress,
-    doctorNotes,
-  } = req.body;
+  const id = req.params.doctorId;
+  const updatedData = req.body;
 
-  DoctorModel.findByIdAndUpdate(
-    doctorId,
+  DoctorModel.findOneAndUpdate(
     {
-      $set: {
-        doctorFN,
-        nicNo,
-        doctorLN,
-        homePhone,
-        mobilePhone,
-        Qualifications,
-        Specialization,
-        VisitingCharge,
-        ChannelingCharge,
-        basicSalary,
-        sex,
-        doctorType,
-        doctorAddress,
-        doctorNotes,
-      },
+      doctorID: id,
+    },
+    {
+      $set: updatedData,
     },
     { new: true }
   )
     .then((doctor) => {
       if (!doctor) {
-        return res.status(404).json("not found");
+        return res.json("notfound");
       }
       return res.json("success");
     })
-    .catch((err) => res.json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
 app.delete("/deleteDoctor/:doctorId", (req, res) => {

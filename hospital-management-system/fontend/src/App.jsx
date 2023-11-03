@@ -11,23 +11,16 @@ import {
   VizDoctorDetails,
 } from "./containers";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import fetchDoctorDetails from "./redux/actions/doctors.action";
+import fetchMedicalService from "./redux/actions/medicalService.action";
 
 function App() {
-  const [medicalServices, setMedicalServices] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/getHospitalServices")
-      .then((res) => {
-        setMedicalServices(res.data);
-      })
-      .catch((err) => console.error(err));
-
     dispatch(fetchDoctorDetails());
+    dispatch(fetchMedicalService());
   }, [dispatch]);
 
   return (
@@ -44,10 +37,7 @@ function App() {
           <Route path="/doctorD" element={<DoctorDetails />} />
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />
           <Route path="/mServices" element={<MedicalServices />} />
-          <Route
-            path="/vHospital"
-            element={<ViewHospitalSD medicalServices={medicalServices} />}
-          />
+          <Route path="/vHospital" element={<ViewHospitalSD />} />
         </Routes>
       </BrowserRouter>
     </div>
