@@ -24,7 +24,7 @@ app.post("/doctor", (req, res) => {
 });
 
 app.get("/getDoctors", (req, res) => {
-  DoctorModel.find()
+  DoctorModel.find({ isDisplayed: true })
     .then((doctors) => res.json(doctors))
     .catch((err) => res.json(err));
 });
@@ -96,14 +96,22 @@ app.put("/editDoctor/:doctorId", (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-app.delete("/deleteDoctor/:doctorId", (req, res) => {
+app.put("/deleteDoctor/:doctorId", (req, res) => {
   const doctorID = req.params.doctorId;
-  DoctorModel.findOneAndRemove({ doctorID: doctorID })
+  DoctorModel.findOneAndRemove(
+    { doctorID: doctorID },
+    { $set: { isDisplayed: false } },
+    { new: true }
+  )
     .then((doctor) => {
       if (!doctor) {
         return res.json("not found");
+      } else {
+        if (doctor.isDisplayed === false) {
+          return res.json("not found");
+        }
+        res.json("success");
       }
-      res.json("success");
     })
     .catch((err) => res.status(500).json(err));
 });

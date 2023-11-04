@@ -121,16 +121,6 @@ const MedicalServices = () => {
     }
   };
 
-  const handleRefresh = () => {
-    setInput(inputRefreshed);
-  };
-  const handleClose = () => {
-    navigate("/home");
-  };
-  const handleViewAllMedicalS = () => {
-    navigate("/vHospital");
-  };
-
   const handleOpenDeletePopup = () => {
     if (serviceId === undefined || serviceId === "") {
       toast.error("Please provide a service ID");
@@ -138,6 +128,11 @@ const MedicalServices = () => {
       setShowPopupDelete(true);
     }
   };
+
+  const handleClosePopup = () => {
+    setShowPopupDelete(false);
+  };
+
   const handleSubmitDeleteDoctor = (serviceId) => {
     if (serviceId === undefined || serviceId === "") {
       toast.error("Please provide a service ID");
@@ -159,8 +154,17 @@ const MedicalServices = () => {
     setShowPopupDelete(false);
   };
 
-  const handleClosePopup = () => {
-    setShowPopupDelete(false);
+  const handleRefresh = () => {
+    setInput(inputRefreshed);
+    setShowSubmitBtn(false);
+  };
+
+  const handleViewAllMedicalS = () => {
+    navigate("/vHospital");
+  };
+
+  const handleClose = () => {
+    navigate("/home");
   };
 
   return (

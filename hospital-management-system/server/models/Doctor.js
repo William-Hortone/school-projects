@@ -16,6 +16,10 @@ const DoctorSchema = new mongoose.Schema({
   doctorType: String,
   doctorAddress: String,
   doctorNotes: String,
+  isDisplayed: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const DoctorModel = mongoose.model("doctors", DoctorSchema);
