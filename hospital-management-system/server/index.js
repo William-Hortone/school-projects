@@ -30,18 +30,27 @@ app.get("/getDoctors", (req, res) => {
 });
 
 app.get("/getHospitalServices", (req, res) => {
-  MedicalServicesModel.find()
+  MedicalServicesModel.find({ isDisplayed: true })
     .then((medicalsSer) => res.json(medicalsSer))
     .catch((err) => res.json(err));
 });
 
-app.delete("/deleteService/:serviceId", (req, res) => {
-  MedicalServicesModel.findByIdAndRemove(req.params.serviceId)
+app.put("/deleteService/:serviceId", (req, res) => {
+  const id = req.params.serviceId;
+  MedicalServicesModel.findOneAndUpdate(
+    { serviceID: id },
+    { $set: { isDisplayed: false } },
+    { new: true }
+  )
     .then((service) => {
       if (!service) {
         return res.json("not found");
+      } else {
+        if (service.isDisplayed === false) {
+          return res.json("not found");
+        }
+        res.json("success");
       }
-      res.json("success");
     })
     .catch((err) => res.status(500).json(err));
 });

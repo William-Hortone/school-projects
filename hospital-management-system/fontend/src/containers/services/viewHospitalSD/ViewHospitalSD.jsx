@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./viewHospitalSD.css";
 import { ButtonAction, Header } from "../../../components";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +31,10 @@ const ViewHospitalSD = () => {
     setHideDada(true);
     setHideDataSearched(true);
   };
+
+  useEffect(() => {
+    console.log(medicalSDetail);
+  }, [medicalSDetail]);
 
   const handleRefresh = () => {
     setHideDada(false);

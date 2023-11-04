@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ButtonAction,
   ButtonSkip,
@@ -17,6 +17,7 @@ const MedicalServices = () => {
   const [addMedical, setAddMedical] = useState(true);
   const [showSubmitBtn, setShowSubmitBtn] = useState(false);
   const [isInputEnabled, setInputEnabled] = useState(true);
+  const [showPopupDelete, setShowPopupDelete] = useState(false);
 
   const [serviceId, setServiceId] = useState("");
   const [input, setInput] = useState({
@@ -27,7 +28,6 @@ const MedicalServices = () => {
     additionalNotes: "",
   });
   const [inputRefreshed, setInputRefreshed] = useState({
-    serviceID: "",
     serviceName: "",
     amount: "",
     duration: "",
@@ -38,7 +38,8 @@ const MedicalServices = () => {
 
   useEffect(() => {
     setServiceId(input.serviceID);
-  }, [input]);
+    // console.log(medicalServiceInfos);
+  }, [medicalServiceInfos, input]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -84,7 +85,7 @@ const MedicalServices = () => {
         .post("http://localhost:3001/medicalServices", input)
         .then((res) => {
           toast.success("Saved Successfully");
-          console.log(res);
+          // console.log(res);
         })
         .catch((err) => toast.error(err));
     }
@@ -99,7 +100,6 @@ const MedicalServices = () => {
   const handleSubmitEditServices = (e, serviceId) => {
     e.preventDefault();
 
-    console.log(input);
     if (serviceId === undefined || serviceId === "") {
       toast.error("Please add a correct ID");
     } else {
@@ -131,12 +131,19 @@ const MedicalServices = () => {
     navigate("/vHospital");
   };
 
-  const handleDelete = (serviceId) => {
+  const handleOpenDeletePopup = () => {
+    if (serviceId === undefined || serviceId === "") {
+      toast.error("Please provide a service ID");
+    } else {
+      setShowPopupDelete(true);
+    }
+  };
+  const handleSubmitDeleteDoctor = (serviceId) => {
     if (serviceId === undefined || serviceId === "") {
       toast.error("Please provide a service ID");
     } else {
       axios
-        .delete(`http://localhost:3001/deleteService/${serviceId}`)
+        .put(`http://localhost:3001/deleteService/${serviceId}`)
         .then((res) => {
           if (res.data === "success") {
             toast.success("Delete Successfully");
@@ -149,6 +156,11 @@ const MedicalServices = () => {
           toast.error(error);
         });
     }
+    setShowPopupDelete(false);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopupDelete(false);
   };
 
   return (
@@ -215,6 +227,20 @@ const MedicalServices = () => {
               </button>
             )}
           </form>
+          {showPopupDelete && (
+            <div className="delete-popup">
+              <p>
+                Do you really want to delete <br />
+                the medical service with ID of {input.serviceID} ?
+              </p>
+              <div className="delete-buttons">
+                <button onClick={handleClosePopup}> Cancel</button>
+                <button onClick={() => handleSubmitDeleteDoctor(serviceId)}>
+                  Delete
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="container-menu">
@@ -245,7 +271,7 @@ const MedicalServices = () => {
               btnName="Delete"
               buttonType="button"
               color="red"
-              onClick={() => handleDelete(serviceId)}
+              onClick={handleOpenDeletePopup}
             />
             <ButtonAction
               iconName="refresh"

@@ -6,6 +6,10 @@ const MedicalServicesSchema = new mongoose.Schema({
   amount: String,
   duration: String,
   additionalNotes: String,
+  isDisplayed: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const MedicalServicesModel = mongoose.model(
