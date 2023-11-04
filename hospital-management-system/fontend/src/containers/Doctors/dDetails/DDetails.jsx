@@ -171,7 +171,6 @@ const DDetails = () => {
     <div className="app__dDetails">
       <div className="app__dDetails-wrapper">
         <h1>Doctor Details</h1>
-        {/* onSubmit={addDoctorD ? handleAddDoctor : handleEditDoctor} */}
         <form
           onSubmit={
             addDoctorD

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ButtonAction,
   ButtonSkip,
@@ -10,24 +10,35 @@ import "./medicalServices.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectMedicalService } from "../../../redux/slice/medicalServiceSlice";
 
 const MedicalServices = () => {
   const [addMedical, setAddMedical] = useState(true);
+  const [showSubmitBtn, setShowSubmitBtn] = useState(false);
+  const [isInputEnabled, setInputEnabled] = useState(true);
 
   const [serviceId, setServiceId] = useState("");
   const [input, setInput] = useState({
+    serviceID: "",
     serviceName: "",
     amount: "",
     duration: "",
     additionalNotes: "",
   });
   const [inputRefreshed, setInputRefreshed] = useState({
+    serviceID: "",
     serviceName: "",
     amount: "",
     duration: "",
     additionalNotes: "",
   });
   const navigate = useNavigate();
+  const medicalServiceInfos = useSelector(selectMedicalService);
+
+  useEffect(() => {
+    setServiceId(input.serviceID);
+  }, [input]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +48,28 @@ const MedicalServices = () => {
     });
   };
 
-  const handleAddMedicalServices = (e) => {
+  const handleAddMedicalS = () => {
+    if (medicalServiceInfos.length === 0) {
+      setInput({
+        ...input,
+        serviceID: "001",
+      });
+    } else {
+      const lastMServiceID =
+        medicalServiceInfos[medicalServiceInfos.length - 1].serviceID;
+      const nextMServiceID = (parseInt(lastMServiceID) + 1)
+        .toString()
+        .padStart(3, "0");
+      setInput({
+        ...input,
+        serviceID: nextMServiceID,
+      });
+    }
+    setShowSubmitBtn(true);
+    setAddMedical(true);
+    setInputEnabled(false);
+  };
+  const handleSubmitAddMedicalS = (e) => {
     e.preventDefault();
 
     if (
@@ -57,6 +89,36 @@ const MedicalServices = () => {
         .catch((err) => toast.error(err));
     }
     setAddMedical(true);
+    setShowSubmitBtn(false);
+  };
+
+  const HandleEditMedicalS = () => {
+    setShowSubmitBtn(true);
+    setAddMedical(false);
+  };
+  const handleSubmitEditServices = (e, serviceId) => {
+    e.preventDefault();
+
+    console.log(input);
+    if (serviceId === undefined || serviceId === "") {
+      toast.error("Please add a correct ID");
+    } else {
+      axios
+        .put(`http://localhost:3001/editService/${serviceId}`, input)
+        .then((res) => {
+          if (res.data === "success") {
+            toast.success("Service updated successfully");
+          } else if (res.data === "notfound") {
+            toast.error("Incorrect service ID");
+          } else {
+            toast.error("An error occurred while updating the service");
+          }
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+      setAddMedical(false);
+    }
   };
 
   const handleRefresh = () => {
@@ -89,29 +151,6 @@ const MedicalServices = () => {
     }
   };
 
-  const handleEditServices = (e, serviceId) => {
-    e.preventDefault();
-    if (serviceId === undefined || serviceId === "") {
-      toast.error("Please complete the fields");
-    } else {
-      axios
-        .put(`http://localhost:3001/editService/${serviceId}`, input)
-        .then((res) => {
-          if (res.data === "success") {
-            toast.success("Service updated successfully");
-          } else if (res.data === "not found") {
-            toast.error("Service not found");
-          } else {
-            toast.error("An error occurred while updating the service");
-          }
-        })
-        .catch((err) => {
-          toast.error(err);
-        });
-      setAddMedical(false);
-    }
-  };
-
   return (
     <div className="app__medicalServices">
       <Header />
@@ -120,16 +159,19 @@ const MedicalServices = () => {
         <div className="container-field">
           <form
             onSubmit={
-              addMedical ? handleAddMedicalServices : handleEditServices
+              addMedical
+                ? handleSubmitAddMedicalS
+                : (e) => handleSubmitEditServices(e, serviceId)
             }
           >
             <div className="input-field">
               <label form="serviceId"> Service ID:</label>
               <input
                 placeholder="Service ID"
-                name="serviceId"
-                value={serviceId}
-                onChange={(e) => setServiceId(e.target.value)}
+                name="serviceID"
+                value={input.serviceID}
+                onChange={handleOnChange}
+                disabled={!isInputEnabled}
               />
             </div>
             <div className="input-field">
@@ -167,6 +209,11 @@ const MedicalServices = () => {
                 handleOnChange={handleOnChange}
               />
             </div>
+            {showSubmitBtn && (
+              <button className="submit-btn" type="submit">
+                Submit
+              </button>
+            )}
           </form>
         </div>
 
@@ -184,13 +231,13 @@ const MedicalServices = () => {
               btnName="Add"
               color="green"
               buttonType="submit"
-              onClick={handleAddMedicalServices}
+              onClick={handleAddMedicalS}
             />
             <ButtonAction
               iconName="edit"
               btnName="Edit"
               color="green"
-              onClick={(e) => handleEditServices(e, serviceId)}
+              onClick={HandleEditMedicalS}
               buttonType="submit"
             />
             <ButtonAction

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { selectMedicalService } from "../../../redux/slice/medicalServiceSlice";
 import { useSelector } from "react-redux";
 
-const ViewHospitalSD = ({ medicalSDetails }) => {
+const ViewHospitalSD = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOptions, setSearchOptions] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -24,7 +24,7 @@ const ViewHospitalSD = ({ medicalSDetails }) => {
       setSearchResult(result);
     } else if (searchOptions === "serviceId") {
       const result = medicalSDetail.filter(
-        (medicalService) => medicalService._id === searchTerm
+        (medicalService) => medicalService.serviceID === searchTerm
       );
       setSearchResult(result);
     }
@@ -64,7 +64,7 @@ const ViewHospitalSD = ({ medicalSDetails }) => {
                   medicalSDetail.map((medicalService, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{medicalService._id}</td>
+                        <td>{medicalService.serviceID}</td>
                         <td>{medicalService.serviceName}</td>
                         <td>{medicalService.amount}</td>
                         <td>{medicalService.duration}</td>
@@ -76,7 +76,7 @@ const ViewHospitalSD = ({ medicalSDetails }) => {
                   searchResult.map((medicalService, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{medicalService._id}</td>
+                        <td>{medicalService.serviceID}</td>
                         <td>{medicalService.serviceName}</td>
                         <td>{medicalService.amount}</td>
                         <td>{medicalService.duration}</td>
