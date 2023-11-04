@@ -75,39 +75,6 @@ const DDetails = () => {
     });
   };
 
-  const handleRefresh = () => {
-    setRefreshForm(!refreshForm);
-    setShowAddDoctorBtn(false);
-  };
-
-  const handleDeleteDoctor = () => {
-    setShowPopupDelete(true);
-  };
-  const handleClosePopup = () => {
-    setShowPopupDelete(false);
-  };
-  const handleSubmitDeleteDoctor = (doctorId) => {
-    if (doctorId === undefined || doctorId === "") {
-      toast.error("Please provide an Doctor ID");
-    } else {
-      axios
-        .delete(`http://localhost:3001/deleteDoctor/${doctorId}`)
-        .then((res) => {
-          if (res.data === "success") {
-            toast.success("Delete Successfully");
-          }
-          if (res.data === "not found") {
-            toast.error("Service not found");
-          }
-        })
-        .catch((error) => {
-          toast.error(error);
-        });
-      handleRefresh();
-    }
-    setShowPopupDelete(false);
-  };
-
   const handleAddDoctor = () => {
     if (doctorsInfos.length === 0) {
       setInput({
@@ -164,7 +131,43 @@ const DDetails = () => {
       .catch((err) => {
         toast.error(err);
       });
-    console.log(input);
+  };
+
+  const handleRefresh = () => {
+    setRefreshForm(!refreshForm);
+    setShowAddDoctorBtn(false);
+  };
+
+  const handleDeleteDoctor = () => {
+    if (doctorId === undefined || doctorId === "") {
+      toast.error("Please provide a Doctor ID");
+    } else {
+      setShowPopupDelete(true);
+    }
+  };
+  const handleClosePopup = () => {
+    setShowPopupDelete(false);
+  };
+  const handleSubmitDeleteDoctor = (doctorId) => {
+    if (doctorId === undefined || doctorId === "") {
+      toast.error("Please provide a Doctor ID");
+    } else {
+      axios
+        .put(`http://localhost:3001/deleteDoctor/${doctorId}`)
+        .then((res) => {
+          if (res.data === "success") {
+            toast.success("Delete Successfully");
+          }
+          if (res.data === "not found") {
+            toast.error("Service not found");
+          }
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+      handleRefresh();
+    }
+    setShowPopupDelete(false);
   };
 
   return (
