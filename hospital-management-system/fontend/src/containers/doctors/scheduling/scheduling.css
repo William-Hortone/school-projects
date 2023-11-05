@@ -1,0 +1,41 @@
+.app__scheduling {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  background: rgb(29, 26, 69);
+  background: linear-gradient(
+    41deg,
+    rgba(29, 26, 69, 1) 0%,
+    rgba(19, 93, 108, 1) 100%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+.app__scheduling-container {
+  width: 90%;
+  height: 200vh;
+  background-color: #efefef;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.app__scheduling-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  padding-block: 2rem;
+  color: var(--color-blue);
+  text-transform: uppercase;
+}
+.app__scheduling-container form {
+  width: 100%;
+  display: flex;
+  gap: 1.5rem;
+  background: red;
+}
+.form-left-box {
+  width: 65%;
+  height: auto;
+  padding: 1rem;
+  border-radius: 7px;
+  border: 2px solid #00000056;
+}

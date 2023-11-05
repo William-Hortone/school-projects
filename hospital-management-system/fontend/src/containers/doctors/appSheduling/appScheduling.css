@@ -2,12 +2,6 @@
   margin: 90px auto;
   width: 100%;
 }
-/* .appScheduling div:first-child {
-  width: 80%;
-  height: 100vh;
-  margin: auto;
-  background: #af4444;
-} */
 .appScheduling-container h2 {
   text-align: center;
   font-size: 2rem;
@@ -21,7 +15,6 @@
   padding: 2rem 6rem;
   border-radius: 10px;
 }
-
 .appScheduling-table {
   width: 98%;
   height: auto;
@@ -32,7 +25,6 @@
   width: 100%;
   border: 1px solid #000;
 }
-
 .appScheduling-table table th {
   border-bottom: 1px solid #000;
   border-right: 1px solid #000;
@@ -54,4 +46,45 @@
   border-right: solid 1px #66666671;
   border-bottom: solid 1px #66666671;
   text-align: center;
+}
+
+.container-menu {
+  width: 60%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+  margin: 1.3rem auto;
+  background: #efefef;
+}
+.container-menu-header {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 2rem;
+  background-color: var(--color-primary);
+  border-top: 2px solid #ffffffbd;
+  border-bottom: 2px solid #ffffffbd;
+  border-radius: 15px;
+}
+
+.container-menu-header input {
+  width: 50%;
+  height: 40px;
+  padding: 0.5rem;
+  text-align: center;
+}
+.container-menu-btn {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 2rem auto;
+  border: 2px solid #ffffffbd;
+  padding: 2rem;
+  border-radius: 25px;
+  background-color: var(--color-primary);
 }

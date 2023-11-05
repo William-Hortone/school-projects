@@ -3,6 +3,7 @@ import DDetails from "./doctors/dDetails/DDetails";
 import DoctorAppointment from "./doctors/doctorAppointment/DoctorAppointment";
 import DoctorDetails from "./doctors/doctorDetails/DoctorDetails";
 import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
+import Scheduling from "./doctors/scheduling/Scheduling";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
 import MedicalServices from "./services/medicalServices/MedicalServices";
 import ViewHospitalSD from "./services/viewHospitalSD/ViewHospitalSD";
@@ -16,4 +17,5 @@ export {
   ViewHospitalSD,
   DoctorAppointment,
   AppScheduling,
+  Scheduling,
 };

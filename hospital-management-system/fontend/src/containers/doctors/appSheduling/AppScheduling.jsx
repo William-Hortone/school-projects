@@ -1,6 +1,7 @@
 import React from "react";
-import { Input } from "../../../components";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import "./appScheduling.css";
+import Scheduling from "../scheduling/Scheduling";
 
 const AppScheduling = () => {
   return (
@@ -80,6 +81,7 @@ const AppScheduling = () => {
           </button>
         </form>
       </div>
+
       <div className="appScheduling-table">
         <table>
           <thead>
@@ -119,6 +121,64 @@ const AppScheduling = () => {
                   })} */}
           </tbody>
         </table>
+      </div>
+
+      <div className="container-menu">
+        <div className="container-menu-header">
+          <ButtonSkip iconName="doubleLeft" color="green" />
+          <ButtonSkip iconName="arrowLeft" color="blue" />
+          <input type="text" placeholder="Record No" />
+          <ButtonSkip iconName="arrowRight" color="blue" />
+          <ButtonSkip iconName="doubleRight" color="green" />
+        </div>
+        <div className="container-menu-btn">
+          <ButtonAction
+            iconName="add"
+            btnName="Add"
+            color="green"
+            buttonType="submit"
+            // onClick={handleAddMedicalS}
+          />
+          <ButtonAction
+            iconName="edit"
+            btnName="Edit"
+            color="green"
+            // onClick={HandleEditMedicalS}
+            buttonType="submit"
+          />
+          <ButtonAction
+            iconName="delete"
+            btnName="Delete"
+            buttonType="button"
+            color="red"
+            // onClick={handleOpenDeletePopup}
+          />
+          <ButtonAction
+            iconName="refresh"
+            btnName="Refresh"
+            color="blue"
+            buttonType="button"
+            // onClick={handleRefresh}
+          />
+          <ButtonAction
+            iconName="all"
+            btnName="View All"
+            color="blue"
+            buttonType="button"
+            // onClick={handleViewAllMedicalS}
+          />
+          <ButtonAction
+            iconName="close"
+            btnName="Close"
+            color="red"
+            buttonType="button"
+            // onClick={handleClose}
+          />
+        </div>
+      </div>
+
+      <div className="appScheduling-wrapper">
+        <Scheduling />
       </div>
     </div>
     // </div>
