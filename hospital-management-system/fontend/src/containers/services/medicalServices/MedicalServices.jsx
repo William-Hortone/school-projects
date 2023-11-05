@@ -38,7 +38,7 @@ const MedicalServices = () => {
 
   useEffect(() => {
     setServiceId(input.serviceID);
-    // console.log(medicalServiceInfos);
+    console.log(medicalServiceInfos);
   }, [medicalServiceInfos, input]);
 
   const handleOnChange = (e) => {
@@ -155,7 +155,12 @@ const MedicalServices = () => {
   };
 
   const handleRefresh = () => {
-    setInput(inputRefreshed);
+    setInput({
+      serviceName: "",
+      amount: "",
+      duration: "",
+      additionalNotes: "",
+    });
     setShowSubmitBtn(false);
   };
 

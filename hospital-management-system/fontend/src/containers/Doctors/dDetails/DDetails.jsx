@@ -5,12 +5,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import DoctorMenu from "../doctorMenu/DoctorMenu";
 import { selectDoctorDetails } from "../../../redux/slice/doctorSlice";
-
 import { useSelector } from "react-redux";
 
 const DDetails = () => {
-  const [refreshForm, setRefreshForm] = useState(false);
-  const [showAddDoctorBtn, setShowAddDoctorBtn] = useState(false);
+  const [showSubmit, setShowSubmit] = useState(false);
   const [doctorId, setDoctorId] = useState("");
   const [addDoctorD, setAddDoctorD] = useState(true);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
@@ -47,25 +45,7 @@ const DDetails = () => {
 
   useEffect(() => {
     setDoctorId(input.doctorID);
-    if (refreshForm) {
-      setInput({
-        doctorFN: "",
-        nicNo: "",
-        doctorLN: "",
-        homePhone: "",
-        mobilePhone: "",
-        Qualifications: "",
-        Specialization: "",
-        VisitingCharge: "",
-        ChannelingCharge: "",
-        basicSalary: "",
-        sex: "",
-        doctorType: "",
-        doctorAddress: "",
-        doctorNotes: "",
-      });
-    }
-  }, [refreshForm, input.doctorID]);
+  }, [input.doctorID]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -93,7 +73,7 @@ const DDetails = () => {
     }
     setInputEnabled(false);
     setAddDoctorD(true);
-    setShowAddDoctorBtn(true);
+    setShowSubmit(true);
   };
 
   const handleSubmitAddDoctor = (e) => {
@@ -106,12 +86,12 @@ const DDetails = () => {
       })
       .catch((err) => toast.error(err.message));
 
-    setShowAddDoctorBtn(false);
+    setShowSubmit(false);
     setInputEnabled(true);
   };
 
   const handleEditDoctor = () => {
-    setShowAddDoctorBtn(true);
+    setShowSubmit(true);
     setAddDoctorD(false);
   };
   const handleSubmitEditDoctor = (e, doctorId) => {
@@ -134,8 +114,23 @@ const DDetails = () => {
   };
 
   const handleRefresh = () => {
-    setRefreshForm(!refreshForm);
-    setShowAddDoctorBtn(false);
+    setInput({
+      doctorFN: "",
+      nicNo: "",
+      doctorLN: "",
+      homePhone: "",
+      mobilePhone: "",
+      Qualifications: "",
+      Specialization: "",
+      VisitingCharge: "",
+      ChannelingCharge: "",
+      basicSalary: "",
+      sex: "",
+      doctorType: "",
+      doctorAddress: "",
+      doctorNotes: "",
+    });
+    setShowSubmit(false);
   };
 
   const handleDeleteDoctor = () => {
@@ -350,7 +345,7 @@ const DDetails = () => {
               </div>
             </div>
           </div>
-          {showAddDoctorBtn && (
+          {showSubmit && (
             <button className="submit-btn" type="submit">
               Submit
             </button>
