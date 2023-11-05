@@ -1,4 +1,5 @@
 import "./App.css";
+import { useEffect, useState } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Login, Register, Reset } from "./components";
 import { Home, HomeAdmin } from "./pages";
@@ -10,7 +11,6 @@ import {
   ViewHospitalSD,
   VizDoctorDetails,
 } from "./containers";
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import fetchDoctorDetails from "./redux/actions/doctors.action";
 import fetchMedicalService from "./redux/actions/medicalService.action";
