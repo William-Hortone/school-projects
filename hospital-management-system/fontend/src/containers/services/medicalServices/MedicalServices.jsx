@@ -27,12 +27,12 @@ const MedicalServices = () => {
     duration: "",
     additionalNotes: "",
   });
-  const [inputRefreshed, setInputRefreshed] = useState({
-    serviceName: "",
-    amount: "",
-    duration: "",
-    additionalNotes: "",
-  });
+  // const [inputRefreshed, setInputRefreshed] = useState({
+  //   serviceName: "",
+  //   amount: "",
+  //   duration: "",
+  //   additionalNotes: "",
+  // });
   const navigate = useNavigate();
   const medicalServiceInfos = useSelector(selectMedicalService);
 
@@ -85,7 +85,6 @@ const MedicalServices = () => {
         .post("http://localhost:3001/medicalServices", input)
         .then((res) => {
           toast.success("Saved Successfully");
-          // console.log(res);
         })
         .catch((err) => toast.error(err));
     }

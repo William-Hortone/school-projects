@@ -1,0 +1,57 @@
+.appScheduling {
+  margin: 90px auto;
+  width: 100%;
+}
+/* .appScheduling div:first-child {
+  width: 80%;
+  height: 100vh;
+  margin: auto;
+  background: #af4444;
+} */
+.appScheduling-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  padding-block: 2rem;
+  color: var(--color-blue);
+}
+.appScheduling-container {
+  width: 60%;
+  margin: auto;
+  background: #efefef;
+  padding: 2rem 6rem;
+  border-radius: 10px;
+}
+
+.appScheduling-table {
+  width: 98%;
+  height: auto;
+  margin: 2rem auto;
+  background-color: aliceblue;
+}
+.appScheduling-table table {
+  width: 100%;
+  border: 1px solid #000;
+}
+
+.appScheduling-table table th {
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 1rem 0;
+  background: var(--color-primary);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.appScheduling-table thead th {
+  color: #efefef;
+}
+.doctor-infos td {
+  height: 35px;
+  max-width: 100px;
+  padding: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100px;
+  border-right: solid 1px #66666671;
+  border-bottom: solid 1px #66666671;
+  text-align: center;
+}
