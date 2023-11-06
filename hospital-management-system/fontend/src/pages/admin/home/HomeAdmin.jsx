@@ -14,14 +14,17 @@ const HomeAdmin = () => {
         <Link to="/vizDoctorD" className="admin-category">
           VizDoctorDetails
         </Link>
-        <Link to="/doctorApp" className="admin-category">
-          Doctor Appointments
-        </Link>
         <Link to="/mServices" className="admin-category">
           Medical Services
         </Link>
         <Link to="/vHospital" className="admin-category">
           View hospital services details
+        </Link>
+        <Link to="/doctorApp" className="admin-category">
+          Doctor Appointments
+        </Link>
+        <Link to="/serviceSchedule" className="admin-category">
+          Service Scheduling
         </Link>
       </div>
     </div>

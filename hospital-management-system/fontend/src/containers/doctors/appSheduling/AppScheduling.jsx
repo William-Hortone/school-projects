@@ -13,7 +13,7 @@ const AppScheduling = () => {
     <div className="appScheduling">
       {/* <div> */}
       <div className="appScheduling-container">
-        <h2>Doctor Appointment Scheduling</h2>
+        <h2>DOCTOR APPOINTMENT SCHEDULING</h2>
         <div className="details-title">
           <h4> Personal Detail</h4>
           <div className="divider" />

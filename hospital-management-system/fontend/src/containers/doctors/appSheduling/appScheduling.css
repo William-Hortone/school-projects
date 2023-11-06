@@ -14,6 +14,14 @@
   background: #efefef;
   padding: 2rem 6rem;
   border-radius: 10px;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+}
+.appScheduling-container form {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
 }
 .appScheduling-table {
   width: 98%;
@@ -49,7 +57,7 @@
 }
 
 .container-menu {
-  width: 65%;
+  width: 98% !important;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -59,7 +67,7 @@
   background: #efefef;
 }
 .container-menu-header {
-  width: 80%;
+  width: 61%;
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -77,10 +85,10 @@
   text-align: center;
 }
 .container-menu-btn {
-  width: 70% !important;
+  width: 61% !important;
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem !important;
   flex-wrap: wrap;
   margin: 2rem auto;
   border: 2px solid #ffffffbd;

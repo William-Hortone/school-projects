@@ -42,10 +42,42 @@
   border-radius: 7px;
   border: 2px solid #00000056;
 }
-.input-field {
+.input-fields {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   /* background-color: aquamarine; */
   display: flex;
-  justify-content: space-between !important;
+  margin-right: 6rem;
+  margin-bottom: 0.5rem;
+
+  /* justify-content: space-between !important; */
+}
+.input-fields input {
+  width: 300px;
+}
+.app__scheduling .input-field {
+  margin-right: 2rem !important;
+  /* background-color: red; */
+}
+
+.doctor-types div {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* background: rebeccapurple; */
+}
+.btn-seeAll {
+  width: 80px;
+  height: 40px;
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
 }
 input[type="time"] {
   /* width: 300px; */

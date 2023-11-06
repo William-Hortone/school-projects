@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "./scheduling.css";
 import { ButtonAction, ButtonSkip, Input, Select } from "../../../components";
 
-const Scheduling = ({ setOpenScheduling }) => {
+const ScheduleSer = ({ setOpenScheduling }) => {
   const [appointmentInfos, setAppointmentInfos] = useState({
     schedulingID: "",
     doctorID: "",
@@ -46,66 +45,9 @@ const Scheduling = ({ setOpenScheduling }) => {
   const handleCloseScheduling = () => {
     setOpenScheduling(false);
   };
-
-  // const getSelectedDays = () => {
-  //   const selectedDays = Object.keys(availableDays).filter(
-  //     (day) => availableDays[day]
-  //   );
-  //   console.log("Selected days", selectedDays);
-  //   setSelectedDaysList(selectedDays);
-  // };
-
-  const getSelectedDays = () => {
-    const selectedDays = Object.keys(availableDays).filter(
-      (day) => availableDays[day]
-    );
-    const selectedDaysString = selectedDays.join(","); // Join selected days with a comma and space
-    console.log("Selected days :", selectedDaysString);
-    setSelectedDaysList(selectedDaysString); // You can also update your state with the string if needed
-    console.log("Selected selectedDaysList are: ", selectedDaysList);
-    // return selectedDaysString; // Return the string
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // const getSelectedDays = () => {
-    //   const selectedDays = Object.keys(availableDays).filter(
-    //     (day) => availableDays[day]
-    //   );
-    //   console.log("Selected days", selectedDays);
-    //   setSelectedDaysList(selectedDays);
-    // };
-
-    // const getSelectedDays = () => {
-    //   const selectedDays = Object.keys(availableDays).filter(
-    //     (day) => availableDays[day]
-    //   );
-    //   const selectedDaysString = selectedDays.join(","); // Join selected days with a comma and space
-    //   console.log("Selected days :", selectedDaysString);
-    //   setSelectedDaysList(selectedDays.join(",")); // You can also update your state with the string if needed
-    //   console.log("Selected selectedDaysList are: ", selectedDaysList);
-    //   return selectedDaysString; // Return the string
-    // };
-
-    getSelectedDays();
-    // setInput({
-    //   ...appointmentInfos,
-    //   selectedDaysList: selectedDaysList,
-    // });
-
-    // const input = {
-    //   ...appointmentInfos,
-    //   selectedDaysList, // You can store the availableDays object as a property
-    // };
-
-    // console.log("appointmentInfos", appointmentInfos);
-    // console.log("availableDays", availableDays);
-    // console.log("the final result", input);
-    // console.log("the selectedDaysList", selectedDaysList);
   };
-  // const input = { selectedDaysList, ...appointmentInfos };
-
   return (
     <div className="app__scheduling">
       <div className="app__scheduling-container">
@@ -357,4 +299,4 @@ const Scheduling = ({ setOpenScheduling }) => {
   );
 };
 
-export default Scheduling;
+export default ScheduleSer;

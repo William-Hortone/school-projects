@@ -8,6 +8,9 @@ import {
   DoctorAppointment,
   DoctorDetails,
   MedicalServices,
+  ScheduleSer,
+  Scheduling,
+  ServiceScheduling,
   ViewHospitalSD,
   VizDoctorDetails,
 } from "./containers";
@@ -38,9 +41,10 @@ function App() {
 
           <Route path="/doctorD" element={<DoctorDetails />} />
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />
-          <Route path="/doctorApp" element={<DoctorAppointment />} />
           <Route path="/mServices" element={<MedicalServices />} />
           <Route path="/vHospital" element={<ViewHospitalSD />} />
+          <Route path="/doctorApp" element={<DoctorAppointment />} />
+          <Route path="/serviceSchedule" element={<ServiceScheduling />} />
         </Routes>
       </BrowserRouter>
     </div>
