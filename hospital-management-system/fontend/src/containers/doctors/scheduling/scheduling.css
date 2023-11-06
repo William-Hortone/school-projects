@@ -1,9 +1,11 @@
 .app__scheduling {
   width: 100%;
+  height: auto;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 20;
+  margin: 0 !important;
   background: rgb(29, 26, 69);
   background: linear-gradient(
     41deg,
@@ -11,12 +13,13 @@
     rgba(19, 93, 108, 1) 100%,
     rgba(0, 0, 0, 1) 100%
   );
+  padding-bottom: 2rem;
 }
 .app__scheduling-container {
   width: 90%;
-  height: 200vh;
+  height: auto;
   background-color: #efefef;
-  margin: 0 auto;
+  margin: 0 auto !important;
   padding: 2rem;
 }
 .app__scheduling-container h2 {
@@ -30,12 +33,41 @@
   width: 100%;
   display: flex;
   gap: 1.5rem;
-  background: red;
+  /* background: red; */
 }
 .form-left-box {
-  width: 65%;
+  width: 80%;
   height: auto;
   padding: 1rem;
   border-radius: 7px;
   border: 2px solid #00000056;
+}
+.input-field {
+  /* background-color: aquamarine; */
+  display: flex;
+  justify-content: space-between !important;
+}
+input[type="time"] {
+  /* width: 300px; */
+  /* justify-self: flex-end; */
+  /* background-color: rgb(242, 255, 127); */
+}
+
+.app__scheduling aside {
+  width: 20%;
+  border: 2px solid #00000056;
+  padding: 1rem;
+  border-radius: 7px;
+  flex-direction: column;
+}
+.days-divider {
+  width: 40%;
+  height: 2px;
+  background-color: #00000034;
+}
+
+.app__scheduling .container-menu {
+  background: none !important;
+  /* padding: 0 !important;
+  margin: 0 !important; */
 }

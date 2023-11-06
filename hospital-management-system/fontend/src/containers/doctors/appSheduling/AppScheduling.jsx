@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import "./appScheduling.css";
 import Scheduling from "../scheduling/Scheduling";
 
 const AppScheduling = () => {
+  const [openScheduling, setOpenScheduling] = useState(false);
+
+  const handleShowScheduling = () => {
+    setOpenScheduling(true);
+  };
   return (
     <div className="appScheduling">
       {/* <div> */}
@@ -137,7 +142,7 @@ const AppScheduling = () => {
             btnName="Add"
             color="green"
             buttonType="submit"
-            // onClick={handleAddMedicalS}
+            onClick={handleShowScheduling}
           />
           <ButtonAction
             iconName="edit"
@@ -176,10 +181,17 @@ const AppScheduling = () => {
           />
         </div>
       </div>
-
-      <div className="appScheduling-wrapper">
-        <Scheduling />
-      </div>
+      {openScheduling && (
+        <div
+          className={
+            openScheduling
+              ? "appScheduling-wrapper ActiveScheduling"
+              : "appScheduling-wrapper"
+          }
+        >
+          <Scheduling setOpenScheduling={setOpenScheduling} />
+        </div>
+      )}
     </div>
     // </div>
   );

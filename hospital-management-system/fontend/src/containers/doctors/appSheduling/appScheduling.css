@@ -1,5 +1,5 @@
 .appScheduling {
-  margin: 90px auto;
+  margin: 90px auto 0 auto;
   width: 100%;
 }
 .appScheduling-container h2 {
@@ -49,7 +49,7 @@
 }
 
 .container-menu {
-  width: 60%;
+  width: 65%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@
   text-align: center;
 }
 .container-menu-btn {
-  width: 80%;
+  width: 70% !important;
   display: flex;
   justify-content: center;
   gap: 1.5rem;
@@ -88,3 +88,17 @@
   border-radius: 25px;
   background-color: var(--color-primary);
 }
+
+/* .appScheduling-wrapper {
+  width: 100%;
+  transform: scale(0);
+  transition: transform 1s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 22;
+  background: rebeccapurple;
+}
+.appScheduling-wrapper.ActiveScheduling {
+  transform: scale(1);
+} */
