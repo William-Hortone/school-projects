@@ -7,11 +7,22 @@ import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
 
 const AppScheduling = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
+  const [addOnSubmit, setAddOnSubmit] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(true);
 
   const docAppointmentDetails = useSelector(selectDocAppointment);
 
+  // const lastElement = docAppointmentDetails[docAppointmentDetails.length - 1];
+  // if (docAppointmentDetails.length > 0) {
+  //   setIsEmpty(false);
+  // }
   const handleShowScheduling = () => {
     setOpenScheduling(true);
+    setAddOnSubmit(true);
+  };
+  const showSchedulingToEdit = () => {
+    setOpenScheduling(true);
+    setAddOnSubmit(false);
   };
   return (
     <div className="appScheduling">
@@ -28,7 +39,7 @@ const AppScheduling = () => {
             <Input
               placeholder="Scheduling ID"
               name="schedulingID"
-              // value={input.serviceID}
+              // value={isEmpty ? "" : lastElement.schedulingID}
               // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
@@ -38,7 +49,8 @@ const AppScheduling = () => {
             <Input
               placeholder="Doctor ID"
               name="doctorID"
-              // value={input.serviceID}
+              // value={isEmpty ? "" : lastElement.doctorID}
+
               // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
@@ -49,7 +61,8 @@ const AppScheduling = () => {
               placeholder="time In"
               name="timeIn"
               id="timeIn"
-              // value={input.serviceID}
+              // value={isEmpty ? "" : lastElement.timeIn}
+
               // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
@@ -59,7 +72,8 @@ const AppScheduling = () => {
             <Input
               placeholder="Time Out"
               name="timeOut"
-              // value={input.serviceID}
+              // value={isEmpty ? "" : lastElement.timeOut}
+
               // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
@@ -69,7 +83,9 @@ const AppScheduling = () => {
             <Input
               placeholder="Available Days"
               name="availableDays"
-              // value={input.serviceID}
+              // value={isEmpty ? "" : lastElement.selectedDays}
+
+              // value={isEmpty? "" : input.serviceID}
               // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
@@ -80,14 +96,16 @@ const AppScheduling = () => {
               placeholder="Scheduling Notes"
               name="schedulingNotes"
               id="schedulingNotes"
+              // value={isEmpty ? "" : lastElement.schedulingNotes}
+
               // value={input.serviceID}
               // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
           </div>
-          <button className="submit-btn" type="submit">
+          {/* <button className="submit-btn" type="submit">
             Submit
-          </button>
+          </button> */}
         </form>
       </div>
 
@@ -152,7 +170,7 @@ const AppScheduling = () => {
             iconName="edit"
             btnName="Edit"
             color="green"
-            // onClick={HandleEditMedicalS}
+            onClick={showSchedulingToEdit}
             buttonType="submit"
           />
           <ButtonAction
@@ -193,7 +211,10 @@ const AppScheduling = () => {
               : "appScheduling-wrapper"
           }
         >
-          <Scheduling setOpenScheduling={setOpenScheduling} />
+          <Scheduling
+            setOpenScheduling={setOpenScheduling}
+            addOnSubmit={addOnSubmit}
+          />
         </div>
       )}
     </div>

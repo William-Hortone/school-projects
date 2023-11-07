@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Scheduling = ({ setOpenScheduling }) => {
+const Scheduling = ({ setOpenScheduling, addOnSubmit }) => {
   const [appointmentInfos, setAppointmentInfos] = useState({
     schedulingID: "",
     doctorID: "",
@@ -29,6 +29,7 @@ const Scheduling = ({ setOpenScheduling }) => {
   });
 
   const [selectedDays, setSelectedDays] = useState("");
+  const [scheduleId, setScheduleId] = useState("");
   const input = { ...appointmentInfos, selectedDays };
 
   const doctorDetails = useSelector(selectDoctorDetails);
@@ -60,8 +61,16 @@ const Scheduling = ({ setOpenScheduling }) => {
     );
     const selectedDaysString = selectedDays.join(", ");
     setSelectedDays(selectedDaysString);
-    // console.log("the docAppointmentDetails ", docAppointmentDetails);
-  }, [availableDays, input]);
+    setScheduleId(appointmentInfos.schedulingID);
+    console.log("the id ", scheduleId);
+    console.log("the addOnSubmit ", addOnSubmit);
+  }, [
+    availableDays,
+    input,
+    appointmentInfos.schedulingID,
+    scheduleId,
+    addOnSubmit,
+  ]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,12 +85,36 @@ const Scheduling = ({ setOpenScheduling }) => {
     console.log("the final result", appointmentInfos);
   };
 
+  const handleSubmitEditDoctor = (e, scheduleId) => {
+    e.preventDefault();
+
+    axios
+      .put(`http://localhost:3001/editDocAppointment/${scheduleId}`, input)
+      .then((res) => {
+        if (res.data === "success") {
+          toast.success("Appointment updated successfully");
+        } else if (res.data === "notfound") {
+          toast.error("Wrong ID");
+        } else {
+          toast.error("An error occurred while updating the service");
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
   return (
     <div className="app__scheduling">
       <div className="app__scheduling-container">
         <h2>Doctor Scheduling Appointment</h2>
 
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={
+            addOnSubmit
+              ? handleSubmit
+              : (e) => handleSubmitEditDoctor(e, scheduleId)
+          }
+        >
           <div className="form-left-box">
             <div className="details-title">
               <h4> Doctor Detail</h4>
@@ -179,7 +212,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="monday"
-                  name="Monday"
+                  name="Mon"
                   value={availableDays.monday}
                   onChange={handleOnChangeDays}
                 />
@@ -191,7 +224,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="tuesday"
-                  name="Tuesday"
+                  name="Tue"
                   value={availableDays.tuesday}
                   onChange={handleOnChangeDays}
                 />
@@ -203,7 +236,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="wednesday"
-                  name="Wednesday"
+                  name="Wed"
                   value={availableDays.wednesday}
                   onChange={handleOnChangeDays}
                 />
@@ -215,7 +248,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="thursday"
-                  name="Thursday"
+                  name="Thu"
                   value={availableDays.thursday}
                   onChange={handleOnChangeDays}
                 />
@@ -227,7 +260,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="friday"
-                  name="Friday"
+                  name="Fri"
                   value={availableDays.friday}
                   onChange={handleOnChangeDays}
                 />
@@ -239,7 +272,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="saturday"
-                  name="Saturday"
+                  name="Sat"
                   value={availableDays.saturday}
                   onChange={handleOnChangeDays}
                 />
@@ -251,7 +284,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="sunday"
-                  name="Sunday"
+                  name="Sun"
                   value={availableDays.sunday}
                   onChange={handleOnChangeDays}
                 />
