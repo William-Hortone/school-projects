@@ -1,11 +1,12 @@
 .app__scheduling {
   width: 100%;
-  height: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 20;
+  height: 200vh;
+  /* position: absolute; */
+  /* top: 0;
+  left: 0; */
+  z-index: 80;
   margin: 0 !important;
+  overflow: hidden !important;
   background: rgb(29, 26, 69);
   background: linear-gradient(
     41deg,
@@ -67,6 +68,11 @@
   align-items: center;
   gap: 1rem;
   /* background: rebeccapurple; */
+}
+.doctor-types select {
+  width: 300px;
+  height: 37px;
+  font-size: 17px;
 }
 .btn-seeAll {
   width: 80px;

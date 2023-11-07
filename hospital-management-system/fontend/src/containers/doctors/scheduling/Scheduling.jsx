@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./scheduling.css";
 import { ButtonAction, ButtonSkip, Input, Select } from "../../../components";
+import { selectDoctorDetails } from "../../../redux/slice/doctorSlice";
+import { useSelector } from "react-redux";
 
 const Scheduling = ({ setOpenScheduling }) => {
   const [appointmentInfos, setAppointmentInfos] = useState({
     schedulingID: "",
     doctorID: "",
-    doctorType: "",
+    // doctorID: "",
     timeIn: "",
     timeOut: "",
     availableDays: "",
     schedulingNotes: "",
   });
+  const [selectedDaysList, setSelectedDaysList] = useState("");
+  // const [doctorId, setDoctorId] = useState("");
+
   const [availableDays, setAvailableDays] = useState({
     monday: false,
     tuesday: false,
@@ -21,7 +26,8 @@ const Scheduling = ({ setOpenScheduling }) => {
     saturday: false,
     sunday: false,
   });
-  const [selectedDaysList, setSelectedDaysList] = useState("");
+
+  const doctorDetails = useSelector(selectDoctorDetails);
   // const [input, setInput] = useState([]);
 
   const handleOnChangeAppointment = (e) => {
@@ -39,72 +45,26 @@ const Scheduling = ({ setOpenScheduling }) => {
     });
   };
 
-  const doctorIdOptions = [
-    { value: "Man", label: "M" },
-    { value: "Woman", label: "F" },
-  ];
   const handleCloseScheduling = () => {
     setOpenScheduling(false);
   };
 
-  // const getSelectedDays = () => {
-  //   const selectedDays = Object.keys(availableDays).filter(
-  //     (day) => availableDays[day]
-  //   );
-  //   console.log("Selected days", selectedDays);
-  //   setSelectedDaysList(selectedDays);
-  // };
-
-  const getSelectedDays = () => {
+  useEffect(() => {
     const selectedDays = Object.keys(availableDays).filter(
       (day) => availableDays[day]
     );
-    const selectedDaysString = selectedDays.join(","); // Join selected days with a comma and space
-    console.log("Selected days :", selectedDaysString);
-    setSelectedDaysList(selectedDaysString); // You can also update your state with the string if needed
-    console.log("Selected selectedDaysList are: ", selectedDaysList);
-    // return selectedDaysString; // Return the string
-  };
+    const selectedDaysString = selectedDays.join(", ");
+    setSelectedDaysList(selectedDaysString);
+  }, [availableDays, selectedDaysList]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // const getSelectedDays = () => {
-    //   const selectedDays = Object.keys(availableDays).filter(
-    //     (day) => availableDays[day]
-    //   );
-    //   console.log("Selected days", selectedDays);
-    //   setSelectedDaysList(selectedDays);
-    // };
-
-    // const getSelectedDays = () => {
-    //   const selectedDays = Object.keys(availableDays).filter(
-    //     (day) => availableDays[day]
-    //   );
-    //   const selectedDaysString = selectedDays.join(","); // Join selected days with a comma and space
-    //   console.log("Selected days :", selectedDaysString);
-    //   setSelectedDaysList(selectedDays.join(",")); // You can also update your state with the string if needed
-    //   console.log("Selected selectedDaysList are: ", selectedDaysList);
-    //   return selectedDaysString; // Return the string
-    // };
-
-    getSelectedDays();
-    // setInput({
-    //   ...appointmentInfos,
-    //   selectedDaysList: selectedDaysList,
-    // });
-
-    // const input = {
-    //   ...appointmentInfos,
-    //   selectedDaysList, // You can store the availableDays object as a property
-    // };
-
-    // console.log("appointmentInfos", appointmentInfos);
-    // console.log("availableDays", availableDays);
-    // console.log("the final result", input);
-    // console.log("the selectedDaysList", selectedDaysList);
+    setAppointmentInfos({
+      ...appointmentInfos,
+      availableDays: selectedDaysList,
+    });
+    console.log("the final result", appointmentInfos);
   };
-  // const input = { selectedDaysList, ...appointmentInfos };
 
   return (
     <div className="app__scheduling">
@@ -124,20 +84,26 @@ const Scheduling = ({ setOpenScheduling }) => {
                 name="schedulingID"
                 value={appointmentInfos.schedulingID}
                 handleOnChange={handleOnChangeAppointment}
-                // disabled={!isInputEnabled}
               />
             </div>
 
             <div className="input-field doctor-types">
-              <label htmlFor="doctorType"> Doctor ID</label>
+              <label htmlFor="doctorID"> Doctor ID</label>
               <div>
-                <Select
-                  name="doctorType"
-                  label="doctorType"
-                  value={appointmentInfos.doctorType}
-                  options={doctorIdOptions}
-                  handleOnChange={handleOnChangeAppointment}
-                />
+                <select
+                  name="doctorID"
+                  id="doctorID"
+                  value={appointmentInfos.doctorID}
+                  onChange={handleOnChangeAppointment}
+                  required
+                >
+                  <option value="">Select a doctor ID</option>
+                  {doctorDetails.map((doctor, index) => (
+                    <option key={index} value={doctor.doctorID}>
+                      {doctor.doctorID}
+                    </option>
+                  ))}
+                </select>
 
                 <span className="btn-seeAll">See All</span>
               </div>
@@ -173,9 +139,9 @@ const Scheduling = ({ setOpenScheduling }) => {
               <Input
                 placeholder="Available Days"
                 name="availableDays"
-                value={appointmentInfos.availableDays}
-                handleOnChange={handleOnChangeAppointment}
-                // disabled={!isInputEnabled}
+                value={selectedDaysList}
+                handleOnChange={(e) => setSelectedDaysList(e.target.value)}
+                readOnly
               />
             </div>
 
@@ -186,7 +152,6 @@ const Scheduling = ({ setOpenScheduling }) => {
                 name="schedulingNotes"
                 value={appointmentInfos.schedulingNotes}
                 handleOnChange={handleOnChangeAppointment}
-                // disabled={!isInputEnabled}
               />
             </div>
             <button type="submit" className="submit-btn">
@@ -204,7 +169,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="monday"
-                  name="monday"
+                  name="Monday"
                   value={availableDays.monday}
                   onChange={handleOnChangeDays}
                 />
@@ -216,7 +181,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="tuesday"
-                  name="tuesday"
+                  name="Tuesday"
                   value={availableDays.tuesday}
                   onChange={handleOnChangeDays}
                 />
@@ -228,7 +193,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="wednesday"
-                  name="wednesday"
+                  name="Wednesday"
                   value={availableDays.wednesday}
                   onChange={handleOnChangeDays}
                 />
@@ -240,7 +205,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="thursday"
-                  name="thursday"
+                  name="Thursday"
                   value={availableDays.thursday}
                   onChange={handleOnChangeDays}
                 />
@@ -252,7 +217,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="friday"
-                  name="friday"
+                  name="Friday"
                   value={availableDays.friday}
                   onChange={handleOnChangeDays}
                 />
@@ -264,7 +229,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="saturday"
-                  name="saturday"
+                  name="Saturday"
                   value={availableDays.saturday}
                   onChange={handleOnChangeDays}
                 />
@@ -276,7 +241,7 @@ const Scheduling = ({ setOpenScheduling }) => {
                 <input
                   type="checkbox"
                   id="sunday"
-                  name="sunday"
+                  name="Sunday"
                   value={availableDays.sunday}
                   onChange={handleOnChangeDays}
                 />

@@ -56,8 +56,8 @@
   text-align: center;
 }
 
-.container-menu {
-  width: 98% !important;
+.appScheduling-container-menus {
+  width: 98%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -65,8 +65,9 @@
   padding: 2rem 0;
   margin: 1.3rem auto;
   background: #efefef;
+  /* background: rebeccapurple; */
 }
-.container-menu-header {
+.appScheduling-container-menus .appSchedule-container-menu-header {
   width: 61%;
   display: flex;
   align-items: center;
@@ -78,13 +79,14 @@
   border-radius: 15px;
 }
 
-.container-menu-header input {
+/* .container-menu-header input {
   width: 50%;
   height: 40px;
   padding: 0.5rem;
   text-align: center;
-}
+} */
 .container-menu-btn {
+  position: relative;
   width: 61% !important;
   display: flex;
   justify-content: center;
@@ -97,16 +99,19 @@
   background-color: var(--color-primary);
 }
 
-/* .appScheduling-wrapper {
+.appScheduling-wrapper {
   width: 100%;
-  transform: scale(0);
-  transition: transform 1s ease;
+  height: fit-content;
   position: absolute;
   top: 0;
   left: 0;
+  transform: scale(0);
+  transition: transform 1s ease;
   z-index: 22;
-  background: rebeccapurple;
+  background: rgb(54, 153, 51);
+  overflow: hidden;
 }
 .appScheduling-wrapper.ActiveScheduling {
   transform: scale(1);
-} */
+  transition: transform 1s ease;
+}

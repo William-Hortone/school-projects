@@ -128,8 +128,8 @@ const AppScheduling = () => {
         </table>
       </div>
 
-      <div className="container-menu">
-        <div className="container-menu-header">
+      <div className="appScheduling-container-menus">
+        <div className="appSchedule-container-menu-header">
           <ButtonSkip iconName="doubleLeft" color="green" />
           <ButtonSkip iconName="arrowLeft" color="blue" />
           <input type="text" placeholder="Record No" />

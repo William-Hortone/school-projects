@@ -32,9 +32,9 @@ const ViewHospitalSD = () => {
     setHideDataSearched(true);
   };
 
-  useEffect(() => {
-    console.log(medicalSDetail);
-  }, [medicalSDetail]);
+  // useEffect(() => {
+  //   console.log(medicalSDetail);
+  // }, [medicalSDetail]);
 
   const handleRefresh = () => {
     setHideDada(false);

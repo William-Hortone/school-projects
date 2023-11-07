@@ -130,7 +130,7 @@ const ServiceScheduling = () => {
           </table>
         </div>
 
-        <div className="container-menu">
+        <div className="container-menus">
           <div className="container-menu-header">
             <ButtonSkip iconName="doubleLeft" color="green" />
             <ButtonSkip iconName="arrowLeft" color="blue" />
@@ -183,6 +183,7 @@ const ServiceScheduling = () => {
             />
           </div>
         </div>
+
         {openScheduling && (
           <div
             className={
