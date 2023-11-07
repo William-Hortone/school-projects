@@ -19,7 +19,6 @@
   box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
 }
 .appScheduling-container form {
-  /* background-color: red; */
   display: flex;
   flex-direction: column;
 }
@@ -65,7 +64,6 @@
   padding: 2rem 0;
   margin: 1.3rem auto;
   background: #efefef;
-  /* background: rebeccapurple; */
 }
 .appScheduling-container-menus .appSchedule-container-menu-header {
   width: 61%;
@@ -79,12 +77,6 @@
   border-radius: 15px;
 }
 
-/* .container-menu-header input {
-  width: 50%;
-  height: 40px;
-  padding: 0.5rem;
-  text-align: center;
-} */
 .container-menu-btn {
   position: relative;
   width: 61% !important;
@@ -106,12 +98,11 @@
   top: 0;
   left: 0;
   transform: scale(0);
-  transition: transform 1s ease;
+  transition: transform 0.5s ease;
   z-index: 22;
   background: rgb(54, 153, 51);
   overflow: hidden;
 }
 .appScheduling-wrapper.ActiveScheduling {
   transform: scale(1);
-  transition: transform 1s ease;
 }

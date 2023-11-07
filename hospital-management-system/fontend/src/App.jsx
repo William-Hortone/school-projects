@@ -8,13 +8,11 @@ import {
   DoctorAppointment,
   DoctorDetails,
   MedicalServices,
-  ScheduleSer,
-  Scheduling,
   ServiceScheduling,
   ViewHospitalSD,
   VizDoctorDetails,
 } from "./containers";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import fetchDoctorDetails, {
   fetchDocAppointments,

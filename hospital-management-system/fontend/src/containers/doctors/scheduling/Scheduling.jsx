@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./scheduling.css";
-import { ButtonAction, ButtonSkip, Input, Select } from "../../../components";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import {
   selectDocAppointment,
   selectDoctorDetails,
@@ -9,7 +9,12 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Scheduling = ({ setOpenScheduling, addOnSubmit }) => {
+const Scheduling = ({
+  setOpenScheduling,
+  addOnSubmit,
+  setOpenScheduleDelete,
+  openScheduleDelete,
+}) => {
   const [appointmentInfos, setAppointmentInfos] = useState({
     schedulingID: "",
     doctorID: "",
@@ -30,6 +35,7 @@ const Scheduling = ({ setOpenScheduling, addOnSubmit }) => {
 
   const [selectedDays, setSelectedDays] = useState("");
   const [scheduleId, setScheduleId] = useState("");
+  const [showPopupDelete, setShowPopupDelete] = useState(false);
   const input = { ...appointmentInfos, selectedDays };
 
   const doctorDetails = useSelector(selectDoctorDetails);
@@ -53,6 +59,7 @@ const Scheduling = ({ setOpenScheduling, addOnSubmit }) => {
 
   const handleCloseScheduling = () => {
     setOpenScheduling(false);
+    setOpenScheduleDelete(false);
   };
 
   useEffect(() => {
@@ -62,15 +69,30 @@ const Scheduling = ({ setOpenScheduling, addOnSubmit }) => {
     const selectedDaysString = selectedDays.join(", ");
     setSelectedDays(selectedDaysString);
     setScheduleId(appointmentInfos.schedulingID);
-    console.log("the id ", scheduleId);
-    console.log("the addOnSubmit ", addOnSubmit);
-  }, [
-    availableDays,
-    input,
-    appointmentInfos.schedulingID,
-    scheduleId,
-    addOnSubmit,
-  ]);
+  }, [availableDays, input, appointmentInfos.schedulingID]);
+
+  const handleAddAppointment = () => {
+    if (addOnSubmit) {
+      if (docAppointmentDetails.length === 0) {
+        setAppointmentInfos({
+          ...appointmentInfos,
+          schedulingID: "0001",
+        });
+      } else {
+        const lastScheduleId =
+          docAppointmentDetails[docAppointmentDetails.length - 1].schedulingID;
+        const nextScheduleId = (parseInt(lastScheduleId) + 1)
+          .toString()
+          .padStart(4, "0");
+        setAppointmentInfos({
+          ...appointmentInfos,
+          schedulingID: nextScheduleId,
+        });
+      }
+    } else {
+      toast.error("Please Enter a Id manually to update");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,8 +103,6 @@ const Scheduling = ({ setOpenScheduling, addOnSubmit }) => {
         toast.success("Added successfully");
       })
       .catch((err) => toast.error(err));
-
-    console.log("the final result", appointmentInfos);
   };
 
   const handleSubmitEditDoctor = (e, scheduleId) => {
@@ -102,6 +122,40 @@ const Scheduling = ({ setOpenScheduling, addOnSubmit }) => {
       .catch((err) => {
         toast.error(err);
       });
+  };
+
+  const handleClosePopup = () => {
+    setShowPopupDelete(false);
+  };
+
+  const handleDelete = () => {
+    if (scheduleId === undefined || scheduleId === "") {
+      toast.error("Please provide a Scheduling ID");
+    } else {
+      setShowPopupDelete(true);
+    }
+  };
+
+  const handleDeleteAppointment = (scheduleId) => {
+    if (scheduleId === undefined || scheduleId === "") {
+      toast.error("Please provide a Scheduling ID");
+    } else {
+      axios
+        .put(`http://localhost:3001/deleteDocAppointment/${scheduleId}`)
+        .then((res) => {
+          if (res.data === "success") {
+            toast.success("Deleted Successfully");
+          }
+          if (res.data === "notfound") {
+            toast.error("Service not found");
+          }
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+      // handleRefresh();
+    }
+    setShowPopupDelete(false);
   };
   return (
     <div className="app__scheduling">
@@ -197,9 +251,20 @@ const Scheduling = ({ setOpenScheduling, addOnSubmit }) => {
                 handleOnChange={handleOnChangeAppointment}
               />
             </div>
-            <button type="submit" className="submit-btn">
-              Submit
-            </button>
+            {!openScheduleDelete && (
+              <button type="submit" className="submit-btn">
+                Submit
+              </button>
+            )}
+            {openScheduleDelete && (
+              <button
+                onClick={handleDelete}
+                type="button"
+                className="submit-btn"
+              >
+                Delete
+              </button>
+            )}
           </div>
           <aside>
             <div className="details-title">
@@ -322,6 +387,23 @@ const Scheduling = ({ setOpenScheduling, addOnSubmit }) => {
           </table>
         </div>
 
+        {showPopupDelete && (
+          <div style={{ position: "relative" }}>
+            <div className="schedule-delete-popup">
+              <p>
+                Do you really want to delete <br />
+                the doctor with ID of {appointmentInfos.schedulingID} ?
+              </p>
+              <div className="delete-buttons">
+                <button onClick={handleClosePopup}> Cancel</button>
+                <button onClick={() => handleDeleteAppointment(scheduleId)}>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="container-menu">
           <div className="container-menu-header">
             <ButtonSkip iconName="doubleLeft" color="green" />
@@ -336,7 +418,7 @@ const Scheduling = ({ setOpenScheduling, addOnSubmit }) => {
               btnName="Add"
               color="green"
               buttonType="submit"
-              // onClick={handleAddMedicalS}
+              onClick={handleAddAppointment}
             />
 
             <ButtonAction

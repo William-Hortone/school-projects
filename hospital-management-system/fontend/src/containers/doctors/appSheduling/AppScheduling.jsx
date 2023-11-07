@@ -4,18 +4,16 @@ import "./appScheduling.css";
 import Scheduling from "../scheduling/Scheduling";
 import { useSelector } from "react-redux";
 import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
+import { useNavigate } from "react-router-dom";
 
 const AppScheduling = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
+  const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
-  const [isEmpty, setIsEmpty] = useState(true);
 
+  const navigate = useNavigate();
   const docAppointmentDetails = useSelector(selectDocAppointment);
 
-  // const lastElement = docAppointmentDetails[docAppointmentDetails.length - 1];
-  // if (docAppointmentDetails.length > 0) {
-  //   setIsEmpty(false);
-  // }
   const handleShowScheduling = () => {
     setOpenScheduling(true);
     setAddOnSubmit(true);
@@ -24,9 +22,16 @@ const AppScheduling = () => {
     setOpenScheduling(true);
     setAddOnSubmit(false);
   };
+  const handleClose = () => {
+    navigate("/home");
+  };
+  const showSchedulingToDelete = () => {
+    setOpenScheduleDelete(true);
+    setAddOnSubmit(false);
+  };
+
   return (
     <div className="appScheduling">
-      {/* <div> */}
       <div className="appScheduling-container">
         <h2>DOCTOR APPOINTMENT SCHEDULING</h2>
         <div className="details-title">
@@ -40,7 +45,6 @@ const AppScheduling = () => {
               placeholder="Scheduling ID"
               name="schedulingID"
               // value={isEmpty ? "" : lastElement.schedulingID}
-              // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
           </div>
@@ -51,7 +55,6 @@ const AppScheduling = () => {
               name="doctorID"
               // value={isEmpty ? "" : lastElement.doctorID}
 
-              // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
           </div>
@@ -62,8 +65,6 @@ const AppScheduling = () => {
               name="timeIn"
               id="timeIn"
               // value={isEmpty ? "" : lastElement.timeIn}
-
-              // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
           </div>
@@ -74,7 +75,6 @@ const AppScheduling = () => {
               name="timeOut"
               // value={isEmpty ? "" : lastElement.timeOut}
 
-              // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
           </div>
@@ -86,7 +86,6 @@ const AppScheduling = () => {
               // value={isEmpty ? "" : lastElement.selectedDays}
 
               // value={isEmpty? "" : input.serviceID}
-              // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
           </div>
@@ -99,13 +98,9 @@ const AppScheduling = () => {
               // value={isEmpty ? "" : lastElement.schedulingNotes}
 
               // value={input.serviceID}
-              // onChange={handleOnChange}
               // disabled={!isInputEnabled}
             />
           </div>
-          {/* <button className="submit-btn" type="submit">
-            Submit
-          </button> */}
         </form>
       </div>
 
@@ -178,7 +173,7 @@ const AppScheduling = () => {
             btnName="Delete"
             buttonType="button"
             color="red"
-            // onClick={handleOpenDeletePopup}
+            onClick={showSchedulingToDelete}
           />
           <ButtonAction
             iconName="refresh"
@@ -187,38 +182,32 @@ const AppScheduling = () => {
             buttonType="button"
             // onClick={handleRefresh}
           />
-          <ButtonAction
-            iconName="all"
-            btnName="View All"
-            color="blue"
-            buttonType="button"
-            // onClick={handleViewAllMedicalS}
-          />
+
           <ButtonAction
             iconName="close"
             btnName="Close"
             color="red"
             buttonType="button"
-            // onClick={handleClose}
+            onClick={handleClose}
           />
         </div>
       </div>
-      {openScheduling && (
-        <div
-          className={
-            openScheduling
-              ? "appScheduling-wrapper ActiveScheduling"
-              : "appScheduling-wrapper"
-          }
-        >
-          <Scheduling
-            setOpenScheduling={setOpenScheduling}
-            addOnSubmit={addOnSubmit}
-          />
-        </div>
-      )}
+
+      <div
+        className={
+          openScheduling || openScheduleDelete
+            ? "appScheduling-wrapper ActiveScheduling"
+            : "appScheduling-wrapper"
+        }
+      >
+        <Scheduling
+          setOpenScheduling={setOpenScheduling}
+          setOpenScheduleDelete={setOpenScheduleDelete}
+          openScheduleDelete={openScheduleDelete}
+          addOnSubmit={addOnSubmit}
+        />
+      </div>
     </div>
-    // </div>
   );
 };
 

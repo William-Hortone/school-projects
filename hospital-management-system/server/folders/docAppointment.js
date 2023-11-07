@@ -38,4 +38,27 @@ router.put("/editDocAppointment/:scheduleId", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+//Delete a  Doctor appointment
+router.put("/deleteDocAppointment/:scheduleId", (req, res) => {
+  const id = req.params.scheduleId;
+  ModelDocAppointment.findOneAndUpdate(
+    {
+      schedulingID: id,
+    },
+    { $set: { isDisplaying: false } },
+    { new: true }
+  )
+    .then((appointment) => {
+      if (!appointment) {
+        return res.json("notfound");
+      } else {
+        if (appointment.isDisplayed === false) {
+          return res.json("notfound");
+        }
+        res.json("success");
+      }
+    })
+    .catch((err) => res.status(500).json(err));
+});
+
 module.exports = router;

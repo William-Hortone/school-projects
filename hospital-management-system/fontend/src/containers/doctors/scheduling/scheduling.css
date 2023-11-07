@@ -1,10 +1,7 @@
 .app__scheduling {
   width: 100%;
   height: 200vh;
-  /* position: absolute; */
-  /* top: 0;
-  left: 0; */
-  z-index: 80;
+  z-index: 20;
   margin: 0 !important;
   overflow: hidden !important;
   background: rgb(29, 26, 69);
@@ -22,6 +19,7 @@
   background-color: #efefef;
   margin: 0 auto !important;
   padding: 2rem;
+  position: relative;
 }
 .app__scheduling-container h2 {
   text-align: center;
@@ -34,7 +32,6 @@
   width: 100%;
   display: flex;
   gap: 1.5rem;
-  /* background: red; */
 }
 .form-left-box {
   width: 80%;
@@ -47,19 +44,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* background-color: aquamarine; */
   display: flex;
   margin-right: 6rem;
   margin-bottom: 0.5rem;
-
-  /* justify-content: space-between !important; */
 }
 .input-fields input {
   width: 300px;
 }
 .app__scheduling .input-field {
   margin-right: 2rem !important;
-  /* background-color: red; */
 }
 
 .doctor-types div {
@@ -67,7 +60,6 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  /* background: rebeccapurple; */
 }
 .doctor-types select {
   width: 300px;
@@ -101,6 +93,56 @@
 
 .app__scheduling .container-menu {
   background: none !important;
-  /* padding: 0 !important;
-  margin: 0 !important; */
+}
+
+.schedule-delete-popup {
+  width: 350px;
+  height: 200px;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 1rem;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+}
+
+.schedule-delete-popup p {
+  font-size: 20px;
+  text-transform: none;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 1.2px;
+  margin-top: 2rem;
+}
+.delete-buttons {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+.delete-buttons button {
+  width: 70px;
+  border: none;
+  border-radius: 7px;
+}
+.delete-buttons button:nth-of-type(1) {
+  background-color: var(--color-primary);
+}
+.delete-buttons button:nth-of-type(2) {
+  background-color: red;
+}
+.submit-btn {
+  width: 100px;
+  border-radius: 7px;
+  border: none;
+  background-color: var(--color-primary);
+  font-weight: 600;
 }
