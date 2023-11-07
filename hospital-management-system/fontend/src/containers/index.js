@@ -5,6 +5,11 @@ import DoctorDetails from "./doctors/doctorDetails/DoctorDetails";
 import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
 import Scheduling from "./doctors/scheduling/Scheduling";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
+import RoomDetails from "./rooms/roomDetails/RoomDetails";
+import RoomMoreDetails from "./rooms/roomMoreDetails/RoomMoreDetails";
+import ViewRooms from "./rooms/viewRooms/ViewRooms";
+import ViewWardDetails from "./rooms/viewWardDetails/ViewWardDetails";
+import WardDetails from "./rooms/wardDetails/WardDetails";
 import ScheduleSer from "./services/ScheduleSer/ScheduleSer";
 import MedicalServices from "./services/medicalServices/MedicalServices";
 import ServiceScheduling from "./services/serviceSchedule/ServiceScheduling";
@@ -16,10 +21,17 @@ export {
   DoctorMenu,
   VizDoctorDetails,
   MedicalServices,
+  ViewRooms,
   ViewHospitalSD,
+  RoomDetails,
+  ViewWardDetails,
+  WardDetails,
+  RoomMoreDetails,
+
   DoctorAppointment,
   AppScheduling,
   Scheduling,
   ServiceScheduling,
   ScheduleSer,
+
 };
