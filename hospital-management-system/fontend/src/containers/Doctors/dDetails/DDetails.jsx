@@ -215,7 +215,7 @@ const DDetails = () => {
                     <Select
                       name="sex"
                       label="sex"
-                      value={input.sex ? `${input.sex}` : "Moi meme"}
+                      value={input.sex}
                       options={doctorSexOptions}
                       handleOnChange={handleOnChange}
                     />

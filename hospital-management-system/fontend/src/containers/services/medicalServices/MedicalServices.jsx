@@ -26,7 +26,6 @@ const MedicalServices = () => {
     duration: "",
     additionalNotes: "",
   });
-
   const navigate = useNavigate();
   const medicalServiceInfos = useSelector(selectMedicalService);
 
@@ -67,13 +66,13 @@ const MedicalServices = () => {
   const handleSubmitAddMedicalS = (e) => {
     e.preventDefault();
 
+
     axios
       .post("http://localhost:3001/medicalServices", input)
       .then((res) => {
         toast.success("Saved Successfully");
       })
       .catch((err) => toast.error(err));
-
     setAddMedical(true);
     setShowSubmitBtn(false);
   };

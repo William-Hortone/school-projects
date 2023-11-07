@@ -6,13 +6,17 @@ import { Home, HomeAdmin } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
+  DoctorAppointment,
   DoctorDetails,
   MedicalServices,
+  ServiceScheduling,
   ViewHospitalSD,
   VizDoctorDetails,
 } from "./containers";
 import { useDispatch } from "react-redux";
-import fetchDoctorDetails from "./redux/actions/doctors.action";
+import fetchDoctorDetails, {
+  fetchDocAppointments,
+} from "./redux/actions/doctors.action";
 import fetchMedicalService from "./redux/actions/medicalService.action";
 
 function App() {
@@ -21,6 +25,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchDoctorDetails());
     dispatch(fetchMedicalService());
+    dispatch(fetchDocAppointments());
   }, [dispatch]);
 
   return (
@@ -34,10 +39,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
+
           <Route path="/doctorD" element={<DoctorDetails />} />
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />
           <Route path="/mServices" element={<MedicalServices />} />
           <Route path="/vHospital" element={<ViewHospitalSD />} />
+          <Route path="/doctorApp" element={<DoctorAppointment />} />
+          <Route path="/serviceSchedule" element={<ServiceScheduling />} />
         </Routes>
       </BrowserRouter>
     </div>
