@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import "./appScheduling.css";
 import Scheduling from "../scheduling/Scheduling";
+import { useSelector } from "react-redux";
+import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
 
 const AppScheduling = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
+
+  const docAppointmentDetails = useSelector(selectDocAppointment);
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
@@ -93,25 +97,25 @@ const AppScheduling = () => {
             <tr>
               <th>Schedule ID </th>
               <th>Doctor ID </th>
-              <th>Doctor In</th>
-              <th>Doctor Out</th>
-              <th>Doctor Available</th>
+              <th>Time In</th>
+              <th>Time Out</th>
+              <th>Available Days</th>
               <th>Schedule Notes</th>
             </tr>
           </thead>
           <tbody>
-            {/* {!hideData &&
-                  medicalSDetail.map((medicalService, index) => {
-                    return (
-                      <tr className="doctor-infos" key={index}>
-                        <td>{medicalService.serviceID}</td>
-                        <td>{medicalService.serviceName}</td>
-                        <td>{medicalService.amount}</td>
-                        <td>{medicalService.duration}</td>
-                        <td>{medicalService.additionalNotes}</td>
-                      </tr>
-                    );
-                  })} */}
+            {docAppointmentDetails.map((docAppointment, index) => {
+              return (
+                <tr className="doctor-infos" key={index}>
+                  <td>{docAppointment.schedulingID}</td>
+                  <td>{docAppointment.doctorID}</td>
+                  <td>{docAppointment.timeIn}</td>
+                  <td>{docAppointment.timeOut}</td>
+                  <td>{docAppointment.selectedDays}</td>
+                  <td>{docAppointment.schedulingNotes}</td>
+                </tr>
+              );
+            })}
             {/* {hideDataSearched &&
                   searchResult.map((medicalService, index) => {
                     return (

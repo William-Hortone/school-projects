@@ -85,11 +85,6 @@
   color: #fff;
   cursor: pointer;
 }
-input[type="time"] {
-  /* width: 300px; */
-  /* justify-self: flex-end; */
-  /* background-color: rgb(242, 255, 127); */
-}
 
 .app__scheduling aside {
   width: 20%;

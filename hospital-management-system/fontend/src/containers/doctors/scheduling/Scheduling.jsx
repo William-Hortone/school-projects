@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./scheduling.css";
 import { ButtonAction, ButtonSkip, Input, Select } from "../../../components";
-import { selectDoctorDetails } from "../../../redux/slice/doctorSlice";
+import {
+  selectDocAppointment,
+  selectDoctorDetails,
+} from "../../../redux/slice/doctorSlice";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Scheduling = ({ setOpenScheduling }) => {
   const [appointmentInfos, setAppointmentInfos] = useState({
     schedulingID: "",
     doctorID: "",
-    // doctorID: "",
     timeIn: "",
     timeOut: "",
-    availableDays: "",
+    // availableDay: "",
     schedulingNotes: "",
   });
-  const [selectedDaysList, setSelectedDaysList] = useState("");
-  // const [doctorId, setDoctorId] = useState("");
-
   const [availableDays, setAvailableDays] = useState({
     monday: false,
     tuesday: false,
@@ -27,7 +28,11 @@ const Scheduling = ({ setOpenScheduling }) => {
     sunday: false,
   });
 
+  const [selectedDays, setSelectedDays] = useState("");
+  const input = { ...appointmentInfos, selectedDays };
+
   const doctorDetails = useSelector(selectDoctorDetails);
+  const docAppointmentDetails = useSelector(selectDocAppointment);
   // const [input, setInput] = useState([]);
 
   const handleOnChangeAppointment = (e) => {
@@ -54,15 +59,20 @@ const Scheduling = ({ setOpenScheduling }) => {
       (day) => availableDays[day]
     );
     const selectedDaysString = selectedDays.join(", ");
-    setSelectedDaysList(selectedDaysString);
-  }, [availableDays, selectedDaysList]);
+    setSelectedDays(selectedDaysString);
+    // console.log("the docAppointmentDetails ", docAppointmentDetails);
+  }, [availableDays, input]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setAppointmentInfos({
-      ...appointmentInfos,
-      availableDays: selectedDaysList,
-    });
+
+    axios
+      .post("http://localhost:3001/docAppointment", input)
+      .then((res) => {
+        toast.success("Added successfully");
+      })
+      .catch((err) => toast.error(err));
+
     console.log("the final result", appointmentInfos);
   };
 
@@ -138,9 +148,9 @@ const Scheduling = ({ setOpenScheduling }) => {
               <label htmlFor="availableDays"> Available Days:</label>
               <Input
                 placeholder="Available Days"
-                name="availableDays"
-                value={selectedDaysList}
-                handleOnChange={(e) => setSelectedDaysList(e.target.value)}
+                name="availableDay"
+                value={selectedDays}
+                handleOnChange={(e) => setSelectedDays(e.target.value)}
                 readOnly
               />
             </div>
@@ -256,37 +266,25 @@ const Scheduling = ({ setOpenScheduling }) => {
               <tr>
                 <th>Schedule ID </th>
                 <th>Doctor ID </th>
-                <th>Doctor In</th>
-                <th>Doctor Out</th>
-                <th>Doctor Available</th>
+                <th>Time In</th>
+                <th>Time Out</th>
+                <th> Available Days</th>
                 <th>Schedule Notes</th>
               </tr>
             </thead>
             <tbody>
-              {/* {!hideData &&
-                  medicalSDetail.map((medicalService, index) => {
-                    return (
-                      <tr className="doctor-infos" key={index}>
-                        <td>{medicalService.serviceID}</td>
-                        <td>{medicalService.serviceName}</td>
-                        <td>{medicalService.amount}</td>
-                        <td>{medicalService.duration}</td>
-                        <td>{medicalService.additionalNotes}</td>
-                      </tr>
-                    );
-                  })} */}
-              {/* {hideDataSearched &&
-                  searchResult.map((medicalService, index) => {
-                    return (
-                      <tr className="doctor-infos" key={index}>
-                        <td>{medicalService.serviceID}</td>
-                        <td>{medicalService.serviceName}</td>
-                        <td>{medicalService.amount}</td>
-                        <td>{medicalService.duration}</td>
-                        <td>{medicalService.additionalNotes}</td>
-                      </tr>
-                    );
-                  })} */}
+              {docAppointmentDetails.map((docAppointment, index) => {
+                return (
+                  <tr className="doctor-infos" key={index}>
+                    <td>{docAppointment.schedulingID}</td>
+                    <td>{docAppointment.doctorID}</td>
+                    <td>{docAppointment.timeIn}</td>
+                    <td>{docAppointment.timeOut}</td>
+                    <td>{docAppointment.selectedDays}</td>
+                    <td>{docAppointment.schedulingNotes}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
