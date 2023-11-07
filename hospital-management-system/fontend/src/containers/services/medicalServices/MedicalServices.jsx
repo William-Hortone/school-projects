@@ -18,7 +18,6 @@ const MedicalServices = () => {
   const [showSubmitBtn, setShowSubmitBtn] = useState(false);
   const [isInputEnabled, setInputEnabled] = useState(true);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
-
   const [serviceId, setServiceId] = useState("");
   const [input, setInput] = useState({
     serviceID: "",
@@ -27,18 +26,11 @@ const MedicalServices = () => {
     duration: "",
     additionalNotes: "",
   });
-  // const [inputRefreshed, setInputRefreshed] = useState({
-  //   serviceName: "",
-  //   amount: "",
-  //   duration: "",
-  //   additionalNotes: "",
-  // });
   const navigate = useNavigate();
   const medicalServiceInfos = useSelector(selectMedicalService);
 
   useEffect(() => {
     setServiceId(input.serviceID);
-    console.log(medicalServiceInfos);
   }, [medicalServiceInfos, input]);
 
   const handleOnChange = (e) => {
@@ -70,24 +62,17 @@ const MedicalServices = () => {
     setAddMedical(true);
     setInputEnabled(false);
   };
+
   const handleSubmitAddMedicalS = (e) => {
     e.preventDefault();
 
-    if (
-      input.serviceName === "" ||
-      input.amount === "" ||
-      input.duration === "" ||
-      input.additionalNotes === ""
-    ) {
-      toast.error("Please complete the fields");
-    } else {
-      axios
-        .post("http://localhost:3001/medicalServices", input)
-        .then((res) => {
-          toast.success("Saved Successfully");
-        })
-        .catch((err) => toast.error(err));
-    }
+
+    axios
+      .post("http://localhost:3001/medicalServices", input)
+      .then((res) => {
+        toast.success("Saved Successfully");
+      })
+      .catch((err) => toast.error(err));
     setAddMedical(true);
     setShowSubmitBtn(false);
   };
@@ -161,6 +146,7 @@ const MedicalServices = () => {
       additionalNotes: "",
     });
     setShowSubmitBtn(false);
+    window.location.reload();
   };
 
   const handleViewAllMedicalS = () => {

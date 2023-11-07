@@ -131,6 +131,7 @@ const DDetails = () => {
       doctorNotes: "",
     });
     setShowSubmit(false);
+    window.location.reload();
   };
 
   const handleDeleteDoctor = () => {
