@@ -22,6 +22,12 @@ const HomeAdmin = () => {
         </Link>
         <Link to="/vHospital" className="admin-category">
           View hospital services details
+        <Link to="/doctorApp" className="admin-category">
+          Doctor Appointments
+        </Link>
+        <Link to="/serviceSchedule" className="admin-category">
+          Service Scheduling
+
         </Link>
       </div>
     </div>
