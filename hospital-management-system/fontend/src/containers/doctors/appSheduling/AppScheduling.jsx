@@ -14,6 +14,8 @@ const AppScheduling = () => {
   const navigate = useNavigate();
   const docAppointmentDetails = useSelector(selectDocAppointment);
 
+  const lastElement = docAppointmentDetails[docAppointmentDetails.length - 1];
+
   const handleShowScheduling = () => {
     setOpenScheduling(true);
     setAddOnSubmit(true);
@@ -35,7 +37,7 @@ const AppScheduling = () => {
       <div className="appScheduling-container">
         <h2>DOCTOR APPOINTMENT SCHEDULING</h2>
         <div className="details-title">
-          <h4> Personal Detail</h4>
+          <h4> Doctor Details</h4>
           <div className="divider" />
         </div>
         <form>
@@ -44,7 +46,7 @@ const AppScheduling = () => {
             <Input
               placeholder="Scheduling ID"
               name="schedulingID"
-              // value={isEmpty ? "" : lastElement.schedulingID}
+              // value={lastElement.schedulingID}
               // disabled={!isInputEnabled}
             />
           </div>
@@ -53,7 +55,7 @@ const AppScheduling = () => {
             <Input
               placeholder="Doctor ID"
               name="doctorID"
-              // value={isEmpty ? "" : lastElement.doctorID}
+              // value={lastElement.doctorID}
 
               // disabled={!isInputEnabled}
             />
@@ -64,7 +66,7 @@ const AppScheduling = () => {
               placeholder="time In"
               name="timeIn"
               id="timeIn"
-              // value={isEmpty ? "" : lastElement.timeIn}
+              // value={lastElement.timeIn}
               // disabled={!isInputEnabled}
             />
           </div>
@@ -73,7 +75,7 @@ const AppScheduling = () => {
             <Input
               placeholder="Time Out"
               name="timeOut"
-              // value={isEmpty ? "" : lastElement.timeOut}
+              // value={lastElement.timeOut}
 
               // disabled={!isInputEnabled}
             />
@@ -83,7 +85,7 @@ const AppScheduling = () => {
             <Input
               placeholder="Available Days"
               name="availableDays"
-              // value={isEmpty ? "" : lastElement.selectedDays}
+              // value={lastElement.selectedDays}
 
               // value={isEmpty? "" : input.serviceID}
               // disabled={!isInputEnabled}
@@ -95,7 +97,7 @@ const AppScheduling = () => {
               placeholder="Scheduling Notes"
               name="schedulingNotes"
               id="schedulingNotes"
-              // value={isEmpty ? "" : lastElement.schedulingNotes}
+              // value={lastElement.schedulingNotes}
 
               // value={input.serviceID}
               // disabled={!isInputEnabled}

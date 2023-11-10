@@ -26,6 +26,9 @@ const HomeAdmin = () => {
         <Link to="/serviceSchedule" className="admin-category">
           Service Scheduling
         </Link>
+        <Link to="/roomDetails" className="admin-category">
+          Rooms Details
+        </Link>
       </div>
     </div>
   );

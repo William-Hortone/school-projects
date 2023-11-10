@@ -9,6 +9,7 @@ import {
   DoctorAppointment,
   DoctorDetails,
   MedicalServices,
+  RoomDetails,
   ServiceScheduling,
   ViewHospitalSD,
   VizDoctorDetails,
@@ -46,6 +47,7 @@ function App() {
           <Route path="/vHospital" element={<ViewHospitalSD />} />
           <Route path="/doctorApp" element={<DoctorAppointment />} />
           <Route path="/serviceSchedule" element={<ServiceScheduling />} />
+          <Route path="/roomDetails" element={<RoomDetails />} />
         </Routes>
       </BrowserRouter>
     </div>
