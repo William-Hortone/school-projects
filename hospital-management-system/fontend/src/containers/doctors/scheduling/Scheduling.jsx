@@ -38,6 +38,7 @@ const Scheduling = ({
   const [pickedDoctorID, setPickedDoctorID] = useState("");
   // const [id, setID] = useState("");
   const [docIDisPicked, setDocIDisPicked] = useState(false);
+  const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [showDocDetailTable, setShowDocDetailTable] = useState(false);
   const input = { ...appointmentInfos, selectedDays };
@@ -170,19 +171,39 @@ const Scheduling = ({
     setShowDocDetailTable(false);
   };
 
-  // Passe the doctor Id to the form when selected
+  // Passing the doctor Id to the form when selected
   const handleDoctorId = (docId) => {
     setShowDocDetailTable(false);
     setPickedDoctorID(docId);
-
-    // setID(docId);
-
     setAppointmentInfos({
       ...appointmentInfos,
       doctorID: docId,
     });
     setDocIDisPicked(true);
   };
+
+  const handleUpdateInfos = (docId) => {
+    if (!addOnSubmit) {
+      setAppointmentInfos({
+        schedulingID: docId.schedulingID,
+        doctorID: docId.doctorID,
+        timeIn: docId.timeIn,
+        timeOut: docId.timeOut,
+        schedulingNotes: docId.schedulingNotes,
+      });
+
+      setSelectedDays(docId.selectedDays);
+      setDocIDisPicked(true);
+
+      setPickedDoctorID(docId.doctorID);
+      setDisabledInput(true);
+    }
+  };
+  useEffect(() => {
+    console.log("just the docIDisPicked", docIDisPicked);
+    console.log("just the appointment", appointmentInfos);
+    console.log("just the appointment", pickedDoctorID);
+  }, [appointmentInfos, pickedDoctorID, docIDisPicked]);
 
   return (
     <>
@@ -209,6 +230,7 @@ const Scheduling = ({
                   name="schedulingID"
                   value={appointmentInfos.schedulingID}
                   handleOnChange={handleOnChangeAppointment}
+                  inputDisabled={disabledInput ? "true" : ""}
                 />
               </div>
 
@@ -222,7 +244,7 @@ const Scheduling = ({
                     onChange={handleOnChangeAppointment}
                     required
                   >
-                    <option value={appointmentInfos.doctorID}>
+                    <option value={docIDisPicked}>
                       {docIDisPicked ? pickedDoctorID : "Select a doctor ID"}
                     </option>
                     {doctorDetails.map((doctor, index) => (
@@ -408,7 +430,15 @@ const Scheduling = ({
               <tbody>
                 {docAppointmentDetails.map((docAppointment, index) => {
                   return (
-                    <tr className="doctor-infos" key={index}>
+                    <tr
+                      onClick={(e) => handleUpdateInfos(docAppointment)}
+                      className={
+                        !addOnSubmit
+                          ? "doctor-infos select-doctorID"
+                          : "doctor-infos"
+                      }
+                      key={index}
+                    >
                       <td>{docAppointment.schedulingID}</td>
                       <td>{docAppointment.doctorID}</td>
                       <td>{docAppointment.timeIn}</td>

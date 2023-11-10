@@ -1,7 +1,7 @@
 import React from "react";
 import "./input.css";
 
-const Input = ({ placeholder, value, name, handleOnChange }) => {
+const Input = ({ placeholder, value, name, handleOnChange, inputDisabled }) => {
   return (
     <div className="app__input">
       <input
@@ -11,6 +11,7 @@ const Input = ({ placeholder, value, name, handleOnChange }) => {
         value={value}
         onChange={handleOnChange}
         required
+        disabled={inputDisabled}
       />
     </div>
   );
