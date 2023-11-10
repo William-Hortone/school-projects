@@ -18,7 +18,9 @@ import { useDispatch } from "react-redux";
 import fetchDoctorDetails, {
   fetchDocAppointments,
 } from "./redux/actions/doctors.action";
-import fetchMedicalService from "./redux/actions/medicalService.action";
+import fetchMedicalService, {
+  fetchHospitalSchedule,
+} from "./redux/actions/medicalService.action";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +29,7 @@ function App() {
     dispatch(fetchDoctorDetails());
     dispatch(fetchMedicalService());
     dispatch(fetchDocAppointments());
+    dispatch(fetchHospitalSchedule());
   }, [dispatch]);
 
   return (

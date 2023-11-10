@@ -20,9 +20,13 @@ const AppScheduling = () => {
     setOpenScheduling(true);
     setAddOnSubmit(true);
   };
+
   const showSchedulingToEdit = () => {
     setOpenScheduling(true);
     setAddOnSubmit(false);
+  };
+  const handleRefresh = () => {
+    window.location.reload();
   };
   const handleClose = () => {
     navigate("/home");
@@ -42,7 +46,7 @@ const AppScheduling = () => {
         </div>
         <form>
           <div className="input-field">
-            <label form="schedulingId"> Scheduling ID:</label>
+            <label form="schedulingId">Scheduling ID:</label>
             <Input
               placeholder="Scheduling ID"
               name="schedulingID"
@@ -182,7 +186,7 @@ const AppScheduling = () => {
             btnName="Refresh"
             color="blue"
             buttonType="button"
-            // onClick={handleRefresh}
+            onClick={handleRefresh}
           />
 
           <ButtonAction

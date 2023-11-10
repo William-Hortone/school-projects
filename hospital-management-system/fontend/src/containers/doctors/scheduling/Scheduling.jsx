@@ -20,7 +20,6 @@ const Scheduling = ({
     doctorID: "",
     timeIn: "",
     timeOut: "",
-    // availableDay: "",
     schedulingNotes: "",
   });
   const [availableDays, setAvailableDays] = useState({
@@ -36,7 +35,6 @@ const Scheduling = ({
   const [selectedDays, setSelectedDays] = useState("");
   const [scheduleId, setScheduleId] = useState("");
   const [pickedDoctorID, setPickedDoctorID] = useState("");
-  // const [id, setID] = useState("");
   const [docIDisPicked, setDocIDisPicked] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
@@ -45,7 +43,6 @@ const Scheduling = ({
 
   const doctorDetails = useSelector(selectDoctorDetails);
   const docAppointmentDetails = useSelector(selectDocAppointment);
-  // const [input, setInput] = useState([]);
 
   const handleOnChangeAppointment = (e) => {
     const { name, value } = e.target;
@@ -65,8 +62,16 @@ const Scheduling = ({
   const handleCloseScheduling = () => {
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
+    setAppointmentInfos({
+      schedulingID: "",
+      doctorID: "",
+      timeIn: "",
+      timeOut: "",
+      schedulingNotes: "",
+    });
   };
 
+  // To Display only selected days
   useEffect(() => {
     const selectedDays = Object.keys(availableDays).filter(
       (day) => availableDays[day]
@@ -182,20 +187,20 @@ const Scheduling = ({
     setDocIDisPicked(true);
   };
 
-  const handleUpdateInfos = (docId) => {
+  // automatically fill the form when click on one row of the table
+  const handleUpdateInfos = (docAppointment) => {
     if (!addOnSubmit) {
       setAppointmentInfos({
-        schedulingID: docId.schedulingID,
-        doctorID: docId.doctorID,
-        timeIn: docId.timeIn,
-        timeOut: docId.timeOut,
-        schedulingNotes: docId.schedulingNotes,
+        schedulingID: docAppointment.schedulingID,
+        doctorID: docAppointment.doctorID,
+        timeIn: docAppointment.timeIn,
+        timeOut: docAppointment.timeOut,
+        schedulingNotes: docAppointment.schedulingNotes,
       });
 
-      setSelectedDays(docId.selectedDays);
+      setSelectedDays(docAppointment.selectedDays);
+      setPickedDoctorID(docAppointment.doctorID);
       setDocIDisPicked(true);
-
-      setPickedDoctorID(docId.doctorID);
       setDisabledInput(true);
     }
   };
@@ -230,7 +235,7 @@ const Scheduling = ({
                   name="schedulingID"
                   value={appointmentInfos.schedulingID}
                   handleOnChange={handleOnChangeAppointment}
-                  inputDisabled={disabledInput ? "true" : ""}
+                  inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
               </div>
 

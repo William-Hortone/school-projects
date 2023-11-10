@@ -20,7 +20,6 @@ export const fetchDocAppointments = () => {
     axios
       .get("http://localhost:3001/getDocAppointments")
       .then((res) => {
-        // console.log(res.data);
         dispatch(GET_DOCTOR_APPOINTMENT(res.data));
       })
       .catch((err) => console.log(err));

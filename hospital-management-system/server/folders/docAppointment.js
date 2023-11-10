@@ -8,7 +8,6 @@ router.post("/docAppointment", (req, res) => {
   ModelDocAppointment.create(req.body)
     .then((appointment) => {
       res.json(appointment);
-      //   res.json(res);
     })
     .catch((err) => res.json(err));
 });
