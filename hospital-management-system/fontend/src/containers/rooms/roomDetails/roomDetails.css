@@ -1,0 +1,66 @@
+.roomDetails {
+  width: 100%;
+  height: auto;
+}
+.roomDetails .roomDetails-container {
+  width: 70%;
+  height: auto;
+  margin: 90px auto 0;
+  padding: 2rem;
+  background-color: #efefef;
+}
+.roomDetails .roomDetails-container h2 {
+  font-size: 2rem;
+  text-align: center;
+  padding: 2rem;
+}
+/* .roomDetails .roomDetails-container form {
+} */
+.roomDetails-container-menus {
+  width: 70%;
+  background-color: #efefef;
+  margin: 2rem auto 0 auto;
+  padding: 1rem 0 1rem 0;
+}
+.roomDetails-container-menus .roomDetails-container-menu-header {
+  width: 91%;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 2rem;
+  background-color: var(--color-primary);
+  border-top: 2px solid #ffffffbd;
+  border-bottom: 2px solid #ffffffbd;
+  border-radius: 15px;
+  margin: 2rem auto 0 auto;
+}
+
+.container-menu-btn {
+  position: relative;
+  width: 91% !important;
+  display: flex;
+  justify-content: center;
+  gap: 1rem !important;
+  flex-wrap: wrap;
+  margin: 2rem auto;
+  border: 2px solid #ffffffbd;
+  padding: 2rem;
+  border-radius: 25px;
+  background-color: var(--color-primary);
+}
+
+.appScheduling-wrapper {
+  width: 100%;
+  height: fit-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  transition: transform 0.5s ease;
+  z-index: 22;
+  background: rgb(54, 153, 51);
+  overflow: hidden;
+}
+.appScheduling-wrapper.ActiveScheduling {
+  transform: scale(1);
+}

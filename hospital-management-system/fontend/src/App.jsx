@@ -9,6 +9,7 @@ import {
   DoctorAppointment,
   DoctorDetails,
   MedicalServices,
+  RoomDetails,
   ServiceScheduling,
   ViewHospitalSD,
   VizDoctorDetails,
@@ -17,7 +18,9 @@ import { useDispatch } from "react-redux";
 import fetchDoctorDetails, {
   fetchDocAppointments,
 } from "./redux/actions/doctors.action";
-import fetchMedicalService from "./redux/actions/medicalService.action";
+import fetchMedicalService, {
+  fetchHospitalSchedule,
+} from "./redux/actions/medicalService.action";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +29,7 @@ function App() {
     dispatch(fetchDoctorDetails());
     dispatch(fetchMedicalService());
     dispatch(fetchDocAppointments());
+    dispatch(fetchHospitalSchedule());
   }, [dispatch]);
 
   return (
@@ -46,6 +50,7 @@ function App() {
           <Route path="/vHospital" element={<ViewHospitalSD />} />
           <Route path="/doctorApp" element={<DoctorAppointment />} />
           <Route path="/serviceSchedule" element={<ServiceScheduling />} />
+          <Route path="/roomDetails" element={<RoomDetails />} />
         </Routes>
       </BrowserRouter>
     </div>

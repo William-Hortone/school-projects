@@ -1,12 +1,33 @@
 import React, { useState } from "react";
 import { ButtonAction, ButtonSkip, Header, Input } from "../../../components";
 import ScheduleSer from "../ScheduleSer/ScheduleSer";
+import { useNavigate } from "react-router-dom";
 
 const ServiceScheduling = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
+  const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
+  const [addOnSubmit, setAddOnSubmit] = useState(true);
+
+  const navigate = useNavigate();
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
+    setAddOnSubmit(true);
+  };
+
+  const showSchedulingToEdit = () => {
+    setOpenScheduling(true);
+    setAddOnSubmit(false);
+  };
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+  const handleClose = () => {
+    navigate("/home");
+  };
+  const showSchedulingToDelete = () => {
+    setOpenScheduleDelete(true);
+    setAddOnSubmit(false);
   };
 
   return (
@@ -83,9 +104,6 @@ const ServiceScheduling = () => {
                 // disabled={!isInputEnabled}
               />
             </div>
-            <button className="submit-btn" type="submit">
-              Submit
-            </button>
           </form>
         </div>
 
@@ -165,14 +183,7 @@ const ServiceScheduling = () => {
               btnName="Refresh"
               color="blue"
               buttonType="button"
-              // onClick={handleRefresh}
-            />
-            <ButtonAction
-              iconName="all"
-              btnName="View All"
-              color="blue"
-              buttonType="button"
-              // onClick={handleViewAllMedicalS}
+              onClick={handleRefresh}
             />
             <ButtonAction
               iconName="close"
@@ -183,18 +194,20 @@ const ServiceScheduling = () => {
             />
           </div>
         </div>
-
-        {openScheduling && (
-          <div
-            className={
-              openScheduling
-                ? "appScheduling-wrapper ActiveScheduling"
-                : "appScheduling-wrapper"
-            }
-          >
-            <ScheduleSer setOpenScheduling={setOpenScheduling} />
-          </div>
-        )}
+        <div
+          className={
+            openScheduling || openScheduleDelete
+              ? "appScheduling-wrapper ActiveScheduling"
+              : "appScheduling-wrapper"
+          }
+        >
+          <ScheduleSer
+            setOpenScheduling={setOpenScheduling}
+            setOpenScheduleDelete={setOpenScheduleDelete}
+            openScheduleDelete={openScheduleDelete}
+            addOnSubmit={addOnSubmit}
+          />
+        </div>
       </div>
     </>
   );

@@ -139,10 +139,51 @@
 .delete-buttons button:nth-of-type(2) {
   background-color: red;
 }
+
 .submit-btn {
   width: 100px;
   border-radius: 7px;
   border: none;
   background-color: var(--color-primary);
   font-weight: 600;
+}
+.delete-btn {
+  width: 100px;
+  border-radius: 7px;
+  border: none;
+  background-color: red;
+
+  font-weight: 600;
+}
+.appScheduling-table-id {
+  width: 95%;
+  height: auto;
+  min-height: 100vh;
+  background-color: #efefef;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 auto;
+  transition: all 0.5s ease;
+}
+.appScheduling-table-id h2 {
+  text-align: center;
+  font-size: 2rem;
+  padding: 2rem;
+}
+.close-tableID {
+  width: 40px;
+  height: 40px;
+  background: rebeccapurple;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.select-doctorID {
+  cursor: pointer;
+}
+.select-doctorID:hover {
+  background: var(--color-tertial);
 }

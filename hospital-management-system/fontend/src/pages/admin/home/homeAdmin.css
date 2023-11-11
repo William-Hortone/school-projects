@@ -9,6 +9,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 2rem;
 }
 .admin-category {
