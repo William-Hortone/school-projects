@@ -26,7 +26,7 @@ const AppScheduling = () => {
     setAddOnSubmit(false);
   };
   const handleRefresh = () => {
-    window.location.reload();
+    window.location.reload(); 
   };
   const handleClose = () => {
     navigate("/home");
