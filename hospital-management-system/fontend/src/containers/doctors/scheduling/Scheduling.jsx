@@ -70,7 +70,6 @@ const Scheduling = ({
       schedulingNotes: "",
     });
   };
-  
 
   // To Display only selected days
   useEffect(() => {
@@ -205,11 +204,11 @@ const Scheduling = ({
       setDisabledInput(true);
     }
   };
-  useEffect(() => {
-    console.log("just the docIDisPicked", docIDisPicked);
-    console.log("just the appointment", appointmentInfos);
-    console.log("just the appointment", pickedDoctorID);
-  }, [appointmentInfos, pickedDoctorID, docIDisPicked]);
+  // useEffect(() => {
+  //   console.log("just the docIDisPicked", docIDisPicked);
+  //   console.log("just the appointment", appointmentInfos);
+  //   console.log("just the appointment", pickedDoctorID);
+  // }, [appointmentInfos, pickedDoctorID, docIDisPicked]);
 
   return (
     <>

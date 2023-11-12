@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ButtonAction, ButtonSkip, Header, Input } from "../../../components";
 import ScheduleSer from "../ScheduleSer/ScheduleSer";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectHospitalSchedule } from "../../../redux/slice/medicalServiceSlice";
 
 const ServiceScheduling = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(true);
 
   const navigate = useNavigate();
+  const hosScheduleDetails = useSelector(selectHospitalSchedule);
+  const lastElement = hosScheduleDetails[hosScheduleDetails.length - 1];
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
@@ -30,6 +35,15 @@ const ServiceScheduling = () => {
     setAddOnSubmit(false);
   };
 
+  useEffect(() => {
+    if (hosScheduleDetails.length === 0) {
+      setIsEmpty(true);
+    } else {
+      setIsEmpty(false);
+    }
+    // console.log("hosScheduleDetails.length === ", hosScheduleDetails);
+  }, [hosScheduleDetails]);
+
   return (
     <>
       <Header />
@@ -45,19 +59,21 @@ const ServiceScheduling = () => {
             <div className="input-field">
               <label form="schedulingId"> Scheduling ID:</label>
               <Input
+                inputDisabled="true"
                 placeholder="Scheduling ID"
                 name="schedulingID"
-                // value={input.serviceID}
+                value={isEmpty ? "" : lastElement.schedulingID}
                 // onChange={handleOnChange}
                 // disabled={!isInputEnabled}
               />
             </div>
             <div className="input-field">
-              <label form="doctorId"> Service ID:</label>
+              <label form="serviceID"> Service ID:</label>
               <Input
-                placeholder="Doctor ID"
-                name="doctorID"
-                // value={input.serviceID}
+                inputDisabled="true"
+                placeholder="Service ID"
+                name="serviceID"
+                value={isEmpty ? "" : lastElement.serviceID}
                 // onChange={handleOnChange}
                 // disabled={!isInputEnabled}
               />
@@ -65,10 +81,11 @@ const ServiceScheduling = () => {
             <div className="input-field">
               <label form="timeIn"> Service Starts:</label>
               <Input
-                placeholder="time In"
-                name="timeIn"
+                placeholder="Service Starts"
+                name="serviceStart"
                 id="timeIn"
-                // value={input.serviceID}
+                value={isEmpty ? "" : lastElement.serviceStarts}
+                inputDisabled="true"
                 // onChange={handleOnChange}
                 // disabled={!isInputEnabled}
               />
@@ -76,9 +93,10 @@ const ServiceScheduling = () => {
             <div className="input-field">
               <label form="timeOut">Service Ends:</label>
               <Input
-                placeholder="Time Out"
-                name="timeOut"
-                // value={input.serviceID}
+                placeholder="Service Ends"
+                name="serviceEnds"
+                value={isEmpty ? "" : lastElement.serviceEnds}
+                inputDisabled="true"
                 // onChange={handleOnChange}
                 // disabled={!isInputEnabled}
               />
@@ -88,7 +106,8 @@ const ServiceScheduling = () => {
               <Input
                 placeholder="Available Days"
                 name="availableDays"
-                // value={input.serviceID}
+                value={isEmpty ? "" : lastElement.selectedDays}
+                inputDisabled="true"
                 // onChange={handleOnChange}
                 // disabled={!isInputEnabled}
               />
@@ -99,7 +118,9 @@ const ServiceScheduling = () => {
                 placeholder="Scheduling Notes"
                 name="schedulingNotes"
                 id="schedulingNotes"
-                // value={input.serviceID}
+                inputDisabled="true"
+                value={isEmpty ? "" : lastElement.schedulingNotes}
+
                 // onChange={handleOnChange}
                 // disabled={!isInputEnabled}
               />
@@ -107,6 +128,7 @@ const ServiceScheduling = () => {
           </form>
         </div>
 
+        {/* The table  to display the schedules*/}
         <div className="appScheduling-table">
           <table>
             <thead>
@@ -115,39 +137,31 @@ const ServiceScheduling = () => {
                 <th>Service ID </th>
                 <th>Service Starts</th>
                 <th>Service Ends</th>
-                <th>Service Available Date</th>
+                <th> Available Days</th>
                 <th>Schedule Notes</th>
               </tr>
             </thead>
             <tbody>
-              {/* {!hideData &&
-                medicalSDetail.map((medicalService, index) => {
-                  return (
-                    <tr className="doctor-infos" key={index}>
-                      <td>{medicalService.serviceID}</td>
-                      <td>{medicalService.serviceName}</td>
-                      <td>{medicalService.amount}</td>
-                      <td>{medicalService.duration}</td>
-                      <td>{medicalService.additionalNotes}</td>
-                    </tr>
-                  );
-                })} */}
-              {/* {hideDataSearched &&
-                searchResult.map((medicalService, index) => {
-                  return (
-                    <tr className="doctor-infos" key={index}>
-                      <td>{medicalService.serviceID}</td>
-                      <td>{medicalService.serviceName}</td>
-                      <td>{medicalService.amount}</td>
-                      <td>{medicalService.duration}</td>
-                      <td>{medicalService.additionalNotes}</td>
-                    </tr>
-                  );
-                })} */}
+              {hosScheduleDetails.map((serAppointment, index) => {
+                return (
+                  <tr
+                    className={!addOnSubmit ? "doctor-infos" : "doctor-infos"}
+                    key={index}
+                  >
+                    <td>{serAppointment.schedulingID}</td>
+                    <td>{serAppointment.serviceID}</td>
+                    <td>{serAppointment.serviceStarts}</td>
+                    <td>{serAppointment.serviceEnds}</td>
+                    <td>{serAppointment.selectedDays}</td>
+                    <td>{serAppointment.schedulingNotes}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
 
+        {/* The buttons container */}
         <div className="container-menus">
           <div className="container-menu-header">
             <ButtonSkip iconName="doubleLeft" color="green" />
@@ -168,7 +182,7 @@ const ServiceScheduling = () => {
               iconName="edit"
               btnName="Edit"
               color="green"
-              // onClick={HandleEditMedicalS}
+              onClick={showSchedulingToEdit}
               buttonType="submit"
             />
             <ButtonAction
@@ -176,7 +190,7 @@ const ServiceScheduling = () => {
               btnName="Delete"
               buttonType="button"
               color="red"
-              // onClick={handleOpenDeletePopup}
+              onClick={showSchedulingToDelete}
             />
             <ButtonAction
               iconName="refresh"
@@ -190,10 +204,11 @@ const ServiceScheduling = () => {
               btnName="Close"
               color="red"
               buttonType="button"
-              // onClick={handleClose}
+              onClick={handleClose}
             />
           </div>
         </div>
+
         <div
           className={
             openScheduling || openScheduleDelete

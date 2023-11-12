@@ -2,10 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-const doctorRoutes = require("./folders/doctors");
-const medicalSRoutes = require("./folders/medicalService");
-const docAppointRoutes = require("./folders/docAppointment");
-const hosScheduleRoutes = require("./folders/hospitalSchedule");
+const doctorRoutes = require("./routes/doctors");
+const medicalSRoutes = require("./routes/medicalService");
+const docAppointRoutes = require("./routes/docAppointment");
+const hosScheduleRoutes = require("./routes/hospitalSchedule");
 
 const app = express();
 app.use(express.json());
