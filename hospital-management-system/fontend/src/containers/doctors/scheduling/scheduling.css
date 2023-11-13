@@ -190,3 +190,12 @@
 .select-doctorID:hover {
   background: var(--color-tertial);
 }
+.input-field-days {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.input-field-days div {
+  width: 40px;
+}

@@ -204,11 +204,6 @@ const Scheduling = ({
       setDisabledInput(true);
     }
   };
-  // useEffect(() => {
-  //   console.log("just the docIDisPicked", docIDisPicked);
-  //   console.log("just the appointment", appointmentInfos);
-  //   console.log("just the appointment", pickedDoctorID);
-  // }, [appointmentInfos, pickedDoctorID, docIDisPicked]);
 
   return (
     <>
@@ -333,7 +328,7 @@ const Scheduling = ({
                 <h4> Available Days</h4>
                 <div className="days-divider" />
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="monday">Monday:</label>
                 <div>
                   <input
@@ -345,7 +340,7 @@ const Scheduling = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="tuesday">Tuesday:</label>
                 <div>
                   <input
@@ -357,7 +352,7 @@ const Scheduling = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="wednesday">Wednesday:</label>
                 <div>
                   <input
@@ -369,7 +364,7 @@ const Scheduling = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="thursday">Thursday:</label>
                 <div>
                   <input
@@ -381,7 +376,7 @@ const Scheduling = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="friday">Friday:</label>
                 <div>
                   <input
@@ -393,7 +388,7 @@ const Scheduling = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="saturday">Saturday:</label>
                 <div>
                   <input
@@ -405,7 +400,7 @@ const Scheduling = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="sunday">Sunday:</label>
                 <div>
                   <input

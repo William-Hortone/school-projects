@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import "./appScheduling.css";
 import Scheduling from "../scheduling/Scheduling";
@@ -10,6 +10,7 @@ const AppScheduling = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(true);
 
   const navigate = useNavigate();
   const docAppointmentDetails = useSelector(selectDocAppointment);
@@ -26,7 +27,7 @@ const AppScheduling = () => {
     setAddOnSubmit(false);
   };
   const handleRefresh = () => {
-    window.location.reload(); 
+    window.location.reload();
   };
   const handleClose = () => {
     navigate("/home");
@@ -35,6 +36,14 @@ const AppScheduling = () => {
     setOpenScheduleDelete(true);
     setAddOnSubmit(false);
   };
+
+  useEffect(() => {
+    if (docAppointmentDetails.length === 0) {
+      setIsEmpty(true);
+    } else {
+      setIsEmpty(false);
+    }
+  }, [docAppointmentDetails]);
 
   return (
     <div className="appScheduling">
@@ -48,9 +57,10 @@ const AppScheduling = () => {
           <div className="input-field">
             <label form="schedulingId">Scheduling ID:</label>
             <Input
+              inputDisabled="true"
               placeholder="Scheduling ID"
               name="schedulingID"
-              // value={lastElement.schedulingID}
+              value={isEmpty ? "" : lastElement.schedulingID}
               // disabled={!isInputEnabled}
             />
           </div>
@@ -59,8 +69,8 @@ const AppScheduling = () => {
             <Input
               placeholder="Doctor ID"
               name="doctorID"
-              // value={lastElement.doctorID}
-
+              inputDisabled="true"
+              value={isEmpty ? "" : lastElement.doctorID}
               // disabled={!isInputEnabled}
             />
           </div>
@@ -70,7 +80,8 @@ const AppScheduling = () => {
               placeholder="time In"
               name="timeIn"
               id="timeIn"
-              // value={lastElement.timeIn}
+              inputDisabled="true"
+              value={isEmpty ? "" : lastElement.timeIn}
               // disabled={!isInputEnabled}
             />
           </div>
@@ -79,7 +90,8 @@ const AppScheduling = () => {
             <Input
               placeholder="Time Out"
               name="timeOut"
-              // value={lastElement.timeOut}
+              inputDisabled="true"
+              value={isEmpty ? "" : lastElement.timeOut}
 
               // disabled={!isInputEnabled}
             />
@@ -87,9 +99,10 @@ const AppScheduling = () => {
           <div className="input-field">
             <label form="availableDays"> Available Days:</label>
             <Input
+              inputDisabled="true"
               placeholder="Available Days"
               name="availableDays"
-              // value={lastElement.selectedDays}
+              value={isEmpty ? "" : lastElement.selectedDays}
 
               // value={isEmpty? "" : input.serviceID}
               // disabled={!isInputEnabled}
@@ -101,7 +114,8 @@ const AppScheduling = () => {
               placeholder="Scheduling Notes"
               name="schedulingNotes"
               id="schedulingNotes"
-              // value={lastElement.schedulingNotes}
+              inputDisabled="true"
+              value={isEmpty ? "" : lastElement.schedulingNotes}
 
               // value={input.serviceID}
               // disabled={!isInputEnabled}

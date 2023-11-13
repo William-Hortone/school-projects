@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import { useSelector } from "react-redux";
-// import {
-//   selectserAppointment,
-//   selectDoctorDetails,
-// } from "../../../redux/slice/doctorSlice";
 import {
   selectHospitalSchedule,
   selectMedicalService,
@@ -336,7 +332,7 @@ const ScheduleSer = ({
                 <h4> Available Days</h4>
                 <div className="days-divider" />
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="monday">Monday:</label>
                 <div>
                   <input
@@ -348,7 +344,7 @@ const ScheduleSer = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="tuesday">Tuesday:</label>
                 <div>
                   <input
@@ -360,7 +356,7 @@ const ScheduleSer = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="wednesday">Wednesday:</label>
                 <div>
                   <input
@@ -372,7 +368,7 @@ const ScheduleSer = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="thursday">Thursday:</label>
                 <div>
                   <input
@@ -384,7 +380,7 @@ const ScheduleSer = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="friday">Friday:</label>
                 <div>
                   <input
@@ -396,7 +392,7 @@ const ScheduleSer = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="saturday">Saturday:</label>
                 <div>
                   <input
@@ -408,7 +404,7 @@ const ScheduleSer = ({
                   />
                 </div>
               </div>
-              <div className="input-field">
+              <div className="input-field-days">
                 <label htmlFor="sunday">Sunday:</label>
                 <div>
                   <input

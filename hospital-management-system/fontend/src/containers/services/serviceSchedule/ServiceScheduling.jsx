@@ -41,14 +41,12 @@ const ServiceScheduling = () => {
     } else {
       setIsEmpty(false);
     }
-    // console.log("hosScheduleDetails.length === ", hosScheduleDetails);
-  }, [hosScheduleDetails]);
+  }, [hosScheduleDetails, lastElement]);
 
   return (
     <>
       <Header />
       <div className="appScheduling">
-        {/* <div> */}
         <div className="appScheduling-container">
           <h2>HOSPITAL SERVICE DETAILS</h2>
           <div className="details-title">
@@ -163,7 +161,10 @@ const ServiceScheduling = () => {
 
         {/* The buttons container */}
         <div className="container-menus">
-          <div className="container-menu-header">
+          <div
+            className="container-menu-header"
+            style={{ width: "91%", margin: "auto" }}
+          >
             <ButtonSkip iconName="doubleLeft" color="green" />
             <ButtonSkip iconName="arrowLeft" color="blue" />
             <input type="text" placeholder="Record No" />
