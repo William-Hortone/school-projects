@@ -1,0 +1,6 @@
+.select-serviceID {
+  cursor: pointer;
+}
+.select-serviceID:hover {
+  background: var(--color-tertial);
+}

@@ -175,7 +175,10 @@
 .close-tableID {
   width: 40px;
   height: 40px;
-  background: rebeccapurple;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: rebeccapurple; */
   position: absolute;
   top: 10px;
   right: 10px;
@@ -186,4 +189,13 @@
 }
 .select-doctorID:hover {
   background: var(--color-tertial);
+}
+.input-field-days {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.input-field-days div {
+  width: 40px;
 }
