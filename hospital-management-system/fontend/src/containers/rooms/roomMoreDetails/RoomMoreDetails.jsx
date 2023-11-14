@@ -8,6 +8,7 @@ import {
 import "./roomMoreDetails.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
 // import { FaTimes } from "react-icons/fa";
 
 const RoomMoreDetails = ({
@@ -16,7 +17,7 @@ const RoomMoreDetails = ({
   setOpenScheduleDelete,
   openScheduleDelete,
 }) => {
-  const [appointmentInfos, setAppointmentInfos] = useState({
+  const [inputs, setInputs] = useState({
     roomID: "",
     roomType: "",
     roomRates: "",
@@ -39,35 +40,28 @@ const RoomMoreDetails = ({
   const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [showDocDetailTable, setShowDocDetailTable] = useState(false);
-  const input = { ...appointmentInfos, selectedDays };
+  // const input = { ...inputs, selectedDays };
 
-  const hosScheduleDetails = useSelector(selectHospitalSchedule);
+  // const roomsDetails = useSelector(selectRoomsDetails);
+  const roomsDetails = useSelector(selectRoomsDetails);
   const medicalServiceDetails = useSelector(selectMedicalService);
 
   const handleOnChangeAppointment = (e) => {
     const { name, value } = e.target;
-    setAppointmentInfos({
-      ...appointmentInfos,
+    setInputs({
+      ...inputs,
       [name]: value,
     });
   };
-  // const handleOnChangeDays = (e) => {
-  //   const { name, checked } = e.target;
-  //   setAvailableDays({
-  //     ...availableDays,
-  //     [name]: checked,
-  //   });
-  // };
 
   const handleCloseScheduling = () => {
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
-    setAppointmentInfos({
-      schedulingID: "",
-      serviceID: "",
-      serviceStarts: "",
-      serviceEnds: "",
-      schedulingNotes: "",
+    setInputs({
+      roomID: "",
+      roomType: "",
+      roomRates: "",
+      roomDesc: "",
     });
   };
 
@@ -78,26 +72,26 @@ const RoomMoreDetails = ({
   //   );
   //   const selectedDaysString = selectedDays.join(", ");
   //   setSelectedDays(selectedDaysString);
-  //   setScheduleId(appointmentInfos.schedulingID);
-  // }, [availableDays, input, appointmentInfos.schedulingID]);
+  //   setScheduleId(inputs.schedulingID);
+  // }, [availableDays, input, inputs.schedulingID]);
 
   const handleAddAppointment = () => {
     if (addOnSubmit) {
       // Initialize the Id if the array is empty
-      if (hosScheduleDetails.length === 0) {
-        setAppointmentInfos({
-          ...appointmentInfos,
-          schedulingID: "00001",
+      if (roomsDetails.length === 0) {
+        setInputs({
+          ...inputs,
+          schedulingID: "01",
         });
       } else {
         // Get the last Id and increment it
         const lastScheduleId =
-          hosScheduleDetails[hosScheduleDetails.length - 1].schedulingID;
+          roomsDetails[roomsDetails.length - 1].schedulingID;
         const nextScheduleId = (parseInt(lastScheduleId) + 1)
           .toString()
-          .padStart(5, "0");
-        setAppointmentInfos({
-          ...appointmentInfos,
+          .padStart(2, "0");
+        setInputs({
+          ...inputs,
           schedulingID: nextScheduleId,
         });
       }
@@ -106,18 +100,21 @@ const RoomMoreDetails = ({
     }
   };
 
+  // The function to add a room details
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3001/hospitalServiceSchedule", input)
+      .post("http://localhost:3001/roomsInfos", inputs)
       .then((res) => {
-        toast.success("Added successfully");
+        if (res.data === "roomsInfos") {
+          toast.success("Added successfully");
+        }
       })
       .catch((err) => toast.error(err));
   };
 
-  // Edit a service schedule
+  // function to Edit a room details
   const handleSubmitEditDoctor = (e, scheduleId) => {
     e.preventDefault();
 
@@ -183,8 +180,8 @@ const RoomMoreDetails = ({
   // const handleServiceId = (serID) => {
   //   setShowDocDetailTable(false);
   //   setPickedServiceID(serID);
-  //   setAppointmentInfos({
-  //     ...appointmentInfos,
+  //   setInputs({
+  //     ...inputs,
   //     serviceID: serID,
   //   });
   //   setDocIDisPicked(true);
@@ -193,7 +190,7 @@ const RoomMoreDetails = ({
   // automatically fill the form when click on one row of the table
   const handleUpdateInfos = (serAppointment) => {
     if (!addOnSubmit) {
-      setAppointmentInfos({
+      setInputs({
         schedulingID: serAppointment.schedulingID,
         serviceID: serAppointment.serviceID,
         serviceStarts: serAppointment.serviceStarts,
@@ -231,7 +228,7 @@ const RoomMoreDetails = ({
                 <Input
                   placeholder="Room ID"
                   name="roomID"
-                  value={appointmentInfos.schedulingID}
+                  value={inputs.roomID}
                   handleOnChange={handleOnChangeAppointment}
                   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
@@ -243,8 +240,9 @@ const RoomMoreDetails = ({
                   placeholder="Room Type"
                   name="roomType"
                   id="roomType"
-                  value={selectedDays}
-                  handleOnChange={(e) => setSelectedDays(e.target.value)}
+                  value={inputs.roomType}
+                  handleOnChange={handleOnChangeAppointment}
+
                   // readOnly
                 />
               </div>
@@ -254,18 +252,18 @@ const RoomMoreDetails = ({
                   placeholder="Room Rates"
                   name="roomRates"
                   id="roomRates"
-                  value={selectedDays}
-                  handleOnChange={(e) => setSelectedDays(e.target.value)}
-                  // readOnly
+                  value={inputs.roomRates}
+                  handleOnChange={handleOnChangeAppointment}
                 />
               </div>
 
               <div className="input-fields">
-                <label htmlFor="schedulingNotes"> Room Description:</label>
+                <label htmlFor="roomDesc"> Room Description:</label>
                 <Input
                   placeholder="Room Description"
                   name="roomDesc"
-                  value={appointmentInfos.schedulingNotes}
+                  id="roomDesc"
+                  value={inputs.roomDesc}
                   handleOnChange={handleOnChangeAppointment}
                 />
               </div>
@@ -390,7 +388,7 @@ const RoomMoreDetails = ({
                 </tr>
               </thead>
               <tbody>
-                {hosScheduleDetails.map((serAppointment, index) => {
+                {roomsDetails.map((serAppointment, index) => {
                   return (
                     <tr
                       onClick={(e) => handleUpdateInfos(serAppointment)}
@@ -448,7 +446,7 @@ const RoomMoreDetails = ({
               <div className="schedule-delete-popup">
                 <p>
                   Do you really want to delete <br />
-                  the Service with ID of {appointmentInfos.schedulingID} ?
+                  the Service with ID of {inputs.schedulingID} ?
                 </p>
                 <div className="delete-buttons">
                   <button onClick={handleClosePopup}> Cancel</button>

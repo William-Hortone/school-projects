@@ -22,6 +22,7 @@ import fetchDoctorDetails, {
 import fetchMedicalService, {
   fetchHospitalSchedule,
 } from "./redux/actions/medicalService.action";
+import fetchRoomsDetails from "./redux/actions/room.action";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
     dispatch(fetchMedicalService());
     dispatch(fetchDocAppointments());
     dispatch(fetchHospitalSchedule());
+    dispatch(fetchRoomsDetails());
   }, [dispatch]);
 
   return (

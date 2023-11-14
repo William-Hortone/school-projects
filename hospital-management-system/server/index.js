@@ -6,7 +6,7 @@ const doctorRoutes = require("./routes/doctors");
 const medicalSRoutes = require("./routes/medicalService");
 const docAppointRoutes = require("./routes/docAppointment");
 const hosScheduleRoutes = require("./routes/hospitalSchedule");
-
+const roomRoutes = require("./routes/roomDetails");
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -20,6 +20,8 @@ app.use(medicalSRoutes);
 app.use(docAppointRoutes);
 
 app.use(hosScheduleRoutes);
+
+app.use(roomRoutes);
 
 app.listen(3001, () => {
   console.log("The server is ruining");
