@@ -1,3 +1,4 @@
+import AdminDashboard from "./adminDashbord/AdminDashboard";
 import AppScheduling from "./doctors/appSheduling/AppScheduling";
 import DDetails from "./doctors/dDetails/DDetails";
 import DoctorAppointment from "./doctors/doctorAppointment/DoctorAppointment";
@@ -27,11 +28,10 @@ export {
   ViewWardDetails,
   WardDetails,
   RoomMoreDetails,
-
+  AdminDashboard,
   DoctorAppointment,
   AppScheduling,
   Scheduling,
   ServiceScheduling,
   ScheduleSer,
-
 };

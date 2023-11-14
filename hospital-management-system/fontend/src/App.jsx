@@ -6,6 +6,7 @@ import { Home, HomeAdmin } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
+  AdminDashboard,
   DoctorAppointment,
   DoctorDetails,
   MedicalServices,
@@ -51,6 +52,9 @@ function App() {
           <Route path="/doctorApp" element={<DoctorAppointment />} />
           <Route path="/serviceSchedule" element={<ServiceScheduling />} />
           <Route path="/roomDetails" element={<RoomDetails />} />
+          <Route path="/adminDashboard" element={<AdminDashboard />}>
+            <Route path="/adminDashboard/rooms" element={<RoomDetails />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

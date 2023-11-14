@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "./roomDetails.css";
-import { ButtonAction, ButtonSkip, Header, Input } from "../../../components";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
+import RoomMoreDetails from "../roomMoreDetails/RoomMoreDetails";
 
 const RoomDetails = () => {
+  const [openScheduling, setOpenScheduling] = useState(false);
+  const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
+  const [addOnSubmit, setAddOnSubmit] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(true);
+
+  const handleShowScheduling = () => {
+    setOpenScheduling(true);
+    setAddOnSubmit(true);
+  };
+
   return (
     <div className="roomDetails">
-      <Header />
       <div className="roomDetails-container">
         <h2>ROOM DETAILS</h2>
         <form>
@@ -24,10 +34,22 @@ const RoomDetails = () => {
             <Input
               placeholder="Room Type"
               name="roomType"
+              id="roomType"
               //   value={appointmentInfos.schedulingID}
               //   handleOnChange={handleOnChangeAppointment}
             />
           </div>
+          <div className="input-fields">
+            <label form="roomRates"> Room Rates:</label>
+            <Input
+              placeholder="Room Rates"
+              name="roomRates"
+              id="roomRates"
+              //   value={appointmentInfos.schedulingID}
+              //   handleOnChange={handleOnChangeAppointment}
+            />
+          </div>
+
           <div className="input-fields">
             <label form="roomDesc"> Room Description:</label>
             <Input
@@ -39,8 +61,13 @@ const RoomDetails = () => {
           </div>
         </form>
       </div>
+
+      {/* The  container menu buttons */}
       <div className="roomDetails-container-menus">
-        <div className="roomDetails-container-menu-header">
+        <div
+          className="roomDetails-container-menu-header"
+          style={{ width: "91%", margin: "auto" }}
+        >
           <ButtonSkip iconName="doubleLeft" color="green" />
           <ButtonSkip iconName="arrowLeft" color="blue" />
           <input type="text" placeholder="Record No" />
@@ -53,7 +80,7 @@ const RoomDetails = () => {
             btnName="Add"
             color="green"
             buttonType="submit"
-            // onClick={handleShowScheduling}
+            onClick={handleShowScheduling}
           />
           <ButtonAction
             iconName="edit"
@@ -76,7 +103,6 @@ const RoomDetails = () => {
             buttonType="button"
             // onClick={handleRefresh}
           />
-
           <ButtonAction
             iconName="close"
             btnName="Close"
@@ -85,6 +111,21 @@ const RoomDetails = () => {
             // onClick={handleClose}
           />
         </div>
+      </div>
+
+      <div
+        className={
+          openScheduling || openScheduleDelete
+            ? "appScheduling-wrapper ActiveScheduling"
+            : "appScheduling-wrapper"
+        }
+      >
+        <RoomMoreDetails
+          setOpenScheduling={setOpenScheduling}
+          setOpenScheduleDelete={setOpenScheduleDelete}
+          openScheduleDelete={openScheduleDelete}
+          addOnSubmit={addOnSubmit}
+        />
       </div>
     </div>
   );

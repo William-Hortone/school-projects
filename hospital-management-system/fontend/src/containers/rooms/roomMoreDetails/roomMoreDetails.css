@@ -1,0 +1,126 @@
+.app__roomMDetails {
+  /* margin: 90px auto 0 auto; */
+  width: 100%;
+  height: auto;
+  background-color: var(--color-blue) !important;
+}
+/* .app__roomMDetails-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  padding-block: 2rem;
+  color: var(--color-blue);
+} */
+.app__roomMDetails-container {
+  width: 90%;
+  margin: auto;
+  background: #efefef;
+  padding: 2rem 6rem;
+  border-radius: 10px;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+}
+.app__roomMDetails-container form {
+  display: flex;
+  margin-top: 4rem;
+  /* flex-direction: column; */
+}
+.form--content {
+  width: 100%;
+  /* background: rebeccapurple; */
+  border-radius: 15px;
+  padding: 3rem 0 3rem 4rem;
+  border: 2px solid #0000005d;
+}
+.app__roomMDetails-table {
+  width: 100%;
+  height: auto;
+  margin: 2rem auto;
+  background-color: aliceblue;
+}
+.app__roomMDetails-table table {
+  width: 100%;
+  border: 1px solid #000;
+}
+.app__roomMDetails-table table th {
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 1rem 0;
+  background: var(--color-primary);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.app__roomMDetails-table thead th {
+  color: #efefef;
+}
+.doctor-infos td {
+  height: 35px;
+  max-width: 100px;
+  padding: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100px;
+  border-right: solid 1px #66666671;
+  border-bottom: solid 1px #66666671;
+  text-align: center;
+}
+
+.app__roomMDetails-container-menus {
+  width: 98%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+  margin: 1.3rem auto;
+  background: #efefef;
+}
+.app__roomMDetails-container-menus .appSchedule-container-menu-header {
+  width: 61%;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 2rem;
+  background-color: var(--color-primary);
+  border-top: 2px solid #ffffffbd;
+  border-bottom: 2px solid #ffffffbd;
+  border-radius: 15px;
+}
+
+.container-menu-btn {
+  position: relative;
+  width: 61% !important;
+  display: flex;
+  justify-content: center;
+  gap: 1rem !important;
+  flex-wrap: wrap;
+  margin: 2rem auto;
+  border: 2px solid #ffffffbd;
+  padding: 2rem;
+  border-radius: 25px;
+  background-color: var(--color-primary);
+}
+
+.app__roomMDetails-wrapper {
+  width: 100%;
+  height: fit-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  transition: transform 0.5s ease;
+  z-index: 22;
+  background: rgb(54, 153, 51);
+  overflow: hidden;
+}
+.app__roomMDetails-wrapper.ActiveScheduling {
+  transform: scale(1);
+}
+
+/* !after */
+.select-serviceID {
+  cursor: pointer;
+}
+.select-serviceID:hover {
+  background: var(--color-tertial);
+}

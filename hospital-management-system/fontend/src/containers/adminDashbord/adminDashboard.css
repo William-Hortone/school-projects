@@ -1,0 +1,38 @@
+.app__AdminDashboard {
+  width: 100%;
+  height: auto;
+  padding-top: 100px;
+  /* background-color: aquamarine; */
+}
+.app__AdminDashboard-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  /* background-color: rgb(210, 255, 127); */
+}
+.app__AdminDashboard-container_nav {
+  width: 270px;
+  height: 100%;
+
+  background: var(--color-primary);
+}
+.container_nav-links {
+  position: fixed;
+  top: 100px;
+  width: 270px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  padding-top: 2rem;
+}
+
+.app__AdminDashboard-container_wrapper {
+  width: 100%;
+  flex: 1;
+  /* width: 300px; */
+
+  height: 100%;
+  background-color: var(--color-bg);
+}
