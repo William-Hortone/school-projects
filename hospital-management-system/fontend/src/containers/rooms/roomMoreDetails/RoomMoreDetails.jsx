@@ -34,7 +34,7 @@ const RoomMoreDetails = ({
   // });
 
   const [selectedDays, setSelectedDays] = useState("");
-  const [scheduleId, setScheduleId] = useState("");
+  const [roomId, setRoomId] = useState("");
   const [pickedServiceID, setPickedServiceID] = useState("");
   const [docIDisPicked, setDocIDisPicked] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
@@ -54,6 +54,10 @@ const RoomMoreDetails = ({
     });
   };
 
+  useEffect(() => {
+    setRoomId(inputs.roomID);
+  }, [roomId, inputs.roomID]);
+
   const handleCloseScheduling = () => {
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
@@ -72,27 +76,29 @@ const RoomMoreDetails = ({
   //   );
   //   const selectedDaysString = selectedDays.join(", ");
   //   setSelectedDays(selectedDaysString);
-  //   setScheduleId(inputs.schedulingID);
+  //   setRoomId(inputs.schedulingID);
   // }, [availableDays, input, inputs.schedulingID]);
 
+  // function to add room  a new roo ID
   const handleAddAppointment = () => {
     if (addOnSubmit) {
       // Initialize the Id if the array is empty
       if (roomsDetails.length === 0) {
         setInputs({
           ...inputs,
-          schedulingID: "01",
+          roomID: "room_001",
         });
       } else {
         // Get the last Id and increment it
-        const lastScheduleId =
-          roomsDetails[roomsDetails.length - 1].schedulingID;
-        const nextScheduleId = (parseInt(lastScheduleId) + 1)
+        const lastElementId = roomsDetails[roomsDetails.length - 1].roomID;
+        const numericPart = parseInt(lastElementId.split("_")[1]);
+        const nextElementId = `room_${(numericPart + 1)
           .toString()
-          .padStart(2, "0");
+          .padStart(3, "0")}`;
+        console.log("nextElementId", nextElementId);
         setInputs({
           ...inputs,
-          schedulingID: nextScheduleId,
+          roomID: nextElementId,
         });
       }
     } else {
@@ -107,7 +113,7 @@ const RoomMoreDetails = ({
     axios
       .post("http://localhost:3001/roomsInfos", inputs)
       .then((res) => {
-        if (res.data === "roomsInfos") {
+        if (res.data === "success") {
           toast.success("Added successfully");
         }
       })
@@ -115,14 +121,14 @@ const RoomMoreDetails = ({
   };
 
   // function to Edit a room details
-  const handleSubmitEditDoctor = (e, scheduleId) => {
+  const handleSubmitEditRoom = (e, roomId) => {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:3001/editHospitalSchedule/${scheduleId}`, input)
+      .put(`http://localhost:3001/editRoomDetails/${roomId}`, inputs)
       .then((res) => {
         if (res.data === "success") {
-          toast.success("Appointment updated successfully");
+          toast.success("Room updated successfully");
         } else if (res.data === "notfound") {
           toast.error("Wrong ID");
         } else {
@@ -139,7 +145,7 @@ const RoomMoreDetails = ({
   };
 
   const handleDelete = () => {
-    if (scheduleId === undefined || scheduleId === "") {
+    if (roomId === undefined || roomId === "") {
       toast.error("Please provide a Scheduling ID");
     } else {
       setShowPopupDelete(true);
@@ -147,12 +153,12 @@ const RoomMoreDetails = ({
   };
 
   // Delete a service schedule
-  const handleDeleteAppointment = (scheduleId) => {
-    if (scheduleId === undefined || scheduleId === "") {
+  const handleDeleteAppointment = (roomId) => {
+    if (roomId === undefined || roomId === "") {
       toast.error("Please provide a Scheduling ID");
     } else {
       axios
-        .put(`http://localhost:3001/deleteHospitalSchedule/${scheduleId}`)
+        .put(`http://localhost:3001/deleteRoom/${roomId}`)
         .then((res) => {
           if (res.data === "success") {
             toast.success("Deleted Successfully");
@@ -188,22 +194,62 @@ const RoomMoreDetails = ({
   // };
 
   // automatically fill the form when click on one row of the table
-  const handleUpdateInfos = (serAppointment) => {
+  // const handleUpdateInfos = (room) => {
+  //   if (!addOnSubmit) {
+  //     setInputs({
+  //       roomID: room.roomID,
+  //       roomType: room.roomType,
+  //       roomRates: room.roomRates,
+  //       roomDesc: room.roomDesc,
+  //     });
+
+  //     // setSelectedDays(room.selectedDays);
+  //     setRoomId(room.roomID);
+  //     console.log("Room iD selected", roomId);
+  //     console.log("Room iD ", inputs.roomID);
+  //     // setPickedServiceID(room.roomID);
+  //     // setDocIDisPicked(true);
+  //     setDisabledInput(true);
+  //   }
+  // };
+
+  const handleUpdateInfos = (room) => {
     if (!addOnSubmit) {
       setInputs({
-        schedulingID: serAppointment.schedulingID,
-        serviceID: serAppointment.serviceID,
-        serviceStarts: serAppointment.serviceStarts,
-        serviceEnds: serAppointment.serviceEnds,
-        schedulingNotes: serAppointment.schedulingNotes,
+        roomID: room.roomID,
+        roomType: room.roomType,
+        roomRates: room.roomRates,
+        roomDesc: room.roomDesc,
       });
 
-      setSelectedDays(serAppointment.selectedDays);
-      setPickedServiceID(serAppointment.serviceID);
+      // setSelectedDays(room.selectedDays);
+      setPickedServiceID(room.roomID);
       setDocIDisPicked(true);
       setDisabledInput(true);
     }
   };
+
+  // Delete a service schedule
+  // const handleDeleteAppointment = (scheduleId) => {
+  //   if (scheduleId === undefined || scheduleId === "") {
+  //     toast.error("Please provide a Scheduling ID");
+  //   } else {
+  //     axios
+  //       .put(`http://localhost:3001/deleteHospitalSchedule/${scheduleId}`)
+  //       .then((res) => {
+  //         if (res.data === "success") {
+  //           toast.success("Deleted Successfully");
+  //         }
+  //         if (res.data === "notfound") {
+  //           toast.error("Service not found");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         toast.error(error);
+  //       });
+  //   }
+  //   setShowPopupDelete(false);
+  // };
 
   return (
     <>
@@ -215,7 +261,7 @@ const RoomMoreDetails = ({
             onSubmit={
               addOnSubmit
                 ? handleSubmit
-                : (e) => handleSubmitEditDoctor(e, scheduleId)
+                : (e) => handleSubmitEditRoom(e, roomId)
             }
           >
             <div className="form--content">
@@ -379,19 +425,17 @@ const RoomMoreDetails = ({
             <table>
               <thead>
                 <tr>
-                  <th>Schedule ID </th>
-                  <th>Service ID </th>
-                  <th>Service Starts</th>
-                  <th>Service Ends</th>
-                  <th> Available Days</th>
-                  <th>Schedule Notes</th>
+                  <th>Room ID </th>
+                  <th>Room Type </th>
+                  <th>Room Rates</th>
+                  <th>Room Description</th>
                 </tr>
               </thead>
               <tbody>
-                {roomsDetails.map((serAppointment, index) => {
+                {roomsDetails.map((room, index) => {
                   return (
                     <tr
-                      onClick={(e) => handleUpdateInfos(serAppointment)}
+                      onClick={(e) => handleUpdateInfos(room)}
                       className={
                         !addOnSubmit
                           ? "doctor-infos select-serviceID"
@@ -399,12 +443,10 @@ const RoomMoreDetails = ({
                       }
                       key={index}
                     >
-                      <td>{serAppointment.schedulingID}</td>
-                      <td>{serAppointment.serviceID}</td>
-                      <td>{serAppointment.serviceStarts}</td>
-                      <td>{serAppointment.serviceEnds}</td>
-                      <td>{serAppointment.selectedDays}</td>
-                      <td>{serAppointment.schedulingNotes}</td>
+                      <td>{room.roomID}</td>
+                      <td>{room.roomType}</td>
+                      <td>{room.roomRates}</td>
+                      <td>{room.roomDesc}</td>
                     </tr>
                   );
                 })}
@@ -450,7 +492,7 @@ const RoomMoreDetails = ({
                 </p>
                 <div className="delete-buttons">
                   <button onClick={handleClosePopup}> Cancel</button>
-                  <button onClick={() => handleDeleteAppointment(scheduleId)}>
+                  <button onClick={() => handleDeleteAppointment(roomId)}>
                     Delete
                   </button>
                 </div>

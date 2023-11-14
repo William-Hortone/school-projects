@@ -14,6 +14,16 @@ const RoomDetails = () => {
     setAddOnSubmit(true);
   };
 
+  const showRoomsToEdit = () => {
+    setOpenScheduling(true);
+    setAddOnSubmit(false);
+  };
+
+  const showSchedulingToDelete = () => {
+    setOpenScheduleDelete(true);
+    setAddOnSubmit(false);
+  };
+
   return (
     <div className="roomDetails">
       <div className="roomDetails-container">
@@ -86,7 +96,7 @@ const RoomDetails = () => {
             iconName="edit"
             btnName="Edit"
             color="green"
-            // onClick={showSchedulingToEdit}
+            onClick={showRoomsToEdit}
             buttonType="submit"
           />
           <ButtonAction
@@ -94,7 +104,7 @@ const RoomDetails = () => {
             btnName="Delete"
             buttonType="button"
             color="red"
-            // onClick={showSchedulingToDelete}
+            onClick={showSchedulingToDelete}
           />
           <ButtonAction
             iconName="refresh"
