@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
-import { ButtonAction, ButtonSkip, Input } from "../../../components";
-import { useSelector } from "react-redux";
-import {
-  selectHospitalSchedule,
-  selectMedicalService,
-} from "../../../redux/slice/medicalServiceSlice";
-import "./wardMoreDetails.css";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
-// import { FaTimes } from "react-icons/fa";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
+import { selectWardDetails } from "../../../redux/slice/wardSlice";
+import "./wardMoreDetails.css";
 
 const WardMoreDetails = ({
   setOpenScheduling,
@@ -23,18 +18,8 @@ const WardMoreDetails = ({
     roomRates: "",
     roomDesc: "",
   });
-  // const [availableDays, setAvailableDays] = useState({
-  //   monday: false,
-  //   tuesday: false,
-  //   wednesday: false,
-  //   thursday: false,
-  //   friday: false,
-  //   saturday: false,
-  //   sunday: false,
-  // });
 
-  const [selectedDays, setSelectedDays] = useState("");
-  const [roomId, setRoomId] = useState("");
+  const [id, setId] = useState("");
   const [pickedServiceID, setPickedServiceID] = useState("");
   const [docIDisPicked, setDocIDisPicked] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
@@ -42,9 +27,7 @@ const WardMoreDetails = ({
   const [showDocDetailTable, setShowDocDetailTable] = useState(false);
   // const input = { ...inputs, selectedDays };
 
-  // const roomsDetails = useSelector(selectRoomsDetails);
-  const roomsDetails = useSelector(selectRoomsDetails);
-  const medicalServiceDetails = useSelector(selectMedicalService);
+  const wardsDetails = useSelector(selectWardDetails);
 
   const handleOnChangeAppointment = (e) => {
     const { name, value } = e.target;
@@ -55,17 +38,17 @@ const WardMoreDetails = ({
   };
 
   useEffect(() => {
-    setRoomId(inputs.roomID);
-  }, [roomId, inputs.roomID]);
+    setId(inputs.wardID);
+  }, [setId, inputs.wardID]);
 
-  const handleCloseScheduling = () => {
+  const handleClose = () => {
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
     setInputs({
-      roomID: "",
-      roomType: "",
-      roomRates: "",
-      roomDesc: "",
+      wardID: "",
+      wardType: "",
+      wardRates: "",
+      wardDesc: "",
     });
   };
 
@@ -80,25 +63,25 @@ const WardMoreDetails = ({
   // }, [availableDays, input, inputs.schedulingID]);
 
   // function to add room  a new roo ID
-  const handleAddAppointment = () => {
+  const handleAddWardDetails = () => {
     if (addOnSubmit) {
       // Initialize the Id if the array is empty
-      if (roomsDetails.length === 0) {
+      if (wardsDetails.length === 0) {
         setInputs({
           ...inputs,
-          roomID: "room_001",
+          wardID: "ward_001",
         });
       } else {
         // Get the last Id and increment it
-        const lastElementId = roomsDetails[roomsDetails.length - 1].roomID;
+        const lastElementId = wardsDetails[wardsDetails.length - 1].wardID;
         const numericPart = parseInt(lastElementId.split("_")[1]);
-        const nextElementId = `room_${(numericPart + 1)
+        const nextElementId = `ward_${(numericPart + 1)
           .toString()
           .padStart(3, "0")}`;
         console.log("nextElementId", nextElementId);
         setInputs({
           ...inputs,
-          roomID: nextElementId,
+          wardID: nextElementId,
         });
       }
     } else {
@@ -106,12 +89,12 @@ const WardMoreDetails = ({
     }
   };
 
-  // The function to add a room details
+  // The function to add a ward details
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3001/roomsInfos", inputs)
+      .post("http://localhost:3001/wardsInfos", inputs)
       .then((res) => {
         if (res.data === "success") {
           toast.success("Added successfully");
@@ -120,19 +103,19 @@ const WardMoreDetails = ({
       .catch((err) => toast.error(err));
   };
 
-  // function to Edit a room details
-  const handleSubmitEditRoom = (e, roomId) => {
+  // function to Edit a ward details
+  const handleSubmitEditWard = (e, wardId) => {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:3001/editRoomDetails/${roomId}`, inputs)
+      .put(`http://localhost:3001/editWardDetails/${wardId}`, inputs)
       .then((res) => {
         if (res.data === "success") {
           toast.success("Room updated successfully");
         } else if (res.data === "notfound") {
           toast.error("Wrong ID");
         } else {
-          toast.error("An error occurred while updating the service");
+          toast.error("An error occurred while updating the ward");
         }
       })
       .catch((err) => {
@@ -145,20 +128,20 @@ const WardMoreDetails = ({
   };
 
   const handleDelete = () => {
-    if (roomId === undefined || roomId === "") {
-      toast.error("Please provide a Scheduling ID");
+    if (id === undefined || id === "") {
+      toast.error("Please provide a ward ID");
     } else {
       setShowPopupDelete(true);
     }
   };
 
-  // Delete a service schedule
-  const handleDeleteRoom = (roomId) => {
-    if (roomId === undefined || roomId === "") {
-      toast.error("Please provide a Scheduling ID");
+  // Delete a ward
+  const handleDeleteWard = (wardId) => {
+    if (id === undefined || id === "") {
+      toast.error("Please provide a Ward ID");
     } else {
       axios
-        .put(`http://localhost:3001/deleteRoom/${roomId}`)
+        .put(`http://localhost:3001/deleteWard/${wardId}`)
         .then((res) => {
           if (res.data === "success") {
             toast.success("Deleted Successfully");
@@ -213,24 +196,23 @@ const WardMoreDetails = ({
   //   }
   // };
 
-  const handleUpdateInfos = (room) => {
+  const handleUpdateInfos = (ward) => {
     if (!addOnSubmit) {
       setInputs({
-        roomID: room.roomID,
-        roomType: room.roomType,
-        roomRates: room.roomRates,
-        roomDesc: room.roomDesc,
+        wardID: ward.wardID,
+        wardType: ward.wardType,
+        wardRates: ward.wardRates,
+        wardDesc: ward.wardDesc,
       });
 
-      // setSelectedDays(room.selectedDays);
-      setPickedServiceID(room.roomID);
+      setPickedServiceID(ward.wardID);
       setDocIDisPicked(true);
       setDisabledInput(true);
     }
   };
 
   // Delete a service schedule
-  // const handleDeleteRoom = (scheduleId) => {
+  // const handleDeleteWard = (scheduleId) => {
   //   if (scheduleId === undefined || scheduleId === "") {
   //     toast.error("Please provide a Scheduling ID");
   //   } else {
@@ -259,9 +241,7 @@ const WardMoreDetails = ({
 
           <form
             onSubmit={
-              addOnSubmit
-                ? handleSubmit
-                : (e) => handleSubmitEditRoom(e, roomId)
+              addOnSubmit ? handleSubmit : (e) => handleSubmitEditWard(e, id)
             }
           >
             <div className="form--content">
@@ -273,43 +253,43 @@ const WardMoreDetails = ({
                 <label form="schedulingId"> Ward ID:</label>
                 <Input
                   placeholder="Ward ID"
-                  name="roomID"
-                  value={inputs.roomID}
+                  name="wardID"
+                  value={inputs.wardID}
                   handleOnChange={handleOnChangeAppointment}
                   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
               </div>
 
               <div className="input-fields">
-                <label htmlFor="roomType"> Ward Type:</label>
+                <label htmlFor="wardType"> Ward Type:</label>
                 <Input
                   placeholder="Ward Type"
-                  name="roomType"
-                  id="roomType"
-                  value={inputs.roomType}
+                  name="wardType"
+                  id="wardType"
+                  value={inputs.wardType}
                   handleOnChange={handleOnChangeAppointment}
 
                   // readOnly
                 />
               </div>
               <div className="input-fields">
-                <label htmlFor="roomRates"> Ward Rates:</label>
+                <label htmlFor="wardRates"> Ward Rates:</label>
                 <Input
                   placeholder="Ward Rates"
-                  name="roomRates"
-                  id="roomRates"
-                  value={inputs.roomRates}
+                  name="wardRates"
+                  id="wardRates"
+                  value={inputs.wardRates}
                   handleOnChange={handleOnChangeAppointment}
                 />
               </div>
 
               <div className="input-fields">
-                <label htmlFor="roomDesc"> Ward Description:</label>
+                <label htmlFor="wardDesc"> Ward Description:</label>
                 <Input
                   placeholder="Ward Description"
-                  name="roomDesc"
-                  id="roomDesc"
-                  value={inputs.roomDesc}
+                  name="wardDesc"
+                  id="wardDesc"
+                  value={inputs.wardDesc}
                   handleOnChange={handleOnChangeAppointment}
                 />
               </div>
@@ -328,96 +308,6 @@ const WardMoreDetails = ({
                 </button>
               )}
             </div>
-            {/* <aside>
-              <div className="details-title">
-                <h4> Available Days</h4>
-                <div className="days-divider" />
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="monday">Monday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="monday"
-                    name="Mon"
-                    value={availableDays.monday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="tuesday">Tuesday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="tuesday"
-                    name="Tue"
-                    value={availableDays.tuesday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="wednesday">Wednesday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="wednesday"
-                    name="Wed"
-                    value={availableDays.wednesday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="thursday">Thursday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="thursday"
-                    name="Thu"
-                    value={availableDays.thursday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="friday">Friday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="friday"
-                    name="Fri"
-                    value={availableDays.friday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="saturday">Saturday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="saturday"
-                    name="Sat"
-                    value={availableDays.saturday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="sunday">Sunday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="sunday"
-                    name="Sun"
-                    value={availableDays.sunday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-            </aside> */}
           </form>
 
           {/* The table  to display the schedules*/}
@@ -425,17 +315,17 @@ const WardMoreDetails = ({
             <table>
               <thead>
                 <tr>
-                  <th>Room ID </th>
-                  <th>Room Type </th>
-                  <th>Room Rates</th>
-                  <th>Room Description</th>
+                  <th>Ward ID </th>
+                  <th>Ward Type </th>
+                  <th>Ward Rates</th>
+                  <th>Ward Description</th>
                 </tr>
               </thead>
               <tbody>
-                {roomsDetails.map((room, index) => {
+                {wardsDetails.map((ward, index) => {
                   return (
                     <tr
-                      onClick={(e) => handleUpdateInfos(room)}
+                      onClick={(e) => handleUpdateInfos(ward)}
                       className={
                         !addOnSubmit
                           ? "doctor-infos select-serviceID"
@@ -443,10 +333,10 @@ const WardMoreDetails = ({
                       }
                       key={index}
                     >
-                      <td>{room.roomID}</td>
-                      <td>{room.roomType}</td>
-                      <td>{room.roomRates}</td>
-                      <td>{room.roomDesc}</td>
+                      <td>{ward.wardID}</td>
+                      <td>{ward.wardType}</td>
+                      <td>{ward.wardRates}</td>
+                      <td>{ward.wardDesc}</td>
                     </tr>
                   );
                 })}
@@ -469,7 +359,7 @@ const WardMoreDetails = ({
                 btnName="Add"
                 color="green"
                 buttonType="submit"
-                onClick={handleAddAppointment}
+                onClick={handleAddWardDetails}
               />
 
               <ButtonAction
@@ -477,7 +367,7 @@ const WardMoreDetails = ({
                 btnName="Cancel"
                 color="red"
                 buttonType="button"
-                onClick={handleCloseScheduling}
+                onClick={handleClose}
               />
             </div>
           </div>
@@ -488,59 +378,17 @@ const WardMoreDetails = ({
               <div className="schedule-delete-popup">
                 <p>
                   Do you really want to delete <br />
-                  the Service with ID of {inputs.schedulingID} ?
+                  the ward with ID of {inputs.wardID} ?
                 </p>
                 <div className="delete-buttons">
                   <button onClick={handleClosePopup}> Cancel</button>
-                  <button onClick={() => handleDeleteRoom(roomId)}>
-                    Delete
-                  </button>
+                  <button onClick={() => handleDeleteWard(id)}>Delete</button>
                 </div>
               </div>
             </div>
           )}
         </div>
       </div>
-
-      {/* Popup table to choose the service ID */}
-      {/* {showDocDetailTable && (
-        <div className="app__roomMDetails-table-id ">
-          <div onClick={handleCloseDocDetailsTable} className="close-tableID">
-            <FaTimes size={24} color="#000" />
-          </div>
-          <h2>SERVICES DETAILS</h2>
-          <div className="app__roomMDetails-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Service ID </th>
-                  <th>Service Name</th>
-                  <th>Amount</th>
-                  <th>Duration</th>
-                  <th>Additional Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {medicalServiceDetails.map((medicalService, index) => {
-                  return (
-                    <tr
-                      className="doctor-infos select-serviceID"
-                      onClick={(e) => handleServiceId(medicalService.serviceID)}
-                      key={index}
-                    >
-                      <td>{medicalService.serviceID}</td>
-                      <td>{medicalService.serviceName}</td>
-                      <td>{medicalService.amount}</td>
-                      <td>{medicalService.duration}</td>
-                      <td>{medicalService.additionalNotes}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )} */}
     </>
   );
 };

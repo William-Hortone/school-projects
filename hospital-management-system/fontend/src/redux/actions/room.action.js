@@ -6,7 +6,6 @@ const fetchRoomsDetails = () => {
     axios
       .get("http://localhost:3001/getRoomsDetails")
       .then((res) => {
-        console.log(res.data);
         dispatch(GET_ROOMS_DETAILS(res.data));
       })
       .catch((err) => console.error(err));
