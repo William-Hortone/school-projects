@@ -20,16 +20,15 @@ const WardMoreDetails = ({
   });
 
   const [id, setId] = useState("");
-  const [pickedServiceID, setPickedServiceID] = useState("");
-  const [docIDisPicked, setDocIDisPicked] = useState(false);
+  const [pickedServiceID, setPickedWardID] = useState("");
+  const [docIDisPicked, setWarIDisPicked] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [showDocDetailTable, setShowDocDetailTable] = useState(false);
-  // const input = { ...inputs, selectedDays };
 
   const wardsDetails = useSelector(selectWardDetails);
 
-  const handleOnChangeAppointment = (e) => {
+  const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputs({
       ...inputs,
@@ -157,23 +156,15 @@ const WardMoreDetails = ({
     setShowPopupDelete(false);
   };
 
-  // const handleShowDocDetailsTable = () => {
-  //   setShowDocDetailTable(true);
-  // };
-
-  // const handleCloseDocDetailsTable = () => {
-  //   setShowDocDetailTable(false);
-  // };
-
   // Passing the Service Id to the form when selected
   // const handleServiceId = (serID) => {
   //   setShowDocDetailTable(false);
-  //   setPickedServiceID(serID);
+  //   setPickedWardID(serID);
   //   setInputs({
   //     ...inputs,
   //     serviceID: serID,
   //   });
-  //   setDocIDisPicked(true);
+  //   setWarIDisPicked(true);
   // };
 
   // automatically fill the form when click on one row of the table
@@ -190,8 +181,8 @@ const WardMoreDetails = ({
   //     setRoomId(room.roomID);
   //     console.log("Room iD selected", roomId);
   //     console.log("Room iD ", inputs.roomID);
-  //     // setPickedServiceID(room.roomID);
-  //     // setDocIDisPicked(true);
+  //     // setPickedWardID(room.roomID);
+  //     // setWarIDisPicked(true);
   //     setDisabledInput(true);
   //   }
   // };
@@ -205,8 +196,8 @@ const WardMoreDetails = ({
         wardDesc: ward.wardDesc,
       });
 
-      setPickedServiceID(ward.wardID);
-      setDocIDisPicked(true);
+      setPickedWardID(ward.wardID);
+      setWarIDisPicked(true);
       setDisabledInput(true);
     }
   };
@@ -255,7 +246,7 @@ const WardMoreDetails = ({
                   placeholder="Ward ID"
                   name="wardID"
                   value={inputs.wardID}
-                  handleOnChange={handleOnChangeAppointment}
+                  handleOnChange={handleOnChange}
                   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
               </div>
@@ -267,7 +258,7 @@ const WardMoreDetails = ({
                   name="wardType"
                   id="wardType"
                   value={inputs.wardType}
-                  handleOnChange={handleOnChangeAppointment}
+                  handleOnChange={handleOnChange}
 
                   // readOnly
                 />
@@ -279,7 +270,7 @@ const WardMoreDetails = ({
                   name="wardRates"
                   id="wardRates"
                   value={inputs.wardRates}
-                  handleOnChange={handleOnChangeAppointment}
+                  handleOnChange={handleOnChange}
                 />
               </div>
 
@@ -290,7 +281,7 @@ const WardMoreDetails = ({
                   name="wardDesc"
                   id="wardDesc"
                   value={inputs.wardDesc}
-                  handleOnChange={handleOnChangeAppointment}
+                  handleOnChange={handleOnChange}
                 />
               </div>
               {!openScheduleDelete && (

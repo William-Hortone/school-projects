@@ -6,7 +6,7 @@ const fetchWardDetails = () => {
     axios
       .get("http://localhost:3001/getWardsDetails")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         dispatch(GET_WARD_DETAILS(res.data));
       })
       .catch((err) => console.error(err));

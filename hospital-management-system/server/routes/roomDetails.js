@@ -41,28 +41,6 @@ router.put("/editRoomDetails/:roomId", (req, res) => {
 });
 
 //Delete room
-// router.put("/deleteRoom/:roomId", (req, res) => {
-//   const id = req.params.roomId;
-//   ModelRoom.findOneAndRemove(
-//     {
-//       roomID: id,
-//     },
-//     { $set: { isDisplaying: false } },
-//     { new: true }
-//   )
-//     .then((room) => {
-//       if (!room) {
-//         return res.json("notfound");
-//       } else {
-//         if (room.isDisplayed === false) {
-//           return res.json("notfound");
-//         }
-//         res.json("success");
-//       }
-//     })
-//     .catch((err) => res.status(500).json(err));
-// });
-
 router.put("/deleteRoom/:roomId", (req, res) => {
   const id = req.params.roomId;
 

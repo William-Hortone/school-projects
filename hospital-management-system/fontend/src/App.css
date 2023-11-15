@@ -103,6 +103,6 @@ li {
 }
 .admin-category:hover {
   transform: translateY(-5px);
-  background-color: var(--color-secondary);
+  background-color: var(--color-primary);
   color: white;
 }

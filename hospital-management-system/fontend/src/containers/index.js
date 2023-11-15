@@ -1,3 +1,5 @@
+import AddUser from "./addUser/AddUser";
+import AddUserDetails from "./addUserDetails/AddUserDetails";
 import AdminDashboard from "./adminDashbord/AdminDashboard";
 import AppScheduling from "./doctors/appSheduling/AppScheduling";
 import DDetails from "./doctors/dDetails/DDetails";
@@ -36,4 +38,6 @@ export {
   ServiceScheduling,
   ScheduleSer,
   WardMoreDetails,
+  AddUser,
+  AddUserDetails,
 };

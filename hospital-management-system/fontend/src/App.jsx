@@ -6,6 +6,7 @@ import { Home, HomeAdmin } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
+  AddUser,
   AdminDashboard,
   AppScheduling,
   DoctorAppointment,
@@ -26,6 +27,7 @@ import fetchMedicalService, {
 } from "./redux/actions/medicalService.action";
 import fetchRoomsDetails from "./redux/actions/room.action";
 import fetchWardDetails from "./redux/actions/ward.actions";
+import fetchAddedUserDetails from "./redux/actions/addedUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ function App() {
     dispatch(fetchMedicalService());
     dispatch(fetchDocAppointments());
     dispatch(fetchHospitalSchedule());
+    dispatch(fetchAddedUserDetails());
     dispatch(fetchRoomsDetails());
     dispatch(fetchWardDetails());
   }, [dispatch]);
@@ -74,6 +77,7 @@ function App() {
               path="/adminDashboard/wardDetails"
               element={<WardDetails />}
             />
+            <Route path="/adminDashboard/addUser" element={<AddUser />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -64,8 +64,15 @@ const AdminDashboard = () => {
             >
               Ward Details
             </Link>
+            <Link
+              to="/adminDashboard/addUser"
+              className="nav-link admin-category"
+            >
+              Add User
+            </Link>
           </ul>
         </aside>
+
         <div className="app__AdminDashboard-container_wrapper">
           <Outlet />
         </div>
