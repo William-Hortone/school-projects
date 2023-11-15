@@ -1,15 +1,9 @@
 .app__roomMDetails {
-  /* margin: 90px auto 0 auto; */
   width: 100%;
   height: auto;
   background-color: var(--color-blue) !important;
 }
-/* .app__roomMDetails-container h2 {
-  text-align: center;
-  font-size: 2rem;
-  padding-block: 2rem;
-  color: var(--color-blue);
-} */
+
 .app__roomMDetails-container {
   width: 90%;
   margin: auto;

@@ -2,17 +2,12 @@
   width: 100%;
   height: auto;
   background-color: #efefef;
-  background: rgb(29, 26, 69);
-  background: linear-gradient(
-    41deg,
-    rgba(29, 26, 69, 1) 0%,
-    rgba(19, 93, 108, 1) 100%,
-    rgba(0, 0, 0, 1) 100%
-  );
+
   margin-top: 100px;
 }
 .app__medicalServices-container {
-  width: 70%;
+  width: 90%;
+
   margin: 0 auto;
   padding: 2rem;
   background-color: #efefef;

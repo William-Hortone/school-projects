@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   AdminDashboard,
+  AppScheduling,
   DoctorAppointment,
   DoctorDetails,
   MedicalServices,
@@ -14,6 +15,7 @@ import {
   ServiceScheduling,
   ViewHospitalSD,
   VizDoctorDetails,
+  WardDetails,
 } from "./containers";
 import { useDispatch } from "react-redux";
 import fetchDoctorDetails, {
@@ -47,15 +49,29 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
 
-          <Route path="/doctorD" element={<DoctorDetails />} />
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />
-          <Route path="/mServices" element={<MedicalServices />} />
           <Route path="/vHospital" element={<ViewHospitalSD />} />
-          <Route path="/doctorApp" element={<DoctorAppointment />} />
-          <Route path="/serviceSchedule" element={<ServiceScheduling />} />
           <Route path="/roomDetails" element={<RoomDetails />} />
+
           <Route path="/adminDashboard" element={<AdminDashboard />}>
+            <Route path="/adminDashboard/doctorD" element={<DoctorDetails />} />
+            <Route
+              path="/adminDashboard/doctorApp"
+              element={<AppScheduling />}
+            />
+            <Route
+              path="/adminDashboard/serviceSchedule"
+              element={<ServiceScheduling />}
+            />
+            <Route
+              path="/adminDashboard/mServices"
+              element={<MedicalServices />}
+            />
             <Route path="/adminDashboard/rooms" element={<RoomDetails />} />
+            <Route
+              path="/adminDashboard/wardDetails"
+              element={<WardDetails />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

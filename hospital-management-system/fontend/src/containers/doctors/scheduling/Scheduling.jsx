@@ -81,6 +81,7 @@ const Scheduling = ({
     setScheduleId(appointmentInfos.schedulingID);
   }, [availableDays, input, appointmentInfos.schedulingID]);
 
+  // Function to generate the ID
   const handleAddAppointment = () => {
     if (addOnSubmit) {
       if (docAppointmentDetails.length === 0) {
@@ -115,6 +116,7 @@ const Scheduling = ({
       .catch((err) => toast.error(err));
   };
 
+  // Function to update an appointment
   const handleSubmitEditDoctor = (e, scheduleId) => {
     e.preventDefault();
 
@@ -146,6 +148,7 @@ const Scheduling = ({
     }
   };
 
+  // Function to Delete an appointment
   const handleDeleteAppointment = (scheduleId) => {
     if (scheduleId === undefined || scheduleId === "") {
       toast.error("Please provide a Scheduling ID");

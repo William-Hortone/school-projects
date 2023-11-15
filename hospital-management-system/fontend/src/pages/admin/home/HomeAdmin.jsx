@@ -8,9 +8,9 @@ const HomeAdmin = () => {
     <div className="app__homeAdmin">
       <Header />
       <div className="app__homeAdmin-container">
-        <Link to="/doctorD" className="admin-category">
+        {/* <Link to="/doctorD" className="admin-category">
           Doctor Details
-        </Link>
+        </Link> */}
         <Link to="/vizDoctorD" className="admin-category">
           VizDoctorDetails
         </Link>

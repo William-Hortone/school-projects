@@ -80,3 +80,29 @@ li {
 .appScheduling-wrapper.ActiveScheduling {
   transform: scale(1);
 }
+
+.admin-category {
+  height: 50px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  cursor: pointer;
+  background-color: #efefef;
+  padding: 0.5rem;
+  text-decoration: none;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.admin-category:hover {
+  transform: translateY(-5px);
+  background-color: var(--color-secondary);
+  color: white;
+}

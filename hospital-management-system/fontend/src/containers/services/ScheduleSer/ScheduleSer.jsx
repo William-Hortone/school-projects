@@ -82,6 +82,7 @@ const ScheduleSer = ({
     setScheduleId(appointmentInfos.schedulingID);
   }, [availableDays, input, appointmentInfos.schedulingID]);
 
+  // To generate the schedule ID
   const handleAddAppointment = () => {
     if (addOnSubmit) {
       // Initialize the Id if the array is empty
@@ -249,7 +250,7 @@ const ScheduleSer = ({
                     required
                   >
                     <option value={docIDisPicked}>
-                      {docIDisPicked ? pickedServiceID : "Select a doctor ID"}
+                      {/* {docIDisPicked ? pickedServiceID : "Select a doctor ID"} */}
                     </option>
                     {medicalServiceDetails.map((medicalService, index) => (
                       <option key={index} value={medicalService.serviceID}>

@@ -5,13 +5,13 @@ import {
   selectHospitalSchedule,
   selectMedicalService,
 } from "../../../redux/slice/medicalServiceSlice";
-import "./roomMoreDetails.css";
+import "./wardMoreDetails.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
 // import { FaTimes } from "react-icons/fa";
 
-const RoomMoreDetails = ({
+const WardMoreDetails = ({
   setOpenScheduling,
   addOnSubmit,
   setOpenScheduleDelete,
@@ -255,7 +255,7 @@ const RoomMoreDetails = ({
     <>
       <div className="app__roomMDetails">
         <div className="app__roomMDetails-container">
-          <h2 className="page-title">ROOMS DETAILS</h2>
+          <h2 className="page-title">WARDS DETAILS</h2>
 
           <form
             onSubmit={
@@ -266,13 +266,13 @@ const RoomMoreDetails = ({
           >
             <div className="form--content">
               <div className="details-title">
-                <h4> Room Detail</h4>
+                <h4> Ward Details</h4>
                 <div className="divider" />
               </div>
               <div className="input-fields">
-                <label form="schedulingId"> Room ID:</label>
+                <label form="schedulingId"> Ward ID:</label>
                 <Input
-                  placeholder="Room ID"
+                  placeholder="Ward ID"
                   name="roomID"
                   value={inputs.roomID}
                   handleOnChange={handleOnChangeAppointment}
@@ -281,9 +281,9 @@ const RoomMoreDetails = ({
               </div>
 
               <div className="input-fields">
-                <label htmlFor="roomType"> Room Type:</label>
+                <label htmlFor="roomType"> Ward Type:</label>
                 <Input
-                  placeholder="Room Type"
+                  placeholder="Ward Type"
                   name="roomType"
                   id="roomType"
                   value={inputs.roomType}
@@ -293,9 +293,9 @@ const RoomMoreDetails = ({
                 />
               </div>
               <div className="input-fields">
-                <label htmlFor="roomRates"> Room Rates:</label>
+                <label htmlFor="roomRates"> Ward Rates:</label>
                 <Input
-                  placeholder="Room Rates"
+                  placeholder="Ward Rates"
                   name="roomRates"
                   id="roomRates"
                   value={inputs.roomRates}
@@ -304,9 +304,9 @@ const RoomMoreDetails = ({
               </div>
 
               <div className="input-fields">
-                <label htmlFor="roomDesc"> Room Description:</label>
+                <label htmlFor="roomDesc"> Ward Description:</label>
                 <Input
-                  placeholder="Room Description"
+                  placeholder="Ward Description"
                   name="roomDesc"
                   id="roomDesc"
                   value={inputs.roomDesc}
@@ -545,4 +545,4 @@ const RoomMoreDetails = ({
   );
 };
 
-export default RoomMoreDetails;
+export default WardMoreDetails;

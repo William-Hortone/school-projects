@@ -11,6 +11,7 @@ import RoomMoreDetails from "./rooms/roomMoreDetails/RoomMoreDetails";
 import ViewRooms from "./rooms/viewRooms/ViewRooms";
 import ViewWardDetails from "./rooms/viewWardDetails/ViewWardDetails";
 import WardDetails from "./rooms/wardDetails/WardDetails";
+import WardMoreDetails from "./rooms/wardMoreDetails/WardMDetails";
 import ScheduleSer from "./services/ScheduleSer/ScheduleSer";
 import MedicalServices from "./services/medicalServices/MedicalServices";
 import ServiceScheduling from "./services/serviceSchedule/ServiceScheduling";
@@ -34,4 +35,5 @@ export {
   Scheduling,
   ServiceScheduling,
   ScheduleSer,
+  WardMoreDetails,
 };

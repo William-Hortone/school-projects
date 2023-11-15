@@ -1,13 +1,13 @@
 .app__doctorDetails {
   width: 100%;
-  margin-top: 100px;
+  /* margin-top: 100px; */
   height: auto;
-  background-color: var(--color-primary);
+  /* background-color: var(--color-primary);
   background: rgb(29, 26, 69);
   background: linear-gradient(
     41deg,
     rgba(29, 26, 69, 1) 0%,
     rgba(19, 93, 108, 1) 100%,
     rgba(0, 0, 0, 1) 100%
-  );
+  ); */
 }

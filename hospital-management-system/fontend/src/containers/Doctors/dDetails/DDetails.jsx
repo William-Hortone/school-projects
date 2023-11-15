@@ -169,7 +169,7 @@ const DDetails = () => {
   return (
     <div className="app__dDetails">
       <div className="app__dDetails-wrapper">
-        <h1>Doctor Details</h1>
+        <h1 className="page-title">Doctor Details</h1>
         <form
           onSubmit={
             addDoctorD
