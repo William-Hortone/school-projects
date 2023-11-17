@@ -41,6 +41,7 @@ const MedicalServices = () => {
     });
   };
 
+  // function to add generate the ID and to Increment it
   const handleAddMedicalS = () => {
     if (medicalServiceInfos.length === 0) {
       setInput({
@@ -63,13 +64,13 @@ const MedicalServices = () => {
     setInputEnabled(false);
   };
 
+  // function to add medical service
   const handleSubmitAddMedicalS = (e) => {
     e.preventDefault();
 
-
     axios
       .post("http://localhost:3001/medicalServices", input)
-      .then((res) => {
+      .then(() => {
         toast.success("Saved Successfully");
       })
       .catch((err) => toast.error(err));
@@ -81,6 +82,8 @@ const MedicalServices = () => {
     setShowSubmitBtn(true);
     setAddMedical(false);
   };
+
+  // function to Edit medical service
   const handleSubmitEditServices = (e, serviceId) => {
     e.preventDefault();
 
@@ -117,6 +120,7 @@ const MedicalServices = () => {
     setShowPopupDelete(false);
   };
 
+  // function to delete medical service
   const handleSubmitDeleteDoctor = (serviceId) => {
     if (serviceId === undefined || serviceId === "") {
       toast.error("Please provide a service ID");
@@ -161,7 +165,7 @@ const MedicalServices = () => {
     <div className="app__medicalServices">
       <Header />
       <div className="app__medicalServices-container">
-        <h1>Medical Services</h1>
+        <h1 className="page-title">Medical Services</h1>
         <div className="container-field">
           <form
             onSubmit={
@@ -172,13 +176,15 @@ const MedicalServices = () => {
           >
             <div className="input-field">
               <label form="serviceId"> Service ID:</label>
-              <input
-                placeholder="Service ID"
-                name="serviceID"
-                value={input.serviceID}
-                onChange={handleOnChange}
-                disabled={!isInputEnabled}
-              />
+              <div>
+                <input
+                  placeholder="Service ID"
+                  name="serviceID"
+                  value={input.serviceID}
+                  onChange={handleOnChange}
+                  disabled={!isInputEnabled}
+                />
+              </div>
             </div>
             <div className="input-field">
               <label form="serviceName"> Service name:</label>

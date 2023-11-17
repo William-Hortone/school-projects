@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import "./addUser.css";
 import { ButtonAction, ButtonSkip, Input } from "../../components";
 import AddUserDetails from "../addUserDetails/AddUserDetails";
+import { useNavigate } from "react-router-dom";
 // import { ButtonAction, ButtonSkip, Input } from "../../../components";
 // import RoomMoreDetails from "../roomMoreDetails/RoomMoreDetails";
-// import WardMoreDetails from "../wardMoreDetails/WardMDetails";
+// import WardMoreDetails from "../wardMoreDetails/WardMDetails";\
 
 const AddUser = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
@@ -13,6 +14,7 @@ const AddUser = () => {
   const [isEmpty, setIsEmpty] = useState(true);
 
   const [inputs, setInputs] = useState({
+    userID: "",
     firstName: "",
     lastName: "",
     gender: "",
@@ -33,6 +35,7 @@ const AddUser = () => {
     });
   };
 
+  const navigate = useNavigate();
   const handleShowScheduling = () => {
     setOpenScheduling(true);
     setAddOnSubmit(true);
@@ -41,6 +44,9 @@ const AddUser = () => {
   const showRoomsToEdit = () => {
     setOpenScheduling(true);
     setAddOnSubmit(false);
+  };
+  const handleViewAllMedicalS = () => {
+    navigate("");
   };
 
   const showSchedulingToDelete = () => {
@@ -57,6 +63,16 @@ const AddUser = () => {
       <div className="roomDetails-container">
         <h2>USER DETAILS</h2>
         <form>
+          <div className="input-fields">
+            <label htmlFor="userID"> User ID</label>
+            <Input
+              placeholder="User ID"
+              id="userID"
+              name="userID"
+              value={inputs.userID}
+              handleOnChange={handleOnChange}
+            />
+          </div>
           <div className="input-fields">
             <label htmlFor="firstName"> First Name</label>
             <Input
@@ -188,6 +204,13 @@ const AddUser = () => {
             color="red"
             buttonType="button"
             // onClick={handleClose}
+          />
+          <ButtonAction
+            iconName="all"
+            btnName="View All"
+            color="blue"
+            buttonType="button"
+            onClick={handleViewAllMedicalS}
           />
         </div>
       </div>

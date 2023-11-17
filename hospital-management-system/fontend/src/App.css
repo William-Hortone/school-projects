@@ -5,13 +5,10 @@
   scroll-behavior: smooth;
 }
 :root {
-  --font-base: "Cormorant Upright", serif;
-  --font-alt: "Open Sans", sans-serif;
   --color-primary: #135d6c;
   --color-secondary: #1d1a45;
   --color-tertial: #77b4c7;
   --color-white: #ffffff;
-  --color-black: #0c0c0c;
   --color-bg: #e9e9e9;
 }
 body {
@@ -27,6 +24,8 @@ body {
 li {
   list-style-type: none;
 }
+
+/* btn for the login & register */
 .btn--primary {
   margin-top: 1rem;
   padding: 0.7rem 0;
@@ -46,8 +45,8 @@ li {
   font-size: 2rem;
   text-align: center;
   position: relative;
-  /* width: fit-content; */
 }
+
 .page-title::after {
   content: "";
   width: 150px;

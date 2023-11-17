@@ -45,10 +45,10 @@ const ServiceScheduling = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className="appScheduling">
+        <h2 className="page-title">HOSPITAL SERVICE DETAILS</h2>
         <div className="appScheduling-container">
-          <h2>HOSPITAL SERVICE DETAILS</h2>
           <div className="details-title">
             <h4> Schedule Details</h4>
             <div className="divider" />

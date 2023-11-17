@@ -30,7 +30,7 @@ const Login = () => {
         toast.success("login success");
         setIsLoading(false);
 
-        navigate("/home");
+        navigate("/adminDashboard/doctorD");
       })
       .catch((error) => {
         toast.error(error.message);
@@ -45,7 +45,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         toast.success("login successful");
-        navigate("/home");
+        navigate("/adminDashboard/doctorD");
       })
       .catch((error) => {
         toast.error(error.message);

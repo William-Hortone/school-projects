@@ -3,22 +3,25 @@
   height: auto;
   background-color: #efefef;
 
-  margin-top: 100px;
+  /* margin-top: 100px; */
 }
 .app__medicalServices-container {
-  width: 90%;
+  width: 100%;
 
   margin: 0 auto;
   padding: 2rem;
   background-color: #efefef;
 }
 .container-field {
-  width: 80%;
-  border: 2px solid var(--color-primary);
-  border-radius: 5%;
+  width: 90%;
+  /* border: 2px solid var(--color-primary); */
+  border-radius: 10px;
   padding: 2rem;
   margin: 2rem auto;
   gap: 2rem;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
 }
 .input-field {
   margin: 1rem 0;
@@ -28,12 +31,17 @@
   height: 35px;
 }
 .container-menu {
-  width: 100%;
+  width: 90%;
   height: auto;
   display: flex;
   flex-direction: column;
   padding: 0.7rem 0;
   margin: 1.3rem auto;
+  border-radius: 10px;
+  padding: 2rem;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
 }
 .container-menu-header {
   display: flex;
@@ -53,7 +61,7 @@
   text-align: center;
 }
 .container-menu-btn {
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: center;
   gap: 2.5rem;

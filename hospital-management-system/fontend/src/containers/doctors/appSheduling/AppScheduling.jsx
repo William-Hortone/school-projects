@@ -47,8 +47,8 @@ const AppScheduling = () => {
 
   return (
     <div className="appScheduling">
+      <h2 className="page-title">DOCTOR APPOINTMENT SCHEDULING</h2>
       <div className="appScheduling-container">
-        <h2>DOCTOR APPOINTMENT SCHEDULING</h2>
         <div className="details-title">
           <h4> Doctor Details</h4>
           <div className="divider" />

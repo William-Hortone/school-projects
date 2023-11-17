@@ -71,7 +71,7 @@ const AddUserDetails = ({
     console.log("addedUserDetails", addedUserDetails);
   }, [inputs.userID, addedUserDetails]);
 
-  //   function to add room  a new roo ID
+  //   function to add user  a new roo ID
   const handleAddAppointment = () => {
     if (addOnSubmit) {
       // Initialize the Id if the array is empty
@@ -85,7 +85,7 @@ const AddUserDetails = ({
         const lastElementId =
           addedUserDetails[addedUserDetails.length - 1].userID;
         const numericPart = parseInt(lastElementId.split("_")[1]);
-        const nextElementId = `room_${(numericPart + 1)
+        const nextElementId = `user_${(numericPart + 1)
           .toString()
           .padStart(3, "0")}`;
         console.log("nextElementId", nextElementId);
@@ -275,6 +275,7 @@ const AddUserDetails = ({
                   name="userID"
                   value={inputs.userID}
                   handleOnChange={handleOnChange}
+                  inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
               </div>
               <div className="input-fields">
@@ -359,6 +360,26 @@ const AddUserDetails = ({
                   handleOnChange={handleOnChange}
                 />
               </div>
+              <div className="input-fields">
+                <label htmlFor="userType"> User Type:</label>
+                <Input
+                  placeholder="User Type"
+                  name="userType"
+                  id="userType"
+                  value={inputs.userType}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="userName"> User Name:</label>
+                <Input
+                  placeholder="User Name"
+                  name="userName"
+                  id="userName"
+                  value={inputs.userName}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
               {!openScheduleDelete && (
                 <button type="submit" className="submit-btn">
                   Submit
@@ -390,6 +411,8 @@ const AddUserDetails = ({
                   <th>User Telephone</th>
                   <th>User Status</th>
                   <th>User Notes</th>
+                  <th>User Type</th>
+                  <th>User Name</th>
                 </tr>
               </thead>
               <tbody>
@@ -413,6 +436,8 @@ const AddUserDetails = ({
                       <td>{user.telephone}</td>
                       <td>{user.status}</td>
                       <td>{user.notes}</td>
+                      <td>{user.userType}</td>
+                      <td>{user.userName}</td>
                     </tr>
                   );
                 })}

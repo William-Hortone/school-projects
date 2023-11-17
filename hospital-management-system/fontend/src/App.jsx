@@ -61,16 +61,16 @@ function App() {
           <Route path="/adminDashboard" element={<AdminDashboard />}>
             <Route path="/adminDashboard/doctorD" element={<DoctorDetails />} />
             <Route
-              path="/adminDashboard/doctorApp"
-              element={<AppScheduling />}
+              path="/adminDashboard/mServices"
+              element={<MedicalServices />}
             />
             <Route
               path="/adminDashboard/serviceSchedule"
               element={<ServiceScheduling />}
             />
             <Route
-              path="/adminDashboard/mServices"
-              element={<MedicalServices />}
+              path="/adminDashboard/doctorApp"
+              element={<AppScheduling />}
             />
             <Route path="/adminDashboard/rooms" element={<RoomDetails />} />
             <Route
