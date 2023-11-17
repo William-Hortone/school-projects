@@ -1,5 +1,5 @@
 .app__dDetails {
-  width: 70%;
+  width: 100%;
   height: auto;
   margin: 0 auto;
 }
@@ -9,12 +9,26 @@
   padding: 2rem;
   background-color: #efefef;
 }
+.app__dDetails-wrapper form {
+  width: 94%;
+  margin: 4rem auto 0 auto;
+  border-radius: 10px;
+  padding: 0 3rem 3rem 3rem;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+}
 .app__doctorMenuD-container {
-  width: 100% !important;
+  width: 90% !important;
   height: auto;
   padding: 2rem;
+  margin: 0 auto;
+  border-radius: 10px;
   background-color: #efefef;
-  margin-top: 3rem;
+  margin-top: 0rem !important;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
 }
 h1 {
   text-align: center;

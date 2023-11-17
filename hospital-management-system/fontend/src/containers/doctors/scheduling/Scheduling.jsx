@@ -81,19 +81,23 @@ const Scheduling = ({
     setScheduleId(appointmentInfos.schedulingID);
   }, [availableDays, input, appointmentInfos.schedulingID]);
 
+  // Function to generate the ID
   const handleAddAppointment = () => {
     if (addOnSubmit) {
       if (docAppointmentDetails.length === 0) {
         setAppointmentInfos({
           ...appointmentInfos,
-          schedulingID: "0001",
+          schedulingID: "docA_001",
         });
       } else {
         const lastScheduleId =
           docAppointmentDetails[docAppointmentDetails.length - 1].schedulingID;
-        const nextScheduleId = (parseInt(lastScheduleId) + 1)
+        const numericPart = parseInt(lastScheduleId.split("_")[1]);
+
+        const nextScheduleId = `docA_${(numericPart + 1)
           .toString()
-          .padStart(4, "0");
+          .padStart(3, "0")}`;
+
         setAppointmentInfos({
           ...appointmentInfos,
           schedulingID: nextScheduleId,
@@ -115,6 +119,7 @@ const Scheduling = ({
       .catch((err) => toast.error(err));
   };
 
+  // Function to update an appointment
   const handleSubmitEditDoctor = (e, scheduleId) => {
     e.preventDefault();
 
@@ -146,6 +151,7 @@ const Scheduling = ({
     }
   };
 
+  // Function to Delete an appointment
   const handleDeleteAppointment = (scheduleId) => {
     if (scheduleId === undefined || scheduleId === "") {
       toast.error("Please provide a Scheduling ID");

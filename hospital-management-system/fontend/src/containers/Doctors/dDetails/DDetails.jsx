@@ -55,17 +55,19 @@ const DDetails = () => {
     });
   };
 
+  // Function to set the first ID and to increment it
   const handleAddDoctor = () => {
     if (doctorsInfos.length === 0) {
       setInput({
         ...input,
-        doctorID: "001",
+        doctorID: "doctor_001",
       });
     } else {
       const lastDoctorID = doctorsInfos[doctorsInfos.length - 1].doctorID;
-      const nextDoctorID = (parseInt(lastDoctorID) + 1)
+      const numericPart = parseInt(lastDoctorID.split("_")[1]);
+      const nextDoctorID = `doctor_${(numericPart + 1)
         .toString()
-        .padStart(3, "0");
+        .padStart(3, "0")} `;
       setInput({
         ...input,
         doctorID: nextDoctorID,
@@ -76,6 +78,7 @@ const DDetails = () => {
     setShowSubmit(true);
   };
 
+  // Function to add a new Doctor
   const handleSubmitAddDoctor = (e) => {
     e.preventDefault();
 
@@ -94,6 +97,8 @@ const DDetails = () => {
     setShowSubmit(true);
     setAddDoctorD(false);
   };
+
+  // Function to Edit  Doctor
   const handleSubmitEditDoctor = (e, doctorId) => {
     e.preventDefault();
 
@@ -144,6 +149,8 @@ const DDetails = () => {
   const handleClosePopup = () => {
     setShowPopupDelete(false);
   };
+
+  // Function to Delete  Doctor
   const handleSubmitDeleteDoctor = (doctorId) => {
     if (doctorId === undefined || doctorId === "") {
       toast.error("Please provide a Doctor ID");
@@ -169,7 +176,7 @@ const DDetails = () => {
   return (
     <div className="app__dDetails">
       <div className="app__dDetails-wrapper">
-        <h1>Doctor Details</h1>
+        <h1 className="page-title">Doctor Details</h1>
         <form
           onSubmit={
             addDoctorD
@@ -184,6 +191,7 @@ const DDetails = () => {
                 <div className="input-field">
                   <label form="doctorID"> Doctor ID:</label>
                   <input
+                    required
                     placeholder="Doctor ID"
                     name="doctorID"
                     value={input.doctorID}
@@ -194,6 +202,8 @@ const DDetails = () => {
               </div>
               <div className="container-two"></div>
             </div>
+
+            {/* Personal Details */}
             <div className="details-section-two">
               <div className="details-title">
                 <h4> Personal Detail</h4>
@@ -211,10 +221,11 @@ const DDetails = () => {
                     />
                   </div>
                   <div className="input-field">
-                    <label form="doctorSex"> Sex</label>
+                    <label form="doctorSex"> Sex:</label>
                     <Select
                       name="sex"
                       label="sex"
+                      defaultOptionValue="Select the gender"
                       value={input.sex}
                       options={doctorSexOptions}
                       handleOnChange={handleOnChange}
@@ -288,6 +299,8 @@ const DDetails = () => {
                 </div>
               </div>
             </div>
+
+            {/* Employee Details */}
             <div className="details-section-three-global">
               <div className="details-title">
                 <h4>Employees Details</h4>
@@ -298,6 +311,7 @@ const DDetails = () => {
                   <div className="input-field">
                     <label form="doctorType"> Doctor Type</label>
                     <Select
+                      defaultOptionValue="Select doctor type"
                       name="doctorType"
                       label="doctorType"
                       value={input.doctorType}

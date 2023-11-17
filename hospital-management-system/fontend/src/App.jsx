@@ -6,6 +6,10 @@ import { Home, HomeAdmin } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
+  AddUser,
+  AdminDashboard,
+  AppScheduling,
+  DDetails,
   DoctorAppointment,
   DoctorDetails,
   MedicalServices,
@@ -13,6 +17,7 @@ import {
   ServiceScheduling,
   ViewHospitalSD,
   VizDoctorDetails,
+  WardDetails,
 } from "./containers";
 import { useDispatch } from "react-redux";
 import fetchDoctorDetails, {
@@ -21,6 +26,9 @@ import fetchDoctorDetails, {
 import fetchMedicalService, {
   fetchHospitalSchedule,
 } from "./redux/actions/medicalService.action";
+import fetchRoomsDetails from "./redux/actions/room.action";
+import fetchWardDetails from "./redux/actions/ward.actions";
+import fetchAddedUserDetails from "./redux/actions/addedUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +38,9 @@ function App() {
     dispatch(fetchMedicalService());
     dispatch(fetchDocAppointments());
     dispatch(fetchHospitalSchedule());
+    dispatch(fetchAddedUserDetails());
+    dispatch(fetchRoomsDetails());
+    dispatch(fetchWardDetails());
   }, [dispatch]);
 
   return (
@@ -44,13 +55,31 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
 
-          <Route path="/doctorD" element={<DoctorDetails />} />
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />
-          <Route path="/mServices" element={<MedicalServices />} />
           <Route path="/vHospital" element={<ViewHospitalSD />} />
-          <Route path="/doctorApp" element={<DoctorAppointment />} />
-          <Route path="/serviceSchedule" element={<ServiceScheduling />} />
           <Route path="/roomDetails" element={<RoomDetails />} />
+
+          <Route path="/adminDashboard" element={<AdminDashboard />}>
+            <Route path="/adminDashboard/doctorD" element={<DDetails />} />
+            <Route
+              path="/adminDashboard/mServices"
+              element={<MedicalServices />}
+            />
+            <Route
+              path="/adminDashboard/serviceSchedule"
+              element={<ServiceScheduling />}
+            />
+            <Route
+              path="/adminDashboard/doctorApp"
+              element={<AppScheduling />}
+            />
+            <Route path="/adminDashboard/rooms" element={<RoomDetails />} />
+            <Route
+              path="/adminDashboard/wardDetails"
+              element={<WardDetails />}
+            />
+            <Route path="/adminDashboard/addUser" element={<AddUser />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

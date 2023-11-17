@@ -1,26 +1,52 @@
 .roomDetails {
   width: 100%;
   height: auto;
+  padding: 2rem;
+  overflow: hidden;
 }
 .roomDetails .roomDetails-container {
-  width: 70%;
+  width: 100%;
   height: auto;
-  margin: 90px auto 0;
-  padding: 2rem;
-  background-color: #efefef;
+  /* margin: 90px auto 0; */
+  /* padding: 2rem; */
+  /* background-color: #da5757; */
 }
 .roomDetails .roomDetails-container h2 {
   font-size: 2rem;
   text-align: center;
-  padding: 2rem;
+  position: relative;
+  /* width: fit-content; */
 }
-/* .roomDetails .roomDetails-container form {
-} */
+.roomDetails .roomDetails-container h2::after {
+  content: "";
+  width: 150px;
+  height: 4px;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary);
+}
+.roomDetails .roomDetails-container form {
+  width: 100%;
+  height: auto;
+  background: #efefef;
+  margin-top: 4rem;
+  padding: 2rem 1rem;
+  border-radius: 10px;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+}
 .roomDetails-container-menus {
-  width: 70%;
+  width: 100%;
   background-color: #efefef;
   margin: 2rem auto 0 auto;
   padding: 1rem 0 1rem 0;
+  border-radius: 10px;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
 }
 .roomDetails-container-menus .roomDetails-container-menu-header {
   width: 91%;
@@ -37,7 +63,7 @@
 
 .container-menu-btn {
   position: relative;
-  width: 91% !important;
+  width: 80% !important;
   display: flex;
   justify-content: center;
   gap: 1rem !important;
@@ -58,7 +84,7 @@
   transform: scale(0);
   transition: transform 0.5s ease;
   z-index: 22;
-  background: rgb(54, 153, 51);
+  /* background: rgb(54, 153, 51); */
   overflow: hidden;
 }
 .appScheduling-wrapper.ActiveScheduling {

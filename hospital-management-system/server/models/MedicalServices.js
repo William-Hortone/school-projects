@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const MedicalServicesSchema = new mongoose.Schema({
-  serviceID: String,
+  serviceID: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   serviceName: String,
   amount: String,
   duration: String,

@@ -5,10 +5,11 @@ const TextArea = ({ name, value, handleOnChange }) => {
   return (
     <div>
       <textarea
+        style={{ padding: "5px" }}
         id={name}
         name={name}
         value={value}
-        cols="39"
+        cols="38"
         rows="7"
         onChange={handleOnChange}
       />

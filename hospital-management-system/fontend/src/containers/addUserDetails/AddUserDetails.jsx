@@ -1,43 +1,47 @@
 import { useEffect, useState } from "react";
-import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import { useSelector } from "react-redux";
-import {
-  selectHospitalSchedule,
-  selectMedicalService,
-} from "../../../redux/slice/medicalServiceSlice";
-import "./roomMoreDetails.css";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
-// import { FaTimes } from "react-icons/fa";
+import { ButtonAction, ButtonSkip, Input } from "../../components";
+import { selectMedicalService } from "../../redux/slice/medicalServiceSlice";
+// import { selectaddedUserDetails } from "../../redux/slice/roomsSlice";
+import "./addUserDetails.css";
+// import fetchAddedUserDetails from "../../redux/actions/addedUser";
+import { selectAddedUserInfos } from "../../redux/slice/addedUserSlide";
 
-const RoomMoreDetails = ({
+const AddUserDetails = ({
   setOpenScheduling,
   addOnSubmit,
   setOpenScheduleDelete,
   openScheduleDelete,
 }) => {
   const [inputs, setInputs] = useState({
-    roomID: "",
-    roomType: "",
-    roomRates: "",
-    roomDesc: "",
+    userID: "",
+    firstName: "",
+    lastName: "",
+    gender: "",
+    address: "",
+    email: "",
+    telephone: "",
+    status: "",
+    notes: "",
+    userType: "",
+    userName: "",
   });
 
   const [selectedDays, setSelectedDays] = useState("");
-  const [roomId, setRoomId] = useState("");
+  const [id, setId] = useState("");
   const [pickedServiceID, setPickedServiceID] = useState("");
   const [docIDisPicked, setDocIDisPicked] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [showDocDetailTable, setShowDocDetailTable] = useState(false);
-  // const input = { ...inputs, selectedDays };
 
-  // const roomsDetails = useSelector(selectRoomsDetails);
-  const roomsDetails = useSelector(selectRoomsDetails);
+  // const addedUserDetails = useSelector(selectaddedUserDetails);
+  const addedUserDetails = useSelector(selectAddedUserInfos);
   const medicalServiceDetails = useSelector(selectMedicalService);
 
-  const handleOnChangeAppointment = (e) => {
+  const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputs({
       ...inputs,
@@ -45,40 +49,49 @@ const RoomMoreDetails = ({
     });
   };
 
-  useEffect(() => {
-    setRoomId(inputs.roomID);
-  }, [roomId, inputs.roomID]);
-
   const handleCloseScheduling = () => {
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
     setInputs({
-      roomID: "",
-      roomType: "",
-      roomRates: "",
-      roomDesc: "",
+      firstName: "",
+      lastName: "",
+      gender: "",
+      address: "",
+      email: "",
+      telephone: "",
+      status: "",
+      notes: "",
+      userType: "",
+      userName: "",
     });
   };
 
-  // function to generate  room  ID
+  useEffect(() => {
+    setId(inputs.userID);
+    console.log("addedUserDetails", addedUserDetails);
+  }, [inputs.userID, addedUserDetails]);
+
+  //   function to add user  a new roo ID
   const handleAddAppointment = () => {
     if (addOnSubmit) {
       // Initialize the Id if the array is empty
-      if (roomsDetails.length === 0) {
+      if (addedUserDetails.length === 0) {
         setInputs({
           ...inputs,
-          roomID: "room_001",
+          userID: "user_001",
         });
       } else {
         // Get the last Id and increment it
-        const lastElementId = roomsDetails[roomsDetails.length - 1].roomID;
+        const lastElementId =
+          addedUserDetails[addedUserDetails.length - 1].userID;
         const numericPart = parseInt(lastElementId.split("_")[1]);
-        const nextElementId = `room_${(numericPart + 1)
+        const nextElementId = `user_${(numericPart + 1)
           .toString()
           .padStart(3, "0")}`;
+        console.log("nextElementId", nextElementId);
         setInputs({
           ...inputs,
-          roomID: nextElementId,
+          userID: nextElementId,
         });
       }
     } else {
@@ -86,12 +99,12 @@ const RoomMoreDetails = ({
     }
   };
 
-  // The function to add a room details
+  // The function to add a User details
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3001/roomsInfos", inputs)
+      .post("http://localhost:3001/usersInfos", inputs)
       .then((res) => {
         if (res.data === "success") {
           toast.success("Added successfully");
@@ -100,19 +113,19 @@ const RoomMoreDetails = ({
       .catch((err) => toast.error(err));
   };
 
-  // function to Edit a room details
-  const handleSubmitEditRoom = (e, roomId) => {
+  // function to Edit a user details
+  const handleSubmitEditRoom = (e, userId) => {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:3001/editRoomDetails/${roomId}`, inputs)
+      .put(`http://localhost:3001/editUserDetails/${userId}`, inputs)
       .then((res) => {
         if (res.data === "success") {
           toast.success("Room updated successfully");
         } else if (res.data === "notfound") {
           toast.error("Wrong ID");
         } else {
-          toast.error("An error occurred while updating the service");
+          toast.error("An error occurred while updating the user");
         }
       })
       .catch((err) => {
@@ -125,20 +138,20 @@ const RoomMoreDetails = ({
   };
 
   const handleDelete = () => {
-    if (roomId === undefined || roomId === "") {
-      toast.error("Please provide a Scheduling ID");
+    if (id === undefined || id === "") {
+      toast.error("Please provide a user ID");
     } else {
       setShowPopupDelete(true);
     }
   };
 
-  // Delete a service schedule
-  const handleDeleteRoom = (roomId) => {
-    if (roomId === undefined || roomId === "") {
+  // Delete a user
+  const handleDeleteRoom = (userId) => {
+    if (userId === undefined || userId === "") {
       toast.error("Please provide a Scheduling ID");
     } else {
       axios
-        .put(`http://localhost:3001/deleteRoom/${roomId}`)
+        .put(`http://localhost:3001/deleteUser/${userId}`)
         .then((res) => {
           if (res.data === "success") {
             toast.success("Deleted Successfully");
@@ -193,17 +206,24 @@ const RoomMoreDetails = ({
   //   }
   // };
 
-  const handleUpdateInfos = (room) => {
+  const handleUpdateInfos = (user) => {
     if (!addOnSubmit) {
       setInputs({
-        roomID: room.roomID,
-        roomType: room.roomType,
-        roomRates: room.roomRates,
-        roomDesc: room.roomDesc,
+        userID: user.userID,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        gender: user.gender,
+        address: user.address,
+        email: user.email,
+        telephone: user.telephone,
+        status: user.status,
+        notes: user.notes,
+        userType: user.userType,
+        userName: user.userName,
       });
 
       // setSelectedDays(room.selectedDays);
-      setPickedServiceID(room.roomID);
+      setPickedServiceID(user.userID);
       setDocIDisPicked(true);
       setDisabledInput(true);
     }
@@ -235,62 +255,129 @@ const RoomMoreDetails = ({
     <>
       <div className="app__roomMDetails">
         <div className="app__roomMDetails-container">
-          <h2 className="page-title">ROOMS DETAILS</h2>
+          <h2 className="page-title">USER DETAILS</h2>
 
           <form
             onSubmit={
-              addOnSubmit
-                ? handleSubmit
-                : (e) => handleSubmitEditRoom(e, roomId)
+              addOnSubmit ? handleSubmit : (e) => handleSubmitEditRoom(e, id)
             }
           >
             <div className="form--content">
               <div className="details-title">
-                <h4> Room Detail</h4>
+                <h4> User Details</h4>
                 <div className="divider" />
               </div>
               <div className="input-fields">
-                <label form="schedulingId"> Room ID:</label>
+                <label htmlFor="userID"> User ID</label>
                 <Input
-                  placeholder="Room ID"
-                  name="roomID"
-                  value={inputs.roomID}
-                  handleOnChange={handleOnChangeAppointment}
+                  placeholder="User ID"
+                  id="userID"
+                  name="userID"
+                  value={inputs.userID}
+                  handleOnChange={handleOnChange}
                   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
               </div>
-
               <div className="input-fields">
-                <label htmlFor="roomType"> Room Type:</label>
+                <label htmlFor="firstName"> First Name</label>
                 <Input
-                  placeholder="Room Type"
-                  name="roomType"
-                  id="roomType"
-                  value={inputs.roomType}
-                  handleOnChange={handleOnChangeAppointment}
-
-                  // readOnly
-                />
-              </div>
-              <div className="input-fields">
-                <label htmlFor="roomRates"> Room Rates:</label>
-                <Input
-                  placeholder="Room Rates"
-                  name="roomRates"
-                  id="roomRates"
-                  value={inputs.roomRates}
-                  handleOnChange={handleOnChangeAppointment}
+                  placeholder="First Name"
+                  id="firstName"
+                  name="firstName"
+                  value={inputs.firstName}
+                  handleOnChange={handleOnChange}
                 />
               </div>
 
               <div className="input-fields">
-                <label htmlFor="roomDesc"> Room Description:</label>
+                <label htmlFor="lastName"> Last Name:</label>
                 <Input
-                  placeholder="Room Description"
-                  name="roomDesc"
-                  id="roomDesc"
-                  value={inputs.roomDesc}
-                  handleOnChange={handleOnChangeAppointment}
+                  placeholder="Last Name"
+                  name="lastName"
+                  id="lastName"
+                  value={inputs.lastName}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="gender">Gender:</label>
+                <Input
+                  placeholder="Gender"
+                  name="gender"
+                  id="gender"
+                  value={inputs.gender}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
+
+              <div className="input-fields">
+                <label htmlFor="address">Address:</label>
+                <Input
+                  placeholder="Address"
+                  name="address"
+                  id="address"
+                  value={inputs.address}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="email">Email:</label>
+                <Input
+                  placeholder="Email"
+                  name="email"
+                  id="email"
+                  value={inputs.email}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="telephone"> Telephone:</label>
+                <Input
+                  placeholder="Telephone"
+                  name="telephone"
+                  id="telephone"
+                  value={inputs.telephone}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="status"> Status:</label>
+                <Input
+                  placeholder="Status"
+                  name="status"
+                  id="status"
+                  value={inputs.status}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="notes"> Notes:</label>
+                <Input
+                  placeholder="Notes"
+                  name="notes"
+                  id="notes"
+                  value={inputs.notes}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="userType"> User Type:</label>
+                <Input
+                  placeholder="User Type"
+                  name="userType"
+                  id="userType"
+                  value={inputs.userType}
+                  handleOnChange={handleOnChange}
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="userName"> User Name:</label>
+                <Input
+                  placeholder="User Name"
+                  name="userName"
+                  id="userName"
+                  value={inputs.userName}
+                  handleOnChange={handleOnChange}
                 />
               </div>
               {!openScheduleDelete && (
@@ -308,96 +395,6 @@ const RoomMoreDetails = ({
                 </button>
               )}
             </div>
-            {/* <aside>
-              <div className="details-title">
-                <h4> Available Days</h4>
-                <div className="days-divider" />
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="monday">Monday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="monday"
-                    name="Mon"
-                    value={availableDays.monday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="tuesday">Tuesday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="tuesday"
-                    name="Tue"
-                    value={availableDays.tuesday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="wednesday">Wednesday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="wednesday"
-                    name="Wed"
-                    value={availableDays.wednesday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="thursday">Thursday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="thursday"
-                    name="Thu"
-                    value={availableDays.thursday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="friday">Friday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="friday"
-                    name="Fri"
-                    value={availableDays.friday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="saturday">Saturday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="saturday"
-                    name="Sat"
-                    value={availableDays.saturday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="sunday">Sunday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="sunday"
-                    name="Sun"
-                    value={availableDays.sunday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-            </aside> */}
           </form>
 
           {/* The table  to display the schedules*/}
@@ -405,17 +402,24 @@ const RoomMoreDetails = ({
             <table>
               <thead>
                 <tr>
-                  <th>Room ID </th>
-                  <th>Room Type </th>
-                  <th>Room Rates</th>
-                  <th>Room Description</th>
+                  <th>User ID </th>
+                  <th>User First Name </th>
+                  <th>User Last Name</th>
+                  <th>User Gender</th>
+                  <th>User Address</th>
+                  <th>User Email</th>
+                  <th>User Telephone</th>
+                  <th>User Status</th>
+                  <th>User Notes</th>
+                  <th>User Type</th>
+                  <th>User Name</th>
                 </tr>
               </thead>
               <tbody>
-                {roomsDetails.map((room, index) => {
+                {addedUserDetails.map((user, index) => {
                   return (
                     <tr
-                      onClick={(e) => handleUpdateInfos(room)}
+                      onClick={(e) => handleUpdateInfos(user)}
                       className={
                         !addOnSubmit
                           ? "doctor-infos select-serviceID"
@@ -423,10 +427,17 @@ const RoomMoreDetails = ({
                       }
                       key={index}
                     >
-                      <td>{room.roomID}</td>
-                      <td>{room.roomType}</td>
-                      <td>{room.roomRates}</td>
-                      <td>{room.roomDesc}</td>
+                      <td>{user.userID}</td>
+                      <td>{user.firstName}</td>
+                      <td>{user.lastName}</td>
+                      <td>{user.gender}</td>
+                      <td>{user.address}</td>
+                      <td>{user.email}</td>
+                      <td>{user.telephone}</td>
+                      <td>{user.status}</td>
+                      <td>{user.notes}</td>
+                      <td>{user.userType}</td>
+                      <td>{user.userName}</td>
                     </tr>
                   );
                 })}
@@ -472,9 +483,7 @@ const RoomMoreDetails = ({
                 </p>
                 <div className="delete-buttons">
                   <button onClick={handleClosePopup}> Cancel</button>
-                  <button onClick={() => handleDeleteRoom(roomId)}>
-                    Delete
-                  </button>
+                  <button onClick={() => handleDeleteRoom(id)}>Delete</button>
                 </div>
               </div>
             </div>
@@ -525,4 +534,4 @@ const RoomMoreDetails = ({
   );
 };
 
-export default RoomMoreDetails;
+export default AddUserDetails;

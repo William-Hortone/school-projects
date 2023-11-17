@@ -1,19 +1,17 @@
 .appScheduling {
-  margin: 90px auto 0 auto;
+  /* margin: 90px auto 0 auto; */
   width: 100%;
+  margin-top: 2rem;
 }
-.appScheduling-container h2 {
-  text-align: center;
-  font-size: 2rem;
-  padding-block: 2rem;
-  color: var(--color-blue);
-}
+
 .appScheduling-container {
-  width: 60%;
+  width: 90%;
   margin: auto;
   background: #efefef;
   padding: 2rem 6rem;
   border-radius: 10px;
+  margin-top: 4rem;
+
   -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
   -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
   box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
@@ -55,8 +53,8 @@
   text-align: center;
 }
 
-.appScheduling-container-menus {
-  width: 98%;
+.appScheduling .appScheduling-container-menus {
+  width: 90%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -64,9 +62,13 @@
   padding: 2rem 0;
   margin: 1.3rem auto;
   background: #efefef;
+  border-radius: 10px;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
 }
 .appScheduling-container-menus .appSchedule-container-menu-header {
-  width: 61%;
+  width: 90%;
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -77,9 +79,9 @@
   border-radius: 15px;
 }
 
-.container-menu-btn {
+.appScheduling-container-menus .container-menu-btn {
   position: relative;
-  width: 61% !important;
+  width: 80% !important;
   display: flex;
   justify-content: center;
   gap: 1rem !important;
@@ -89,20 +91,4 @@
   padding: 2rem;
   border-radius: 25px;
   background-color: var(--color-primary);
-}
-
-.appScheduling-wrapper {
-  width: 100%;
-  height: fit-content;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: scale(0);
-  transition: transform 0.5s ease;
-  z-index: 22;
-  background: rgb(54, 153, 51);
-  overflow: hidden;
-}
-.appScheduling-wrapper.ActiveScheduling {
-  transform: scale(1);
 }

@@ -38,7 +38,7 @@ const ViewHospitalSD = () => {
     setSearchTerm(refreshValue);
   };
   const handleClose = () => {
-    navigate("/home");
+    navigate("/adminDashboard/mServices");
   };
 
   return (
@@ -118,6 +118,7 @@ const ViewHospitalSD = () => {
                 id="searchOptions"
                 onChange={(e) => setSearchOptions(e.target.value)}
               >
+                <option value="">Select one option</option>
                 <option value="serviceId">Service Id</option>
                 <option value="serviceName">Service Name</option>
               </select>
@@ -127,7 +128,7 @@ const ViewHospitalSD = () => {
               <input
                 value={searchTerm}
                 type="text"
-                placeholder="Service name or ID"
+                placeholder="Write ID or first name"
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>

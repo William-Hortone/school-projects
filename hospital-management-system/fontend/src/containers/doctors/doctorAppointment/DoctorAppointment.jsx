@@ -6,7 +6,7 @@ import { Header } from "../../../components";
 const DoctorAppointment = () => {
   return (
     <div className="app__doctorAppointment">
-      <Header />
+      {/* <Header /> */}
       <AppScheduling />
     </div>
   );
