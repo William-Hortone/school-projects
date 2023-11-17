@@ -1,0 +1,112 @@
+.app__dashboard {
+  width: 100%;
+  height: auto;
+  /* background-color: aquamarine; */
+  /* display: flex; */
+  /* flex-direction: row; */
+  padding-top: 2rem;
+}
+.app__dashboard-container {
+  width: 96%;
+  height: 100vh;
+  /* background-color: rgb(234, 127, 255); */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4rem auto;
+  /* padding: 2rem; */
+  /* flex-direction: column; */
+}
+.app__dashboard-container-left {
+  width: 66%;
+  /* background-color: rgb(127, 255, 217); */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.container-left_box {
+  width: 100%;
+  height: auto;
+  /* background-color: rgb(255, 200, 127); */
+  display: flex;
+  gap: 2rem;
+  /* flex-direction: column; */
+}
+.container-left_box .container_content {
+  flex: 1;
+}
+.container_content {
+  /* flex: 1; */
+  /* width: 200px; */
+  height: 300px !important;
+  background-color: #fff;
+  border-radius: 10px;
+  -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
+  /* display: flex; */
+}
+.container_content-header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  border-bottom: 2px solid #0000004d;
+}
+.container_content-header h4 {
+  font-size: 1.23rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.chart-container,
+.char {
+  width: 300px;
+  height: 200px;
+}
+.app__dashboard-container-right {
+  width: 32%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  /* background-color: red; */
+}
+.header-infos {
+  /* display: flex; */
+  justify-content: space-between;
+  padding-right: 1rem;
+}
+.header-infos span {
+  width: 69px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  background: var(--color-primary);
+  border-radius: 15px;
+  padding: 1rem 0.5rem;
+  cursor: pointer;
+  color: white;
+}
+.content-details {
+  width: 100%;
+  height: auto;
+  display: flex;
+  padding: 0.2rem 1rem;
+  align-items: center;
+  gap: 1rem;
+}
+.content-details-img {
+  width: 40px;
+  height: 40px;
+  background: red;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.content-details-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

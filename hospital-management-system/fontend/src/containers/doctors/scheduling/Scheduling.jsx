@@ -250,7 +250,7 @@ const Scheduling = ({
                     onChange={handleOnChangeAppointment}
                     required
                   >
-                    <option value={docIDisPicked}>
+                    <option required value={docIDisPicked}>
                       {docIDisPicked ? pickedDoctorID : "Select a doctor ID"}
                     </option>
                     {doctorDetails.map((doctor, index) => (
@@ -277,6 +277,7 @@ const Scheduling = ({
                     name="timeIn"
                     value={appointmentInfos.timeIn}
                     onChange={handleOnChangeAppointment}
+                    required
                   />
                 </div>
               </div>

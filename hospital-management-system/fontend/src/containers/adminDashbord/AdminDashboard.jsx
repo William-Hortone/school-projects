@@ -27,6 +27,12 @@ const AdminDashboard = () => {
             {/* <Link className="nav-link admin-category">Doctor Appointments</Link> */}
             {/* <Link className="nav-link admin-category">Service Scheduling</Link> */}
             <Link
+              to="/adminDashboard/dashboard"
+              className="nav-link admin-category"
+            >
+              DashBoard
+            </Link>
+            <Link
               to="/adminDashboard/doctorD"
               className="nav-link admin-category"
             >
