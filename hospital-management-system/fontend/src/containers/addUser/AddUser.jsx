@@ -3,15 +3,11 @@ import "./addUser.css";
 import { ButtonAction, ButtonSkip, Input } from "../../components";
 import AddUserDetails from "../addUserDetails/AddUserDetails";
 import { useNavigate } from "react-router-dom";
-// import { ButtonAction, ButtonSkip, Input } from "../../../components";
-// import RoomMoreDetails from "../roomMoreDetails/RoomMoreDetails";
-// import WardMoreDetails from "../wardMoreDetails/WardMDetails";\
 
 const AddUser = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
-  const [isEmpty, setIsEmpty] = useState(true);
 
   const [inputs, setInputs] = useState({
     userID: "",
@@ -46,7 +42,10 @@ const AddUser = () => {
     setAddOnSubmit(false);
   };
   const handleViewAllMedicalS = () => {
-    navigate("");
+    // navigate("/adminDashboard");
+  };
+  const handleClose = () => {
+    navigate("/adminDashboard");
   };
 
   const showSchedulingToDelete = () => {
@@ -203,7 +202,7 @@ const AddUser = () => {
             btnName="Close"
             color="red"
             buttonType="button"
-            // onClick={handleClose}
+            onClick={handleClose}
           />
           <ButtonAction
             iconName="all"

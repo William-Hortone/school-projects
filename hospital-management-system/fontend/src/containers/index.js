@@ -1,10 +1,11 @@
 import AddUser from "./addUser/AddUser";
 import AddUserDetails from "./addUserDetails/AddUserDetails";
 import AdminDashboard from "./adminDashbord/AdminDashboard";
+import Dashboard from "./dashboard/Dashboard";
 import AppScheduling from "./doctors/appSheduling/AppScheduling";
 import DDetails from "./doctors/dDetails/DDetails";
-import DoctorAppointment from "./doctors/doctorAppointment/DoctorAppointment";
-import DoctorDetails from "./doctors/doctorDetails/DoctorDetails";
+// import DoctorAppointment from "./doctors/doctorAppointment/DoctorAppointment";
+// import DoctorDetails from "./doctors/doctorDetails/DoctorDetails";
 import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
 import Scheduling from "./doctors/scheduling/Scheduling";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
@@ -20,7 +21,7 @@ import ServiceScheduling from "./services/serviceSchedule/ServiceScheduling";
 import ViewHospitalSD from "./services/viewHospitalSD/ViewHospitalSD";
 
 export {
-  DoctorDetails,
+  // DoctorDetails,
   DDetails,
   DoctorMenu,
   VizDoctorDetails,
@@ -32,7 +33,7 @@ export {
   WardDetails,
   RoomMoreDetails,
   AdminDashboard,
-  DoctorAppointment,
+  // DoctorAppointment,
   AppScheduling,
   Scheduling,
   ServiceScheduling,
@@ -40,4 +41,5 @@ export {
   WardMoreDetails,
   AddUser,
   AddUserDetails,
+  Dashboard,
 };

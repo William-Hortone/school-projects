@@ -10,8 +10,9 @@ import {
   AdminDashboard,
   AppScheduling,
   DDetails,
-  DoctorAppointment,
-  DoctorDetails,
+  Dashboard,
+  // DoctorAppointment,
+  // DoctorDetails,
   MedicalServices,
   RoomDetails,
   ServiceScheduling,
@@ -60,6 +61,7 @@ function App() {
           <Route path="/roomDetails" element={<RoomDetails />} />
 
           <Route path="/adminDashboard" element={<AdminDashboard />}>
+            <Route path="/adminDashboard/dashboard" element={<Dashboard />} />
             <Route path="/adminDashboard/doctorD" element={<DDetails />} />
             <Route
               path="/adminDashboard/mServices"

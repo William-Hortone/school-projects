@@ -30,7 +30,7 @@ const AppScheduling = () => {
     window.location.reload();
   };
   const handleClose = () => {
-    navigate("/home");
+    navigate("/adminDashboard");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -61,7 +61,6 @@ const AppScheduling = () => {
               placeholder="Scheduling ID"
               name="schedulingID"
               value={isEmpty ? "" : lastElement.schedulingID}
-              // disabled={!isInputEnabled}
             />
           </div>
           <div className="input-field">
@@ -71,7 +70,6 @@ const AppScheduling = () => {
               name="doctorID"
               inputDisabled="true"
               value={isEmpty ? "" : lastElement.doctorID}
-              // disabled={!isInputEnabled}
             />
           </div>
           <div className="input-field">
@@ -82,7 +80,6 @@ const AppScheduling = () => {
               id="timeIn"
               inputDisabled="true"
               value={isEmpty ? "" : lastElement.timeIn}
-              // disabled={!isInputEnabled}
             />
           </div>
           <div className="input-field">
@@ -92,8 +89,6 @@ const AppScheduling = () => {
               name="timeOut"
               inputDisabled="true"
               value={isEmpty ? "" : lastElement.timeOut}
-
-              // disabled={!isInputEnabled}
             />
           </div>
           <div className="input-field">
@@ -105,7 +100,6 @@ const AppScheduling = () => {
               value={isEmpty ? "" : lastElement.selectedDays}
 
               // value={isEmpty? "" : input.serviceID}
-              // disabled={!isInputEnabled}
             />
           </div>
           <div className="input-field">
@@ -118,7 +112,6 @@ const AppScheduling = () => {
               value={isEmpty ? "" : lastElement.schedulingNotes}
 
               // value={input.serviceID}
-              // disabled={!isInputEnabled}
             />
           </div>
         </form>
@@ -165,6 +158,7 @@ const AppScheduling = () => {
         </table>
       </div>
 
+      {/* Container buttons */}
       <div className="appScheduling-container-menus">
         <div className="appSchedule-container-menu-header">
           <ButtonSkip iconName="doubleLeft" color="green" />
@@ -213,6 +207,7 @@ const AppScheduling = () => {
         </div>
       </div>
 
+      {/* Open the scheduling component  */}
       <div
         className={
           openScheduling || openScheduleDelete
