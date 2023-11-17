@@ -17,6 +17,7 @@ import {
   RoomDetails,
   ServiceScheduling,
   ViewHospitalSD,
+  VizDocApp,
   VizDoctorDetails,
   WardDetails,
 } from "./containers";
@@ -50,15 +51,15 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/home" element={<HomeAdmin />} />
-
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
+          {/* <Route path="/home" element={<HomeAdmin />} /> */}
 
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />
           <Route path="/vHospital" element={<ViewHospitalSD />} />
-          <Route path="/roomDetails" element={<RoomDetails />} />
+          <Route path="/vizDocApp" element={<VizDocApp />} />
+          {/* <Route path="/roomDetails" element={<RoomDetails />} /> */}
 
           <Route path="/adminDashboard" element={<AdminDashboard />}>
             <Route path="/adminDashboard/dashboard" element={<Dashboard />} />

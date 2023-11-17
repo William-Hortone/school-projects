@@ -38,6 +38,9 @@
   -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
   box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
 }
+.roomDetails .input-fields {
+  padding-left: 3rem;
+}
 .roomDetails-container-menus {
   width: 100%;
   background-color: #efefef;

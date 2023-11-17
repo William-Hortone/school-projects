@@ -7,7 +7,6 @@ const RoomDetails = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
-  const [isEmpty, setIsEmpty] = useState(true);
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);

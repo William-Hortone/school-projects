@@ -30,7 +30,10 @@ const AppScheduling = () => {
     window.location.reload();
   };
   const handleClose = () => {
-    navigate("/adminDashboard");
+    navigate("/adminDashboard/dashboard");
+  };
+  const handleViewAll = () => {
+    navigate("/vizDocApp");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -203,6 +206,13 @@ const AppScheduling = () => {
             color="red"
             buttonType="button"
             onClick={handleClose}
+          />
+          <ButtonAction
+            iconName="all"
+            btnName="View All"
+            color="blue"
+            buttonType="button"
+            onClick={handleViewAll}
           />
         </div>
       </div>

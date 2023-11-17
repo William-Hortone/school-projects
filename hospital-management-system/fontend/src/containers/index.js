@@ -8,6 +8,7 @@ import DDetails from "./doctors/dDetails/DDetails";
 // import DoctorDetails from "./doctors/doctorDetails/DoctorDetails";
 import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
 import Scheduling from "./doctors/scheduling/Scheduling";
+import VizDocApp from "./doctors/vizDocApp/VizDocApp";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
 import RoomDetails from "./rooms/roomDetails/RoomDetails";
 import RoomMoreDetails from "./rooms/roomMoreDetails/RoomMoreDetails";
@@ -21,7 +22,6 @@ import ServiceScheduling from "./services/serviceSchedule/ServiceScheduling";
 import ViewHospitalSD from "./services/viewHospitalSD/ViewHospitalSD";
 
 export {
-  // DoctorDetails,
   DDetails,
   DoctorMenu,
   VizDoctorDetails,
@@ -33,7 +33,6 @@ export {
   WardDetails,
   RoomMoreDetails,
   AdminDashboard,
-  // DoctorAppointment,
   AppScheduling,
   Scheduling,
   ServiceScheduling,
@@ -42,4 +41,5 @@ export {
   AddUser,
   AddUserDetails,
   Dashboard,
+  VizDocApp,
 };
