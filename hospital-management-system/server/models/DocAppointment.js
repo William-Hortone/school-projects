@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const DocAppointment = new mongoose.Schema({
-  schedulingID: String,
+  schedulingID: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   doctorID: String,
   timeIn: String,
   timeOut: String,

@@ -9,6 +9,7 @@ import {
   AddUser,
   AdminDashboard,
   AppScheduling,
+  DDetails,
   DoctorAppointment,
   DoctorDetails,
   MedicalServices,
@@ -59,7 +60,7 @@ function App() {
           <Route path="/roomDetails" element={<RoomDetails />} />
 
           <Route path="/adminDashboard" element={<AdminDashboard />}>
-            <Route path="/adminDashboard/doctorD" element={<DoctorDetails />} />
+            <Route path="/adminDashboard/doctorD" element={<DDetails />} />
             <Route
               path="/adminDashboard/mServices"
               element={<MedicalServices />}

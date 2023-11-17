@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ButtonAction, ButtonSkip, Header, Input } from "../../../components";
-import ScheduleSer from "../ScheduleSer/ScheduleSer";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import { selectHospitalSchedule } from "../../../redux/slice/medicalServiceSlice";
+import ScheduleSer from "../ScheduleSer/ScheduleSer";
 
 const ServiceScheduling = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
@@ -28,7 +28,7 @@ const ServiceScheduling = () => {
     window.location.reload();
   };
   const handleClose = () => {
-    navigate("/home");
+    navigate("/adminDashboard");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -45,7 +45,6 @@ const ServiceScheduling = () => {
 
   return (
     <>
-      {/* <Header /> */}
       <div className="appScheduling">
         <h2 className="page-title">HOSPITAL SERVICE DETAILS</h2>
         <div className="appScheduling-container">
@@ -160,7 +159,7 @@ const ServiceScheduling = () => {
         </div>
 
         {/* The buttons container */}
-        <div className="container-menus">
+        <div className="appScheduling-container-menus">
           <div
             className="container-menu-header"
             style={{ width: "91%", margin: "auto" }}

@@ -46,14 +46,15 @@ const MedicalServices = () => {
     if (medicalServiceInfos.length === 0) {
       setInput({
         ...input,
-        serviceID: "001",
+        serviceID: "service_001",
       });
     } else {
       const lastMServiceID =
         medicalServiceInfos[medicalServiceInfos.length - 1].serviceID;
-      const nextMServiceID = (parseInt(lastMServiceID) + 1)
+      const numericPart = parseInt(lastMServiceID.split("_")[1]);
+      const nextMServiceID = `service_${(numericPart + 1)
         .toString()
-        .padStart(3, "0");
+        .padStart(3, "0")}`;
       setInput({
         ...input,
         serviceID: nextMServiceID,
@@ -158,7 +159,7 @@ const MedicalServices = () => {
   };
 
   const handleClose = () => {
-    navigate("/home");
+    navigate("/adminDashboard");
   };
 
   return (

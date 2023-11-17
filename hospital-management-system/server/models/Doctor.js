@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const DoctorSchema = new mongoose.Schema({
-  doctorID: String,
+  doctorID: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   doctorFN: String,
   nicNo: String,
   doctorLN: String,

@@ -15,13 +15,17 @@ const VizDoctorDetails = () => {
   const navigate = useNavigate();
   const doctorDetails = useSelector(selectDoctorDetails);
 
+  // Function to search
   const handleSearch = () => {
+    // search by the first name
     if (searchOptions === "doctorName") {
       const result = doctorDetails.filter(
         (doctor) => doctor.doctorFN === searchTerm
       );
       setSearchResult(result);
-    } else if (searchOptions === "doctorId") {
+    }
+    // search by the ID
+    else if (searchOptions === "doctorId") {
       const result = doctorDetails.filter(
         (doctor) => doctor.doctorID === searchTerm
       );
@@ -37,7 +41,7 @@ const VizDoctorDetails = () => {
     setHideDataSearched(false);
   };
   const handleClose = () => {
-    navigate("/home");
+    navigate("/adminDashboard/doctorD");
   };
 
   return (
@@ -146,6 +150,7 @@ const VizDoctorDetails = () => {
                   id="searchOptions"
                   onChange={(e) => setSearchOptions(e.target.value)}
                 >
+                  <option value="">Select one option</option>
                   <option value="doctorId">Doctor Id</option>
                   <option value="doctorName">Doctor Name</option>
                 </select>

@@ -3,12 +3,7 @@
   width: 100%;
   margin-top: 2rem;
 }
-/* .appScheduling-container h2 {
-  text-align: center;
-  font-size: 2rem;
-  padding-block: 2rem;
-  color: var(--color-blue);
-} */
+
 .appScheduling-container {
   width: 90%;
   margin: auto;
@@ -58,7 +53,7 @@
   text-align: center;
 }
 
-.appScheduling-container-menus {
+.appScheduling .appScheduling-container-menus {
   width: 90%;
   height: auto;
   display: flex;

@@ -23,15 +23,6 @@ const RoomMoreDetails = ({
     roomRates: "",
     roomDesc: "",
   });
-  // const [availableDays, setAvailableDays] = useState({
-  //   monday: false,
-  //   tuesday: false,
-  //   wednesday: false,
-  //   thursday: false,
-  //   friday: false,
-  //   saturday: false,
-  //   sunday: false,
-  // });
 
   const [selectedDays, setSelectedDays] = useState("");
   const [roomId, setRoomId] = useState("");
@@ -69,17 +60,7 @@ const RoomMoreDetails = ({
     });
   };
 
-  // To Display only selected days
-  // useEffect(() => {
-  //   const selectedDays = Object.keys(availableDays).filter(
-  //     (day) => availableDays[day]
-  //   );
-  //   const selectedDaysString = selectedDays.join(", ");
-  //   setSelectedDays(selectedDaysString);
-  //   setRoomId(inputs.schedulingID);
-  // }, [availableDays, input, inputs.schedulingID]);
-
-  // function to add room  a new roo ID
+  // function to generate  room  ID
   const handleAddAppointment = () => {
     if (addOnSubmit) {
       // Initialize the Id if the array is empty
@@ -95,7 +76,6 @@ const RoomMoreDetails = ({
         const nextElementId = `room_${(numericPart + 1)
           .toString()
           .padStart(3, "0")}`;
-        console.log("nextElementId", nextElementId);
         setInputs({
           ...inputs,
           roomID: nextElementId,

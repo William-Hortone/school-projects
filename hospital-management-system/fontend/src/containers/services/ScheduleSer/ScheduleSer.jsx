@@ -52,6 +52,7 @@ const ScheduleSer = ({
       [name]: value,
     });
   };
+
   const handleOnChangeDays = (e) => {
     const { name, checked } = e.target;
     setAvailableDays({
@@ -89,15 +90,21 @@ const ScheduleSer = ({
       if (hosScheduleDetails.length === 0) {
         setAppointmentInfos({
           ...appointmentInfos,
-          schedulingID: "00001",
+          schedulingID: "schedule_001",
         });
       } else {
         // Get the last Id and increment it
         const lastScheduleId =
           hosScheduleDetails[hosScheduleDetails.length - 1].schedulingID;
-        const nextScheduleId = (parseInt(lastScheduleId) + 1)
+        const numericPart = parseInt(lastScheduleId.split("_")[1]);
+        const nextScheduleId = `schedule_${(numericPart + 1)
           .toString()
-          .padStart(5, "0");
+          .padStart(3, "0")}`;
+        // const numericPart = parseInt(lastMServiceID.split("_")[1]);
+
+        // const nextMServiceID = `service_${(numericPart + 1)
+        //   .toString()
+        //   .padStart(3, "0")}`;
         setAppointmentInfos({
           ...appointmentInfos,
           schedulingID: nextScheduleId,
@@ -192,7 +199,7 @@ const ScheduleSer = ({
     setDocIDisPicked(true);
   };
 
-  // automatically fill the form when click on one row of the table
+  // Automatically fill the form when click on one row of the table
   const handleUpdateInfos = (serAppointment) => {
     if (!addOnSubmit) {
       setAppointmentInfos({
@@ -250,7 +257,7 @@ const ScheduleSer = ({
                     required
                   >
                     <option value={docIDisPicked}>
-                      {/* {docIDisPicked ? pickedServiceID : "Select a doctor ID"} */}
+                      {docIDisPicked ? pickedServiceID : "Select a service ID"}
                     </option>
                     {medicalServiceDetails.map((medicalService, index) => (
                       <option key={index} value={medicalService.serviceID}>
@@ -276,6 +283,7 @@ const ScheduleSer = ({
                     name="serviceStarts"
                     value={appointmentInfos.serviceStarts}
                     onChange={handleOnChangeAppointment}
+                    required
                   />
                 </div>
               </div>
@@ -328,6 +336,8 @@ const ScheduleSer = ({
                 </button>
               )}
             </div>
+
+            {/* Available Days */}
             <aside>
               <div className="details-title">
                 <h4> Available Days</h4>

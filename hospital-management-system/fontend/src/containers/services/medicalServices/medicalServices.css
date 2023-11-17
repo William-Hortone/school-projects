@@ -2,8 +2,6 @@
   width: 100%;
   height: auto;
   background-color: #efefef;
-
-  /* margin-top: 100px; */
 }
 .app__medicalServices-container {
   width: 100%;
@@ -61,7 +59,7 @@
   text-align: center;
 }
 .container-menu-btn {
-  width: 90%;
+  width: 90% !important;
   display: flex;
   justify-content: center;
   gap: 2.5rem;
