@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import "./roomDetails.css";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import RoomMoreDetails from "../roomMoreDetails/RoomMoreDetails";
+import { useNavigate } from "react-router-dom";
 
 const RoomDetails = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
 
+  const navigate = useNavigate();
   const handleShowScheduling = () => {
     setOpenScheduling(true);
     setAddOnSubmit(true);
@@ -21,6 +23,9 @@ const RoomDetails = () => {
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
     setAddOnSubmit(false);
+  };
+  const handleViewAll = () => {
+    navigate("/vizRooms");
   };
 
   return (
@@ -118,6 +123,13 @@ const RoomDetails = () => {
             color="red"
             buttonType="button"
             // onClick={handleClose}
+          />
+          <ButtonAction
+            iconName="all"
+            btnName="View All"
+            color="blue"
+            buttonType="button"
+            onClick={handleViewAll}
           />
         </div>
       </div>

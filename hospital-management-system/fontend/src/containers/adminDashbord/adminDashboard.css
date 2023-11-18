@@ -36,3 +36,9 @@
   height: 100%;
   background-color: var(--color-bg);
 }
+
+.activeLink {
+  /* transform: translateY(-5px); */
+  background-color: var(--color-primary);
+  color: white;
+}

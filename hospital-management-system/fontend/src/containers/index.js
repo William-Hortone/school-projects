@@ -14,12 +14,14 @@ import RoomDetails from "./rooms/roomDetails/RoomDetails";
 import RoomMoreDetails from "./rooms/roomMoreDetails/RoomMoreDetails";
 import ViewRooms from "./rooms/viewRooms/ViewRooms";
 import ViewWardDetails from "./rooms/viewWardDetails/ViewWardDetails";
+import VizAllRooms from "./rooms/vizAllRooms/VizAllRooms";
 import WardDetails from "./rooms/wardDetails/WardDetails";
 import WardMoreDetails from "./rooms/wardMoreDetails/WardMDetails";
 import ScheduleSer from "./services/ScheduleSer/ScheduleSer";
 import MedicalServices from "./services/medicalServices/MedicalServices";
 import ServiceScheduling from "./services/serviceSchedule/ServiceScheduling";
 import ViewHospitalSD from "./services/viewHospitalSD/ViewHospitalSD";
+import VizHospitalSer from "./services/vizHospitalSer/VizHospitalSer";
 
 export {
   DDetails,
@@ -42,4 +44,6 @@ export {
   AddUserDetails,
   Dashboard,
   VizDocApp,
+  VizHospitalSer,
+  VizAllRooms,
 };
