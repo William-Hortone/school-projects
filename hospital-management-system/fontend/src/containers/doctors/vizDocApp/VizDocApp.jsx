@@ -50,7 +50,7 @@ const VizDocApp = () => {
       <Header />
       <div className="app__vDoctorDetails">
         <div>
-          <h1>View Doctor Details</h1>
+          <h1> Doctors Appointments Details</h1>
 
           <div className="app__vDoctorDetails-container">
             <table>
