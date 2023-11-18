@@ -11,14 +11,14 @@ import {
   AppScheduling,
   DDetails,
   Dashboard,
-  // DoctorAppointment,
-  // DoctorDetails,
   MedicalServices,
   RoomDetails,
   ServiceScheduling,
   ViewHospitalSD,
+  VizAllRooms,
   VizDocApp,
   VizDoctorDetails,
+  VizHospitalSer,
   WardDetails,
 } from "./containers";
 import { useDispatch } from "react-redux";
@@ -54,12 +54,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
-          {/* <Route path="/home" element={<HomeAdmin />} /> */}
 
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />
           <Route path="/vHospital" element={<ViewHospitalSD />} />
           <Route path="/vizDocApp" element={<VizDocApp />} />
-          {/* <Route path="/roomDetails" element={<RoomDetails />} /> */}
+          <Route path="/vizHospitalSer" element={<VizHospitalSer />} />
+          <Route path="/vizRooms" element={<VizAllRooms />} />
 
           <Route path="/adminDashboard" element={<AdminDashboard />}>
             <Route path="/adminDashboard/dashboard" element={<Dashboard />} />

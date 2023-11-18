@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, Header } from "../../../components";
 import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
-import "./vizDocApp.css";
+import { selectHospitalSchedule } from "../../../redux/slice/medicalServiceSlice";
+// import "./vizDocApp.css";
 
-const VizDocApp = () => {
+const VizHospitalSer = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOptions, setSearchOptions] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -14,21 +15,21 @@ const VizDocApp = () => {
 
   const navigate = useNavigate();
 
-  const doctorAppointment = useSelector(selectDocAppointment);
+  const hospitalSchedule = useSelector(selectHospitalSchedule);
 
   // Function to search
   const handleSearch = () => {
     // search by the first name
     if (searchOptions === "doctorId") {
-      const result = doctorAppointment.filter(
-        (doctor) => doctor.doctorID === searchTerm
+      const result = hospitalSchedule.filter(
+        (service) => service.serviceID === searchTerm
       );
       setSearchResult(result);
     }
     // search by the ID
     else if (searchOptions === "scheduleId") {
-      const result = doctorAppointment.filter(
-        (doctor) => doctor.schedulingID === searchTerm
+      const result = hospitalSchedule.filter(
+        (service) => service.schedulingID === searchTerm
       );
       setSearchResult(result);
     }
@@ -42,7 +43,7 @@ const VizDocApp = () => {
     setHideDataSearched(false);
   };
   const handleClose = () => {
-    navigate("/adminDashboard/doctorApp");
+    navigate("/adminDashboard/serviceSchedule");
   };
 
   return (
@@ -57,39 +58,39 @@ const VizDocApp = () => {
               <thead>
                 <tr>
                   <th>Schedule ID </th>
-                  <th>Doctor ID</th>
-                  <th>Time In</th>
-                  <th>Time Out</th>
+                  <th>Service ID</th>
+                  <th>Service Starts</th>
+                  <th>service Ends</th>
                   <th>Available Days</th>
                   <th>Schedule Notes</th>
                 </tr>
               </thead>
               <tbody>
                 {!hideData &&
-                  doctorAppointment.map((doctor, index) => {
+                  hospitalSchedule.map((service, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{doctor.schedulingID}</td>
-                        <td>{doctor.doctorID}</td>
-                        <td>{doctor.timeIn}</td>
-                        <td>{doctor.timeOut}</td>
-                        <td>{doctor.selectedDays}</td>
-                        <td>{doctor.schedulingNotes}</td>
+                        <td>{service.schedulingID}</td>
+                        <td>{service.serviceID}</td>
+                        <td>{service.serviceStarts}</td>
+                        <td>{service.serviceEnds}</td>
+                        <td>{service.selectedDays}</td>
+                        <td>{service.schedulingNotes}</td>
                       </tr>
                     );
                   })}
 
                 {/* Table for the result searched  */}
                 {hideDataSearched &&
-                  searchResult.map((doctor, index) => {
+                  searchResult.map((service, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{doctor.schedulingID}</td>
-                        <td>{doctor.doctorID}</td>
-                        <td>{doctor.timeIn}</td>
-                        <td>{doctor.timeOut}</td>
-                        <td>{doctor.selectedDays}</td>
-                        <td>{doctor.schedulingNotes}</td>
+                        <td>{service.schedulingID}</td>
+                        <td>{service.serviceID}</td>
+                        <td>{service.serviceStarts}</td>
+                        <td>{service.serviceEnds}</td>
+                        <td>{service.selectedDays}</td>
+                        <td>{service.schedulingNotes}</td>
                       </tr>
                     );
                   })}
@@ -129,7 +130,7 @@ const VizDocApp = () => {
                 >
                   <option value="">Select one option</option>
                   <option value="scheduleId">Schedule ID</option>
-                  <option value="doctorId">Doctor ID</option>
+                  <option value="doctorId">Service ID</option>
                 </select>
               </div>
               <div className="content">
@@ -149,4 +150,4 @@ const VizDocApp = () => {
   );
 };
 
-export default VizDocApp;
+export default VizHospitalSer;

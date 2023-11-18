@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, Header } from "../../../components";
-import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
-import "./vizDocApp.css";
+import { selectHospitalSchedule } from "../../../redux/slice/medicalServiceSlice";
+import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
 
-const VizDocApp = () => {
+const VizAllRooms = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOptions, setSearchOptions] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -14,22 +14,20 @@ const VizDocApp = () => {
 
   const navigate = useNavigate();
 
-  const doctorAppointment = useSelector(selectDocAppointment);
+  const roomsDetails = useSelector(selectRoomsDetails);
 
   // Function to search
   const handleSearch = () => {
     // search by the first name
     if (searchOptions === "doctorId") {
-      const result = doctorAppointment.filter(
-        (doctor) => doctor.doctorID === searchTerm
+      const result = roomsDetails.filter(
+        (room) => room.roomType === searchTerm
       );
       setSearchResult(result);
     }
     // search by the ID
     else if (searchOptions === "scheduleId") {
-      const result = doctorAppointment.filter(
-        (doctor) => doctor.schedulingID === searchTerm
-      );
+      const result = roomsDetails.filter((room) => room.roomID === searchTerm);
       setSearchResult(result);
     }
     setHideDada(true);
@@ -42,7 +40,7 @@ const VizDocApp = () => {
     setHideDataSearched(false);
   };
   const handleClose = () => {
-    navigate("/adminDashboard/doctorApp");
+    navigate("/adminDashboard/rooms");
   };
 
   return (
@@ -56,40 +54,34 @@ const VizDocApp = () => {
             <table>
               <thead>
                 <tr>
-                  <th>Schedule ID </th>
-                  <th>Doctor ID</th>
-                  <th>Time In</th>
-                  <th>Time Out</th>
-                  <th>Available Days</th>
-                  <th>Schedule Notes</th>
+                  <th>Room ID </th>
+                  <th>Room Type</th>
+                  <th>Room Rates</th>
+                  <th>Room DEscription</th>
                 </tr>
               </thead>
               <tbody>
                 {!hideData &&
-                  doctorAppointment.map((doctor, index) => {
+                  roomsDetails.map((room, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{doctor.schedulingID}</td>
-                        <td>{doctor.doctorID}</td>
-                        <td>{doctor.timeIn}</td>
-                        <td>{doctor.timeOut}</td>
-                        <td>{doctor.selectedDays}</td>
-                        <td>{doctor.schedulingNotes}</td>
+                        <td>{room.roomID}</td>
+                        <td>{room.roomType}</td>
+                        <td>{room.roomRates}</td>
+                        <td>{room.roomDesc}</td>
                       </tr>
                     );
                   })}
 
                 {/* Table for the result searched  */}
                 {hideDataSearched &&
-                  searchResult.map((doctor, index) => {
+                  searchResult.map((room, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{doctor.schedulingID}</td>
-                        <td>{doctor.doctorID}</td>
-                        <td>{doctor.timeIn}</td>
-                        <td>{doctor.timeOut}</td>
-                        <td>{doctor.selectedDays}</td>
-                        <td>{doctor.schedulingNotes}</td>
+                        <td>{room.roomID}</td>
+                        <td>{room.roomType}</td>
+                        <td>{room.roomRates}</td>
+                        <td>{room.roomDesc}</td>
                       </tr>
                     );
                   })}
@@ -128,8 +120,8 @@ const VizDocApp = () => {
                   onChange={(e) => setSearchOptions(e.target.value)}
                 >
                   <option value="">Select one option</option>
-                  <option value="scheduleId">Schedule ID</option>
-                  <option value="doctorId">Doctor ID</option>
+                  <option value="scheduleId">Room ID</option>
+                  <option value="doctorId">Room Type</option>
                 </select>
               </div>
               <div className="content">
@@ -149,4 +141,4 @@ const VizDocApp = () => {
   );
 };
 
-export default VizDocApp;
+export default VizAllRooms;
