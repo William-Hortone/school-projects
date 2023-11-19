@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addUser.css";
 import { ButtonAction, ButtonSkip, Input } from "../../components";
 import AddUserDetails from "../addUserDetails/AddUserDetails";
 import { useNavigate } from "react-router-dom";
+import { selectAddedUserInfos } from "../../redux/slice/addedUserSlide";
+import { useSelector } from "react-redux";
 
 const AddUser = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
+  const addedUserInfos = useSelector(selectAddedUserInfos);
+
+  const [usersLength, setUsersLength] = useState(addedUserInfos.length - 1);
+  const [lastElement, setLastElement] = useState(addedUserInfos[usersLength]);
 
   const [inputs, setInputs] = useState({
     userID: "",
@@ -23,6 +29,10 @@ const AddUser = () => {
     userName: "",
   });
 
+  const navigate = useNavigate();
+
+  // let usersLength = addedUserInfos.length - 1;
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputs({
@@ -31,7 +41,10 @@ const AddUser = () => {
     });
   };
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    setLastElement(addedUserInfos[usersLength]);
+  }, [usersLength, addedUserInfos]);
+
   const handleShowScheduling = () => {
     setOpenScheduling(true);
     setAddOnSubmit(true);
@@ -46,6 +59,29 @@ const AddUser = () => {
   };
   const handleClose = () => {
     navigate("/adminDashboard");
+  };
+
+  const handleShowPrev = () => {
+    if (usersLength > 0) {
+      setUsersLength(usersLength - 1);
+      if (usersLength == 0) {
+        return;
+      }
+    }
+  };
+  const handleShowFirstEl = () => {
+    setUsersLength(usersLength - 1);
+  };
+  const handleShowLastEl = () => {
+    setUsersLength(addedUserInfos.length - 1);
+  };
+  const handleShowNext = () => {
+    if (usersLength < addedUserInfos.length - 1) {
+      setUsersLength(usersLength + 1);
+      if (usersLength == addedUserInfos.length - 1) {
+        return;
+      }
+    }
   };
 
   const showSchedulingToDelete = () => {
@@ -68,7 +104,7 @@ const AddUser = () => {
               placeholder="User ID"
               id="userID"
               name="userID"
-              value={inputs.userID}
+              value={lastElement ? lastElement.userID : ""}
               handleOnChange={handleOnChange}
             />
           </div>
@@ -78,7 +114,7 @@ const AddUser = () => {
               placeholder="First Name"
               id="firstName"
               name="firstName"
-              value={inputs.firstName}
+              value={lastElement ? lastElement.firstName : ""}
               handleOnChange={handleOnChange}
             />
           </div>
@@ -88,7 +124,7 @@ const AddUser = () => {
               placeholder="Last Name"
               name="lastName"
               id="lastName"
-              value={inputs.lastName}
+              value={lastElement ? lastElement.lastName : ""}
               handleOnChange={handleOnChange}
             />
           </div>
@@ -98,7 +134,7 @@ const AddUser = () => {
               placeholder="Gender"
               name="gender"
               id="gender"
-              value={inputs.gender}
+              value={lastElement ? lastElement.gender : ""}
               handleOnChange={handleOnChange}
             />
           </div>
@@ -108,7 +144,7 @@ const AddUser = () => {
               placeholder="Address"
               name="address"
               id="address"
-              value={inputs.address}
+              value={lastElement ? lastElement.address : ""}
               handleOnChange={handleOnChange}
             />
           </div>
@@ -119,7 +155,7 @@ const AddUser = () => {
               placeholder="Email"
               name="email"
               id="email"
-              value={inputs.email}
+              value={lastElement ? lastElement.email : ""}
               handleOnChange={handleOnChange}
             />
           </div>
@@ -129,7 +165,7 @@ const AddUser = () => {
               placeholder="Telephone"
               name="telephone"
               id="telephone"
-              value={inputs.telephone}
+              value={lastElement ? lastElement.telephone : ""}
               handleOnChange={handleOnChange}
             />
           </div>
@@ -139,7 +175,7 @@ const AddUser = () => {
               placeholder="Status"
               name="status"
               id="status"
-              value={inputs.status}
+              value={lastElement ? lastElement.status : ""}
               handleOnChange={handleOnChange}
             />
           </div>
@@ -149,7 +185,7 @@ const AddUser = () => {
               placeholder="Notes"
               name="notes"
               id="notes"
-              value={inputs.notes}
+              value={lastElement ? lastElement.notes : ""}
               handleOnChange={handleOnChange}
             />
           </div>
@@ -162,11 +198,28 @@ const AddUser = () => {
           className="roomDetails-container-menu-header"
           style={{ width: "91%", margin: "auto" }}
         >
-          <ButtonSkip iconName="doubleLeft" color="green" />
-          <ButtonSkip iconName="arrowLeft" color="blue" />
+          <ButtonSkip
+            handleOnClick={handleShowFirstEl}
+            iconName="doubleLeft"
+            color="green"
+          />
+          <ButtonSkip
+            handleOnClick={handleShowPrev}
+            iconName="arrowLeft"
+            color="blue"
+          />
           <input type="text" placeholder="Record No" />
-          <ButtonSkip iconName="arrowRight" color="blue" />
-          <ButtonSkip iconName="doubleRight" color="green" />
+          <ButtonSkip
+            handleOnClick={handleShowNext}
+            iconName="arrowRight"
+            color="blue"
+          />
+
+          <ButtonSkip
+            handleOnClick={handleShowLastEl}
+            iconName="doubleRight"
+            color="green"
+          />
         </div>
         <div className="container-menu-btn">
           <ButtonAction

@@ -61,6 +61,7 @@ function App() {
           <Route path="/vizHospitalSer" element={<VizHospitalSer />} />
           <Route path="/vizRooms" element={<VizAllRooms />} />
 
+          {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>
             <Route path="/adminDashboard/dashboard" element={<Dashboard />} />
             <Route path="/adminDashboard/doctorD" element={<DDetails />} />
