@@ -3,16 +3,33 @@ import "./wardDetails.css";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import RoomMoreDetails from "../roomMoreDetails/RoomMoreDetails";
 import WardMoreDetails from "../wardMoreDetails/WardMDetails";
+import { useEffect } from "react";
+import { selectWardDetails } from "../../../redux/slice/wardSlice";
+import { useSelector } from "react-redux";
 
 const WardDetails = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
-  const [isEmpty, setIsEmpty] = useState(true);
+  const wardsDetails = useSelector(selectWardDetails);
+  const [usersLength, setUsersLength] = useState(wardsDetails.length - 1);
+  const [lastElement, setLastElement] = useState(wardsDetails[usersLength]);
+
+  useEffect(() => {
+    setUsersLength(wardsDetails.length - 1);
+  }, [wardsDetails.length]);
+
+  useEffect(() => {
+    setLastElement(wardsDetails[usersLength]);
+  }, [usersLength, wardsDetails]);
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
     setAddOnSubmit(true);
+  };
+
+  const handleRefresh = () => {
+    window.location.reload();
   };
 
   const showRoomsToEdit = () => {
@@ -23,6 +40,32 @@ const WardDetails = () => {
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
     setAddOnSubmit(false);
+  };
+
+  // Display the infos of the preview element
+  const handleShowPrev = () => {
+    if (usersLength > 0) {
+      setUsersLength(usersLength - 1);
+      if (usersLength == 0) {
+        return;
+      }
+    }
+  };
+  const handleShowFirstEl = () => {
+    setUsersLength(0);
+  };
+
+  // Display the infos of the next element
+  const handleShowNext = () => {
+    if (usersLength < wardsDetails.length - 1) {
+      setUsersLength(usersLength + 1);
+      if (usersLength == wardsDetails.length - 1) {
+        return;
+      }
+    }
+  };
+  const handleShowLastEl = () => {
+    setUsersLength(wardsDetails.length - 1);
   };
 
   return (
@@ -36,8 +79,8 @@ const WardDetails = () => {
               placeholder="Ward ID"
               id="roomID"
               name="roomID"
-              //   value={appointmentInfos.schedulingID}
-              //   handleOnChange={handleOnChangeAppointment}
+              value={lastElement ? lastElement.wardID : ""}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -46,8 +89,8 @@ const WardDetails = () => {
               placeholder="Ward Type"
               name="roomType"
               id="roomType"
-              //   value={appointmentInfos.schedulingID}
-              //   handleOnChange={handleOnChangeAppointment}
+              value={lastElement ? lastElement.wardType : ""}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -56,8 +99,8 @@ const WardDetails = () => {
               placeholder="Ward Rates"
               name="roomRates"
               id="roomRates"
-              //   value={appointmentInfos.schedulingID}
-              //   handleOnChange={handleOnChangeAppointment}
+              value={lastElement ? lastElement.wardRates : ""}
+              inputDisabled="true"
             />
           </div>
 
@@ -66,8 +109,8 @@ const WardDetails = () => {
             <Input
               placeholder="Ward Description"
               name="roomDesc"
-              //   value={appointmentInfos.schedulingID}
-              //   handleOnChange={handleOnChangeAppointment}
+              value={lastElement ? lastElement.wardDesc : ""}
+              inputDisabled="true"
             />
           </div>
         </form>
@@ -79,11 +122,27 @@ const WardDetails = () => {
           className="roomDetails-container-menu-header"
           style={{ width: "91%", margin: "auto" }}
         >
-          <ButtonSkip iconName="doubleLeft" color="green" />
-          <ButtonSkip iconName="arrowLeft" color="blue" />
+          <ButtonSkip
+            handleOnClick={handleShowFirstEl}
+            iconName="doubleLeft"
+            color="green"
+          />
+          <ButtonSkip
+            handleOnClick={handleShowPrev}
+            iconName="arrowLeft"
+            color="blue"
+          />
           <input type="text" placeholder="Record No" />
-          <ButtonSkip iconName="arrowRight" color="blue" />
-          <ButtonSkip iconName="doubleRight" color="green" />
+          <ButtonSkip
+            handleOnClick={handleShowNext}
+            iconName="arrowRight"
+            color="blue"
+          />
+          <ButtonSkip
+            handleOnClick={handleShowLastEl}
+            iconName="doubleRight"
+            color="green"
+          />
         </div>
         <div className="container-menu-btn">
           <ButtonAction
@@ -112,7 +171,7 @@ const WardDetails = () => {
             btnName="Refresh"
             color="blue"
             buttonType="button"
-            // onClick={handleRefresh}
+            onClick={handleRefresh}
           />
           <ButtonAction
             iconName="close"

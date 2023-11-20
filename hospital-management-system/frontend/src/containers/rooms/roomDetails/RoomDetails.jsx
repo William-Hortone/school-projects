@@ -3,13 +3,27 @@ import "./roomDetails.css";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import RoomMoreDetails from "../roomMoreDetails/RoomMoreDetails";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
 
 const RoomDetails = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
-
+  const roomsDetails = useSelector(selectRoomsDetails);
+  const [usersLength, setUsersLength] = useState(roomsDetails.length - 1);
+  const [lastElement, setLastElement] = useState(roomsDetails[usersLength]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setUsersLength(roomsDetails.length - 1);
+  }, [roomsDetails.length]);
+
+  useEffect(() => {
+    setLastElement(roomsDetails[usersLength]);
+  }, [usersLength, roomsDetails]);
+
   const handleShowScheduling = () => {
     setOpenScheduling(true);
     setAddOnSubmit(true);
@@ -28,6 +42,32 @@ const RoomDetails = () => {
     navigate("/vizRooms");
   };
 
+  // Display the infos of the preview element
+  const handleShowPrev = () => {
+    if (usersLength > 0) {
+      setUsersLength(usersLength - 1);
+      if (usersLength == 0) {
+        return;
+      }
+    }
+  };
+  const handleShowFirstEl = () => {
+    setUsersLength(0);
+  };
+
+  // Display the infos of the next element
+  const handleShowNext = () => {
+    if (usersLength < roomsDetails.length - 1) {
+      setUsersLength(usersLength + 1);
+      if (usersLength == roomsDetails.length - 1) {
+        return;
+      }
+    }
+  };
+  const handleShowLastEl = () => {
+    setUsersLength(roomsDetails.length - 1);
+  };
+
   return (
     <div className="roomDetails">
       <div className="roomDetails-container">
@@ -39,8 +79,8 @@ const RoomDetails = () => {
               placeholder="Room ID"
               id="roomID"
               name="roomID"
-              //   value={appointmentInfos.schedulingID}
-              //   handleOnChange={handleOnChangeAppointment}
+              value={lastElement ? lastElement.roomID : ""}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -49,8 +89,8 @@ const RoomDetails = () => {
               placeholder="Room Type"
               name="roomType"
               id="roomType"
-              //   value={appointmentInfos.schedulingID}
-              //   handleOnChange={handleOnChangeAppointment}
+              value={lastElement ? lastElement.roomType : ""}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -59,8 +99,8 @@ const RoomDetails = () => {
               placeholder="Room Rates"
               name="roomRates"
               id="roomRates"
-              //   value={appointmentInfos.schedulingID}
-              //   handleOnChange={handleOnChangeAppointment}
+              value={lastElement ? lastElement.roomRates : ""}
+              inputDisabled="true"
             />
           </div>
 
@@ -69,8 +109,8 @@ const RoomDetails = () => {
             <Input
               placeholder="Room Description"
               name="roomDesc"
-              //   value={appointmentInfos.schedulingID}
-              //   handleOnChange={handleOnChangeAppointment}
+              value={lastElement ? lastElement.roomDesc : ""}
+              inputDisabled="true"
             />
           </div>
         </form>
@@ -82,11 +122,27 @@ const RoomDetails = () => {
           className="roomDetails-container-menu-header"
           style={{ width: "91%", margin: "auto" }}
         >
-          <ButtonSkip iconName="doubleLeft" color="green" />
-          <ButtonSkip iconName="arrowLeft" color="blue" />
+          <ButtonSkip
+            handleOnClick={handleShowFirstEl}
+            iconName="doubleLeft"
+            color="green"
+          />
+          <ButtonSkip
+            handleOnClick={handleShowPrev}
+            iconName="arrowLeft"
+            color="blue"
+          />
           <input type="text" placeholder="Record No" />
-          <ButtonSkip iconName="arrowRight" color="blue" />
-          <ButtonSkip iconName="doubleRight" color="green" />
+          <ButtonSkip
+            handleOnClick={handleShowNext}
+            iconName="arrowRight"
+            color="blue"
+          />
+          <ButtonSkip
+            handleOnClick={handleShowLastEl}
+            iconName="doubleRight"
+            color="green"
+          />
         </div>
         <div className="container-menu-btn">
           <ButtonAction
