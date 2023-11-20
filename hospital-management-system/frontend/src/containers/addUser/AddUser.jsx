@@ -15,31 +15,11 @@ const AddUser = () => {
   const [usersLength, setUsersLength] = useState(addedUserInfos.length - 1);
   const [lastElement, setLastElement] = useState(addedUserInfos[usersLength]);
 
-  const [inputs, setInputs] = useState({
-    userID: "",
-    firstName: "",
-    lastName: "",
-    gender: "",
-    address: "",
-    email: "",
-    telephone: "",
-    status: "",
-    notes: "",
-    userType: "",
-    userName: "",
-  });
-
   const navigate = useNavigate();
 
-  // let usersLength = addedUserInfos.length - 1;
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
+  useEffect(() => {
+    setUsersLength(addedUserInfos.length - 1);
+  }, [addedUserInfos.length]);
 
   useEffect(() => {
     setLastElement(addedUserInfos[usersLength]);
@@ -70,7 +50,7 @@ const AddUser = () => {
     }
   };
   const handleShowFirstEl = () => {
-    setUsersLength(usersLength - 1);
+    setUsersLength(0);
   };
   const handleShowLastEl = () => {
     setUsersLength(addedUserInfos.length - 1);
@@ -105,7 +85,7 @@ const AddUser = () => {
               id="userID"
               name="userID"
               value={lastElement ? lastElement.userID : ""}
-              handleOnChange={handleOnChange}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -115,7 +95,7 @@ const AddUser = () => {
               id="firstName"
               name="firstName"
               value={lastElement ? lastElement.firstName : ""}
-              handleOnChange={handleOnChange}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -125,7 +105,7 @@ const AddUser = () => {
               name="lastName"
               id="lastName"
               value={lastElement ? lastElement.lastName : ""}
-              handleOnChange={handleOnChange}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -135,7 +115,7 @@ const AddUser = () => {
               name="gender"
               id="gender"
               value={lastElement ? lastElement.gender : ""}
-              handleOnChange={handleOnChange}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -145,7 +125,7 @@ const AddUser = () => {
               name="address"
               id="address"
               value={lastElement ? lastElement.address : ""}
-              handleOnChange={handleOnChange}
+              inputDisabled="true"
             />
           </div>
 
@@ -156,7 +136,7 @@ const AddUser = () => {
               name="email"
               id="email"
               value={lastElement ? lastElement.email : ""}
-              handleOnChange={handleOnChange}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -166,7 +146,7 @@ const AddUser = () => {
               name="telephone"
               id="telephone"
               value={lastElement ? lastElement.telephone : ""}
-              handleOnChange={handleOnChange}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -176,7 +156,7 @@ const AddUser = () => {
               name="status"
               id="status"
               value={lastElement ? lastElement.status : ""}
-              handleOnChange={handleOnChange}
+              inputDisabled="true"
             />
           </div>
           <div className="input-fields">
@@ -186,7 +166,7 @@ const AddUser = () => {
               name="notes"
               id="notes"
               value={lastElement ? lastElement.notes : ""}
-              handleOnChange={handleOnChange}
+              inputDisabled="true"
             />
           </div>
         </form>
