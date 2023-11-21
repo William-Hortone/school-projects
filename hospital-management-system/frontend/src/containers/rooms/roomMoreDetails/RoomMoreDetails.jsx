@@ -9,7 +9,6 @@ import "./roomMoreDetails.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
-// import { FaTimes } from "react-icons/fa";
 
 const RoomMoreDetails = ({
   setOpenScheduling,
@@ -24,14 +23,14 @@ const RoomMoreDetails = ({
     roomDesc: "",
   });
 
-  const [selectedDays, setSelectedDays] = useState("");
+  const API_URL = "http://localhost:3001/getRoomsDetails";
+
   const [roomId, setRoomId] = useState("");
   const [pickedServiceID, setPickedServiceID] = useState("");
   const [docIDisPicked, setDocIDisPicked] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
-  const [showDocDetailTable, setShowDocDetailTable] = useState(false);
-  // const input = { ...inputs, selectedDays };
+  const [allRooms, setAllRooms] = useState([]);
 
   // const roomsDetails = useSelector(selectRoomsDetails);
   const roomsDetails = useSelector(selectRoomsDetails);
@@ -44,6 +43,14 @@ const RoomMoreDetails = ({
       [name]: value,
     });
   };
+
+  const fetchData = async () => {
+    const { data } = await axios.get(API_URL);
+    setAllRooms(data);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setRoomId(inputs.roomID);
@@ -153,45 +160,6 @@ const RoomMoreDetails = ({
     }
     setShowPopupDelete(false);
   };
-
-  // const handleShowDocDetailsTable = () => {
-  //   setShowDocDetailTable(true);
-  // };
-
-  // const handleCloseDocDetailsTable = () => {
-  //   setShowDocDetailTable(false);
-  // };
-
-  // Passing the Service Id to the form when selected
-  // const handleServiceId = (serID) => {
-  //   setShowDocDetailTable(false);
-  //   setPickedServiceID(serID);
-  //   setInputs({
-  //     ...inputs,
-  //     serviceID: serID,
-  //   });
-  //   setDocIDisPicked(true);
-  // };
-
-  // automatically fill the form when click on one row of the table
-  // const handleUpdateInfos = (room) => {
-  //   if (!addOnSubmit) {
-  //     setInputs({
-  //       roomID: room.roomID,
-  //       roomType: room.roomType,
-  //       roomRates: room.roomRates,
-  //       roomDesc: room.roomDesc,
-  //     });
-
-  //     // setSelectedDays(room.selectedDays);
-  //     setRoomId(room.roomID);
-  //     console.log("Room iD selected", roomId);
-  //     console.log("Room iD ", inputs.roomID);
-  //     // setPickedServiceID(room.roomID);
-  //     // setDocIDisPicked(true);
-  //     setDisabledInput(true);
-  //   }
-  // };
 
   const handleUpdateInfos = (room) => {
     if (!addOnSubmit) {
@@ -308,96 +276,6 @@ const RoomMoreDetails = ({
                 </button>
               )}
             </div>
-            {/* <aside>
-              <div className="details-title">
-                <h4> Available Days</h4>
-                <div className="days-divider" />
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="monday">Monday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="monday"
-                    name="Mon"
-                    value={availableDays.monday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="tuesday">Tuesday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="tuesday"
-                    name="Tue"
-                    value={availableDays.tuesday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="wednesday">Wednesday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="wednesday"
-                    name="Wed"
-                    value={availableDays.wednesday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="thursday">Thursday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="thursday"
-                    name="Thu"
-                    value={availableDays.thursday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="friday">Friday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="friday"
-                    name="Fri"
-                    value={availableDays.friday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="saturday">Saturday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="saturday"
-                    name="Sat"
-                    value={availableDays.saturday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-              <div className="input-field-days">
-                <label htmlFor="sunday">Sunday:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="sunday"
-                    name="Sun"
-                    value={availableDays.sunday}
-                    onChange={handleOnChangeDays}
-                  />
-                </div>
-              </div>
-            </aside> */}
           </form>
 
           {/* The table  to display the schedules*/}
@@ -412,7 +290,7 @@ const RoomMoreDetails = ({
                 </tr>
               </thead>
               <tbody>
-                {roomsDetails.map((room, index) => {
+                {allRooms.map((room, index) => {
                   return (
                     <tr
                       onClick={(e) => handleUpdateInfos(room)}

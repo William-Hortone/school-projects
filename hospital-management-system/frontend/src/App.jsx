@@ -43,7 +43,7 @@ function App() {
     dispatch(fetchAddedUserDetails());
     dispatch(fetchRoomsDetails());
     dispatch(fetchWardDetails());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div>

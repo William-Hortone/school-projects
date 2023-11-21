@@ -11,15 +11,26 @@ router.post("/roomsInfos", (req, res) => {
 });
 
 // Get all the rooms
-router.get("/getRoomsDetails", (req, res) => {
-  ModelRoom.find({ isDisplayed: true })
-    .then((room) => {
-      if (!room) {
-        res.json("notFound");
-      }
-      res.json(room);
-    })
-    .catch((err) => res.json(err));
+// router.get("/getRoomsDetails", (req, res) => {
+//   ModelRoom.find({ isDisplayed: true })
+//     .then((room) => {
+//       if (!room) {
+//         res.json("notFound");
+//       }
+//       res.json(room);
+//     })
+//     .catch((err) => res.json(err));
+// });
+router.get("/getRoomsDetails", async (req, res) => {
+  try {
+    const rooms = await ModelRoom.find({ isDisplayed: true });
+    if (!rooms) {
+      return res.status(200).json("notFound");
+    }
+    return res.status(200).json(rooms);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
 });
 
 // Update  room information

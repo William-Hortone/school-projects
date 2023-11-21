@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, Header } from "../../../components";
 import { selectHospitalSchedule } from "../../../redux/slice/medicalServiceSlice";
 import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
+import axios from "axios";
 
 const VizAllRooms = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,10 +13,20 @@ const VizAllRooms = () => {
   const [hideData, setHideDada] = useState(false);
   const [hideDataSearched, setHideDataSearched] = useState(true);
 
+  const [myData, setMyData] = useState([]);
   const navigate = useNavigate();
 
+  const API_URL = "http://localhost:3001/getRoomsDetails";
   const roomsDetails = useSelector(selectRoomsDetails);
 
+  const fetchData = async () => {
+    const { data } = await axios.get(API_URL);
+    setMyData(data);
+    console.log("the fetch dat", data);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   // Function to search
   const handleSearch = () => {
     // search by the first name
@@ -62,7 +73,7 @@ const VizAllRooms = () => {
               </thead>
               <tbody>
                 {!hideData &&
-                  roomsDetails.map((room, index) => {
+                  myData.map((room, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
                         <td>{room.roomID}</td>
