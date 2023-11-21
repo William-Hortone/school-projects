@@ -24,8 +24,8 @@ import {
   Area,
 } from "recharts";
 import { useNavigate } from "react-router-dom";
+import { FaCalendarCheck, FaUserAlt } from "react-icons/fa";
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-const SECONDCOLORS = ["#dcca87", "#00C49F", "#FF0000", "#FF8042"];
 
 const initialChartData = [
   { name: "Monday", value: 400 },
@@ -76,7 +76,9 @@ const Dashboard = () => {
           <div className="container-header content-one">
             <h4>TOTAL Appointments</h4>
             <div>
-              <span>Icon</span>
+              <span>
+                <FaCalendarCheck size={20} />
+              </span>
               <p>{docAppDetails.length}</p>
             </div>
           </div>
@@ -90,7 +92,9 @@ const Dashboard = () => {
           <div className="container-header content-three">
             <h4>Available Doctors</h4>
             <div>
-              <span>Icon</span>
+              <span>
+                <FaUserAlt />
+              </span>
               <p>{doctorDetails.length}</p>
             </div>
           </div>

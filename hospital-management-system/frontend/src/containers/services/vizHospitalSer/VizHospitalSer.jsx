@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, Header } from "../../../components";
+import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
 import { selectHospitalSchedule } from "../../../redux/slice/medicalServiceSlice";
+// import "./vizDocApp.css";
 
 const VizHospitalSer = () => {
   const [searchTerm, setSearchTerm] = useState("");

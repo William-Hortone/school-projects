@@ -12,10 +12,25 @@ const AppScheduling = () => {
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const [isEmpty, setIsEmpty] = useState(true);
 
-  const navigate = useNavigate();
   const docAppointmentDetails = useSelector(selectDocAppointment);
+  const [usersLength, setUsersLength] = useState(
+    docAppointmentDetails.length - 1
+  );
+  const [lastElement, setLastElement] = useState(
+    docAppointmentDetails[usersLength]
+  );
 
-  const lastElement = docAppointmentDetails[docAppointmentDetails.length - 1];
+  useEffect(() => {
+    setUsersLength(docAppointmentDetails.length - 1);
+  }, [docAppointmentDetails.length]);
+
+  useEffect(() => {
+    setLastElement(docAppointmentDetails[usersLength]);
+  }, [usersLength, docAppointmentDetails]);
+
+  const navigate = useNavigate();
+
+  // const lastElement = docAppointmentDetails[docAppointmentDetails.length - 1];
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
@@ -40,20 +55,38 @@ const AppScheduling = () => {
     setAddOnSubmit(false);
   };
 
-  useEffect(() => {
-    if (docAppointmentDetails.length === 0) {
-      setIsEmpty(true);
-    } else {
-      setIsEmpty(false);
+  // Display the infos of the preview element
+  const handleShowPrev = () => {
+    if (usersLength > 0) {
+      setUsersLength(usersLength - 1);
+      if (usersLength == 0) {
+        return;
+      }
     }
-  }, [docAppointmentDetails]);
+  };
+  const handleShowFirstEl = () => {
+    setUsersLength(0);
+  };
+
+  // Display the infos of the next element
+  const handleShowNext = () => {
+    if (usersLength < docAppointmentDetails.length - 1) {
+      setUsersLength(usersLength + 1);
+      if (usersLength == docAppointmentDetails.length - 1) {
+        return;
+      }
+    }
+  };
+  const handleShowLastEl = () => {
+    setUsersLength(docAppointmentDetails.length - 1);
+  };
 
   return (
     <div className="appScheduling">
       <h2 className="page-title">DOCTOR APPOINTMENT SCHEDULING</h2>
       <div className="appScheduling-container">
         <div className="details-title">
-          <h4> Doctor Details</h4>
+          <h4>Doctor Details</h4>
           <div className="divider" />
         </div>
         <form>
@@ -63,7 +96,7 @@ const AppScheduling = () => {
               inputDisabled="true"
               placeholder="Scheduling ID"
               name="schedulingID"
-              value={isEmpty ? "" : lastElement.schedulingID}
+              value={lastElement ? lastElement.schedulingID : ""}
             />
           </div>
           <div className="input-field">
@@ -72,7 +105,7 @@ const AppScheduling = () => {
               placeholder="Doctor ID"
               name="doctorID"
               inputDisabled="true"
-              value={isEmpty ? "" : lastElement.doctorID}
+              value={lastElement ? lastElement.doctorID : ""}
             />
           </div>
           <div className="input-field">
@@ -82,7 +115,7 @@ const AppScheduling = () => {
               name="timeIn"
               id="timeIn"
               inputDisabled="true"
-              value={isEmpty ? "" : lastElement.timeIn}
+              value={lastElement ? lastElement.timeIn : ""}
             />
           </div>
           <div className="input-field">
@@ -91,7 +124,7 @@ const AppScheduling = () => {
               placeholder="Time Out"
               name="timeOut"
               inputDisabled="true"
-              value={isEmpty ? "" : lastElement.timeOut}
+              value={lastElement ? lastElement.timeOut : ""}
             />
           </div>
           <div className="input-field">
@@ -100,9 +133,7 @@ const AppScheduling = () => {
               inputDisabled="true"
               placeholder="Available Days"
               name="availableDays"
-              value={isEmpty ? "" : lastElement.selectedDays}
-
-              // value={isEmpty? "" : input.serviceID}
+              value={lastElement ? lastElement.selectedDays : ""}
             />
           </div>
           <div className="input-field">
@@ -112,9 +143,7 @@ const AppScheduling = () => {
               name="schedulingNotes"
               id="schedulingNotes"
               inputDisabled="true"
-              value={isEmpty ? "" : lastElement.schedulingNotes}
-
-              // value={input.serviceID}
+              value={lastElement ? lastElement.schedulingNotes : ""}
             />
           </div>
         </form>
@@ -164,11 +193,27 @@ const AppScheduling = () => {
       {/* Container buttons */}
       <div className="appScheduling-container-menus">
         <div className="appSchedule-container-menu-header">
-          <ButtonSkip iconName="doubleLeft" color="green" />
-          <ButtonSkip iconName="arrowLeft" color="blue" />
+          <ButtonSkip
+            handleOnClick={handleShowFirstEl}
+            iconName="doubleLeft"
+            color="green"
+          />
+          <ButtonSkip
+            handleOnClick={handleShowPrev}
+            iconName="arrowLeft"
+            color="blue"
+          />
           <input type="text" placeholder="Record No" />
-          <ButtonSkip iconName="arrowRight" color="blue" />
-          <ButtonSkip iconName="doubleRight" color="green" />
+          <ButtonSkip
+            handleOnClick={handleShowNext}
+            iconName="arrowRight"
+            color="blue"
+          />
+          <ButtonSkip
+            handleOnClick={handleShowLastEl}
+            iconName="doubleRight"
+            color="green"
+          />
         </div>
         <div className="container-menu-btn">
           <ButtonAction
