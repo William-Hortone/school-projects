@@ -139,13 +139,34 @@ const RoomMoreDetails = ({
     }
   };
 
-  // Delete a service schedule
+  //Function Delete a delete a room
+  // const handleDeleteRoom = (roomId) => {
+  //   if (roomId === undefined || roomId === "") {
+  //     toast.error("Please provide a Scheduling ID");
+  //   } else {
+  //     axios
+  //       .put(`http://localhost:3001/deleteRooms/${roomId}`)
+  //       .then((res) => {
+  //         if (res.data === "success") {
+  //           toast.success("Deleted Successfully");
+  //         }
+  //         if (res.data === "notfound") {
+  //           toast.error("Service not found");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         toast.error(error);
+  //       });
+  //   }
+  //   setShowPopupDelete(false);
+  // };
+
   const handleDeleteRoom = (roomId) => {
     if (roomId === undefined || roomId === "") {
       toast.error("Please provide a Scheduling ID");
     } else {
       axios
-        .put(`http://localhost:3001/deleteRoom/${roomId}`)
+        .put(`http://localhost:3001/deleteRooms/${roomId}`)
         .then((res) => {
           if (res.data === "success") {
             toast.success("Deleted Successfully");
@@ -157,6 +178,7 @@ const RoomMoreDetails = ({
         .catch((error) => {
           toast.error(error);
         });
+      // handleRefresh();
     }
     setShowPopupDelete(false);
   };

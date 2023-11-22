@@ -54,7 +54,7 @@ router.put("/deleteDocAppointment/:scheduleId", (req, res) => {
         if (appointment.isDisplayed === false) {
           return res.json("notfound");
         }
-        res.json("success");
+        return res.json("success");
       }
     })
     .catch((err) => res.status(500).json(err));

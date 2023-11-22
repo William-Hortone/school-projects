@@ -11,16 +11,6 @@ router.post("/roomsInfos", (req, res) => {
 });
 
 // Get all the rooms
-// router.get("/getRoomsDetails", (req, res) => {
-//   ModelRoom.find({ isDisplayed: true })
-//     .then((room) => {
-//       if (!room) {
-//         res.json("notFound");
-//       }
-//       res.json(room);
-//     })
-//     .catch((err) => res.json(err));
-// });
 router.get("/getRoomsDetails", async (req, res) => {
   try {
     const rooms = await ModelRoom.find({ isDisplayed: true });
@@ -51,25 +41,22 @@ router.put("/editRoomDetails/:roomId", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-//Delete room
-router.put("/deleteRoom/:roomId", (req, res) => {
+// Delete room
+router.put("/deleteRooms/:roomId", (req, res) => {
   const id = req.params.roomId;
 
   ModelRoom.findOneAndUpdate(
     {
       roomID: id,
     },
-    { $set: { isDisplaying: false } },
+    { $set: { isDisplayed: false } },
     { new: true }
   )
     .then((room) => {
       if (!room) {
         return res.json("notfound");
       } else {
-        if (room.isDisplayed === false) {
-          return res.json("notfound");
-        }
-        res.json("success");
+        return res.json("success");
       }
     })
     .catch((err) => res.status(500).json(err));
