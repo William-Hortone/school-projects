@@ -47,17 +47,14 @@ router.put("/deleteUser/:userId", (req, res) => {
     {
       userID: id,
     },
-    { $set: { isDisplaying: false } },
+    { $set: { isDisplayed: false } },
     { new: true }
   )
     .then((user) => {
       if (!user) {
         return res.json("notfound");
       } else {
-        if (user.isDisplayed === false) {
-          return res.json("notfound");
-        }
-        res.json("success");
+        return res.json("success");
       }
     })
     .catch((err) => res.status(500).json(err));
