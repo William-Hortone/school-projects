@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
-import { ButtonAction, ButtonSkip, Input } from "../../../components";
-import { useSelector } from "react-redux";
-import {
-  selectHospitalSchedule,
-  selectMedicalService,
-} from "../../../redux/slice/medicalServiceSlice";
-import "./roomMoreDetails.css";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
+import "./roomMoreDetails.css";
 
 const RoomMoreDetails = ({
   setOpenScheduling,
@@ -26,15 +22,11 @@ const RoomMoreDetails = ({
   const API_URL = "http://localhost:3001/getRoomsDetails";
 
   const [roomId, setRoomId] = useState("");
-  const [pickedServiceID, setPickedServiceID] = useState("");
-  const [docIDisPicked, setDocIDisPicked] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [allRooms, setAllRooms] = useState([]);
 
-  // const roomsDetails = useSelector(selectRoomsDetails);
   const roomsDetails = useSelector(selectRoomsDetails);
-  const medicalServiceDetails = useSelector(selectMedicalService);
 
   const handleOnChangeAppointment = (e) => {
     const { name, value } = e.target;
@@ -139,13 +131,13 @@ const RoomMoreDetails = ({
     }
   };
 
-  // Delete a service schedule
+  //Function Delete  a room
   const handleDeleteRoom = (roomId) => {
     if (roomId === undefined || roomId === "") {
       toast.error("Please provide a Scheduling ID");
     } else {
       axios
-        .put(`http://localhost:3001/deleteRoom/${roomId}`)
+        .put(`http://localhost:3001/deleteRooms/${roomId}`)
         .then((res) => {
           if (res.data === "success") {
             toast.success("Deleted Successfully");
@@ -170,34 +162,9 @@ const RoomMoreDetails = ({
         roomDesc: room.roomDesc,
       });
 
-      // setSelectedDays(room.selectedDays);
-      setPickedServiceID(room.roomID);
-      setDocIDisPicked(true);
       setDisabledInput(true);
     }
   };
-
-  // Delete a service schedule
-  // const handleDeleteRoom = (scheduleId) => {
-  //   if (scheduleId === undefined || scheduleId === "") {
-  //     toast.error("Please provide a Scheduling ID");
-  //   } else {
-  //     axios
-  //       .put(`http://localhost:3001/deleteHospitalSchedule/${scheduleId}`)
-  //       .then((res) => {
-  //         if (res.data === "success") {
-  //           toast.success("Deleted Successfully");
-  //         }
-  //         if (res.data === "notfound") {
-  //           toast.error("Service not found");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         toast.error(error);
-  //       });
-  //   }
-  //   setShowPopupDelete(false);
-  // };
 
   return (
     <>
@@ -359,46 +326,6 @@ const RoomMoreDetails = ({
           )}
         </div>
       </div>
-
-      {/* Popup table to choose the service ID */}
-      {/* {showDocDetailTable && (
-        <div className="app__roomMDetails-table-id ">
-          <div onClick={handleCloseDocDetailsTable} className="close-tableID">
-            <FaTimes size={24} color="#000" />
-          </div>
-          <h2>SERVICES DETAILS</h2>
-          <div className="app__roomMDetails-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Service ID </th>
-                  <th>Service Name</th>
-                  <th>Amount</th>
-                  <th>Duration</th>
-                  <th>Additional Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {medicalServiceDetails.map((medicalService, index) => {
-                  return (
-                    <tr
-                      className="doctor-infos select-serviceID"
-                      onClick={(e) => handleServiceId(medicalService.serviceID)}
-                      key={index}
-                    >
-                      <td>{medicalService.serviceID}</td>
-                      <td>{medicalService.serviceName}</td>
-                      <td>{medicalService.amount}</td>
-                      <td>{medicalService.duration}</td>
-                      <td>{medicalService.additionalNotes}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )} */}
     </>
   );
 };

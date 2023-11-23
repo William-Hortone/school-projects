@@ -12,7 +12,7 @@ const DoctorMenu = ({
   const navigate = useNavigate();
 
   const handleClose = () => {
-    navigate("/home");
+    navigate("/adminDashboard/dashboard");
   };
   const handleRefreshDetails = () => {
     handleRefresh();

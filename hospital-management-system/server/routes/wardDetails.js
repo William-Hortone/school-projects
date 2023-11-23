@@ -48,17 +48,14 @@ router.put("/deleteWard/:wardId", (req, res) => {
     {
       wardID: id,
     },
-    { $set: { isDisplaying: false } },
+    { $set: { isDisplayed: false } },
     { new: true }
   )
     .then((ward) => {
       if (!ward) {
         return res.json("notfound");
       } else {
-        if (ward.isDisplayed === false) {
-          return res.json("notfound");
-        }
-        res.json("success");
+        return res.json("success");
       }
     })
     .catch((err) => res.status(500).json(err));

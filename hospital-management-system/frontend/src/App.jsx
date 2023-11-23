@@ -14,7 +14,9 @@ import {
   MedicalServices,
   RoomDetails,
   ServiceScheduling,
+  ViewAllUsers,
   ViewHospitalSD,
+  ViewWardDetails,
   VizAllRooms,
   VizDocApp,
   VizDoctorDetails,
@@ -43,7 +45,7 @@ function App() {
     dispatch(fetchAddedUserDetails());
     dispatch(fetchRoomsDetails());
     dispatch(fetchWardDetails());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
@@ -55,11 +57,14 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
 
+          {/* Routes for visualization  */}
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />
           <Route path="/vHospital" element={<ViewHospitalSD />} />
           <Route path="/vizDocApp" element={<VizDocApp />} />
           <Route path="/vizHospitalSer" element={<VizHospitalSer />} />
           <Route path="/vizRooms" element={<VizAllRooms />} />
+          <Route path="/vizAllWards" element={<ViewWardDetails />} />
+          <Route path="/vizAllUsers" element={<ViewAllUsers />} />
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>

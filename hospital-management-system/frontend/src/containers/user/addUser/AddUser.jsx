@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./addUser.css";
-import { ButtonAction, ButtonSkip, Input } from "../../components";
-import AddUserDetails from "../addUserDetails/AddUserDetails";
 import { useNavigate } from "react-router-dom";
-import { selectAddedUserInfos } from "../../redux/slice/addedUserSlide";
 import { useSelector } from "react-redux";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
+import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
+import AddUserDetails from "../addUserDetails/AddUserDetails";
 
 const AddUser = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
@@ -34,11 +34,11 @@ const AddUser = () => {
     setOpenScheduling(true);
     setAddOnSubmit(false);
   };
-  const handleViewAllMedicalS = () => {
-    // navigate("/adminDashboard");
+  const handleViewAll = () => {
+    navigate("/vizAllUsers");
   };
   const handleClose = () => {
-    navigate("/adminDashboard");
+    navigate("/adminDashboard/dashboard");
   };
 
   const handleShowPrev = () => {
@@ -242,7 +242,7 @@ const AddUser = () => {
             btnName="View All"
             color="blue"
             buttonType="button"
-            onClick={handleViewAllMedicalS}
+            onClick={handleViewAll}
           />
         </div>
       </div>

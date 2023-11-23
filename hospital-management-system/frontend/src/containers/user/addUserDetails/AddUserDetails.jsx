@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { ButtonAction, ButtonSkip, Input } from "../../components";
-import { selectMedicalService } from "../../redux/slice/medicalServiceSlice";
+import { ButtonAction, ButtonSkip, Input, Select } from "../../../components";
+// import { selectMedicalService } from "../../redux/slice/medicalServiceSlice";
 // import { selectaddedUserDetails } from "../../redux/slice/roomsSlice";
 import "./addUserDetails.css";
 // import fetchAddedUserDetails from "../../redux/actions/addedUser";
-import { selectAddedUserInfos } from "../../redux/slice/addedUserSlide";
+import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
 
 const AddUserDetails = ({
   setOpenScheduling,
@@ -29,17 +29,10 @@ const AddUserDetails = ({
     userName: "",
   });
 
-  const [selectedDays, setSelectedDays] = useState("");
   const [id, setId] = useState("");
-  const [pickedServiceID, setPickedServiceID] = useState("");
-  const [docIDisPicked, setDocIDisPicked] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
-  const [showDocDetailTable, setShowDocDetailTable] = useState(false);
-
-  // const addedUserDetails = useSelector(selectaddedUserDetails);
   const addedUserDetails = useSelector(selectAddedUserInfos);
-  const medicalServiceDetails = useSelector(selectMedicalService);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -48,6 +41,10 @@ const AddUserDetails = ({
       [name]: value,
     });
   };
+  const userSexOptions = [
+    { label: "woman", value: "F" },
+    { label: "man", value: "M" },
+  ];
 
   const handleCloseScheduling = () => {
     setOpenScheduling(false);
@@ -68,10 +65,9 @@ const AddUserDetails = ({
 
   useEffect(() => {
     setId(inputs.userID);
-    console.log("addedUserDetails", addedUserDetails);
   }, [inputs.userID, addedUserDetails]);
 
-  //   function to add user  a new roo ID
+  //   Function to add user  a new roo ID
   const handleAddAppointment = () => {
     if (addOnSubmit) {
       // Initialize the Id if the array is empty
@@ -167,45 +163,6 @@ const AddUserDetails = ({
     setShowPopupDelete(false);
   };
 
-  // const handleShowDocDetailsTable = () => {
-  //   setShowDocDetailTable(true);
-  // };
-
-  // const handleCloseDocDetailsTable = () => {
-  //   setShowDocDetailTable(false);
-  // };
-
-  // Passing the Service Id to the form when selected
-  // const handleServiceId = (serID) => {
-  //   setShowDocDetailTable(false);
-  //   setPickedServiceID(serID);
-  //   setInputs({
-  //     ...inputs,
-  //     serviceID: serID,
-  //   });
-  //   setDocIDisPicked(true);
-  // };
-
-  // automatically fill the form when click on one row of the table
-  // const handleUpdateInfos = (room) => {
-  //   if (!addOnSubmit) {
-  //     setInputs({
-  //       roomID: room.roomID,
-  //       roomType: room.roomType,
-  //       roomRates: room.roomRates,
-  //       roomDesc: room.roomDesc,
-  //     });
-
-  //     // setSelectedDays(room.selectedDays);
-  //     setRoomId(room.roomID);
-  //     console.log("Room iD selected", roomId);
-  //     console.log("Room iD ", inputs.roomID);
-  //     // setPickedServiceID(room.roomID);
-  //     // setDocIDisPicked(true);
-  //     setDisabledInput(true);
-  //   }
-  // };
-
   const handleUpdateInfos = (user) => {
     if (!addOnSubmit) {
       setInputs({
@@ -228,28 +185,6 @@ const AddUserDetails = ({
       setDisabledInput(true);
     }
   };
-
-  // Delete a service schedule
-  // const handleDeleteRoom = (scheduleId) => {
-  //   if (scheduleId === undefined || scheduleId === "") {
-  //     toast.error("Please provide a Scheduling ID");
-  //   } else {
-  //     axios
-  //       .put(`http://localhost:3001/deleteHospitalSchedule/${scheduleId}`)
-  //       .then((res) => {
-  //         if (res.data === "success") {
-  //           toast.success("Deleted Successfully");
-  //         }
-  //         if (res.data === "notfound") {
-  //           toast.error("Service not found");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         toast.error(error);
-  //       });
-  //   }
-  //   setShowPopupDelete(false);
-  // };
 
   return (
     <>
@@ -301,11 +236,12 @@ const AddUserDetails = ({
               </div>
               <div className="input-fields">
                 <label htmlFor="gender">Gender:</label>
-                <Input
-                  placeholder="Gender"
+                <Select
                   name="gender"
-                  id="gender"
+                  label="sex"
+                  defaultOptionValue="Select the gender"
                   value={inputs.gender}
+                  options={userSexOptions}
                   handleOnChange={handleOnChange}
                 />
               </div>
@@ -332,13 +268,17 @@ const AddUserDetails = ({
               </div>
               <div className="input-fields">
                 <label htmlFor="telephone"> Telephone:</label>
-                <Input
-                  placeholder="Telephone"
-                  name="telephone"
-                  id="telephone"
-                  value={inputs.telephone}
-                  handleOnChange={handleOnChange}
-                />
+                <div>
+                  <input
+                    type="tel"
+                    placeholder="Telephone"
+                    name="telephone"
+                    id="telephone"
+                    value={inputs.telephone}
+                    onChange={handleOnChange}
+                    required
+                  />
+                </div>
               </div>
               <div className="input-fields">
                 <label htmlFor="status"> Status:</label>
@@ -490,46 +430,6 @@ const AddUserDetails = ({
           )}
         </div>
       </div>
-
-      {/* Popup table to choose the service ID */}
-      {/* {showDocDetailTable && (
-        <div className="app__roomMDetails-table-id ">
-          <div onClick={handleCloseDocDetailsTable} className="close-tableID">
-            <FaTimes size={24} color="#000" />
-          </div>
-          <h2>SERVICES DETAILS</h2>
-          <div className="app__roomMDetails-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Service ID </th>
-                  <th>Service Name</th>
-                  <th>Amount</th>
-                  <th>Duration</th>
-                  <th>Additional Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {medicalServiceDetails.map((medicalService, index) => {
-                  return (
-                    <tr
-                      className="doctor-infos select-serviceID"
-                      onClick={(e) => handleServiceId(medicalService.serviceID)}
-                      key={index}
-                    >
-                      <td>{medicalService.serviceID}</td>
-                      <td>{medicalService.serviceName}</td>
-                      <td>{medicalService.amount}</td>
-                      <td>{medicalService.duration}</td>
-                      <td>{medicalService.additionalNotes}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )} */}
     </>
   );
 };

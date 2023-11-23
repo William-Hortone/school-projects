@@ -12,6 +12,8 @@ const RoomDetails = () => {
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const roomsDetails = useSelector(selectRoomsDetails);
+  const [currentRecord, setCurrentRecord] = useState();
+
   const [usersLength, setUsersLength] = useState(roomsDetails.length - 1);
   const [lastElement, setLastElement] = useState(roomsDetails[usersLength]);
   const navigate = useNavigate();
@@ -22,6 +24,7 @@ const RoomDetails = () => {
 
   useEffect(() => {
     setLastElement(roomsDetails[usersLength]);
+    setCurrentRecord(usersLength + 1);
   }, [usersLength, roomsDetails]);
 
   const handleShowScheduling = () => {
@@ -132,7 +135,12 @@ const RoomDetails = () => {
             iconName="arrowLeft"
             color="blue"
           />
-          <input type="text" placeholder="Record No" />
+          <input
+            type="text"
+            style={{ textAlign: "center" }}
+            value={`Record No ${currentRecord}`}
+            placeholder="Record No"
+          />
           <ButtonSkip
             handleOnClick={handleShowNext}
             iconName="arrowRight"
