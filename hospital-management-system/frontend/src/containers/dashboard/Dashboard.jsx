@@ -25,6 +25,7 @@ import {
 } from "recharts";
 import { useNavigate } from "react-router-dom";
 import { FaCalendarCheck, FaUserAlt } from "react-icons/fa";
+import axios from "axios";
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const initialChartData = [
@@ -51,19 +52,191 @@ const initialPieChartData = [
   { name: "Category C", value: 500 },
 ];
 
+// ---------------------- function --------------------
+
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [mondayValue, setMondayValue] = useState();
+  const [tuesdayValue, setTuesdayValue] = useState();
+  const [wednesdayValue, setWednesdayValue] = useState();
+  const [thursdayValue, setThursdayValue] = useState();
+  const [fridayValue, setFridayValue] = useState();
+  const [saturdayValue, setSaturdayValue] = useState();
+  const [sundayValue, setSundayValue] = useState();
+  const [appInfos, setAppInfos] = useState([]);
+  const [barChartData, setBarChartData] = useState([
+    { name: "Monday", value: 0 },
+    { name: "Tuesday", value: 0 },
+    { name: "Wednesday", value: 0 },
+    { name: "Thursday", value: 0 },
+    { name: "Friday", value: 0 },
+    { name: "Saturday", value: 0 },
+    { name: "Sunday", value: 0 },
+  ]);
 
   const handleViewAllDoctors = () => {
     navigate("/vizDoctorD");
   };
   const doctorDetails = useSelector(selectDoctorDetails);
   const docAppDetails = useSelector(selectDocAppointment);
-  useEffect(() => {
-    console.log(doctorDetails);
-  }, [doctorDetails]);
+  // To Get all the available Wards
+  const API_URL = "http://localhost:3001/getDocAppointments";
 
-  const [barChartData, setBarChartData] = useState(initialChartData);
+  const fetchData = async () => {
+    const { data } = await axios.get(API_URL);
+    setAppInfos(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(doctorDetails);
+  // }, [doctorDetails]);
+
+  useEffect(() => {
+    console.log("the mondayValue", mondayValue);
+  }, [mondayValue]);
+
+  useEffect(() => {
+    const filterDays = async () => {
+      try {
+        const result = await appInfos.filter((item) =>
+          item.selectedDays.includes("Mon")
+        );
+        setMondayValue(result.length);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    const filterTuesday = async () => {
+      try {
+        const result = await appInfos.filter((item) =>
+          item.selectedDays.includes("Tue")
+        );
+        setTuesdayValue(result.length);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    const filterWednesday = async () => {
+      try {
+        const result = await appInfos.filter((item) =>
+          item.selectedDays.includes("Wed")
+        );
+        setWednesdayValue(result.length);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    const filterThursday = async () => {
+      try {
+        const result = await appInfos.filter((item) =>
+          item.selectedDays.includes("Thu")
+        );
+        setThursdayValue(result.length);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    const filterFriday = async () => {
+      try {
+        const result = await appInfos.filter((item) =>
+          item.selectedDays.includes("Fri")
+        );
+        setFridayValue(result.length);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    const filterSaturday = async () => {
+      try {
+        const result = await appInfos.filter((item) =>
+          item.selectedDays.includes("Sat")
+        );
+        setSaturdayValue(result.length);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    const filterSunday = async () => {
+      try {
+        const result = await appInfos.filter((item) =>
+          item.selectedDays.includes("Sun")
+        );
+        setSundayValue(result.length);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    filterDays();
+    filterTuesday();
+    filterWednesday();
+    filterThursday();
+    filterFriday();
+    filterSaturday();
+    filterSunday();
+  }, [appInfos]);
+
+  useEffect(() => {
+    // Use the spread operator to update the value for each day
+    setBarChartData((prevChartData) => [
+      ...prevChartData.map((day) =>
+        day.name === "Monday" ? { ...day, value: mondayValue || 0 } : day
+      ),
+    ]);
+
+    setBarChartData((prevChartData) => [
+      ...prevChartData.map((day) =>
+        day.name === "Tuesday" ? { ...day, value: tuesdayValue || 0 } : day
+      ),
+    ]);
+    setBarChartData((prevChartData) => [
+      ...prevChartData.map((day) =>
+        day.name === "Wednesday" ? { ...day, value: wednesdayValue || 0 } : day
+      ),
+    ]);
+    setBarChartData((prevChartData) => [
+      ...prevChartData.map((day) =>
+        day.name === "Thursday" ? { ...day, value: thursdayValue || 0 } : day
+      ),
+    ]);
+    setBarChartData((prevChartData) => [
+      ...prevChartData.map((day) =>
+        day.name === "Friday" ? { ...day, value: fridayValue || 0 } : day
+      ),
+    ]);
+    setBarChartData((prevChartData) => [
+      ...prevChartData.map((day) =>
+        day.name === "Saturday" ? { ...day, value: saturdayValue || 0 } : day
+      ),
+    ]);
+    setBarChartData((prevChartData) => [
+      ...prevChartData.map((day) =>
+        day.name === "Sunday" ? { ...day, value: sundayValue || 0 } : day
+      ),
+    ]);
+
+    console.log("vmondayValue", mondayValue);
+    console.log("tuesdayValue", tuesdayValue);
+    console.log("wednesdayValue", wednesdayValue);
+    console.log("thursdayValue", thursdayValue);
+    console.log("fridayValue", fridayValue);
+    console.log("saturdayValue", saturdayValue);
+    console.log("sundayValue", sundayValue);
+  }, [
+    mondayValue,
+    tuesdayValue,
+    wednesdayValue,
+    thursdayValue,
+    fridayValue,
+    saturdayValue,
+    sundayValue,
+  ]);
+
+  // const [barChartData, setBarChartData] = useState(initialChartData);
   const [lChartData, setLChartData] = useState(initialLineChartData);
   const [pChartData, setPChartData] = useState(initialPieChartData);
   const [Color, SetColor] = useState(COLORS);
@@ -79,7 +252,7 @@ const Dashboard = () => {
               <span>
                 <FaCalendarCheck size={20} />
               </span>
-              <p>{docAppDetails.length}</p>
+              <p>{appInfos.length}</p>
             </div>
           </div>
           <div className="container-header content-two">
@@ -112,7 +285,7 @@ const Dashboard = () => {
             <div className="container-left_box">
               <div className="container_content">
                 <div className="container_content-header">
-                  <h4>Weekly Patients</h4>
+                  <h4>Doctors Appointments</h4>
                 </div>
                 <div className="chart-container">
                   <BarChart width={350} height={230} data={barChartData}>

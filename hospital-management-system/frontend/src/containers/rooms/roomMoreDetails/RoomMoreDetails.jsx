@@ -326,46 +326,6 @@ const RoomMoreDetails = ({
           )}
         </div>
       </div>
-
-      {/* Popup table to choose the service ID */}
-      {/* {showDocDetailTable && (
-        <div className="app__roomMDetails-table-id ">
-          <div onClick={handleCloseDocDetailsTable} className="close-tableID">
-            <FaTimes size={24} color="#000" />
-          </div>
-          <h2>SERVICES DETAILS</h2>
-          <div className="app__roomMDetails-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Service ID </th>
-                  <th>Service Name</th>
-                  <th>Amount</th>
-                  <th>Duration</th>
-                  <th>Additional Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {medicalServiceDetails.map((medicalService, index) => {
-                  return (
-                    <tr
-                      className="doctor-infos select-serviceID"
-                      onClick={(e) => handleServiceId(medicalService.serviceID)}
-                      key={index}
-                    >
-                      <td>{medicalService.serviceID}</td>
-                      <td>{medicalService.serviceName}</td>
-                      <td>{medicalService.amount}</td>
-                      <td>{medicalService.duration}</td>
-                      <td>{medicalService.additionalNotes}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )} */}
     </>
   );
 };

@@ -1,5 +1,3 @@
-import AddUser from "./addUser/AddUser";
-import AddUserDetails from "./addUserDetails/AddUserDetails";
 import AdminDashboard from "./adminDashbord/AdminDashboard";
 import Dashboard from "./dashboard/Dashboard";
 import AppScheduling from "./doctors/appSheduling/AppScheduling";
@@ -22,6 +20,9 @@ import MedicalServices from "./services/medicalServices/MedicalServices";
 import ServiceScheduling from "./services/serviceSchedule/ServiceScheduling";
 import ViewHospitalSD from "./services/viewHospitalSD/ViewHospitalSD";
 import VizHospitalSer from "./services/vizHospitalSer/VizHospitalSer";
+import AddUser from "./user/addUser/AddUser";
+import AddUserDetails from "./user/addUserDetails/AddUserDetails";
+import ViewAllUsers from "./user/vizAllUsers/VizAllUser";
 
 export {
   DDetails,
@@ -46,4 +47,5 @@ export {
   VizDocApp,
   VizHospitalSer,
   VizAllRooms,
+  ViewAllUsers,
 };

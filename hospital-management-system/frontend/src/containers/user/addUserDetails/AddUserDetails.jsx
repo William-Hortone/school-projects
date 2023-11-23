@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { ButtonAction, ButtonSkip, Input, Select } from "../../components";
-import { selectMedicalService } from "../../redux/slice/medicalServiceSlice";
+import { ButtonAction, ButtonSkip, Input, Select } from "../../../components";
+// import { selectMedicalService } from "../../redux/slice/medicalServiceSlice";
 // import { selectaddedUserDetails } from "../../redux/slice/roomsSlice";
 import "./addUserDetails.css";
 // import fetchAddedUserDetails from "../../redux/actions/addedUser";
-import { selectAddedUserInfos } from "../../redux/slice/addedUserSlide";
+import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
 
 const AddUserDetails = ({
   setOpenScheduling,

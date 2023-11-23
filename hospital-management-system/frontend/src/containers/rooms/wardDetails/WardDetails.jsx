@@ -1,19 +1,21 @@
-import React, { useState } from "react";
-import "./wardDetails.css";
-import { ButtonAction, ButtonSkip, Input } from "../../../components";
-import RoomMoreDetails from "../roomMoreDetails/RoomMoreDetails";
-import WardMoreDetails from "../wardMoreDetails/WardMDetails";
-import { useEffect } from "react";
-import { selectWardDetails } from "../../../redux/slice/wardSlice";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
+import { selectWardDetails } from "../../../redux/slice/wardSlice";
+import WardMoreDetails from "../wardMoreDetails/WardMDetails";
+import "./wardDetails.css";
 
 const WardDetails = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
+  const [currentRecord, setCurrentRecord] = useState();
   const wardsDetails = useSelector(selectWardDetails);
   const [usersLength, setUsersLength] = useState(wardsDetails.length - 1);
   const [lastElement, setLastElement] = useState(wardsDetails[usersLength]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUsersLength(wardsDetails.length - 1);
@@ -21,6 +23,7 @@ const WardDetails = () => {
 
   useEffect(() => {
     setLastElement(wardsDetails[usersLength]);
+    setCurrentRecord(usersLength + 1);
   }, [usersLength, wardsDetails]);
 
   const handleShowScheduling = () => {
@@ -66,6 +69,10 @@ const WardDetails = () => {
   };
   const handleShowLastEl = () => {
     setUsersLength(wardsDetails.length - 1);
+  };
+
+  const handleViewAll = () => {
+    navigate("/vizAllWards");
   };
 
   return (
@@ -132,7 +139,12 @@ const WardDetails = () => {
             iconName="arrowLeft"
             color="blue"
           />
-          <input type="text" placeholder="Record No" />
+          <input
+            type="text"
+            style={{ textAlign: "center" }}
+            value={`Record No ${currentRecord}`}
+            placeholder="Record No"
+          />
           <ButtonSkip
             handleOnClick={handleShowNext}
             iconName="arrowRight"
@@ -179,6 +191,13 @@ const WardDetails = () => {
             color="red"
             buttonType="button"
             // onClick={handleClose}
+          />
+          <ButtonAction
+            iconName="all"
+            btnName="View All"
+            color="blue"
+            buttonType="button"
+            onClick={handleViewAll}
           />
         </div>
       </div>

@@ -2,27 +2,29 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
 import { ButtonAction, Header } from "../../../components";
-import { selectWardDetails } from "../../../redux/slice/wardSlice";
+// import { ButtonAction, Header } from "../../../components";
+// import { selectWardDetails } from "../../../redux/slice/wardSlice";
 
-const ViewWardDetails = () => {
+const ViewAllUsers = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOptions, setSearchOptions] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [hideData, setHideDada] = useState(false);
   const [hideDataSearched, setHideDataSearched] = useState(true);
 
-  const [allWards, setAllWards] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const navigate = useNavigate();
 
-  const wardsDetails = useSelector(selectWardDetails);
+  const usersInfos = useSelector(selectAddedUserInfos);
 
   // To Get all the available Wards
-  const API_URL = "http://localhost:3001/getWardsDetails";
+  const API_URL = "http://localhost:3001/getUsersDetails";
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
-    setAllWards(data);
+    setAllUsers(data);
   };
 
   useEffect(() => {
@@ -31,16 +33,14 @@ const ViewWardDetails = () => {
 
   // Function to search
   const handleSearch = () => {
-    // search by the first name
-    if (searchOptions === "doctorId") {
-      const result = wardsDetails.filter(
-        (ward) => ward.wardType === searchTerm
-      );
+    // search by the user ID
+    if (searchOptions === "userId") {
+      const result = usersInfos.filter((user) => user.userID === searchTerm);
       setSearchResult(result);
     }
     // search by the ID
-    else if (searchOptions === "wardId") {
-      const result = wardsDetails.filter((ward) => ward.wardID === searchTerm);
+    else if (searchOptions === "userName") {
+      const result = usersInfos.filter((user) => user.firstName === searchTerm);
       setSearchResult(result);
     }
     setHideDada(true);
@@ -61,40 +61,61 @@ const ViewWardDetails = () => {
       <Header />
       <div className="app__vDoctorDetails">
         <div>
-          <h1> Doctors Appointments Details</h1>
+          <h1> Users Details</h1>
 
           <div className="app__vDoctorDetails-container">
             <table>
               <thead>
                 <tr>
-                  <th>Ward ID </th>
-                  <th>Ward Type</th>
-                  <th>Ward Rates</th>
-                  <th>Ward DEscription</th>
+                  <th>User ID </th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Gender</th>
+                  <th>Address</th>
+                  <th>Email</th>
+                  <th>Telephone</th>
+                  <th>Status</th>
+                  <th>Notes</th>
+                  <th>User Type</th>
+                  <th>Username</th>
                 </tr>
               </thead>
               <tbody>
                 {!hideData &&
-                  allWards.map((ward, index) => {
+                  allUsers.map((user, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{ward.wardID}</td>
-                        <td>{ward.wardType}</td>
-                        <td>{ward.wardRates}</td>
-                        <td>{ward.wardDesc}</td>
+                        <td>{user.userID}</td>
+                        <td>{user.firstName}</td>
+                        <td>{user.lastName}</td>
+                        <td>{user.gender}</td>
+                        <td>{user.address}</td>
+                        <td>{user.email}</td>
+                        <td>{user.telephone}</td>
+                        <td>{user.status}</td>
+                        <td>{user.notes}</td>
+                        <td>{user.userType}</td>
+                        <td>{user.userName}</td>
                       </tr>
                     );
                   })}
 
                 {/* Table for the result searched  */}
                 {hideDataSearched &&
-                  searchResult.map((ward, index) => {
+                  searchResult.map((user, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{ward.wardID}</td>
-                        <td>{ward.wardType}</td>
-                        <td>{ward.wardRates}</td>
-                        <td>{ward.wardDesc}</td>
+                        <td>{user.userID}</td>
+                        <td>{user.firstName}</td>
+                        <td>{user.lastName}</td>
+                        <td>{user.gender}</td>
+                        <td>{user.address}</td>
+                        <td>{user.email}</td>
+                        <td>{user.telephone}</td>
+                        <td>{user.status}</td>
+                        <td>{user.notes}</td>
+                        <td>{user.userType}</td>
+                        <td>{user.userName}</td>
                       </tr>
                     );
                   })}
@@ -133,8 +154,8 @@ const ViewWardDetails = () => {
                   onChange={(e) => setSearchOptions(e.target.value)}
                 >
                   <option value="">Select one option</option>
-                  <option value="wardId">Ward ID</option>
-                  <option value="doctorId">Ward Type</option>
+                  <option value="userId">User ID</option>
+                  <option value="userName">User First Name</option>
                 </select>
               </div>
               <div className="content">
@@ -154,4 +175,4 @@ const ViewWardDetails = () => {
   );
 };
 
-export default ViewWardDetails;
+export default ViewAllUsers;

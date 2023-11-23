@@ -6,7 +6,7 @@ const fetchAddedUserDetails = () => {
     axios
       .get("http://localhost:3001/getUsersDetails")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         dispatch(GET_USER_DETAILS(res.data));
       })
       .catch((err) => console.error(err));
