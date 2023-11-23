@@ -1,42 +1,30 @@
 import React, { useEffect, useState } from "react";
-import "./dashboard.css";
 import {
   selectDocAppointment,
   selectDoctorDetails,
 } from "../../redux/slice/doctorSlice";
+import "./dashboard.css";
 
+import axios from "axios";
+import { FaCalendarCheck, FaUserAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import user from "../../assets/user.jpg";
+import { useNavigate } from "react-router-dom";
 import {
-  BarChart,
   Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  LineChart,
-  Line,
-  PieChart,
-  Pie,
-  Cell,
-  AreaChart,
-  Area,
 } from "recharts";
-import { useNavigate } from "react-router-dom";
-import { FaCalendarCheck, FaUserAlt } from "react-icons/fa";
-import axios from "axios";
+import user from "../../assets/user.jpg";
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-
-const initialChartData = [
-  { name: "Monday", value: 400 },
-  { name: "Tuesday", value: 300 },
-  { name: "Wednesday", value: 200 },
-  { name: "Thursday", value: 500 },
-  { name: "Friday", value: 100 },
-  { name: "Saturday", value: 100 },
-  { name: "Sunday", value: 100 },
-];
 
 const initialLineChartData = [
   { name: "January", value: 400 },
@@ -51,8 +39,6 @@ const initialPieChartData = [
   { name: "Tuesday", value: 400 },
   { name: "Category C", value: 500 },
 ];
-
-// ---------------------- function --------------------
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -79,7 +65,7 @@ const Dashboard = () => {
   };
   const doctorDetails = useSelector(selectDoctorDetails);
   const docAppDetails = useSelector(selectDocAppointment);
-  // To Get all the available Wards
+  // To Get all the available Appointments
   const API_URL = "http://localhost:3001/getDocAppointments";
 
   const fetchData = async () => {
@@ -90,10 +76,6 @@ const Dashboard = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  // useEffect(() => {
-  //   console.log(doctorDetails);
-  // }, [doctorDetails]);
 
   useEffect(() => {
     console.log("the mondayValue", mondayValue);
@@ -218,14 +200,6 @@ const Dashboard = () => {
         day.name === "Sunday" ? { ...day, value: sundayValue || 0 } : day
       ),
     ]);
-
-    console.log("vmondayValue", mondayValue);
-    console.log("tuesdayValue", tuesdayValue);
-    console.log("wednesdayValue", wednesdayValue);
-    console.log("thursdayValue", thursdayValue);
-    console.log("fridayValue", fridayValue);
-    console.log("saturdayValue", saturdayValue);
-    console.log("sundayValue", sundayValue);
   }, [
     mondayValue,
     tuesdayValue,
@@ -236,7 +210,6 @@ const Dashboard = () => {
     sundayValue,
   ]);
 
-  // const [barChartData, setBarChartData] = useState(initialChartData);
   const [lChartData, setLChartData] = useState(initialLineChartData);
   const [pChartData, setPChartData] = useState(initialPieChartData);
   const [Color, SetColor] = useState(COLORS);
