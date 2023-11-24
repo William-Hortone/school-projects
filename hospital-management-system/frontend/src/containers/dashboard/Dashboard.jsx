@@ -78,10 +78,6 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    console.log("the mondayValue", mondayValue);
-  }, [mondayValue]);
-
-  useEffect(() => {
     const filterDays = async () => {
       try {
         const result = await appInfos.filter((item) =>
