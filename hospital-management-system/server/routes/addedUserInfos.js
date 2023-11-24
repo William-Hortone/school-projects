@@ -25,6 +25,7 @@ router.get("/getUsersDetails", (req, res) => {
 router.put("/editUserDetails/:userId", (req, res) => {
   const id = req.params.userId;
   const updatedData = req.body;
+
   ModelAddedUser.findOneAndUpdate(
     { userID: id },
     { $set: updatedData },

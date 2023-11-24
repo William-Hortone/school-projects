@@ -65,6 +65,7 @@ function App() {
           <Route path="/vizRooms" element={<VizAllRooms />} />
           <Route path="/vizAllWards" element={<ViewWardDetails />} />
           <Route path="/vizAllUsers" element={<ViewAllUsers />} />
+    
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>

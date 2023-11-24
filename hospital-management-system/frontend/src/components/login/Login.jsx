@@ -13,23 +13,21 @@ import { FaGoogle } from "react-icons/fa";
 import Loader from "../loader/Loader";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  axios.defaults.withCredentials = true;
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+    axios
+      .post("http://localhost:3001/userLogin", { email, password })
+      .then((res) => {
+        console.log(res.data);
         toast.success("login success");
-        setIsLoading(false);
-
         navigate("/adminDashboard/dashboard");
       })
       .catch((error) => {
@@ -37,6 +35,25 @@ const Login = () => {
         setIsLoading(false);
       });
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   setIsLoading(true);
+
+  //   signInWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       const user = userCredential.user;
+  //       toast.success("login success");
+  //       setIsLoading(false);
+
+  //       navigate("/adminDashboard/dashboard");
+  //     })
+  //     .catch((error) => {
+  //       toast.error(error.message);
+  //       setIsLoading(false);
+  //     });
+  // };
 
   // login with google
   const provider = new GoogleAuthProvider();
@@ -58,7 +75,7 @@ const Login = () => {
       <div className="app__register">
         <div className="app__register-section">
           <h2>Login</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleLogin}>
             <label htmlFor="email">Email</label>
             <input
               type="text"
