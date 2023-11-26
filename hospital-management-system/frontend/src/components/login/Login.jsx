@@ -19,21 +19,55 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  axios.defaults.withCredentials = true;
-  const handleLogin = (e) => {
-    e.preventDefault();
+  // axios.defaults.withCredentials = true;
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
 
-    axios
-      .post("http://localhost:3001/userLogin", { email, password })
-      .then((res) => {
-        console.log(res.data);
+  //   axios
+  //     .post("http://localhost:3001/userLogin", { email, password })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       toast.success("login success");
+  //       navigate("/adminDashboard/dashboard");
+  //     })
+  //     .catch((error) => {
+  //       toast.error(error.message);
+  //       setIsLoading(false);
+  //     });
+  // };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/userLogin",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+
+      if (response.data && response.data.success) {
+        const { name, email, role } = response.data.user;
+
+        // Handle successful login
+        localStorage.setItem("token", response.data.token);
+        console.log("Login successful");
         toast.success("login success");
+        // Log user information
+        console.log("User Information:", {
+          name,
+          email,
+          role,
+        });
         navigate("/adminDashboard/dashboard");
-      })
-      .catch((error) => {
-        toast.error(error.message);
-        setIsLoading(false);
-      });
+      } else {
+        console.error("Login failed. No data in the response:", response);
+      }
+    } catch (error) {
+      console.error("Login failed", error.response?.data || error.message);
+    }
   };
 
   // const handleSubmit = (e) => {

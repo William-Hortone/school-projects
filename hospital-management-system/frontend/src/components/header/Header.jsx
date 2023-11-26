@@ -12,6 +12,7 @@ import {
 } from "../../redux/slice/authSlice";
 import ShowOnLogin, { ShowOnLogout } from "../hiddenLinks/HiddenLinks";
 import Loader from "../loader/Loader";
+import axios from "axios";
 
 const Header = () => {
   const [displayName, setDisplayName] = useState("");
@@ -78,6 +79,21 @@ const Header = () => {
   const handleShowUserProfile = () => {
     setShowUserProfile(!showUserProfile);
   };
+
+  const handleLogoutNow = async () => {
+    try {
+      // Make a request to the backend to clear the token
+      await axios.post("http://localhost:3001/userLogout");
+
+      // Clear the token on the client side (e.g., remove it from localStorage)
+      localStorage.removeItem("token");
+
+      console.log("Logout successful");
+    } catch (error) {
+      console.error("Logout failed", error.response?.data || error.message);
+    }
+  };
+
   return (
     <>
       {isLoading && <Loader />}
@@ -136,6 +152,7 @@ const Header = () => {
                 Logout
               </NavLink>
             </ShowOnLogin>
+            <button onClick={handleLogoutNow}>Logout Now</button>
           </ul>
         </nav>
       </div>
