@@ -20,51 +20,13 @@ import { useDispatch } from "react-redux";
 // const jwt_decode = require("jwt-decode");
 import Cookies from "js-cookie";
 
-const Login = ({ setUserName, setUserRole, setUserEmail }) => {
+const Login = () => {
   const dispatch = useDispatch();
-  const [userInfosEmail, setUserInfosEmail] = useState("");
-  const [userInfosRole, setUserInfosRole] = useState("");
-  const [userInfosName, setUserInfosName] = useState("");
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  // axios.defaults.withCredentials = true;
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-
-  //   axios
-  //     .post("http://localhost:3001/userLogin", { email, password })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       toast.success("login success");
-  //       navigate("/adminDashboard/dashboard");
-  //     })
-  //     .catch((error) => {
-  //       toast.error(error.message);
-  //       setIsLoading(false);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   const storedToken = localStorage.getItem("token");
-  //   if (storedToken) {
-  //     // Decode the token to get user details
-  //     // const decodedToken = jwt_decode.default(storedToken);
-
-  //     dispatch(
-  //       IS_USER_LOGIN({
-  //         userStatus: true,
-  //         email: decodedToken.email,
-  //         name: decodedToken.name,
-  //         role: decodedToken.role,
-  //       })
-  //     );
-  //   }
-  //   // console.log("User logged in", userName, userRole, userEmail);
-  // }, [dispatch]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -80,24 +42,12 @@ const Login = ({ setUserName, setUserRole, setUserEmail }) => {
 
       if (response.data && response.data.success) {
         const { name, email, role } = response.data.user;
-
-        // Handle successful login
         // localStorage.setItem("token", response.data.token);
-
-        // Handle successful login
-
-        // Handle successful login
         Cookies.set("token", response.data.token);
         Cookies.set("userDetails", JSON.stringify({ name, email, role }));
 
         console.log("Login successful");
         toast.success("login success");
-        // Log user information
-        console.log("User Information:", {
-          name,
-          email,
-          role,
-        });
 
         dispatch(
           IS_USER_LOGIN({
@@ -107,23 +57,6 @@ const Login = ({ setUserName, setUserRole, setUserEmail }) => {
             role: role,
           })
         );
-
-        // const storedToken = localStorage.getItem("token");
-        // if (storedToken) {
-        //   dispatch(
-        //     IS_USER_LOGIN({
-        //       userStatus: true,
-        //       email: email,
-        //       name: name,
-        //       role: role,
-        //     })
-        //   );
-        // }
-
-        setUserEmail(email);
-        setUserName(name);
-        setUserRole(role);
-
         navigate("/adminDashboard/dashboard");
       } else {
         console.log("User not logged in");
@@ -133,30 +66,6 @@ const Login = ({ setUserName, setUserRole, setUserEmail }) => {
       console.error("Login failed", error.response?.data || error.message);
     }
   };
-
-  // // Use this effect to check for user details on page load
-  // useEffect(() => {
-  //   const storedToken = Cookies.get("token");
-  //   const storedUserDetails = Cookies.get("userDetails");
-
-  //   if (storedToken && storedUserDetails) {
-  //     const { email, name, role } = JSON.parse(storedUserDetails);
-
-  //     dispatch(
-  //       IS_USER_LOGIN({
-  //         userStatus: true,
-  //         email: email,
-  //         name: name,
-  //         role: role,
-  //       })
-  //     );
-
-  //     setUserEmail(email);
-  //     setUserName(name);
-  //     setUserRole(role);
-  //     console.log("info are here", name, email, role);
-  //   }
-  // }, [dispatch, setUserEmail, setUserName, setUserRole]);
 
   // useEffect(() => {
   //   console.log("MY   ---User logged in", userName, userRole, userEmail);

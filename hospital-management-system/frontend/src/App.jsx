@@ -37,29 +37,8 @@ import { IS_USER_LOGIN, REMOVE_ACTIVE_USER } from "./redux/slice/userSlide";
 import Cookies from "js-cookie";
 
 function App() {
-  const [userEmail, setUserEmail] = useState("");
-  const [userRole, setUserRole] = useState("");
-  const [userName, setUserName] = useState("");
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const storedToken = Cookies.get("token");
-  //   // const storedToken = localStorage.getItem("token");
-  //   if (storedToken) {
-  //     dispatch(
-  //       IS_USER_LOGIN({
-  //         userStatus: true,
-  //         email: userEmail,
-  //         name: userName,
-  //         role: userRole,
-  //       })
-  //     );
-  //   }
-  //   console.log("MY   ---User storedToken in", storedToken);
-  //   console.log("MY   ---User logged in", userName, userRole, userEmail);
-  // }, [userName, userRole, userEmail, dispatch]);
-
-  // Use this effect to check for user details on page load
   useEffect(() => {
     const storedToken = Cookies.get("token");
     const storedUserDetails = Cookies.get("userDetails");
@@ -76,9 +55,6 @@ function App() {
         })
       );
 
-      // setUserEmail(email);
-      // setUserName(name);
-      // setUserRole(role);
       console.log("info are here", name, email, role);
     } else {
       dispatch(REMOVE_ACTIVE_USER());
@@ -101,16 +77,7 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/login"
-            element={
-              <Login
-                setUserEmail={setUserEmail}
-                setUserRole={setUserRole}
-                setUserName={setUserName}
-              />
-            }
-          />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
 
