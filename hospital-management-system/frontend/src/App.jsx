@@ -10,6 +10,7 @@ import {
   AddUser,
   AdminDashboard,
   AppScheduling,
+  BedDetails,
   DDetails,
   Dashboard,
   MedicalServices,
@@ -110,6 +111,7 @@ function App() {
               element={<WardDetails />}
             />
             <Route path="/adminDashboard/addUser" element={<AddUser />} />
+            <Route path="/adminDashboard/bedDetails" element={<BedDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>

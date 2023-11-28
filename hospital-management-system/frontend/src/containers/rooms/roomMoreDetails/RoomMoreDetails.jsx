@@ -19,6 +19,7 @@ const RoomMoreDetails = ({
     roomDesc: "",
   });
 
+  // To Get all room Details
   const API_URL = "http://localhost:3001/getRoomsDetails";
 
   // To Get all room Type
@@ -210,7 +211,10 @@ const RoomMoreDetails = ({
                 />
               </div>
 
-              <div className="input-field doctor-types">
+              <div
+                className="input-field doctor-types"
+                style={{ paddingLeft: "3rem" }}
+              >
                 <label htmlFor="roomType"> Room Type</label>
                 <div>
                   <select

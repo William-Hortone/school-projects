@@ -52,7 +52,7 @@ const RoomDetails = () => {
     setRoomTID(inputs.roomTypeID);
   }, [inputs.roomTypeID]);
 
-  // ------------------ For add room Type-------
+  // ------------------ For add room Type -----------
 
   // To generate the id
   const handleAddRoomType = () => {

@@ -6,6 +6,9 @@ import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
 import Scheduling from "./doctors/scheduling/Scheduling";
 import VizDocApp from "./doctors/vizDocApp/VizDocApp";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
+import BedDetails from "./rooms/bedDetails/BedDetails";
+import BedMoreDetails from "./rooms/bedMoreDetails/BedMoreDetails";
+// import { BedMoreDetails } from "./rooms/bedMoreDetails/BedMoreDetails";
 import RoomDetails from "./rooms/roomDetails/RoomDetails";
 import RoomMoreDetails from "./rooms/roomMoreDetails/RoomMoreDetails";
 import ViewRooms from "./rooms/viewRooms/ViewRooms";
@@ -46,4 +49,6 @@ export {
   VizHospitalSer,
   VizAllRooms,
   ViewAllUsers,
+  BedMoreDetails,
+  BedDetails,
 };
