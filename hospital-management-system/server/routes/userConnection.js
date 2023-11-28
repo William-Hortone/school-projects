@@ -35,7 +35,7 @@ router.post("/userLogin", (req, res) => {
           // Generate token
           const token = jwt.sign(
             { email: user.email, role: user.role, userId: user._id },
-            "yourSecretKey",
+            "jwt-secret-key",
             {
               expiresIn: "1d",
             }
@@ -46,10 +46,8 @@ router.post("/userLogin", (req, res) => {
             httpOnly: true,
             maxAge: 3600000,
             secure: false,
-            sameSite: "Lax", // or 'None' if using HTTPS
-            // Add other cookie settings if needed (e.g., secure: true for HTTPS)
+            sameSite: "Lax",
           });
-          // Send user information in the response
           res.json({
             success: true,
             token,
@@ -59,8 +57,6 @@ router.post("/userLogin", (req, res) => {
               role: user.role,
             },
           });
-
-          // res.json({ success: true, token });
         } else {
           res.status(401).json({ error: "Incorrect password" });
         }
@@ -71,38 +67,10 @@ router.post("/userLogin", (req, res) => {
 
 // Logout user
 router.post("/userLogout", (req, res) => {
-  // Clear the token on the server side (e.g., by setting an empty or expired token)
-  // res.cookie("token", "", {
-  //   httpOnly: true,
-  //   expires: new Date(0),
-  // });
+  // Clear the token on
   res.clearCookie("token", { httpOnly: true });
 
   res.json({ success: true, message: "Logout successful" });
 });
-
-// router.post("/userLogin", (req, res) => {
-//   const { password, email } = req.body;
-
-//   UserModel.findOne({ email: email }).then((user) => {
-//     if (user) {
-//       bcrypt.compare(password, user.password, (err, response) => {
-//         if (response) {
-//           const token = jwt.sign(
-//             { email: user.email, role: user.role },
-//             "jwt-secret-key",
-//             { expiresIn: "1d" }
-//           );
-//           res.cookie("token", token);
-//           return res.json("success");
-//         } else {
-//           return res.json("The password is incorrect");
-//         }
-//       });
-//     } else {
-//       return res.json("User not found");
-//     }
-//   });
-// });
 
 module.exports = router;

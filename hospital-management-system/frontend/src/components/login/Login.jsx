@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from "react";
-import "./login.css";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth } from "../../firebase/config";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
-import Loader from "../loader/Loader";
-import { IS_USER_LOGIN } from "../../redux/slice/userSlide";
 import { useDispatch } from "react-redux";
-// import jwt_decode from "jwt-decode";
-// const jwt_decode = require("jwt-decode");
-// import * as jwt_decode from "jwt-decode";
-// import jwt_decode from "jwt-decode";
-// const jwt_decode = require("jwt-decode");
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { auth } from "../../firebase/config";
+import { IS_USER_LOGIN } from "../../redux/slice/userSlide";
+import Loader from "../loader/Loader";
+import "./login.css";
+
 import Cookies from "js-cookie";
 
 const Login = () => {
@@ -51,7 +43,6 @@ const Login = () => {
 
         dispatch(
           IS_USER_LOGIN({
-            // userStatus: true,
             email: email,
             name: name,
             role: role,

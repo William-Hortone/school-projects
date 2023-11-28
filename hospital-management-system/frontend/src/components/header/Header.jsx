@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from "react";
-import "./header.css";
-import { NavLink, useNavigate } from "react-router-dom";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { toast } from "react-toastify";
-import { auth } from "../../firebase/config";
+import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//   SET_ACTIVE_USER,
-//   REMOVE_ACTIVE_USER,
-// } from "../../redux/slice/authSlice";
-import ShowOnLogin, { ShowOnLogout } from "../hiddenLinks/HiddenLinks";
-import Loader from "../loader/Loader";
+import { NavLink, useNavigate } from "react-router-dom";
+import "./header.css";
 import axios from "axios";
+import Cookies from "js-cookie";
 import {
   REMOVE_ACTIVE_USER,
   selectName,
   selectRole,
 } from "../../redux/slice/userSlide";
-import Cookies from "js-cookie";
+import ShowOnLogin, { ShowOnLogout } from "../hiddenLinks/HiddenLinks";
+import Loader from "../loader/Loader";
 
 const Header = () => {
   const [displayName, setDisplayName] = useState("");
@@ -42,7 +35,7 @@ const Header = () => {
   const currentMinute = currentDate.getMinutes();
   const currentSecond = currentDate.getSeconds();
 
-  // Monitor currently sign in user
+  // Monitor currently sign in user with firebase
   // useEffect(() => {
   //   onAuthStateChanged(auth, (user) => {
   //     if (user) {
@@ -69,6 +62,7 @@ const Header = () => {
   //   });
   // }, [dispatch, displayName]);
 
+  //Function to logout  with firebase
   // const handleLogout = () => {
   //   setIsLoading(true);
 
@@ -88,17 +82,16 @@ const Header = () => {
     setShowUserProfile(!showUserProfile);
   };
 
-  const handleLogoutNow = async () => {
+  // FUnction to Logout
+  const handleLogout = async () => {
     try {
-      // Make a request to the backend to clear the token
       await axios.post("http://localhost:3001/userLogout");
 
-      // Clear the token on the client side (e.g., remove it from localStorage)
+      // Remove the token on localStorage)
       // localStorage.removeItem("token");
       Cookies.remove("token");
       Cookies.remove("userDetails");
       navigate("/");
-      console.log("Logout successful");
       dispatch(REMOVE_ACTIVE_USER());
     } catch (error) {
       console.error("Logout failed", error.response?.data || error.message);
@@ -145,10 +138,6 @@ const Header = () => {
               </div>
             </ShowOnLogin>
 
-            {/* <NavLink to="/login" className={activeLink}>
-              Login
-            </NavLink> */}
-
             <ShowOnLogout>
               <NavLink to="/login" className={activeLink}>
                 Login
@@ -162,13 +151,12 @@ const Header = () => {
             <ShowOnLogin>
               <NavLink
                 to="/home"
-                onClick={handleLogoutNow}
+                onClick={handleLogout}
                 className="navbar-link"
               >
                 Logout
               </NavLink>
             </ShowOnLogin>
-            {/* <button onClick={handleLogoutNow}>Logout Now</button> */}
           </ul>
         </nav>
       </div>

@@ -2,8 +2,6 @@ import AdminDashboard from "./adminDashbord/AdminDashboard";
 import Dashboard from "./dashboard/Dashboard";
 import AppScheduling from "./doctors/appSheduling/AppScheduling";
 import DDetails from "./doctors/dDetails/DDetails";
-// import DoctorAppointment from "./doctors/doctorAppointment/DoctorAppointment";
-// import DoctorDetails from "./doctors/doctorDetails/DoctorDetails";
 import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
 import Scheduling from "./doctors/scheduling/Scheduling";
 import VizDocApp from "./doctors/vizDocApp/VizDocApp";
