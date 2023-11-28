@@ -17,12 +17,10 @@ const BedMoreDetails = ({
   setOpenScheduleDelete,
   openScheduleDelete,
 }) => {
-  const [appointmentInfos, setAppointmentInfos] = useState({
-    schedulingID: "",
-    doctorID: "",
-    timeIn: "",
-    timeOut: "",
-    schedulingNotes: "",
+  const [inputs, setInputs] = useState({
+    bedID: "",
+    place: "",
+    bedDesc: "",
   });
 
   const [availableDays, setAvailableDays] = useState({
@@ -35,6 +33,8 @@ const BedMoreDetails = ({
     sunday: false,
   });
 
+  const [selectedRooms, setSelectedRooms] = useState("");
+  const [selectedWards, setSelectedWards] = useState("");
   const [selectedDays, setSelectedDays] = useState("");
   const [scheduleId, setScheduleId] = useState("");
   const [pickedDoctorID, setPickedDoctorID] = useState("");
@@ -42,7 +42,7 @@ const BedMoreDetails = ({
   const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [showDocDetailTable, setShowDocDetailTable] = useState(false);
-  const input = { ...appointmentInfos, selectedDays };
+  //   const input = { ...inputs, selectedDays };
 
   const doctorDetails = useSelector(selectDoctorDetails);
   const roomsDetails = useSelector(selectRoomsDetails);
@@ -51,23 +51,36 @@ const BedMoreDetails = ({
 
   const handleOnChangeAppointment = (e) => {
     const { name, value } = e.target;
-    setAppointmentInfos({
-      ...appointmentInfos,
+    setInputs({
+      ...inputs,
       [name]: value,
     });
   };
-  const handleOnChangeDays = (e) => {
-    const { name, checked } = e.target;
-    setAvailableDays({
-      ...availableDays,
-      [name]: checked,
-    });
+
+  const handleRoomSelected = (e) => {
+    const { name, value } = e.target;
+
+    setSelectedRooms({ [name]: value });
   };
+
+  const handleWardsSelected = (e) => {
+    const { name, value } = e.target;
+
+    setSelectedWards({ [name]: value });
+  };
+
+  //   const handleOnChangeDays = (e) => {
+  //     const { name, checked } = e.target;
+  //     setAvailableDays({
+  //       ...availableDays,
+  //       [name]: checked,
+  //     });
+  //   };
 
   const handleCloseScheduling = () => {
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
-    setAppointmentInfos({
+    setInputs({
       schedulingID: "",
       doctorID: "",
       timeIn: "",
@@ -83,45 +96,50 @@ const BedMoreDetails = ({
     );
     const selectedDaysString = selectedDays.join(", ");
     setSelectedDays(selectedDaysString);
-    setScheduleId(appointmentInfos.schedulingID);
-  }, [availableDays, input, appointmentInfos.schedulingID]);
+    setScheduleId(inputs.schedulingID);
+  }, [availableDays, inputs.schedulingID]);
 
   // Function to generate the ID
-  const handleAddAppointment = () => {
-    if (addOnSubmit) {
-      if (docAppointmentDetails.length === 0) {
-        setAppointmentInfos({
-          ...appointmentInfos,
-          schedulingID: "docA_001",
-        });
-      } else {
-        const lastScheduleId =
-          docAppointmentDetails[docAppointmentDetails.length - 1].schedulingID;
-        const numericPart = parseInt(lastScheduleId.split("_")[1]);
+  const handleAddBed = () => {
+    setInputs({
+      ...inputs,
+      bedID: "bed_001",
+    });
+    // if (addOnSubmit) {
+    //   if (docAppointmentDetails.length === 0) {
+    //     setInputs({
+    //       ...inputs,
+    //       schedulingID: "bed_001",
+    //     });
+    //   } else {
+    //     const lastScheduleId =
+    //       docAppointmentDetails[docAppointmentDetails.length - 1].schedulingID;
+    //     const numericPart = parseInt(lastScheduleId.split("_")[1]);
 
-        const nextScheduleId = `docA_${(numericPart + 1)
-          .toString()
-          .padStart(3, "0")}`;
+    //     const nextScheduleId = `docA_${(numericPart + 1)
+    //       .toString()
+    //       .padStart(3, "0")}`;
 
-        setAppointmentInfos({
-          ...appointmentInfos,
-          schedulingID: nextScheduleId,
-        });
-      }
-    } else {
-      toast.error("Please Enter a Id manually to update");
-    }
+    //     setInputs({
+    //       ...inputs,
+    //       schedulingID: nextScheduleId,
+    //     });
+    //   }
+    // } else {
+    //   toast.error("Please Enter a Id manually to update");
+    // }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("this is the data", inputs);
 
-    axios
-      .post("http://localhost:3001/docAppointment", input)
-      .then((res) => {
-        toast.success("Added successfully");
-      })
-      .catch((err) => toast.error(err));
+    // axios
+    //   .post("http://localhost:3001/docAppointment", inputs)
+    //   .then((res) => {
+    //     toast.success("Added successfully");
+    //   })
+    //   .catch((err) => toast.error(err));
   };
 
   // Function to update an appointment
@@ -129,7 +147,7 @@ const BedMoreDetails = ({
     e.preventDefault();
 
     axios
-      .put(`http://localhost:3001/editDocAppointment/${scheduleId}`, input)
+      .put(`http://localhost:3001/editDocAppointment/${scheduleId}`, inputs)
       .then((res) => {
         if (res.data === "success") {
           toast.success("Appointment updated successfully");
@@ -191,8 +209,8 @@ const BedMoreDetails = ({
   const handleDoctorId = (docId) => {
     setShowDocDetailTable(false);
     setPickedDoctorID(docId);
-    setAppointmentInfos({
-      ...appointmentInfos,
+    setInputs({
+      ...inputs,
       doctorID: docId,
     });
     setDocIDisPicked(true);
@@ -201,7 +219,7 @@ const BedMoreDetails = ({
   // automatically fill the form when click on one row of the table
   const handleUpdateInfos = (docAppointment) => {
     if (!addOnSubmit) {
-      setAppointmentInfos({
+      setInputs({
         schedulingID: docAppointment.schedulingID,
         doctorID: docAppointment.doctorID,
         timeIn: docAppointment.timeIn,
@@ -239,7 +257,7 @@ const BedMoreDetails = ({
                 <Input
                   placeholder="Bed ID"
                   name="bedID"
-                  value={appointmentInfos.schedulingID}
+                  value={inputs.bedID}
                   handleOnChange={handleOnChangeAppointment}
                   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
@@ -251,7 +269,7 @@ const BedMoreDetails = ({
                   <select
                     name="doctorID"
                     id="doctorID"
-                    value={appointmentInfos.doctorID}
+                    value={inputs.doctorID}
                     onChange={handleOnChangeAppointment}
                     required
                   >
@@ -280,7 +298,7 @@ const BedMoreDetails = ({
                     type="time"
                     id="timeIn"
                     name="timeIn"
-                    value={appointmentInfos.timeIn}
+                    value={inputs.timeIn}
                     onChange={handleOnChangeAppointment}
                     required
                   />
@@ -293,7 +311,7 @@ const BedMoreDetails = ({
                     type="time"
                     id="timeOut"
                     name="timeOut"
-                    value={appointmentInfos.timeOut}
+                    value={inputs.timeOut}
                     onChange={handleOnChangeAppointment}
                     required
                   />
@@ -301,12 +319,12 @@ const BedMoreDetails = ({
               </div> */}
 
               <div className="input-fields">
-                <label htmlFor="availableDays"> Room / Ward:</label>
+                <label htmlFor="place"> Room / Ward:</label>
                 <Input
                   placeholder="Place infos"
-                  name="availableDay"
-                  value={selectedDays}
-                  handleOnChange={(e) => setSelectedDays(e.target.value)}
+                  name="place"
+                  value={inputs.place}
+                  handleOnChange={handleOnChangeAppointment}
                   readOnly
                 />
               </div>
@@ -314,11 +332,13 @@ const BedMoreDetails = ({
               <div className="input-fields">
                 <label htmlFor="schedulingNotes">Bed Description:</label>
                 <textarea
-                  name=""
+                  name="bedDesc"
                   id=""
                   cols="39"
                   placeholder="Bed description"
                   rows="10"
+                  onChange={handleOnChangeAppointment}
+                  value={inputs.bedDesc}
                 ></textarea>
               </div>
               {!openScheduleDelete && (
@@ -349,12 +369,13 @@ const BedMoreDetails = ({
                   <select
                     name="rooms"
                     id="rooms"
-                    // value={roomsDetails.roomID}
-                    onChange={handleOnChangeAppointment}
+                    value={selectedRooms}
+                    onChange={handleRoomSelected}
                     required
                   >
-                    <option required value={docIDisPicked}>
-                      {docIDisPicked ? pickedDoctorID : "Select a room ID"}
+                    <option required value={selectedRooms}>
+                      {/* {docIDisPicked ? pickedDoctorID : "Select a room ID"} */}
+                      {/* {docIDisPicked ? pickedDoctorID : "Select a room ID"} */}
                     </option>
                     {roomsDetails.map((room, index) => (
                       <option key={index} value={room.roomID}>
@@ -371,8 +392,8 @@ const BedMoreDetails = ({
                   <select
                     name="wards"
                     id="wards"
-                    value={appointmentInfos.doctorID}
-                    onChange={handleOnChangeAppointment}
+                    value={selectedWards}
+                    onChange={(e) => setSelectedWards(e.target.value)}
                     required
                   >
                     <option required value={docIDisPicked}>
@@ -516,7 +537,7 @@ const BedMoreDetails = ({
               <div className="schedule-delete-popup">
                 <p>
                   Do you really want to delete <br />
-                  the doctor with ID of {appointmentInfos.schedulingID} ?
+                  the doctor with ID of {inputs.schedulingID} ?
                 </p>
                 <div className="delete-buttons">
                   <button onClick={handleClosePopup}> Cancel</button>
@@ -542,7 +563,7 @@ const BedMoreDetails = ({
                 btnName="Add"
                 color="green"
                 buttonType="submit"
-                onClick={handleAddAppointment}
+                onClick={handleAddBed}
               />
 
               <ButtonAction
