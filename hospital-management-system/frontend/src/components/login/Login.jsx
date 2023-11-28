@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./login.css";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -11,8 +11,20 @@ import {
 import { auth } from "../../firebase/config";
 import { FaGoogle } from "react-icons/fa";
 import Loader from "../loader/Loader";
+import { IS_USER_LOGIN } from "../../redux/slice/userSlide";
+import { useDispatch } from "react-redux";
+// import jwt_decode from "jwt-decode";
+// const jwt_decode = require("jwt-decode");
+// import * as jwt_decode from "jwt-decode";
+// import jwt_decode from "jwt-decode";
+// const jwt_decode = require("jwt-decode");
+import Cookies from "js-cookie";
 
-const Login = () => {
+const Login = ({ setUserName, setUserRole, setUserEmail }) => {
+  const dispatch = useDispatch();
+  const [userInfosEmail, setUserInfosEmail] = useState("");
+  const [userInfosRole, setUserInfosRole] = useState("");
+  const [userInfosName, setUserInfosName] = useState("");
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +48,24 @@ const Login = () => {
   //     });
   // };
 
+  // useEffect(() => {
+  //   const storedToken = localStorage.getItem("token");
+  //   if (storedToken) {
+  //     // Decode the token to get user details
+  //     // const decodedToken = jwt_decode.default(storedToken);
+
+  //     dispatch(
+  //       IS_USER_LOGIN({
+  //         userStatus: true,
+  //         email: decodedToken.email,
+  //         name: decodedToken.name,
+  //         role: decodedToken.role,
+  //       })
+  //     );
+  //   }
+  //   // console.log("User logged in", userName, userRole, userEmail);
+  // }, [dispatch]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -52,7 +82,14 @@ const Login = () => {
         const { name, email, role } = response.data.user;
 
         // Handle successful login
-        localStorage.setItem("token", response.data.token);
+        // localStorage.setItem("token", response.data.token);
+
+        // Handle successful login
+
+        // Handle successful login
+        Cookies.set("token", response.data.token);
+        Cookies.set("userDetails", JSON.stringify({ name, email, role }));
+
         console.log("Login successful");
         toast.success("login success");
         // Log user information
@@ -61,8 +98,35 @@ const Login = () => {
           email,
           role,
         });
+
+        dispatch(
+          IS_USER_LOGIN({
+            // userStatus: true,
+            email: email,
+            name: name,
+            role: role,
+          })
+        );
+
+        // const storedToken = localStorage.getItem("token");
+        // if (storedToken) {
+        //   dispatch(
+        //     IS_USER_LOGIN({
+        //       userStatus: true,
+        //       email: email,
+        //       name: name,
+        //       role: role,
+        //     })
+        //   );
+        // }
+
+        setUserEmail(email);
+        setUserName(name);
+        setUserRole(role);
+
         navigate("/adminDashboard/dashboard");
       } else {
+        console.log("User not logged in");
         console.error("Login failed. No data in the response:", response);
       }
     } catch (error) {
@@ -70,6 +134,33 @@ const Login = () => {
     }
   };
 
+  // // Use this effect to check for user details on page load
+  // useEffect(() => {
+  //   const storedToken = Cookies.get("token");
+  //   const storedUserDetails = Cookies.get("userDetails");
+
+  //   if (storedToken && storedUserDetails) {
+  //     const { email, name, role } = JSON.parse(storedUserDetails);
+
+  //     dispatch(
+  //       IS_USER_LOGIN({
+  //         userStatus: true,
+  //         email: email,
+  //         name: name,
+  //         role: role,
+  //       })
+  //     );
+
+  //     setUserEmail(email);
+  //     setUserName(name);
+  //     setUserRole(role);
+  //     console.log("info are here", name, email, role);
+  //   }
+  // }, [dispatch, setUserEmail, setUserName, setUserRole]);
+
+  // useEffect(() => {
+  //   console.log("MY   ---User logged in", userName, userRole, userEmail);
+  // }, [userName, userRole, userEmail]);
   // const handleSubmit = (e) => {
   //   e.preventDefault();
 

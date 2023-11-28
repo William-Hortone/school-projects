@@ -72,10 +72,11 @@ router.post("/userLogin", (req, res) => {
 // Logout user
 router.post("/userLogout", (req, res) => {
   // Clear the token on the server side (e.g., by setting an empty or expired token)
-  res.cookie("token", "", {
-    httpOnly: true,
-    expires: new Date(0),
-  });
+  // res.cookie("token", "", {
+  //   httpOnly: true,
+  //   expires: new Date(0),
+  // });
+  res.clearCookie("token", { httpOnly: true });
 
   res.json({ success: true, message: "Logout successful" });
 });

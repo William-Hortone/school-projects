@@ -5,14 +5,20 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { auth } from "../../firebase/config";
 import { FaUserCircle } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import {
-  SET_ACTIVE_USER,
-  REMOVE_ACTIVE_USER,
-} from "../../redux/slice/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+// import {
+//   SET_ACTIVE_USER,
+//   REMOVE_ACTIVE_USER,
+// } from "../../redux/slice/authSlice";
 import ShowOnLogin, { ShowOnLogout } from "../hiddenLinks/HiddenLinks";
 import Loader from "../loader/Loader";
 import axios from "axios";
+import {
+  REMOVE_ACTIVE_USER,
+  selectName,
+  selectRole,
+} from "../../redux/slice/userSlide";
+import Cookies from "js-cookie";
 
 const Header = () => {
   const [displayName, setDisplayName] = useState("");
@@ -23,6 +29,8 @@ const Header = () => {
   const activeLink = ({ isActive }) =>
     isActive ? "linkActive" : "navbar-link";
 
+  const userName = useSelector(selectName);
+  const userRole = useSelector(selectRole);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // Get the current date and time
@@ -35,46 +43,46 @@ const Header = () => {
   const currentSecond = currentDate.getSeconds();
 
   // Monitor currently sign in user
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        if (user.displayName == null) {
-          const u1 = user.email.slice(0, -10);
-          const uName = u1.charAt(0).toUpperCase() + u1.slice(1);
-          setDisplayName(uName);
-          setSignInDate(user.metadata.lastSignInTime);
-        } else {
-          setDisplayName(user.displayName);
-        }
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       if (user.displayName == null) {
+  //         const u1 = user.email.slice(0, -10);
+  //         const uName = u1.charAt(0).toUpperCase() + u1.slice(1);
+  //         setDisplayName(uName);
+  //         setSignInDate(user.metadata.lastSignInTime);
+  //       } else {
+  //         setDisplayName(user.displayName);
+  //       }
 
-        dispatch(
-          SET_ACTIVE_USER({
-            email: user.email,
-            userName: user.displayName ? user.displayName : displayName,
-            userID: user.uid,
-          })
-        );
-      } else {
-        setDisplayName("");
-        dispatch(REMOVE_ACTIVE_USER());
-      }
-    });
-  }, [dispatch, displayName]);
+  //       dispatch(
+  //         SET_ACTIVE_USER({
+  //           email: user.email,
+  //           userName: user.displayName ? user.displayName : displayName,
+  //           userID: user.uid,
+  //         })
+  //       );
+  //     } else {
+  //       setDisplayName("");
+  //       dispatch(REMOVE_ACTIVE_USER());
+  //     }
+  //   });
+  // }, [dispatch, displayName]);
 
-  const handleLogout = () => {
-    setIsLoading(true);
+  // const handleLogout = () => {
+  //   setIsLoading(true);
 
-    signOut(auth)
-      .then(() => {
-        toast.success("Logout successful");
-        setIsLoading(false);
-        navigate("/");
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        toast.error(error.message);
-      });
-  };
+  //   signOut(auth)
+  //     .then(() => {
+  //       toast.success("Logout successful");
+  //       setIsLoading(false);
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       setIsLoading(false);
+  //       toast.error(error.message);
+  //     });
+  // };
 
   const handleShowUserProfile = () => {
     setShowUserProfile(!showUserProfile);
@@ -86,9 +94,12 @@ const Header = () => {
       await axios.post("http://localhost:3001/userLogout");
 
       // Clear the token on the client side (e.g., remove it from localStorage)
-      localStorage.removeItem("token");
-
+      // localStorage.removeItem("token");
+      Cookies.remove("token");
+      Cookies.remove("userDetails");
+      navigate("/");
       console.log("Logout successful");
+      dispatch(REMOVE_ACTIVE_USER());
     } catch (error) {
       console.error("Logout failed", error.response?.data || error.message);
     }
@@ -107,7 +118,7 @@ const Header = () => {
               <div className="user-profile">
                 <div onClick={handleShowUserProfile} className="user-icon">
                   <FaUserCircle size={16} />
-                  Hi, {displayName}
+                  Hi, {userName}
                 </div>
                 {showUserProfile && (
                   <div className="user-container">
@@ -115,12 +126,12 @@ const Header = () => {
                       <h2>
                         <FaUserCircle size={16} /> User Infos
                       </h2>
-                      <p>User name: {displayName}</p>
-                      <p>Logged in as: Admin </p>
+                      <p>User name: {userName}</p>
+                      <p>Logged in as: {userRole} </p>
                     </div>
                     <div className="user-container-section">
                       <h2>Time Log-in</h2>
-                      <p>{signInDate}</p>
+                      {/* <p>{signInDate}</p> */}
                     </div>
                     <div className="user-container-section">
                       <h2>Today</h2>
@@ -133,6 +144,11 @@ const Header = () => {
                 )}
               </div>
             </ShowOnLogin>
+
+            {/* <NavLink to="/login" className={activeLink}>
+              Login
+            </NavLink> */}
+
             <ShowOnLogout>
               <NavLink to="/login" className={activeLink}>
                 Login
@@ -146,13 +162,13 @@ const Header = () => {
             <ShowOnLogin>
               <NavLink
                 to="/home"
-                onClick={handleLogout}
+                onClick={handleLogoutNow}
                 className="navbar-link"
               >
                 Logout
               </NavLink>
             </ShowOnLogin>
-            <button onClick={handleLogoutNow}>Logout Now</button>
+            {/* <button onClick={handleLogoutNow}>Logout Now</button> */}
           </ul>
         </nav>
       </div>
