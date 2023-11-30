@@ -69,14 +69,6 @@ const BedMoreDetails = ({
     setSelectedWards({ [name]: value });
   };
 
-  //   const handleOnChangeDays = (e) => {
-  //     const { name, checked } = e.target;
-  //     setAvailableDays({
-  //       ...availableDays,
-  //       [name]: checked,
-  //     });
-  //   };
-
   const handleCloseScheduling = () => {
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
