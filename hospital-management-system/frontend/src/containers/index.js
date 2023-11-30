@@ -14,6 +14,7 @@ import RoomMoreDetails from "./rooms/roomMoreDetails/RoomMoreDetails";
 import ViewRooms from "./rooms/viewRooms/ViewRooms";
 import ViewWardDetails from "./rooms/viewWardDetails/ViewWardDetails";
 import VizAllRooms from "./rooms/vizAllRooms/VizAllRooms";
+import VizRoomType from "./rooms/vizRoomType/VizRoomType";
 import WardDetails from "./rooms/wardDetails/WardDetails";
 import WardMoreDetails from "./rooms/wardMoreDetails/WardMDetails";
 import ScheduleSer from "./services/ScheduleSer/ScheduleSer";
@@ -51,4 +52,5 @@ export {
   ViewAllUsers,
   BedMoreDetails,
   BedDetails,
+  VizRoomType,
 };

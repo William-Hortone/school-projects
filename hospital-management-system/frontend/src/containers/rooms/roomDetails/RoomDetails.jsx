@@ -19,6 +19,7 @@ const RoomDetails = () => {
   const roomsDetails = useSelector(selectRoomsDetails);
   const [currentRecord, setCurrentRecord] = useState();
   const [roomTID, setRoomTID] = useState("");
+  const [disabledInput, setDisabledInput] = useState(false);
 
   const [allRoomType, setAllRoomType] = useState([]);
 
@@ -71,6 +72,7 @@ const RoomDetails = () => {
         roomTypeID: nextId,
       });
     }
+    setDisabledInput(true);
   };
 
   // function to add a room type
@@ -118,7 +120,11 @@ const RoomDetails = () => {
   };
 
   const handleShowPopupDelete = () => {
-    setShowPopupDelete(true);
+    if (inputs.roomTypeID === undefined || inputs.roomTypeID === "") {
+      toast.error("Please enter a room type ID");
+    } else {
+      setShowPopupDelete(true);
+    }
   };
   const handleClosePopup = () => {
     setShowPopupDelete(false);
@@ -152,7 +158,10 @@ const RoomDetails = () => {
     setOpenScheduleDelete(true);
     setAddOnSubmit(false);
   };
-  const handleViewAll = () => {
+  const handleViewAllRoomType = () => {
+    navigate("/VizRoomType");
+  };
+  const handleViewAllRooms = () => {
     navigate("/vizRooms");
   };
 
@@ -182,6 +191,19 @@ const RoomDetails = () => {
     setUsersLength(roomsDetails.length - 1);
   };
 
+  // Function to field the form according to the selected field
+  const handleUpdateInfos = (room) => {
+    if (!addOnSubmitRoomT) {
+      setInputs({
+        roomTypeID: room.roomTypeID,
+        roomType: room.roomType,
+        roomRates: room.roomRates,
+        roomNotes: room.roomNotes,
+      });
+
+      setDisabledInput(true);
+    }
+  };
   return (
     <div className="roomDetails">
       <div className="roomDetails-container">
@@ -201,7 +223,7 @@ const RoomDetails = () => {
               id="roomTypeID"
               value={inputs.roomTypeID}
               handleOnChange={handleOnChange}
-              // value={lastElement ? lastElement.roomType : ""}
+              inputDisabled={disabledInput ? "true" : ""}
             />
           </div>
           <div className="input-fields">
@@ -244,15 +266,10 @@ const RoomDetails = () => {
               Submit
             </button>
           )}
-          {/* {showDeleteBtn && (
-            <button type="submit" className="delete-btn">
-              Delete
-            </button>
-          )} */}
         </form>
       </div>
 
-      {/* The  container menu buttons */}
+      {/* The  container menu buttons  for the room type*/}
       <div className="roomDetails-container-menus">
         <div
           className="roomDetails-container-menu-header"
@@ -326,11 +343,67 @@ const RoomDetails = () => {
             btnName="View All"
             color="blue"
             buttonType="button"
-            onClick={handleViewAll}
+            onClick={handleViewAllRoomType}
           />
         </div>
       </div>
 
+      {/* The table  to display all the rooms type*/}
+      <div className="app__roomMDetails-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Room type ID </th>
+              <th>Room Type </th>
+              <th>Room Rates</th>
+              <th>Room Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allRoomType.map((room, index) => {
+              return (
+                <tr
+                  onClick={(e) => handleUpdateInfos(room)}
+                  className={
+                    !addOnSubmitRoomT
+                      ? "doctor-infos select-serviceID"
+                      : "doctor-infos"
+                  }
+                  key={index}
+                >
+                  <td>{room.roomTypeID}</td>
+                  <td>{room.roomType}</td>
+                  <td>{room.roomRates}</td>
+                  <td>{room.roomNotes}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* The popup to delete room type */}
+      {showPopupDelete && (
+        <div style={{ position: "" }}>
+          <div
+            style={{ position: "absolute" }}
+            className="schedule-delete-popup"
+          >
+            <p>
+              Do you really want to delete <br />
+              the Service with ID of {inputs.roomTypeID} ?
+            </p>
+            <div className="delete-buttons">
+              <button onClick={handleClosePopup}> Cancel</button>
+              <button onClick={() => handleDeleteRoomType(roomTID)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mini form for the room details */}
       <div className="roomDetails-container">
         <h2>ROOM DETAILS</h2>
         <form>
@@ -344,7 +417,7 @@ const RoomDetails = () => {
               inputDisabled="true"
             />
           </div>
-          <div className="input-fields">
+          {/* <div className="input-fields">
             <label form="roomType"> Room Type:</label>
             <Input
               placeholder="Room Type"
@@ -353,7 +426,7 @@ const RoomDetails = () => {
               value={lastElement ? lastElement.roomType : ""}
               inputDisabled="true"
             />
-          </div>
+          </div> */}
           <div className="input-fields">
             <label form="roomRates"> Room Rates:</label>
             <Input
@@ -376,27 +449,6 @@ const RoomDetails = () => {
           </div>
         </form>
       </div>
-
-      {/* The popup to delete */}
-      {showPopupDelete && (
-        <div style={{ position: "" }}>
-          <div
-            style={{ position: "absolute" }}
-            className="schedule-delete-popup"
-          >
-            <p>
-              Do you really want to delete <br />
-              the Service with ID of {inputs.roomTypeID} ?
-            </p>
-            <div className="delete-buttons">
-              <button onClick={handleClosePopup}> Cancel</button>
-              <button onClick={() => handleDeleteRoomType(roomTID)}>
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* The  container menu buttons */}
       <div className="roomDetails-container-menus">
@@ -472,7 +524,7 @@ const RoomDetails = () => {
             btnName="View All"
             color="blue"
             buttonType="button"
-            onClick={handleViewAll}
+            onClick={handleViewAllRooms}
           />
         </div>
       </div>

@@ -34,10 +34,13 @@ const RoomMoreDetails = ({
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [allRooms, setAllRooms] = useState([]);
   const [allRoomsType, setAllRoomsType] = useState([]);
+  const [showDocDetailTable, setShowDocDetailTable] = useState(false);
+  const [pickedRoomRate, setPickedRoomRate] = useState("");
+  const [roomRateIsPicked, setRoomRateIsPicked] = useState(false);
 
   const roomsDetails = useSelector(selectRoomsDetails);
 
-  const handleOnChangeAppointment = (e) => {
+  const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputs({
       ...inputs,
@@ -169,6 +172,7 @@ const RoomMoreDetails = ({
     setShowPopupDelete(false);
   };
 
+  // Function to field the form according to the selected field
   const handleUpdateInfos = (room) => {
     if (!addOnSubmit) {
       setInputs({
@@ -180,6 +184,24 @@ const RoomMoreDetails = ({
 
       setDisabledInput(true);
     }
+  };
+
+  const handleShowDocDetailsTable = () => {
+    setShowDocDetailTable(true);
+  };
+  const handleCloseRoomTDetailsTable = () => {
+    setShowDocDetailTable(false);
+  };
+
+  // Passing the doctor Id to the form when selected
+  const handleSelectRoomRate = (roomRate) => {
+    setShowDocDetailTable(false);
+    setPickedRoomRate(roomRate);
+    setInputs({
+      ...inputs,
+      roomRates: roomRate,
+    });
+    setRoomRateIsPicked(true);
   };
 
   return (
@@ -206,7 +228,7 @@ const RoomMoreDetails = ({
                   placeholder="Room ID"
                   name="roomID"
                   value={inputs.roomID}
-                  handleOnChange={handleOnChangeAppointment}
+                  handleOnChange={handleOnChange}
                   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
               </div>
@@ -215,26 +237,32 @@ const RoomMoreDetails = ({
                 className="input-field doctor-types"
                 style={{ paddingLeft: "3rem" }}
               >
-                <label htmlFor="roomType"> Room Type</label>
+                <label htmlFor="roomRates"> Room Type</label>
                 <div>
                   <select
-                    name="roomType"
-                    id="roomType"
-                    value={inputs.roomType}
-                    onChange={handleOnChangeAppointment}
+                    name="roomRates"
+                    id="roomRates"
+                    value={inputs.roomRates}
+                    onChange={handleOnChange}
                     required
                   >
-                    {/* <option required value={docIDisPicked}>
-                      {docIDisPicked ? pickedDoctorID : "Select a doctor ID"}
+                    {/* <option required value="">
+                      Select a room rate
                     </option> */}
+                    <option required value={roomRateIsPicked}>
+                      {roomRateIsPicked ? pickedRoomRate : "Select a room rate"}
+                    </option>
                     {allRoomsType.map((roomType, index) => (
-                      <option key={index} value={roomType.roomType}>
-                        {roomType.roomType}
+                      <option key={index} value={roomType.roomRates}>
+                        {roomType.roomRates}
                       </option>
                     ))}
                   </select>
 
-                  <span onClick="" className="btn-seeAll">
+                  <span
+                    onClick={handleShowDocDetailsTable}
+                    className="btn-seeAll"
+                  >
                     See All
                   </span>
                 </div>
@@ -247,7 +275,7 @@ const RoomMoreDetails = ({
                   name="roomType"
                   id="roomType"
                   value={inputs.roomType}
-                  handleOnChange={handleOnChangeAppointment}
+                  handleOnChange={handleOnChange}
 
                   // readOnly
                 />
@@ -259,7 +287,7 @@ const RoomMoreDetails = ({
                   name="roomRates"
                   id="roomRates"
                   value={inputs.roomRates}
-                  handleOnChange={handleOnChangeAppointment}
+                  handleOnChange={handleOnChange}
                 />
               </div> */}
 
@@ -270,7 +298,7 @@ const RoomMoreDetails = ({
                   name="roomDesc"
                   id="roomDesc"
                   value={inputs.roomDesc}
-                  handleOnChange={handleOnChangeAppointment}
+                  handleOnChange={handleOnChange}
                 />
               </div>
               {!openScheduleDelete && (
@@ -290,13 +318,13 @@ const RoomMoreDetails = ({
             </div>
           </form>
 
-          {/* The table  to display the schedules*/}
+          {/* The table  to display all the rooms*/}
           <div className="app__roomMDetails-table">
             <table>
               <thead>
                 <tr>
                   <th>Room ID </th>
-                  <th>Room Type </th>
+                  {/* <th>Room Type </th> */}
                   <th>Room Rates</th>
                   <th>Room Description</th>
                 </tr>
@@ -314,7 +342,7 @@ const RoomMoreDetails = ({
                       key={index}
                     >
                       <td>{room.roomID}</td>
-                      <td>{room.roomType}</td>
+                      {/* <td>{room.roomType}</td> */}
                       <td>{room.roomRates}</td>
                       <td>{room.roomDesc}</td>
                     </tr>
@@ -358,7 +386,7 @@ const RoomMoreDetails = ({
               <div className="schedule-delete-popup">
                 <p>
                   Do you really want to delete <br />
-                  the Service with ID of {inputs.schedulingID} ?
+                  the Service with ID of {inputs.roomID} ?
                 </p>
                 <div className="delete-buttons">
                   <button onClick={handleClosePopup}> Cancel</button>
@@ -371,6 +399,48 @@ const RoomMoreDetails = ({
           )}
         </div>
       </div>
+
+      {/* The table for see all rooms type  and select one */}
+      {showDocDetailTable && (
+        <div className="appScheduling-table-id">
+          <div onClick={handleCloseRoomTDetailsTable} className="close-tableID">
+            close
+          </div>
+          <h2>ROOMS TYPES DETAILS</h2>
+          <div className="appScheduling-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Room Type ID </th>
+                  <th>Room Type</th>
+                  <th>Room Rates</th>
+                  <th>Room Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allRoomsType.map((room, index) => {
+                  return (
+                    <tr
+                      className="doctor-infos select-doctorID"
+                      onClick={(e) => handleSelectRoomRate(room.roomRates)}
+                      key={index}
+                      style={{
+                        cursor: "pointer",
+                        hover: { backgroundColor: "green" },
+                      }}
+                    >
+                      <td>{room.roomTypeID}</td>
+                      <td>{room.roomType}</td>
+                      <td>{room.roomRates}</td>
+                      <td>{room.roomNotes}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </>
   );
 };

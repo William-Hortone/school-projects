@@ -1,28 +1,24 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, Header } from "../../../components";
-import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
 
-const VizAllRooms = () => {
+const VizRoomType = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOptions, setSearchOptions] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [hideData, setHideDada] = useState(false);
   const [hideDataSearched, setHideDataSearched] = useState(true);
 
-  const [myData, setMyData] = useState([]);
+  const [allRoomsType, setAllRoomsType] = useState([]);
   const navigate = useNavigate();
 
-  const roomsDetails = useSelector(selectRoomsDetails);
-
-  // To Get all the available rooms
-  const API_URL = "http://localhost:3001/getRoomsDetails";
+  // To Get all the available rooms type
+  const API_URL = "http://localhost:3001/getRoomTypes";
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
-    setMyData(data);
+    setAllRoomsType(data);
   };
 
   useEffect(() => {
@@ -31,16 +27,18 @@ const VizAllRooms = () => {
 
   // Function to search
   const handleSearch = () => {
-    // search by the first name
-    if (searchOptions === "doctorId") {
-      const result = roomsDetails.filter(
-        (room) => room.roomType === searchTerm
+    // search by the room Type ID
+    if (searchOptions === "roomTypeID") {
+      const result = allRoomsType.filter(
+        (room) => room.roomTypeID === searchTerm
       );
       setSearchResult(result);
     }
-    // search by the ID
-    else if (searchOptions === "scheduleId") {
-      const result = roomsDetails.filter((room) => room.roomID === searchTerm);
+    // search by the room type rates
+    else if (searchOptions === "roomRates") {
+      const result = allRoomsType.filter(
+        (room) => room.roomRates === searchTerm
+      );
       setSearchResult(result);
     }
     setHideDada(true);
@@ -67,21 +65,21 @@ const VizAllRooms = () => {
             <table>
               <thead>
                 <tr>
-                  <th>Room ID </th>
-                  {/* <th>Room Type</th> */}
+                  <th>Room Type ID </th>
+                  <th>Room Type</th>
                   <th>Room Rates</th>
-                  <th>Room DEscription</th>
+                  <th>Room Notes</th>
                 </tr>
               </thead>
               <tbody>
                 {!hideData &&
-                  myData.map((room, index) => {
+                  allRoomsType.map((room, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{room.roomID}</td>
-                        {/* <td>{room.roomType}</td> */}
+                        <td>{room.roomTypeID}</td>
+                        <td>{room.roomType}</td>
                         <td>{room.roomRates}</td>
-                        <td>{room.roomDesc}</td>
+                        <td>{room.roomNotes}</td>
                       </tr>
                     );
                   })}
@@ -91,10 +89,10 @@ const VizAllRooms = () => {
                   searchResult.map((room, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{room.roomID}</td>
-                        {/* <td>{room.roomType}</td> */}
+                        <td>{room.roomTypeID}</td>
+                        <td>{room.roomType}</td>
                         <td>{room.roomRates}</td>
-                        <td>{room.roomDesc}</td>
+                        <td>{room.roomNotes}</td>
                       </tr>
                     );
                   })}
@@ -133,8 +131,8 @@ const VizAllRooms = () => {
                   onChange={(e) => setSearchOptions(e.target.value)}
                 >
                   <option value="">Select one option</option>
-                  <option value="scheduleId">Room ID</option>
-                  <option value="doctorId">Room Type</option>
+                  <option value="roomTypeID">Room Type ID</option>
+                  <option value="roomRates">Room Rates</option>
                 </select>
               </div>
               <div className="content">
@@ -154,4 +152,4 @@ const VizAllRooms = () => {
   );
 };
 
-export default VizAllRooms;
+export default VizRoomType;

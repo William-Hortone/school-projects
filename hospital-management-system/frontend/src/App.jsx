@@ -23,6 +23,7 @@ import {
   VizDocApp,
   VizDoctorDetails,
   VizHospitalSer,
+  VizRoomType,
   WardDetails,
 } from "./containers";
 import { Home } from "./pages";
@@ -88,6 +89,7 @@ function App() {
           <Route path="/vizRooms" element={<VizAllRooms />} />
           <Route path="/vizAllWards" element={<ViewWardDetails />} />
           <Route path="/vizAllUsers" element={<ViewAllUsers />} />
+          <Route path="/VizRoomType" element={<VizRoomType />} />
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>
