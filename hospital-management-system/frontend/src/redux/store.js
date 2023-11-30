@@ -1,13 +1,15 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import authReducer from "./slice/authSlice";
+// import authReducer from "./slice/authSlice";
 import doctorReducer from "./slice/doctorSlice";
 import medicalSReducer from "./slice/medicalServiceSlice";
 import roomReducer from "./slice/roomsSlice";
 import wardReducer from "./slice/wardSlice";
 import addedUserReducer from "./slice/addedUserSlide";
+import userReducer from "./slice/userSlide";
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  user: userReducer,
+  // auth: authReducer,
   doctor: doctorReducer,
   medical: medicalSReducer,
   room: roomReducer,

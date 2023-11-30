@@ -1,42 +1,84 @@
-import React, { useState } from "react";
-import "./login.css";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth } from "../../firebase/config";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { auth } from "../../firebase/config";
+import { IS_USER_LOGIN } from "../../redux/slice/userSlide";
 import Loader from "../loader/Loader";
+import "./login.css";
+
+import Cookies from "js-cookie";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/userLogin",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
 
-    setIsLoading(true);
+      if (response.data && response.data.success) {
+        const { name, email, role } = response.data.user;
+        // localStorage.setItem("token", response.data.token);
+        Cookies.set("token", response.data.token);
+        Cookies.set("userDetails", JSON.stringify({ name, email, role }));
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+        console.log("Login successful");
         toast.success("login success");
-        setIsLoading(false);
 
+        dispatch(
+          IS_USER_LOGIN({
+            email: email,
+            name: name,
+            role: role,
+          })
+        );
         navigate("/adminDashboard/dashboard");
-      })
-      .catch((error) => {
-        toast.error(error.message);
-        setIsLoading(false);
-      });
+      } else {
+        console.log("User not logged in");
+        console.error("Login failed. No data in the response:", response);
+      }
+    } catch (error) {
+      console.error("Login failed", error.response?.data || error.message);
+    }
   };
+
+  // useEffect(() => {
+  //   console.log("MY   ---User logged in", userName, userRole, userEmail);
+  // }, [userName, userRole, userEmail]);
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   setIsLoading(true);
+
+  //   signInWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       const user = userCredential.user;
+  //       toast.success("login success");
+  //       setIsLoading(false);
+
+  //       navigate("/adminDashboard/dashboard");
+  //     })
+  //     .catch((error) => {
+  //       toast.error(error.message);
+  //       setIsLoading(false);
+  //     });
+  // };
 
   // login with google
   const provider = new GoogleAuthProvider();
@@ -58,7 +100,7 @@ const Login = () => {
       <div className="app__register">
         <div className="app__register-section">
           <h2>Login</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleLogin}>
             <label htmlFor="email">Email</label>
             <input
               type="text"

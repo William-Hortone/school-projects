@@ -1,14 +1,16 @@
-import "./App.css";
-import { useEffect, useState } from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Login, Register, Reset } from "./components";
-import { Home, HomeAdmin } from "./pages";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
+import { Login, Register, Reset } from "./components";
 import {
   AddUser,
   AdminDashboard,
   AppScheduling,
+  BedDetails,
   DDetails,
   Dashboard,
   MedicalServices,
@@ -23,7 +25,8 @@ import {
   VizHospitalSer,
   WardDetails,
 } from "./containers";
-import { useDispatch } from "react-redux";
+import { Home } from "./pages";
+import fetchAddedUserDetails from "./redux/actions/addedUser";
 import fetchDoctorDetails, {
   fetchDocAppointments,
 } from "./redux/actions/doctors.action";
@@ -32,10 +35,30 @@ import fetchMedicalService, {
 } from "./redux/actions/medicalService.action";
 import fetchRoomsDetails from "./redux/actions/room.action";
 import fetchWardDetails from "./redux/actions/ward.actions";
-import fetchAddedUserDetails from "./redux/actions/addedUser";
+import { IS_USER_LOGIN, REMOVE_ACTIVE_USER } from "./redux/slice/userSlide";
 
 function App() {
   const dispatch = useDispatch();
+
+  // Set a cookie and keep track  the infos of the current user
+  useEffect(() => {
+    const storedToken = Cookies.get("token");
+    const storedUserDetails = Cookies.get("userDetails");
+
+    if (storedToken) {
+      const { email, name, role } = JSON.parse(storedUserDetails);
+
+      dispatch(
+        IS_USER_LOGIN({
+          email: email,
+          name: name,
+          role: role,
+        })
+      );
+    } else {
+      dispatch(REMOVE_ACTIVE_USER());
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchDoctorDetails());
@@ -88,6 +111,7 @@ function App() {
               element={<WardDetails />}
             />
             <Route path="/adminDashboard/addUser" element={<AddUser />} />
+            <Route path="/adminDashboard/bedDetails" element={<BedDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>

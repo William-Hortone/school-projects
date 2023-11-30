@@ -2,12 +2,13 @@ import AdminDashboard from "./adminDashbord/AdminDashboard";
 import Dashboard from "./dashboard/Dashboard";
 import AppScheduling from "./doctors/appSheduling/AppScheduling";
 import DDetails from "./doctors/dDetails/DDetails";
-// import DoctorAppointment from "./doctors/doctorAppointment/DoctorAppointment";
-// import DoctorDetails from "./doctors/doctorDetails/DoctorDetails";
 import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
 import Scheduling from "./doctors/scheduling/Scheduling";
 import VizDocApp from "./doctors/vizDocApp/VizDocApp";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
+import BedDetails from "./rooms/bedDetails/BedDetails";
+import BedMoreDetails from "./rooms/bedMoreDetails/BedMoreDetails";
+// import { BedMoreDetails } from "./rooms/bedMoreDetails/BedMoreDetails";
 import RoomDetails from "./rooms/roomDetails/RoomDetails";
 import RoomMoreDetails from "./rooms/roomMoreDetails/RoomMoreDetails";
 import ViewRooms from "./rooms/viewRooms/ViewRooms";
@@ -48,4 +49,6 @@ export {
   VizHospitalSer,
   VizAllRooms,
   ViewAllUsers,
+  BedMoreDetails,
+  BedDetails,
 };

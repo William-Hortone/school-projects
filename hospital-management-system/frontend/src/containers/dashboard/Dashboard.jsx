@@ -78,10 +78,6 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    console.log("the mondayValue", mondayValue);
-  }, [mondayValue]);
-
-  useEffect(() => {
     const filterDays = async () => {
       try {
         const result = await appInfos.filter((item) =>
@@ -273,7 +269,7 @@ const Dashboard = () => {
               </div>
               <div className="container_content">
                 <div className="container_content-header">
-                  <h4>Appointments</h4>
+                  <h4>PATIENTS</h4>
                 </div>
                 <div className="chart-container">
                   <LineChart width={350} height={230} data={lChartData}>

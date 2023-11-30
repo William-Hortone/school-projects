@@ -19,12 +19,21 @@ const RoomMoreDetails = ({
     roomDesc: "",
   });
 
+  // To Get all room Details
   const API_URL = "http://localhost:3001/getRoomsDetails";
+
+  // To Get all room Type
+  const API_URL_ROOM_TYPE = "http://localhost:3001/getRoomTypes";
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const [roomId, setRoomId] = useState("");
   const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [allRooms, setAllRooms] = useState([]);
+  const [allRoomsType, setAllRoomsType] = useState([]);
 
   const roomsDetails = useSelector(selectRoomsDetails);
 
@@ -36,11 +45,18 @@ const RoomMoreDetails = ({
     });
   };
 
+  const fetchDataRoomType = async () => {
+    const { data } = await axios.get(API_URL_ROOM_TYPE);
+    setAllRoomsType(data);
+  };
+
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
     setAllRooms(data);
   };
+
   useEffect(() => {
+    fetchDataRoomType();
     fetchData();
   }, []);
 
@@ -195,7 +211,36 @@ const RoomMoreDetails = ({
                 />
               </div>
 
-              <div className="input-fields">
+              <div
+                className="input-field doctor-types"
+                style={{ paddingLeft: "3rem" }}
+              >
+                <label htmlFor="roomType"> Room Type</label>
+                <div>
+                  <select
+                    name="roomType"
+                    id="roomType"
+                    value={inputs.roomType}
+                    onChange={handleOnChangeAppointment}
+                    required
+                  >
+                    {/* <option required value={docIDisPicked}>
+                      {docIDisPicked ? pickedDoctorID : "Select a doctor ID"}
+                    </option> */}
+                    {allRoomsType.map((roomType, index) => (
+                      <option key={index} value={roomType.roomType}>
+                        {roomType.roomType}
+                      </option>
+                    ))}
+                  </select>
+
+                  <span onClick="" className="btn-seeAll">
+                    See All
+                  </span>
+                </div>
+              </div>
+
+              {/* <div className="input-fields">
                 <label htmlFor="roomType"> Room Type:</label>
                 <Input
                   placeholder="Room Type"
@@ -206,8 +251,8 @@ const RoomMoreDetails = ({
 
                   // readOnly
                 />
-              </div>
-              <div className="input-fields">
+              </div> */}
+              {/* <div className="input-fields">
                 <label htmlFor="roomRates"> Room Rates:</label>
                 <Input
                   placeholder="Room Rates"
@@ -216,7 +261,7 @@ const RoomMoreDetails = ({
                   value={inputs.roomRates}
                   handleOnChange={handleOnChangeAppointment}
                 />
-              </div>
+              </div> */}
 
               <div className="input-fields">
                 <label htmlFor="roomDesc"> Room Description:</label>

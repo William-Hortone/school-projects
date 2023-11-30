@@ -42,6 +42,9 @@ const AdminDashboard = () => {
             <NavLink to="/adminDashboard/addUser" className={activeLink}>
               Add User
             </NavLink>
+            <NavLink to="/adminDashboard/bedDetails" className={activeLink}>
+              Add Bed
+            </NavLink>
           </ul>
         </aside>
 
