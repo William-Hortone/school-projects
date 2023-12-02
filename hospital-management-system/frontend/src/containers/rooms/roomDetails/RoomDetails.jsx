@@ -91,7 +91,7 @@ const RoomDetails = () => {
       .catch((err) => console.log(err));
   };
 
-  // The function to update
+  // The function to update the room type
   const handleUSubmitUpdate = (e, roomTID) => {
     e.preventDefault();
     axios

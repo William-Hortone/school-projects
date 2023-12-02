@@ -12,6 +12,7 @@ const wardRoutes = require("./routes/wardDetails");
 const addedUserRoutes = require("./routes/addedUserInfos");
 const usersRoutes = require("./routes/userConnection");
 const roomTypeRoutes = require("./routes/roomTypeInfos");
+const wardTypeRoutes = require("./routes/wardTypeInfos");
 
 const app = express();
 app.use(express.json());
@@ -43,6 +44,8 @@ app.use(wardRoutes);
 app.use(addedUserRoutes);
 
 app.use(roomTypeRoutes);
+
+app.use(wardTypeRoutes);
 
 app.listen(3001, () => {
   console.log("The server is running");
