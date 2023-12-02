@@ -105,3 +105,21 @@ li {
   background-color: var(--color-primary);
   color: white;
 }
+.box-input-radio {
+  font-size: 1.2rem !important;
+  height: 30px !important;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  /* justify-content: flex-start !important; */
+  /* width: fit-content !important; */
+}
+.input-radio {
+  font-size: 2rem !important;
+  height: 30px !important;
+  width: 30px !important;
+  margin: 0 !important;
+  /* width: fit-content !important; */
+}

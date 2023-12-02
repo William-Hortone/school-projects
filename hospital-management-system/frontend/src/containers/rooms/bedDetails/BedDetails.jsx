@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
 import { Input, ButtonAction, ButtonSkip } from "../../../components";
 import { BedMoreDetails } from "../..";
+import axios from "axios";
 // import BedMoreDetails from "../bedMoreDetails/BedMoreDetails";
 // import { BedMoreDetails } from "../..";
 // import { BedMoreDetails } from "../bedMoreDetails/BedMoreDetails";
@@ -17,22 +18,33 @@ const BedDetails = () => {
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const [isEmpty, setIsEmpty] = useState(true);
+  const [allBeds, setAllBeds] = useState([]);
 
   const docAppointmentDetails = useSelector(selectDocAppointment);
   const [usersLength, setUsersLength] = useState(
     docAppointmentDetails.length - 1
   );
-  const [lastElement, setLastElement] = useState(
-    docAppointmentDetails[usersLength]
-  );
+  const [lastElement, setLastElement] = useState(allBeds[usersLength]);
+
+  // To Get all the available beds
+  const API_URL = "http://localhost:3001/getBedsDetails";
+
+  const fetchData = async () => {
+    const { data } = await axios.get(API_URL);
+    setAllBeds(data);
+  };
 
   useEffect(() => {
-    setUsersLength(docAppointmentDetails.length - 1);
-  }, [docAppointmentDetails.length]);
+    fetchData();
+  }, []);
 
   useEffect(() => {
-    setLastElement(docAppointmentDetails[usersLength]);
-  }, [usersLength, docAppointmentDetails]);
+    setUsersLength(allBeds.length - 1);
+  }, [allBeds.length]);
+
+  useEffect(() => {
+    setLastElement(allBeds[usersLength]);
+  }, [usersLength, allBeds]);
 
   const navigate = useNavigate();
 
@@ -54,7 +66,7 @@ const BedDetails = () => {
     navigate("/adminDashboard/dashboard");
   };
   const handleViewAll = () => {
-    navigate("/vizDocApp");
+    navigate("/VizAllBed");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -76,15 +88,15 @@ const BedDetails = () => {
 
   // Display the infos of the next element
   const handleShowNext = () => {
-    if (usersLength < docAppointmentDetails.length - 1) {
+    if (usersLength < allBeds.length - 1) {
       setUsersLength(usersLength + 1);
-      if (usersLength == docAppointmentDetails.length - 1) {
+      if (usersLength == allBeds.length - 1) {
         return;
       }
     }
   };
   const handleShowLastEl = () => {
-    setUsersLength(docAppointmentDetails.length - 1);
+    setUsersLength(allBeds.length - 1);
   };
 
   return (
@@ -102,7 +114,7 @@ const BedDetails = () => {
               inputDisabled="true"
               placeholder="Scheduling ID"
               name="schedulingID"
-              value={lastElement ? lastElement.schedulingID : ""}
+              value={lastElement ? lastElement.bedID : ""}
             />
           </div>
           <div className="input-field">
@@ -111,51 +123,20 @@ const BedDetails = () => {
               placeholder="Doctor ID"
               name="doctorID"
               inputDisabled="true"
-              value={lastElement ? lastElement.doctorID : ""}
+              value={lastElement ? lastElement.bedPlace : ""}
             />
           </div>
           <div className="input-field">
             <label form="doctorId"> Bed Description :</label>
-            <textarea name="" id="" cols="39" rows="10"></textarea>
+            <textarea
+              name=""
+              id=""
+              cols="39"
+              rows="10"
+              value={lastElement ? lastElement.bedDesc : ""}
+              // disabled
+            ></textarea>
           </div>
-          {/* <div className="input-field">
-            <label form="timeIn"> Time In:</label>
-            <Input
-              placeholder="time In"
-              name="timeIn"
-              id="timeIn"
-              inputDisabled="true"
-              value={lastElement ? lastElement.timeIn : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="timeOut"> Time Out:</label>
-            <Input
-              placeholder="Time Out"
-              name="timeOut"
-              inputDisabled="true"
-              value={lastElement ? lastElement.timeOut : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="availableDays"> Available Days:</label>
-            <Input
-              inputDisabled="true"
-              placeholder="Available Days"
-              name="availableDays"
-              value={lastElement ? lastElement.selectedDays : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="schedulingNotes"> Scheduling Notes:</label>
-            <Input
-              placeholder="Scheduling Notes"
-              name="schedulingNotes"
-              id="schedulingNotes"
-              inputDisabled="true"
-              value={lastElement ? lastElement.schedulingNotes : ""}
-            />
-          </div> */}
         </form>
       </div>
 
@@ -163,39 +144,21 @@ const BedDetails = () => {
         <table>
           <thead>
             <tr>
-              <th>Schedule ID </th>
-              <th>Doctor ID </th>
-              <th>Time In</th>
-              <th>Time Out</th>
-              <th>Available Days</th>
-              <th>Schedule Notes</th>
+              <th>Bed ID </th>
+              <th>Bed Place </th>
+              <th>Bed Description</th>
             </tr>
           </thead>
           <tbody>
-            {docAppointmentDetails.map((docAppointment, index) => {
+            {allBeds.map((bed, index) => {
               return (
                 <tr className="doctor-infos" key={index}>
-                  <td>{docAppointment.schedulingID}</td>
-                  <td>{docAppointment.doctorID}</td>
-                  <td>{docAppointment.timeIn}</td>
-                  <td>{docAppointment.timeOut}</td>
-                  <td>{docAppointment.selectedDays}</td>
-                  <td>{docAppointment.schedulingNotes}</td>
+                  <td>{bed.bedID}</td>
+                  <td>{bed.bedPlace}</td>
+                  <td>{bed.bedDesc}</td>
                 </tr>
               );
             })}
-            {/* {hideDataSearched &&
-                  searchResult.map((medicalService, index) => {
-                    return (
-                      <tr className="doctor-infos" key={index}>
-                        <td>{medicalService.serviceID}</td>
-                        <td>{medicalService.serviceName}</td>
-                        <td>{medicalService.amount}</td>
-                        <td>{medicalService.duration}</td>
-                        <td>{medicalService.additionalNotes}</td>
-                      </tr>
-                    );
-                  })} */}
           </tbody>
         </table>
       </div>

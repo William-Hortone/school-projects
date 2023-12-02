@@ -8,11 +8,11 @@ import VizDocApp from "./doctors/vizDocApp/VizDocApp";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
 import BedDetails from "./rooms/bedDetails/BedDetails";
 import BedMoreDetails from "./rooms/bedMoreDetails/BedMoreDetails";
-// import { BedMoreDetails } from "./rooms/bedMoreDetails/BedMoreDetails";
 import RoomDetails from "./rooms/roomDetails/RoomDetails";
 import RoomMoreDetails from "./rooms/roomMoreDetails/RoomMoreDetails";
 import ViewRooms from "./rooms/viewRooms/ViewRooms";
 import ViewWardDetails from "./rooms/viewWardDetails/ViewWardDetails";
+import VizAllBeds from "./rooms/vizAllBeds/VizAllBeds";
 import VizAllRooms from "./rooms/vizAllRooms/VizAllRooms";
 import VizRoomType from "./rooms/vizRoomType/VizRoomType";
 import WardDetails from "./rooms/wardDetails/WardDetails";
@@ -53,4 +53,5 @@ export {
   BedMoreDetails,
   BedDetails,
   VizRoomType,
+  VizAllBeds,
 };

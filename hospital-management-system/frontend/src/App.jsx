@@ -19,6 +19,7 @@ import {
   ViewAllUsers,
   ViewHospitalSD,
   ViewWardDetails,
+  VizAllBeds,
   VizAllRooms,
   VizDocApp,
   VizDoctorDetails,
@@ -90,6 +91,7 @@ function App() {
           <Route path="/vizAllWards" element={<ViewWardDetails />} />
           <Route path="/vizAllUsers" element={<ViewAllUsers />} />
           <Route path="/VizRoomType" element={<VizRoomType />} />
+          <Route path="/VizAllBed" element={<VizAllBeds />} />
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>

@@ -107,7 +107,7 @@ const RoomDetails = () => {
     setShowBtn(true);
   };
 
-  // Function to delete
+  // Function to delete the room type
   const handleDeleteRoomType = (roomTID) => {
     axios
       .delete(`http://localhost:3001/deleteRoomType/${roomTID}`)
