@@ -6,6 +6,10 @@ const BedSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  admissionID: {
+    type: String,
+    unique: true,
+  },
   bedPlace: String,
   bedDesc: String,
   isDisplayed: {
