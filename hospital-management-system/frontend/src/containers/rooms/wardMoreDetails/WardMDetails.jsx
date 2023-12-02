@@ -13,20 +13,33 @@ const WardMoreDetails = ({
   openScheduleDelete,
 }) => {
   const [inputs, setInputs] = useState({
-    roomID: "",
-    roomType: "",
-    roomRates: "",
-    roomDesc: "",
+    wardID: "",
+    wardType: "",
+    wardRates: "",
+    wardDesc: "",
   });
 
   const [id, setId] = useState("");
-  const [pickedServiceID, setPickedWardID] = useState("");
-  const [docIDisPicked, setWarIDisPicked] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [showDocDetailTable, setShowDocDetailTable] = useState(false);
+  const [roomRateIsPicked, setRoomRateIsPicked] = useState(false);
+  const [pickedRoomRate, setPickedRoomRate] = useState("");
+  const [allWardType, setAllWardType] = useState([]);
 
   const wardsDetails = useSelector(selectWardDetails);
+
+  // To Get all ward Types
+  const API_URL = "http://localhost:3001/getWardTypes";
+
+  const fetchData = async () => {
+    const { data } = await axios.get(API_URL);
+    setAllWardType(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -51,17 +64,7 @@ const WardMoreDetails = ({
     });
   };
 
-  // To Display only selected days
-  // useEffect(() => {
-  //   const selectedDays = Object.keys(availableDays).filter(
-  //     (day) => availableDays[day]
-  //   );
-  //   const selectedDaysString = selectedDays.join(", ");
-  //   setSelectedDays(selectedDaysString);
-  //   setRoomId(inputs.schedulingID);
-  // }, [availableDays, input, inputs.schedulingID]);
-
-  // function to add room  a new roo ID
+  // function to add  a new ward ID
   const handleAddWardDetails = () => {
     if (addOnSubmit) {
       // Initialize the Id if the array is empty
@@ -134,7 +137,7 @@ const WardMoreDetails = ({
     }
   };
 
-  // Delete a ward
+  // Function to Delete a ward
   const handleDeleteWard = (wardId) => {
     if (id === undefined || id === "") {
       toast.error("Please provide a Ward ID");
@@ -156,37 +159,6 @@ const WardMoreDetails = ({
     setShowPopupDelete(false);
   };
 
-  // Passing the Service Id to the form when selected
-  // const handleServiceId = (serID) => {
-  //   setShowDocDetailTable(false);
-  //   setPickedWardID(serID);
-  //   setInputs({
-  //     ...inputs,
-  //     serviceID: serID,
-  //   });
-  //   setWarIDisPicked(true);
-  // };
-
-  // automatically fill the form when click on one row of the table
-  // const handleUpdateInfos = (room) => {
-  //   if (!addOnSubmit) {
-  //     setInputs({
-  //       roomID: room.roomID,
-  //       roomType: room.roomType,
-  //       roomRates: room.roomRates,
-  //       roomDesc: room.roomDesc,
-  //     });
-
-  //     // setSelectedDays(room.selectedDays);
-  //     setRoomId(room.roomID);
-  //     console.log("Room iD selected", roomId);
-  //     console.log("Room iD ", inputs.roomID);
-  //     // setPickedWardID(room.roomID);
-  //     // setWarIDisPicked(true);
-  //     setDisabledInput(true);
-  //   }
-  // };
-
   const handleUpdateInfos = (ward) => {
     if (!addOnSubmit) {
       setInputs({
@@ -196,33 +168,28 @@ const WardMoreDetails = ({
         wardDesc: ward.wardDesc,
       });
 
-      setPickedWardID(ward.wardID);
-      setWarIDisPicked(true);
       setDisabledInput(true);
     }
   };
 
-  // Delete a service schedule
-  // const handleDeleteWard = (scheduleId) => {
-  //   if (scheduleId === undefined || scheduleId === "") {
-  //     toast.error("Please provide a Scheduling ID");
-  //   } else {
-  //     axios
-  //       .put(`http://localhost:3001/deleteHospitalSchedule/${scheduleId}`)
-  //       .then((res) => {
-  //         if (res.data === "success") {
-  //           toast.success("Deleted Successfully");
-  //         }
-  //         if (res.data === "notfound") {
-  //           toast.error("Service not found");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         toast.error(error);
-  //       });
-  //   }
-  //   setShowPopupDelete(false);
-  // };
+  const handleShowDocDetailsTable = () => {
+    setShowDocDetailTable(true);
+  };
+
+  const handleCloseWardTDetailsTable = () => {
+    setShowDocDetailTable(false);
+  };
+
+  // Passing the Ward Id to the form when selected
+  const handleSelectWardRate = (wardRates) => {
+    setShowDocDetailTable(false);
+    setPickedRoomRate(wardRates);
+    setInputs({
+      ...inputs,
+      wardRates: wardRates,
+    });
+    setRoomRateIsPicked(true);
+  };
 
   return (
     <>
@@ -251,27 +218,36 @@ const WardMoreDetails = ({
                 />
               </div>
 
-              <div className="input-fields">
-                <label htmlFor="wardType"> Ward Type:</label>
-                <Input
-                  placeholder="Ward Type"
-                  name="wardType"
-                  id="wardType"
-                  value={inputs.wardType}
-                  handleOnChange={handleOnChange}
+              <div
+                className="input-field doctor-types"
+                style={{ paddingLeft: "3rem" }}
+              >
+                <label htmlFor="wardRates"> Ward Rates</label>
+                <div>
+                  <select
+                    name="wardRates"
+                    id="wardRates"
+                    value={inputs.wardRates}
+                    onChange={handleOnChange}
+                    required
+                  >
+                    <option required value={roomRateIsPicked}>
+                      {roomRateIsPicked ? pickedRoomRate : "Select a ward rate"}
+                    </option>
+                    {allWardType.map((wardType, index) => (
+                      <option key={index} value={wardType.wardRates}>
+                        {wardType.wardRates}
+                      </option>
+                    ))}
+                  </select>
 
-                  // readOnly
-                />
-              </div>
-              <div className="input-fields">
-                <label htmlFor="wardRates"> Ward Rates:</label>
-                <Input
-                  placeholder="Ward Rates"
-                  name="wardRates"
-                  id="wardRates"
-                  value={inputs.wardRates}
-                  handleOnChange={handleOnChange}
-                />
+                  <span
+                    onClick={handleShowDocDetailsTable}
+                    className="btn-seeAll"
+                  >
+                    See All
+                  </span>
+                </div>
               </div>
 
               <div className="input-fields">
@@ -301,13 +277,13 @@ const WardMoreDetails = ({
             </div>
           </form>
 
-          {/* The table  to display the schedules*/}
+          {/* The table  to display  all wards*/}
           <div className="app__roomMDetails-table">
             <table>
               <thead>
                 <tr>
                   <th>Ward ID </th>
-                  <th>Ward Type </th>
+                  {/* <th>Ward Type </th> */}
                   <th>Ward Rates</th>
                   <th>Ward Description</th>
                 </tr>
@@ -325,7 +301,7 @@ const WardMoreDetails = ({
                       key={index}
                     >
                       <td>{ward.wardID}</td>
-                      <td>{ward.wardType}</td>
+                      {/* <td>{ward.wardType}</td> */}
                       <td>{ward.wardRates}</td>
                       <td>{ward.wardDesc}</td>
                     </tr>
@@ -380,6 +356,48 @@ const WardMoreDetails = ({
           )}
         </div>
       </div>
+
+      {/* The table for see all wards Rates  and select one */}
+      {showDocDetailTable && (
+        <div className="appScheduling-table-id">
+          <div onClick={handleCloseWardTDetailsTable} className="close-tableID">
+            close
+          </div>
+          <h2>WARDS TYPES DETAILS</h2>
+          <div className="appScheduling-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ward Type ID </th>
+                  {/* <th>Ward Type</th> */}
+                  <th>Ward Rates</th>
+                  <th>Ward Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allWardType.map((ward, index) => {
+                  return (
+                    <tr
+                      className="doctor-infos select-doctorID"
+                      onClick={(e) => handleSelectWardRate(ward.wardRates)}
+                      key={index}
+                      style={{
+                        cursor: "pointer",
+                        hover: { backgroundColor: "green" },
+                      }}
+                    >
+                      <td>{ward.wardTypeID}</td>
+                      {/* <td>{ward.wardType}</td> */}
+                      <td>{ward.wardRates}</td>
+                      <td>{ward.wardNotes}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -52,10 +52,6 @@ const WardDetails = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log("all ward", allWardType);
-  }, [allWardType]);
-
   // To generate the id  for ward type
   const handleAddRoomType = () => {
     setShowBtn(true);

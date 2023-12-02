@@ -1,9 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, Header } from "../../../components";
-import { selectWardDetails } from "../../../redux/slice/wardSlice";
 
 const ViewWardDetails = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,8 +12,6 @@ const ViewWardDetails = () => {
 
   const [allWards, setAllWards] = useState([]);
   const navigate = useNavigate();
-
-  const wardsDetails = useSelector(selectWardDetails);
 
   // To Get all the available Wards
   const API_URL = "http://localhost:3001/getWardsDetails";
@@ -31,16 +27,14 @@ const ViewWardDetails = () => {
 
   // Function to search
   const handleSearch = () => {
-    // search by the first name
-    if (searchOptions === "doctorId") {
-      const result = wardsDetails.filter(
-        (ward) => ward.wardType === searchTerm
-      );
+    // search by the ward id
+    if (searchOptions === "wardIq") {
+      const result = allWards.filter((ward) => ward.wardID === searchTerm);
       setSearchResult(result);
     }
-    // search by the ID
-    else if (searchOptions === "wardId") {
-      const result = wardsDetails.filter((ward) => ward.wardID === searchTerm);
+    // search by the ward Rates
+    else if (searchOptions === "wardRates") {
+      const result = allWards.filter((ward) => ward.wardRates === searchTerm);
       setSearchResult(result);
     }
     setHideDada(true);
@@ -68,7 +62,7 @@ const ViewWardDetails = () => {
               <thead>
                 <tr>
                   <th>Ward ID </th>
-                  <th>Ward Type</th>
+                  {/* <th>Ward Type</th> */}
                   <th>Ward Rates</th>
                   <th>Ward DEscription</th>
                 </tr>
@@ -79,7 +73,7 @@ const ViewWardDetails = () => {
                     return (
                       <tr className="doctor-infos" key={index}>
                         <td>{ward.wardID}</td>
-                        <td>{ward.wardType}</td>
+                        {/* <td>{ward.wardType}</td> */}
                         <td>{ward.wardRates}</td>
                         <td>{ward.wardDesc}</td>
                       </tr>
@@ -92,7 +86,7 @@ const ViewWardDetails = () => {
                     return (
                       <tr className="doctor-infos" key={index}>
                         <td>{ward.wardID}</td>
-                        <td>{ward.wardType}</td>
+                        {/* <td>{ward.wardType}</td> */}
                         <td>{ward.wardRates}</td>
                         <td>{ward.wardDesc}</td>
                       </tr>
@@ -133,8 +127,8 @@ const ViewWardDetails = () => {
                   onChange={(e) => setSearchOptions(e.target.value)}
                 >
                   <option value="">Select one option</option>
-                  <option value="wardId">Ward ID</option>
-                  <option value="doctorId">Ward Type</option>
+                  <option value="wardIq">Ward ID</option>
+                  <option value="wardRates">Ward Rates</option>
                 </select>
               </div>
               <div className="content">

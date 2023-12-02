@@ -246,9 +246,6 @@ const RoomMoreDetails = ({
                     onChange={handleOnChange}
                     required
                   >
-                    {/* <option required value="">
-                      Select a room rate
-                    </option> */}
                     <option required value={roomRateIsPicked}>
                       {roomRateIsPicked ? pickedRoomRate : "Select a room rate"}
                     </option>
@@ -267,29 +264,6 @@ const RoomMoreDetails = ({
                   </span>
                 </div>
               </div>
-
-              {/* <div className="input-fields">
-                <label htmlFor="roomType"> Room Type:</label>
-                <Input
-                  placeholder="Room Type"
-                  name="roomType"
-                  id="roomType"
-                  value={inputs.roomType}
-                  handleOnChange={handleOnChange}
-
-                  // readOnly
-                />
-              </div> */}
-              {/* <div className="input-fields">
-                <label htmlFor="roomRates"> Room Rates:</label>
-                <Input
-                  placeholder="Room Rates"
-                  name="roomRates"
-                  id="roomRates"
-                  value={inputs.roomRates}
-                  handleOnChange={handleOnChange}
-                />
-              </div> */}
 
               <div className="input-fields">
                 <label htmlFor="roomDesc"> Room Description:</label>
