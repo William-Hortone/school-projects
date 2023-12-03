@@ -14,6 +14,7 @@ import {
   DDetails,
   Dashboard,
   MedicalServices,
+  OutPatient,
   RoomDetails,
   ServiceScheduling,
   ViewAllUsers,
@@ -116,6 +117,7 @@ function App() {
             />
             <Route path="/adminDashboard/addUser" element={<AddUser />} />
             <Route path="/adminDashboard/bedDetails" element={<BedDetails />} />
+            <Route path="/adminDashboard/outPatient" element={<OutPatient />} />
           </Route>
         </Routes>
       </BrowserRouter>
