@@ -1,0 +1,33 @@
+.container-btn-menus-actions {
+  width: 100%;
+  display: flex;
+}
+.container-btn-menus-actions .appScheduling-container-menus {
+  display: flex !important;
+  flex-direction: row;
+  width: 100%;
+  /* background: red; */
+}
+.wrapper-action {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.action-options-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-primary);
+  /* width: 20%; */
+  height: 95%;
+  padding: 0 1rem;
+  margin-right: 0.5rem;
+  border-radius: 15px;
+  border: 2px solid #ffffff98;
+}
+.action-options-wrapper label {
+  color: white;
+}
+.btn-action-box {
+  margin-top: 1rem;
+  align-self: center;
+}

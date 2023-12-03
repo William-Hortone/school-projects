@@ -1,0 +1,26 @@
+.app__addAppointment {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: var(--color-bg);
+  overflow: hidden !important;
+  padding-top: 2rem;
+}
+.app__addAppointment-container {
+  width: 98%;
+  margin: 2rem auto;
+  height: auto;
+  display: flex;
+  align-items: flex-end;
+  /* background-color: red; */
+}
+
+.container-view-appoint {
+  width: 84% !important;
+  height: 400px;
+  background-color: aqua;
+}

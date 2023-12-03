@@ -6,6 +6,7 @@ import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
 import Scheduling from "./doctors/scheduling/Scheduling";
 import VizDocApp from "./doctors/vizDocApp/VizDocApp";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
+import AddDocAppointment from "./patient/addDocAppointment/AddDocAppointment";
 import OutPatient from "./patient/outPatient/OutPatient";
 import OutPatientMDetails from "./patient/outPatientMDetails/OutPatientMDetails";
 import VizAllOutPatient from "./patient/vizAllOutPatient/VizAllOutPatient";
@@ -60,4 +61,5 @@ export {
   OutPatient,
   OutPatientMDetails,
   VizAllOutPatient,
+  AddDocAppointment,
 };
