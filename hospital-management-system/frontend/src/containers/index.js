@@ -7,6 +7,8 @@ import Scheduling from "./doctors/scheduling/Scheduling";
 import VizDocApp from "./doctors/vizDocApp/VizDocApp";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
 import OutPatient from "./patient/outPatient/OutPatient";
+import OutPatientMDetails from "./patient/outPatientMDetails/OutPatientMDetails";
+import VizAllOutPatient from "./patient/vizAllOutPatient/VizAllOutPatient";
 import BedDetails from "./rooms/bedDetails/BedDetails";
 import BedMoreDetails from "./rooms/bedMoreDetails/BedMoreDetails";
 import RoomDetails from "./rooms/roomDetails/RoomDetails";
@@ -26,6 +28,7 @@ import VizHospitalSer from "./services/vizHospitalSer/VizHospitalSer";
 import AddUser from "./user/addUser/AddUser";
 import AddUserDetails from "./user/addUserDetails/AddUserDetails";
 import ViewAllUsers from "./user/vizAllUsers/VizAllUser";
+
 export {
   DDetails,
   DoctorMenu,
@@ -55,4 +58,6 @@ export {
   VizRoomType,
   VizAllBeds,
   OutPatient,
+  OutPatientMDetails,
+  VizAllOutPatient,
 };
