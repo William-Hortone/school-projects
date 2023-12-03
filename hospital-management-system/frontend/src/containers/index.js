@@ -6,14 +6,16 @@ import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
 import Scheduling from "./doctors/scheduling/Scheduling";
 import VizDocApp from "./doctors/vizDocApp/VizDocApp";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
+import OutPatient from "./patient/outPatient/OutPatient";
 import BedDetails from "./rooms/bedDetails/BedDetails";
 import BedMoreDetails from "./rooms/bedMoreDetails/BedMoreDetails";
-// import { BedMoreDetails } from "./rooms/bedMoreDetails/BedMoreDetails";
 import RoomDetails from "./rooms/roomDetails/RoomDetails";
 import RoomMoreDetails from "./rooms/roomMoreDetails/RoomMoreDetails";
 import ViewRooms from "./rooms/viewRooms/ViewRooms";
 import ViewWardDetails from "./rooms/viewWardDetails/ViewWardDetails";
+import VizAllBeds from "./rooms/vizAllBeds/VizAllBeds";
 import VizAllRooms from "./rooms/vizAllRooms/VizAllRooms";
+import VizRoomType from "./rooms/vizRoomType/VizRoomType";
 import WardDetails from "./rooms/wardDetails/WardDetails";
 import WardMoreDetails from "./rooms/wardMoreDetails/WardMDetails";
 import ScheduleSer from "./services/ScheduleSer/ScheduleSer";
@@ -24,7 +26,6 @@ import VizHospitalSer from "./services/vizHospitalSer/VizHospitalSer";
 import AddUser from "./user/addUser/AddUser";
 import AddUserDetails from "./user/addUserDetails/AddUserDetails";
 import ViewAllUsers from "./user/vizAllUsers/VizAllUser";
-
 export {
   DDetails,
   DoctorMenu,
@@ -51,4 +52,7 @@ export {
   ViewAllUsers,
   BedMoreDetails,
   BedDetails,
+  VizRoomType,
+  VizAllBeds,
+  OutPatient,
 };

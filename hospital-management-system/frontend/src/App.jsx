@@ -14,15 +14,18 @@ import {
   DDetails,
   Dashboard,
   MedicalServices,
+  OutPatient,
   RoomDetails,
   ServiceScheduling,
   ViewAllUsers,
   ViewHospitalSD,
   ViewWardDetails,
+  VizAllBeds,
   VizAllRooms,
   VizDocApp,
   VizDoctorDetails,
   VizHospitalSer,
+  VizRoomType,
   WardDetails,
 } from "./containers";
 import { Home } from "./pages";
@@ -88,6 +91,8 @@ function App() {
           <Route path="/vizRooms" element={<VizAllRooms />} />
           <Route path="/vizAllWards" element={<ViewWardDetails />} />
           <Route path="/vizAllUsers" element={<ViewAllUsers />} />
+          <Route path="/VizRoomType" element={<VizRoomType />} />
+          <Route path="/VizAllBed" element={<VizAllBeds />} />
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>
@@ -112,6 +117,7 @@ function App() {
             />
             <Route path="/adminDashboard/addUser" element={<AddUser />} />
             <Route path="/adminDashboard/bedDetails" element={<BedDetails />} />
+            <Route path="/adminDashboard/outPatient" element={<OutPatient />} />
           </Route>
         </Routes>
       </BrowserRouter>

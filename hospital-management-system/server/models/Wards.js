@@ -13,6 +13,10 @@ const WardSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  isOccupied: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const ModelWard = mongoose.model("WardInfos", WardSchema);

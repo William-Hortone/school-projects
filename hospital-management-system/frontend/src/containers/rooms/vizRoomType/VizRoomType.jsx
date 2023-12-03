@@ -3,22 +3,22 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, Header } from "../../../components";
 
-const ViewWardDetails = () => {
+const VizRoomType = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOptions, setSearchOptions] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [hideData, setHideDada] = useState(false);
   const [hideDataSearched, setHideDataSearched] = useState(true);
 
-  const [allWards, setAllWards] = useState([]);
+  const [allRoomsType, setAllRoomsType] = useState([]);
   const navigate = useNavigate();
 
-  // To Get all the available Wards
-  const API_URL = "http://localhost:3001/getWardsDetails";
+  // To Get all the available rooms type
+  const API_URL = "http://localhost:3001/getRoomTypes";
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
-    setAllWards(data);
+    setAllRoomsType(data);
   };
 
   useEffect(() => {
@@ -27,14 +27,18 @@ const ViewWardDetails = () => {
 
   // Function to search
   const handleSearch = () => {
-    // search by the ward id
-    if (searchOptions === "wardIq") {
-      const result = allWards.filter((ward) => ward.wardID === searchTerm);
+    // search by the room Type ID
+    if (searchOptions === "roomTypeID") {
+      const result = allRoomsType.filter(
+        (room) => room.roomTypeID === searchTerm
+      );
       setSearchResult(result);
     }
-    // search by the ward Rates
-    else if (searchOptions === "wardRates") {
-      const result = allWards.filter((ward) => ward.wardRates === searchTerm);
+    // search by the room type rates
+    else if (searchOptions === "roomRates") {
+      const result = allRoomsType.filter(
+        (room) => room.roomRates === searchTerm
+      );
       setSearchResult(result);
     }
     setHideDada(true);
@@ -47,7 +51,7 @@ const ViewWardDetails = () => {
     setHideDataSearched(false);
   };
   const handleClose = () => {
-    navigate("/adminDashboard/wardDetails");
+    navigate("/adminDashboard/rooms");
   };
 
   return (
@@ -61,34 +65,34 @@ const ViewWardDetails = () => {
             <table>
               <thead>
                 <tr>
-                  <th>Ward ID </th>
-                  {/* <th>Ward Type</th> */}
-                  <th>Ward Rates</th>
-                  <th>Ward DEscription</th>
+                  <th>Room Type ID </th>
+                  <th>Room Type</th>
+                  <th>Room Rates</th>
+                  <th>Room Notes</th>
                 </tr>
               </thead>
               <tbody>
                 {!hideData &&
-                  allWards.map((ward, index) => {
+                  allRoomsType.map((room, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{ward.wardID}</td>
-                        {/* <td>{ward.wardType}</td> */}
-                        <td>{ward.wardRates}</td>
-                        <td>{ward.wardDesc}</td>
+                        <td>{room.roomTypeID}</td>
+                        <td>{room.roomType}</td>
+                        <td>{room.roomRates}</td>
+                        <td>{room.roomNotes}</td>
                       </tr>
                     );
                   })}
 
                 {/* Table for the result searched  */}
                 {hideDataSearched &&
-                  searchResult.map((ward, index) => {
+                  searchResult.map((room, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{ward.wardID}</td>
-                        {/* <td>{ward.wardType}</td> */}
-                        <td>{ward.wardRates}</td>
-                        <td>{ward.wardDesc}</td>
+                        <td>{room.roomTypeID}</td>
+                        <td>{room.roomType}</td>
+                        <td>{room.roomRates}</td>
+                        <td>{room.roomNotes}</td>
                       </tr>
                     );
                   })}
@@ -127,8 +131,8 @@ const ViewWardDetails = () => {
                   onChange={(e) => setSearchOptions(e.target.value)}
                 >
                   <option value="">Select one option</option>
-                  <option value="wardIq">Ward ID</option>
-                  <option value="wardRates">Ward Rates</option>
+                  <option value="roomTypeID">Room Type ID</option>
+                  <option value="roomRates">Room Rates</option>
                 </select>
               </div>
               <div className="content">
@@ -148,4 +152,4 @@ const ViewWardDetails = () => {
   );
 };
 
-export default ViewWardDetails;
+export default VizRoomType;

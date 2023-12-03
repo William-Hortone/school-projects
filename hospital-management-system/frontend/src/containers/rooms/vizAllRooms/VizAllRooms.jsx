@@ -68,7 +68,7 @@ const VizAllRooms = () => {
               <thead>
                 <tr>
                   <th>Room ID </th>
-                  <th>Room Type</th>
+                  {/* <th>Room Type</th> */}
                   <th>Room Rates</th>
                   <th>Room DEscription</th>
                 </tr>
@@ -79,7 +79,7 @@ const VizAllRooms = () => {
                     return (
                       <tr className="doctor-infos" key={index}>
                         <td>{room.roomID}</td>
-                        <td>{room.roomType}</td>
+                        {/* <td>{room.roomType}</td> */}
                         <td>{room.roomRates}</td>
                         <td>{room.roomDesc}</td>
                       </tr>
@@ -92,7 +92,7 @@ const VizAllRooms = () => {
                     return (
                       <tr className="doctor-infos" key={index}>
                         <td>{room.roomID}</td>
-                        <td>{room.roomType}</td>
+                        {/* <td>{room.roomType}</td> */}
                         <td>{room.roomRates}</td>
                         <td>{room.roomDesc}</td>
                       </tr>

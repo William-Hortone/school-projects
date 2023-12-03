@@ -13,6 +13,10 @@ const RoomSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  isOccupied: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const ModelRoom = mongoose.model("RoomInfos", RoomSchema);

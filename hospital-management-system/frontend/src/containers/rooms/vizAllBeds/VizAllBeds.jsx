@@ -1,34 +1,40 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, Header } from "../../../components";
-import { selectHospitalSchedule } from "../../../redux/slice/medicalServiceSlice";
 
-const VizHospitalSer = () => {
+const VizAllBeds = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOptions, setSearchOptions] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [hideData, setHideDada] = useState(false);
   const [hideDataSearched, setHideDataSearched] = useState(true);
 
+  const [allBeds, setAllBeds] = useState([]);
   const navigate = useNavigate();
 
-  const hospitalSchedule = useSelector(selectHospitalSchedule);
+  // To Get all the available beds
+  const API_URL = "http://localhost:3001/getBedsDetails";
+
+  const fetchData = async () => {
+    const { data } = await axios.get(API_URL);
+    setAllBeds(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   // Function to search
   const handleSearch = () => {
-    // search by the first name
-    if (searchOptions === "doctorId") {
-      const result = hospitalSchedule.filter(
-        (service) => service.serviceID === searchTerm
-      );
+    // search by the bed ID
+    if (searchOptions === "bedId") {
+      const result = allBeds.filter((bed) => bed.bedID === searchTerm);
       setSearchResult(result);
     }
-    // search by the ID
-    else if (searchOptions === "scheduleId") {
-      const result = hospitalSchedule.filter(
-        (service) => service.schedulingID === searchTerm
-      );
+    // search by the bed place
+    else if (searchOptions === "bedPlace") {
+      const result = allBeds.filter((bed) => bed.bedPlace === searchTerm);
       setSearchResult(result);
     }
     setHideDada(true);
@@ -41,7 +47,7 @@ const VizHospitalSer = () => {
     setHideDataSearched(false);
   };
   const handleClose = () => {
-    navigate("/adminDashboard/serviceSchedule");
+    navigate("/adminDashboard/bedDetails");
   };
 
   return (
@@ -49,46 +55,43 @@ const VizHospitalSer = () => {
       <Header />
       <div className="app__vDoctorDetails">
         <div>
-          <h1> Doctors Appointments Details</h1>
+          <h1> Bed Details</h1>
 
           <div className="app__vDoctorDetails-container">
             <table>
               <thead>
                 <tr>
-                  <th>Schedule ID </th>
-                  <th>Service ID</th>
-                  <th>Service Starts</th>
-                  <th>service Ends</th>
-                  <th>Available Days</th>
-                  <th>Schedule Notes</th>
+                  <th>Bed ID </th>
+                  <th>Bed Place </th>
+                  <th>Available</th>
+                  <th>Bed Description</th>
+                  <th>Admission ID</th>
                 </tr>
               </thead>
               <tbody>
                 {!hideData &&
-                  hospitalSchedule.map((service, index) => {
+                  allBeds.map((bed, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{service.schedulingID}</td>
-                        <td>{service.serviceID}</td>
-                        <td>{service.serviceStarts}</td>
-                        <td>{service.serviceEnds}</td>
-                        <td>{service.selectedDays}</td>
-                        <td>{service.schedulingNotes}</td>
+                        <td>{bed.bedID}</td>
+                        <td>{bed.bedPlace}</td>
+                        <td>{bed.isOccupied ? "No" : "Yes"}</td>
+                        <td>{bed.admissionID}</td>
+                        <td>{bed.bedDesc}</td>
                       </tr>
                     );
                   })}
 
                 {/* Table for the result searched  */}
                 {hideDataSearched &&
-                  searchResult.map((service, index) => {
+                  searchResult.map((bed, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
-                        <td>{service.schedulingID}</td>
-                        <td>{service.serviceID}</td>
-                        <td>{service.serviceStarts}</td>
-                        <td>{service.serviceEnds}</td>
-                        <td>{service.selectedDays}</td>
-                        <td>{service.schedulingNotes}</td>
+                        <td>{bed.bedID}</td>
+                        <td>{bed.bedPlace}</td>
+                        <td>{bed.isOccupied}</td>
+                        <td>{bed.admissionID}</td>
+                        <td>{bed.bedDesc}</td>
                       </tr>
                     );
                   })}
@@ -127,8 +130,8 @@ const VizHospitalSer = () => {
                   onChange={(e) => setSearchOptions(e.target.value)}
                 >
                   <option value="">Select one option</option>
-                  <option value="scheduleId">Schedule ID</option>
-                  <option value="doctorId">Service ID</option>
+                  <option value="bedId">Bed ID</option>
+                  <option value="bedPlace">Bed Place</option>
                 </select>
               </div>
               <div className="content">
@@ -148,4 +151,4 @@ const VizHospitalSer = () => {
   );
 };
 
-export default VizHospitalSer;
+export default VizAllBeds;
