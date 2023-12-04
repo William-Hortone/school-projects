@@ -14,6 +14,7 @@ const usersRoutes = require("./routes/userConnection");
 const roomTypeRoutes = require("./routes/roomTypeInfos");
 const wardTypeRoutes = require("./routes/wardTypeInfos");
 const bedRoutes = require("./routes/bedInfos");
+const OutPatientRoutes = require("./routes/outPatientInfos");
 
 const app = express();
 app.use(express.json());
@@ -49,6 +50,8 @@ app.use(roomTypeRoutes);
 app.use(wardTypeRoutes);
 
 app.use(bedRoutes);
+
+app.use(OutPatientRoutes);
 
 app.listen(3001, () => {
   console.log("The server is running");

@@ -1,7 +1,7 @@
 import React from "react";
-import "./adminDashboard.css";
+import { NavLink, Outlet } from "react-router-dom";
 import { Header } from "../../components";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import "./adminDashboard.css";
 
 const AdminDashboard = () => {
   const activeLink = ({ isActive }) =>
