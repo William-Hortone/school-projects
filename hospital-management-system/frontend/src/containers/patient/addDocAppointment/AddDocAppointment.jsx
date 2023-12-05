@@ -4,27 +4,46 @@ import axios from "axios";
 import "./addDocAppointment.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
 // import DatePicker from 'react-datepicker';
 // import 'react-datepicker/dist/react-datepicker.css';
 
-const AddDocAppointment = () => {
+const AddDocAppointment = ({ setOpenAddAppointment }) => {
+  const [inputs, setInputs] = useState({
+    patientID: "",
+    doctorID: "",
+    appointmentDate: "",
+    appointmentTime: "",
+  });
+
   const [allOutPatients, setAllOutPatients] = useState([]);
   const [allDOctors, setAllDOctors] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [value, onChange] = useState("10:00");
-  const [selectedTime, setSelectedTime] = useState(null);
+  const [pickedTime, setPickedTime] = useState(null);
   const [showPatient, setShowPatient] = useState(true);
   const [isFocusedP, setIsFocusedP] = useState(false);
   const [isFocusedD, setIsFocusedD] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
 
   // To Get all outPatient
   const API_URL = "http://localhost:3001/getOutPatientsDetails";
   const API_URL_DOCTORS = "http://localhost:3001/getDoctors";
 
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
     setAllOutPatients(data);
   };
+
   const fetchDoctorsData = async () => {
     const { data } = await axios.get(API_URL_DOCTORS);
     setAllDOctors(data);
@@ -51,9 +70,81 @@ const AddDocAppointment = () => {
     fetchDoctorsData();
   }, []);
 
+  //  Set the format for the Date
   useEffect(() => {
-    console.log("the date", startDate);
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    const day = startDate.getDate();
+    const month = months[startDate.getMonth()];
+    const year = startDate.getFullYear();
+
+    const formattedDate = `${day} ${month} ${year}`;
+    setSelectedDate(formattedDate);
   }, [startDate]);
+
+  //  Set the format for the time
+  useEffect(() => {
+    if (pickedTime) {
+      const formattedTime = pickedTime.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+
+      setSelectedTime(formattedTime);
+    }
+  }, [pickedTime]);
+
+  useEffect(() => {
+    setInputs((inputsValue) => ({
+      ...inputsValue,
+      appointmentDate: selectedDate,
+    }));
+  }, [selectedDate]);
+
+  useEffect(() => {
+    setInputs((inputsValue) => ({
+      ...inputsValue,
+      appointmentTime: selectedTime,
+    }));
+  }, [selectedTime]);
+
+  // Function to add a doctor Appointment
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      inputs.patientID === "" ||
+      inputs.doctorID === "" ||
+      inputs.appointmentDate === "" ||
+      inputs.appointmentTime === ""
+    ) {
+      toast.error("Please complete all the fields");
+    } else {
+      axios
+        .post("http://localhost:3001/addDocAppointment", inputs)
+        .then((res) => {
+          toast.success("Added successfully");
+        })
+        .catch((err) => toast.error(err));
+    }
+  };
+
+  const handleClose = () => {
+    setOpenAddAppointment(false);
+  };
 
   return (
     <div className="app__addAppointment">
@@ -71,8 +162,8 @@ const AddDocAppointment = () => {
                 <select
                   name="patientID"
                   id="patientID"
-                  // value={appointmentInfos.doctorID}
-                  // onChange={handleOnChangeAppointment}
+                  value={inputs.patientID}
+                  onChange={handleOnChange}
                   onFocus={handleFocusPatient}
                   onBlur={handleBlurPatient}
                   required
@@ -94,8 +185,8 @@ const AddDocAppointment = () => {
                 <select
                   name="doctorID"
                   id="doctorID"
-                  // value={appointmentInfos.doctorID}
-                  // onChange={handleOnChangeAppointment}
+                  value={inputs.doctorID}
+                  onChange={handleOnChange}
                   required
                   onFocus={handleFocusDoctor}
                   onBlur={handleBlurDoctor}
@@ -125,6 +216,8 @@ const AddDocAppointment = () => {
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
+                  dateFormat="dd/MM/yyyy"
+                  // value={inputs.appointmentDate}
                 />
               </div>
             </div>
@@ -132,8 +225,8 @@ const AddDocAppointment = () => {
               <label htmlFor="gender"> Appointment Time:</label>
               <div>
                 <DatePicker
-                  selected={selectedTime}
-                  onChange={(time) => setSelectedTime(time)}
+                  selected={pickedTime}
+                  onChange={(time) => setPickedTime(time)}
                   showTimeSelect
                   showTimeSelectOnly
                   timeIntervals={10}
@@ -146,18 +239,18 @@ const AddDocAppointment = () => {
 
           <div className="container-view-appoint-btn">
             <ButtonAction
-              iconName="close"
+              iconName="add"
               btnName="Save Appointment"
               color="green"
-              buttonType="button"
-              // onClick={handleCloseScheduling}
+              buttonType="submit"
+              onClick={handleSubmit}
             />
             <ButtonAction
               iconName="close"
               btnName="Close"
               color="red"
               buttonType="button"
-              // onClick={handleCloseScheduling}
+              onClick={handleClose}
             />
           </div>
         </div>

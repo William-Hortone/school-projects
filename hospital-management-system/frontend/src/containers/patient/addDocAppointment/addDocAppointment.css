@@ -1,13 +1,11 @@
 .app__addAppointment {
-  width: 100%;
+  height: auto;
+  width: 100vw;
   height: auto;
   min-height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
+  overflow-y: auto;
   z-index: 10;
   background-color: var(--color-bg);
-  overflow: hidden !important;
   padding-top: 2rem;
 }
 .app__addAppointment-container {
@@ -16,7 +14,6 @@
   display: flex;
   align-items: flex-end;
   margin: 2rem auto;
-  /* background-color: red; */
 }
 .btn-docSchedule {
   width: 80px;
@@ -59,11 +56,6 @@
 }
 .table-view-app th {
   color: #efefef;
-}
-.table-view-app-row {
-  width: 100%;
-  border-top: 2px solid #a51919;
-  /* background: red; */
 }
 
 .table-view-app tbody td {

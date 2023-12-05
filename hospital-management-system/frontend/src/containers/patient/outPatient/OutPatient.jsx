@@ -9,11 +9,13 @@ import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import OutPatientMDetails from "../outPatientMDetails/OutPatientMDetails";
 import axios from "axios";
 import AddDocAppointment from "../addDocAppointment/AddDocAppointment";
+import { toast } from "react-toastify";
 
 const OutPatient = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
+  const [openAddAppointment, setOpenAddAppointment] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
   const [allOutPatients, setAllOutPatients] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState("");
@@ -102,6 +104,19 @@ const OutPatient = () => {
   //  Function for the appointment option
   const handleSelectAppointment = (e) => {
     setSelectedPlace(e.target.value);
+  };
+
+  //  Function to open the add appointment page
+  const handleOpenApp = (e) => {
+    if (selectedPlace === "doctors") {
+      setOpenAddAppointment(true);
+    } else {
+      if (selectedPlace === "hospitalServices") {
+        toast.error("Please select an appointment");
+      } else {
+        toast.error("Please select an appointment");
+      }
+    }
   };
   return (
     <>
@@ -319,7 +334,7 @@ const OutPatient = () => {
                       btnName="Add"
                       color="green"
                       buttonType="submit"
-                      onClick={handleShowScheduling}
+                      onClick={handleOpenApp}
                     />
                   </div>
                 </aside>
@@ -342,11 +357,17 @@ const OutPatient = () => {
             addOnSubmit={addOnSubmit}
           />
         </div>
-      </div>
 
-      {/* section to set an appointment */}
-      <div>
-        <AddDocAppointment />
+        {/* section to set an appointment */}
+        {openAddAppointment && (
+          <div className="popup-wrapper">
+            <div className="popup">
+              <AddDocAppointment
+                setOpenAddAppointment={setOpenAddAppointment}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
