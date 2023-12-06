@@ -9,6 +9,8 @@ import {
   FaTrash,
   FaTimes,
   FaSearch,
+  FaArrowAltCircleRight,
+  FaCheck,
 } from "react-icons/fa";
 
 const iconComponents = {
@@ -19,6 +21,8 @@ const iconComponents = {
   all: FaUsers,
   delete: FaTrash,
   search: FaSearch,
+  arrow: FaArrowAltCircleRight,
+  valid: FaCheck,
 };
 
 const ButtonAction = ({ btnName, iconName, onClick, color, buttonType }) => {

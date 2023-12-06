@@ -11,6 +11,7 @@ const WardMoreDetails = ({
   addOnSubmit,
   setOpenScheduleDelete,
   openScheduleDelete,
+  setOpenPage,
 }) => {
   const [inputs, setInputs] = useState({
     wardID: "",
@@ -55,6 +56,7 @@ const WardMoreDetails = ({
 
   const handleClose = () => {
     setOpenScheduling(false);
+    setOpenPage(false);
     setOpenScheduleDelete(false);
     setInputs({
       wardID: "",

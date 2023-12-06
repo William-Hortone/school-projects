@@ -14,6 +14,7 @@ const Scheduling = ({
   addOnSubmit,
   setOpenScheduleDelete,
   openScheduleDelete,
+  setOpenPage,
 }) => {
   const [appointmentInfos, setAppointmentInfos] = useState({
     schedulingID: "",
@@ -60,6 +61,7 @@ const Scheduling = ({
   };
 
   const handleCloseScheduling = () => {
+    setOpenPage(false);
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
     setAppointmentInfos({
@@ -422,6 +424,7 @@ const Scheduling = ({
             </aside>
           </form>
 
+          {/* Table to display and the DOCTOR APPOINTMENT SCHEDULING */}
           <div className="appScheduling-table">
             <table>
               <thead>
@@ -459,6 +462,7 @@ const Scheduling = ({
             </table>
           </div>
 
+          {/* Popup to delete */}
           {showPopupDelete && (
             <div style={{ position: "relative" }}>
               <div className="schedule-delete-popup">
@@ -476,6 +480,7 @@ const Scheduling = ({
             </div>
           )}
 
+          {/* Container menu btn */}
           <div className="container-menu">
             <div className="container-menu-header">
               <ButtonSkip iconName="doubleLeft" color="green" />
@@ -505,11 +510,9 @@ const Scheduling = ({
         </div>
       </div>
 
+      {/* Table to select a doctor ID */}
       {showDocDetailTable && (
         <div className="appScheduling-table-id">
-          {/* <div className="appScheduling-tableId-container">
-
-        </div> */}
           <div onClick={handleCloseDocDetailsTable} className="close-tableID">
             close
           </div>

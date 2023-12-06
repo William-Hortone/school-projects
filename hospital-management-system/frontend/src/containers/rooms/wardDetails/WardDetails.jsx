@@ -12,6 +12,7 @@ const WardDetails = () => {
   const wardsDetails = useSelector(selectWardDetails);
 
   const [openScheduling, setOpenScheduling] = useState(false);
+  const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const [currentRecord, setCurrentRecord] = useState();
@@ -158,6 +159,7 @@ const WardDetails = () => {
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(true);
   };
 
@@ -167,10 +169,12 @@ const WardDetails = () => {
 
   const showRoomsToEdit = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
 
   const showSchedulingToDelete = () => {
+    setOpenPage(true);
     setOpenScheduleDelete(true);
     setAddOnSubmit(false);
   };
@@ -533,20 +537,26 @@ const WardDetails = () => {
         </div>
       </div>
 
-      <div
+      {/* <div
         className={
           openScheduling || openScheduleDelete
             ? "appScheduling-wrapper ActiveScheduling"
             : "appScheduling-wrapper"
         }
-      >
-        <WardMoreDetails
-          setOpenScheduling={setOpenScheduling}
-          setOpenScheduleDelete={setOpenScheduleDelete}
-          openScheduleDelete={openScheduleDelete}
-          addOnSubmit={addOnSubmit}
-        />
-      </div>
+      > */}
+      {openPage && (
+        <div className="popup-wrapper">
+          <div className="popup">
+            <WardMoreDetails
+              setOpenScheduling={setOpenScheduling}
+              setOpenScheduleDelete={setOpenScheduleDelete}
+              openScheduleDelete={openScheduleDelete}
+              addOnSubmit={addOnSubmit}
+              setOpenPage={setOpenPage}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

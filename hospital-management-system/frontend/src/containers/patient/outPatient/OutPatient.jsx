@@ -9,11 +9,16 @@ import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import OutPatientMDetails from "../outPatientMDetails/OutPatientMDetails";
 import axios from "axios";
 import AddDocAppointment from "../addDocAppointment/AddDocAppointment";
+import { toast } from "react-toastify";
+import AddHospAppointment from "../addHospAppointment/AddHospAppointment";
 
 const OutPatient = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
+  const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
+  const [openAddAppointment, setOpenAddAppointment] = useState(false);
+  const [openAddHospitalApp, setOpenAddHospitalApp] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
   const [allOutPatients, setAllOutPatients] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState("");
@@ -52,11 +57,13 @@ const OutPatient = () => {
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(true);
   };
 
   const showSchedulingToEdit = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
   const handleRefresh = () => {
@@ -70,6 +77,7 @@ const OutPatient = () => {
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
 
@@ -102,6 +110,20 @@ const OutPatient = () => {
   //  Function for the appointment option
   const handleSelectAppointment = (e) => {
     setSelectedPlace(e.target.value);
+  };
+
+  //  Function to open the add appointment page
+  const handleOpenApp = (e) => {
+    if (selectedPlace === "doctors") {
+      setOpenAddAppointment(true);
+    } else {
+      if (selectedPlace === "hospitalServices") {
+        setOpenAddHospitalApp(true);
+        // toast.error("Please select an appointment");
+      } else {
+        toast.error("Please select an appointment");
+      }
+    }
   };
   return (
     <>
@@ -218,7 +240,7 @@ const OutPatient = () => {
         <div className="container-btn-menus-actions">
           <div className="appScheduling-container-menus">
             <div>
-              <div className="appSchedule-container-menu-header">
+              <div className="input-record appSchedule-container-menu-header">
                 <ButtonSkip
                   handleOnClick={handleShowFirstEl}
                   iconName="doubleLeft"
@@ -242,7 +264,7 @@ const OutPatient = () => {
                 />
               </div>
               <div className="wrapper-action">
-                <div className="container-menu-btn">
+                <div className="btn-wrapper container-menu-btn">
                   <ButtonAction
                     iconName="add"
                     btnName="Add"
@@ -315,11 +337,11 @@ const OutPatient = () => {
                   </div>
                   <div className="btn-action-box">
                     <ButtonAction
-                      iconName="add"
+                      iconName="arrow"
                       btnName="Add"
                       color="green"
                       buttonType="submit"
-                      onClick={handleShowScheduling}
+                      onClick={handleOpenApp}
                     />
                   </div>
                 </aside>
@@ -327,26 +349,51 @@ const OutPatient = () => {
             </div>
           </div>
         </div>
+
         {/* Open the OutPatientMDetails component  */}
-        <div
+        {/* <div
           className={
             openScheduling || openScheduleDelete
               ? "appScheduling-wrapper ActiveScheduling"
               : "appScheduling-wrapper"
           }
-        >
-          <OutPatientMDetails
-            setOpenScheduling={setOpenScheduling}
-            setOpenScheduleDelete={setOpenScheduleDelete}
-            openScheduleDelete={openScheduleDelete}
-            addOnSubmit={addOnSubmit}
-          />
-        </div>
-      </div>
+        > */}
 
-      {/* section to set an appointment */}
-      <div>
-        <AddDocAppointment />
+        {openPage && (
+          <div className="popup-wrapper">
+            <div className="popup">
+              <OutPatientMDetails
+                setOpenScheduling={setOpenScheduling}
+                setOpenScheduleDelete={setOpenScheduleDelete}
+                openScheduleDelete={openScheduleDelete}
+                addOnSubmit={addOnSubmit}
+                setOpenPage={setOpenPage}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* section to set a doctor appointment */}
+        {openAddAppointment && (
+          <div className="popup-wrapper">
+            <div className="popup">
+              <AddDocAppointment
+                setOpenAddAppointment={setOpenAddAppointment}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* section to set a hospital service appointment */}
+        {openAddHospitalApp && (
+          <div className="popup-wrapper">
+            <div className="popup">
+              <AddHospAppointment
+                setOpenAddHospitalApp={setOpenAddHospitalApp}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

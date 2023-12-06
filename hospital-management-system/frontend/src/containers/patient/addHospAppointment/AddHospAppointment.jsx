@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { ButtonAction, Input, Select } from "../../../components";
 import axios from "axios";
-import "./addDocAppointment.css";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
+import { ButtonAction, Input } from "../../../components";
 
-const AddDocAppointment = ({ setOpenAddAppointment }) => {
+const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
   const [inputs, setInputs] = useState({
     appointmentID: "",
     patientID: "",
-    doctorID: "",
+    hospitalServiceID: "",
     appointmentDate: "",
     appointmentTime: "",
   });
 
   const [allOutPatients, setAllOutPatients] = useState([]);
   const [allAppointments, setAllAppointments] = useState([]);
-  const [allDOctors, setAllDOctors] = useState([]);
+  const [allHospitalSer, setAllHospitalSer] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [pickedTime, setPickedTime] = useState(null);
   const [isFocusedP, setIsFocusedP] = useState(false);
@@ -25,10 +24,10 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
 
-  // To Get all outPatient
+  // To Get all out Patients
   const API_URL = "http://localhost:3001/getOutPatientsDetails";
-  const API_URL_APPOINTMENT = "http://localhost:3001/getAddDocAppointments";
-  const API_URL_DOCTORS = "http://localhost:3001/getDoctors";
+  const API_URL_APPOINTMENT = "http://localhost:3001/getAddHospitalSerApp";
+  const API_URL_HOSPITAL_SER = "http://localhost:3001/getHospitalServices";
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -44,8 +43,8 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
   };
 
   const fetchDoctorsData = async () => {
-    const { data } = await axios.get(API_URL_DOCTORS);
-    setAllDOctors(data);
+    const { data } = await axios.get(API_URL_HOSPITAL_SER);
+    setAllHospitalSer(data);
   };
   const fetchAppointment = async () => {
     const { data } = await axios.get(API_URL_APPOINTMENT);
@@ -73,10 +72,6 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
     fetchDoctorsData();
     fetchAppointment();
   }, []);
-
-  useEffect(() => {
-    console.log("allAppointments", allAppointments);
-  }, [allAppointments]);
 
   //  Set the format for the Date
   useEffect(() => {
@@ -135,14 +130,14 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
     e.preventDefault();
     if (
       inputs.patientID === "" ||
-      inputs.doctorID === "" ||
+      inputs.hospitalServiceID === "" ||
       inputs.appointmentDate === "" ||
       inputs.appointmentTime === ""
     ) {
       toast.error("Please complete all the fields");
     } else {
       axios
-        .post("http://localhost:3001/addDocAppointment", inputs)
+        .post("http://localhost:3001/addHospitalSerApp", inputs)
         .then((res) => {
           toast.success("Added successfully");
         })
@@ -151,7 +146,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
   };
 
   const handleClose = () => {
-    setOpenAddAppointment(false);
+    setOpenAddHospitalApp(false);
   };
 
   // Function to generate the ID
@@ -159,13 +154,13 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
     if (allAppointments.length === 0) {
       setInputs({
         ...inputs,
-        appointmentID: "app_001",
+        appointmentID: "appH_001",
       });
     } else {
       const lastElementId =
         allAppointments[allAppointments.length - 1].appointmentID;
       const numericPart = parseInt(lastElementId.split("_")[1]);
-      const nextId = `app_${(numericPart + 1).toString().padStart(3, "0")}`;
+      const nextId = `appH_${(numericPart + 1).toString().padStart(3, "0")}`;
 
       setInputs({
         ...inputs,
@@ -176,7 +171,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
 
   return (
     <div className="app__addAppointment">
-      <h2 className="page-title">ADD DOCTOR APPOINTMENT</h2>
+      <h2 className="page-title">HOSPITAL SERVICE APPOINTMENT</h2>
       <div className="app__addAppointment-container">
         <div className="container-view-appoint appointment-form">
           <div className="details-title">
@@ -219,23 +214,23 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
               </div>
             </div>
             <div className="input-field doctor-types">
-              <label htmlFor="doctorID"> Doctor ID</label>
+              <label htmlFor="doctorID">Hospital Service ID</label>
               <div>
                 <select
-                  name="doctorID"
-                  id="doctorID"
-                  value={inputs.doctorID}
+                  name="hospitalServiceID"
+                  id="hospitalServiceID"
+                  value={inputs.hospitalServiceID}
                   onChange={handleOnChange}
                   required
                   onFocus={handleFocusDoctor}
                   onBlur={handleBlurDoctor}
                 >
                   <option required value="">
-                    Select a doctor ID
+                    Hospital Service ID
                   </option>
-                  {allDOctors.map((doctor, index) => (
-                    <option key={index} value={doctor.doctorID}>
-                      {doctor.doctorID}
+                  {allHospitalSer.map((service, index) => (
+                    <option key={index} value={service.serviceID}>
+                      {service.serviceID}
                     </option>
                   ))}
                 </select>
@@ -244,7 +239,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
                   // onClick={handleShowDocDetailsTable}
                   className="btn-docSchedule"
                 >
-                  Doctors Schedule
+                  Hospital Service
                 </span>
               </div>
             </div>
@@ -256,8 +251,6 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   dateFormat="dd/MM/yyyy"
-                  showYearDropdown
-                  scrollableMonthYearDropdown
                 />
               </div>
             </div>
@@ -335,22 +328,22 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
             <table className="table-view-app">
               <thead>
                 <tr>
-                  <th>Doctor ID</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Specialization</th>
-                  <th>Qualification</th>
+                  <th>Service ID</th>
+                  <th>Service Name</th>
+                  <th>Amount</th>
+                  <th>Duration</th>
+                  <th>Additional Notes</th>
                 </tr>
               </thead>
               <tbody>
-                {allDOctors.map((doctor, index) => {
+                {allHospitalSer.map((service, index) => {
                   return (
                     <tr className="table-view-app-row" key={index}>
-                      <td>{doctor.doctorID}</td>
-                      <td>{doctor.doctorFN}</td>
-                      <td>{doctor.doctorLN}</td>
-                      <td>{doctor.Specialization}</td>
-                      <td>{doctor.Qualifications}</td>
+                      <td>{service.serviceID}</td>
+                      <td>{service.serviceName}</td>
+                      <td>{service.amount}</td>
+                      <td>{service.duration}</td>
+                      <td>{service.additionalNotes}</td>
                     </tr>
                   );
                 })}
@@ -376,14 +369,14 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
         </aside>
       </div>
 
-      {/* Table for all Doctors appointments */}
+      {/* Table for all Hospital service appointments */}
       <div className="appScheduling-table">
         <table>
           <thead>
             <tr>
               <th>Appointment ID </th>
               <th>Patient ID</th>
-              <th>Doctor ID</th>
+              <th>Hospital Service ID</th>
               <th>Appointment Date</th>
               <th>Appointment Time</th>
             </tr>
@@ -394,7 +387,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
                 <tr className="doctor-infos" key={index}>
                   <td>{appointment.appointmentID}</td>
                   <td>{appointment.patientID}</td>
-                  <td>{appointment.doctorID}</td>
+                  <td>{appointment.hospitalServiceID}</td>
                   <td>{appointment.appointmentDate}</td>
                   <td>{appointment.appointmentTime}</td>
                 </tr>
@@ -407,4 +400,4 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
   );
 };
 
-export default AddDocAppointment;
+export default AddHospAppointment;

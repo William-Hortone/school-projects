@@ -10,7 +10,7 @@ const AppScheduling = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
-  const [isEmpty, setIsEmpty] = useState(true);
+  const [openPage, setOpenPage] = useState(false);
 
   const docAppointmentDetails = useSelector(selectDocAppointment);
   const [usersLength, setUsersLength] = useState(
@@ -35,9 +35,11 @@ const AppScheduling = () => {
   const handleShowScheduling = () => {
     setOpenScheduling(true);
     setAddOnSubmit(true);
+    setOpenPage(true);
   };
 
   const showSchedulingToEdit = () => {
+    setOpenPage(true);
     setOpenScheduling(true);
     setAddOnSubmit(false);
   };
@@ -52,6 +54,7 @@ const AppScheduling = () => {
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
 
@@ -263,20 +266,27 @@ const AppScheduling = () => {
       </div>
 
       {/* Open the scheduling component  */}
-      <div
+      {/* <div
         className={
           openScheduling || openScheduleDelete
             ? "appScheduling-wrapper ActiveScheduling"
             : "appScheduling-wrapper"
         }
-      >
-        <Scheduling
-          setOpenScheduling={setOpenScheduling}
-          setOpenScheduleDelete={setOpenScheduleDelete}
-          openScheduleDelete={openScheduleDelete}
-          addOnSubmit={addOnSubmit}
-        />
-      </div>
+      > */}
+      {openPage && (
+        <div className="popup-wrapper">
+          <div className="popup">
+            <Scheduling
+              setOpenScheduling={setOpenScheduling}
+              setOpenScheduleDelete={setOpenScheduleDelete}
+              openScheduleDelete={openScheduleDelete}
+              addOnSubmit={addOnSubmit}
+              setOpenPage={setOpenPage}
+            />
+          </div>
+        </div>
+      )}
+      {/* </div> */}
     </div>
   );
 };

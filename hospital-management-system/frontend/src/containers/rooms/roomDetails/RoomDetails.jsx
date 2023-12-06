@@ -20,6 +20,7 @@ const RoomDetails = () => {
   const [currentRecord, setCurrentRecord] = useState();
   const [roomTID, setRoomTID] = useState("");
   const [disabledInput, setDisabledInput] = useState(false);
+  const [openPage, setOpenPage] = useState(false);
 
   const [allRoomType, setAllRoomType] = useState([]);
 
@@ -146,16 +147,20 @@ const RoomDetails = () => {
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(true);
   };
 
   const showRoomsToEdit = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
+
     setAddOnSubmit(false);
   };
 
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
   const handleViewAllRoomType = () => {
@@ -529,20 +534,26 @@ const RoomDetails = () => {
         </div>
       </div>
 
-      <div
+      {/* <div
         className={
           openScheduling || openScheduleDelete
             ? "appScheduling-wrapper ActiveScheduling"
             : "appScheduling-wrapper"
         }
-      >
-        <RoomMoreDetails
-          setOpenScheduling={setOpenScheduling}
-          setOpenScheduleDelete={setOpenScheduleDelete}
-          openScheduleDelete={openScheduleDelete}
-          addOnSubmit={addOnSubmit}
-        />
-      </div>
+      > */}
+      {openPage && (
+        <div className="popup-wrapper">
+          <div className="popup">
+            <RoomMoreDetails
+              setOpenScheduling={setOpenScheduling}
+              setOpenScheduleDelete={setOpenScheduleDelete}
+              openScheduleDelete={openScheduleDelete}
+              addOnSubmit={addOnSubmit}
+              setOpenPage={setOpenPage}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

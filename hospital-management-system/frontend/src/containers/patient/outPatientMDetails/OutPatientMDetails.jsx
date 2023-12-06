@@ -8,6 +8,7 @@ const OutPatientMDetails = ({
   addOnSubmit,
   setOpenScheduleDelete,
   openScheduleDelete,
+  setOpenPage,
 }) => {
   const [inputs, setInputs] = useState({
     patientID: "",
@@ -54,6 +55,7 @@ const OutPatientMDetails = ({
   };
 
   const handleCloseScheduling = () => {
+    setOpenPage(false);
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
     setInputs({
@@ -346,6 +348,7 @@ const OutPatientMDetails = ({
             </table>
           </div>
 
+          {/* Delete popup */}
           {showPopupDelete && (
             <div style={{ position: "relative" }}>
               <div className="schedule-delete-popup">
@@ -363,6 +366,7 @@ const OutPatientMDetails = ({
             </div>
           )}
 
+          {/* Container buttons */}
           <div className="container-menu">
             <div className="container-menu-header">
               <ButtonSkip iconName="doubleLeft" color="green" />

@@ -8,6 +8,7 @@ import AddUserDetails from "../addUserDetails/AddUserDetails";
 
 const AddUser = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
+  const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const addedUserInfos = useSelector(selectAddedUserInfos);
@@ -26,12 +27,14 @@ const AddUser = () => {
   }, [usersLength, addedUserInfos]);
 
   const handleShowScheduling = () => {
+    setOpenPage(true);
     setOpenScheduling(true);
     setAddOnSubmit(true);
   };
 
   const showRoomsToEdit = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
   const handleViewAll = () => {
@@ -65,6 +68,7 @@ const AddUser = () => {
   };
 
   const showSchedulingToDelete = () => {
+    setOpenPage(true);
     setOpenScheduleDelete(true);
     setAddOnSubmit(false);
   };
@@ -247,20 +251,28 @@ const AddUser = () => {
         </div>
       </div>
 
-      <div
+      {/* <div
         className={
           openScheduling || openScheduleDelete
             ? "appScheduling-wrapper ActiveScheduling"
             : "appScheduling-wrapper"
         }
-      >
-        <AddUserDetails
-          setOpenScheduling={setOpenScheduling}
-          setOpenScheduleDelete={setOpenScheduleDelete}
-          openScheduleDelete={openScheduleDelete}
-          addOnSubmit={addOnSubmit}
-        />
-      </div>
+
+      > */}
+
+      {openPage && (
+        <div className="popup-wrapper">
+          <div className="popup">
+            <AddUserDetails
+              setOpenScheduling={setOpenScheduling}
+              setOpenScheduleDelete={setOpenScheduleDelete}
+              openScheduleDelete={openScheduleDelete}
+              addOnSubmit={addOnSubmit}
+              setOpenPage={setOpenPage}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

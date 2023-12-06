@@ -1,7 +1,10 @@
 .app__roomMDetails {
-  width: 100%;
+  width: 98vw;
   height: auto;
-  background-color: var(--color-blue) !important;
+  min-height: 100vh;
+  overflow-y: auto;
+  z-index: 10;
+  background-color: var(--color-bg);
 }
 
 .app__roomMDetails-container {

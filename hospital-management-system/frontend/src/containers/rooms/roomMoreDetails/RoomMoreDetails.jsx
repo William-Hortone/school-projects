@@ -11,6 +11,7 @@ const RoomMoreDetails = ({
   addOnSubmit,
   setOpenScheduleDelete,
   openScheduleDelete,
+  setOpenPage,
 }) => {
   const [inputs, setInputs] = useState({
     roomID: "",
@@ -68,6 +69,7 @@ const RoomMoreDetails = ({
   }, [roomId, inputs.roomID]);
 
   const handleCloseScheduling = () => {
+    setOpenPage(false);
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
     setInputs({

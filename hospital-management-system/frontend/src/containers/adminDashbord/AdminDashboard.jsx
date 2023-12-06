@@ -49,7 +49,10 @@ const AdminDashboard = () => {
               <NavLink to="/adminDashboard/outPatient" className={activeLink}>
                 Out Patient
               </NavLink>
-              <NavLink to="/adminDashboard/wardDetails" className={activeLink}>
+              {/* <NavLink to="/adminDashboard/outPatient" className={activeLink}>
+                Out Patient
+              </NavLink> */}
+              {/* <NavLink to="/adminDashboard/wardDetails" className={activeLink}>
                 Ward Details
               </NavLink>
               <NavLink to="/adminDashboard/addUser" className={activeLink}>
@@ -60,7 +63,7 @@ const AdminDashboard = () => {
               </NavLink>
               <NavLink to="/adminDashboard/outPatient" className={activeLink}>
                 Out Patient
-              </NavLink>
+              </NavLink> */}
             </ul>
           </div>
         </aside>
