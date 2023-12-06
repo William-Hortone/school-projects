@@ -1,3 +1,7 @@
+.input-record {
+  width: 98% !important;
+  margin: 0 auto;
+}
 .container-btn-menus-actions {
   width: 100%;
   display: flex;
@@ -11,7 +15,12 @@
 .wrapper-action {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
+}
+.btn-wrapper {
+  margin-inline: 1rem !important;
+  /* margin-left: 1rem !important; */
 }
 .action-options-wrapper {
   display: flex;
@@ -19,7 +28,7 @@
   background-color: var(--color-primary);
   /* width: 20%; */
   height: auto;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
   margin-right: 0.5rem;
   border-radius: 15px;
   border: 2px solid #ffffff98;

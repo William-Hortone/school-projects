@@ -352,7 +352,7 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
           )}
           <div className="container-view-appoint-btn">
             <ButtonAction
-              iconName="close"
+              iconName="valid"
               btnName="Ok"
               color="blue"
               buttonType="button"

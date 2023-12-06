@@ -236,7 +236,7 @@ const OutPatient = () => {
         <div className="container-btn-menus-actions">
           <div className="appScheduling-container-menus">
             <div>
-              <div className="appSchedule-container-menu-header">
+              <div className="input-record appSchedule-container-menu-header">
                 <ButtonSkip
                   handleOnClick={handleShowFirstEl}
                   iconName="doubleLeft"
@@ -260,7 +260,7 @@ const OutPatient = () => {
                 />
               </div>
               <div className="wrapper-action">
-                <div className="container-menu-btn">
+                <div className="btn-wrapper container-menu-btn">
                   <ButtonAction
                     iconName="add"
                     btnName="Add"
@@ -333,7 +333,7 @@ const OutPatient = () => {
                   </div>
                   <div className="btn-action-box">
                     <ButtonAction
-                      iconName="add"
+                      iconName="arrow"
                       btnName="Add"
                       color="green"
                       buttonType="submit"

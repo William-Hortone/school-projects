@@ -256,6 +256,8 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   dateFormat="dd/MM/yyyy"
+                  showYearDropdown
+                  scrollableMonthYearDropdown
                 />
               </div>
             </div>
@@ -281,7 +283,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
           <div className="container-view-appoint-btn">
             <ButtonAction
               iconName="add"
-              btnName="Save Appointment"
+              btnName="Add Appointment"
               color="green"
               buttonType="submit"
               onClick={handleAddAppointment}
@@ -357,7 +359,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
           )}
           <div className="container-view-appoint-btn">
             <ButtonAction
-              iconName="close"
+              iconName="valid"
               btnName="Ok"
               color="blue"
               buttonType="button"
