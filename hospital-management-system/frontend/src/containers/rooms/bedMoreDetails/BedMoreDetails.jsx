@@ -16,6 +16,7 @@ const BedMoreDetails = ({
   addOnSubmit,
   setOpenScheduleDelete,
   openScheduleDelete,
+  setOpenPage,
 }) => {
   const [inputs, setInputs] = useState({
     bedID: "",
@@ -59,6 +60,7 @@ const BedMoreDetails = ({
   };
 
   const handleCloseScheduling = () => {
+    setOpenPage(false);
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
     setInputs({

@@ -14,6 +14,7 @@ import AddHospAppointment from "../addHospAppointment/AddHospAppointment";
 
 const OutPatient = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
+  const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const [openAddAppointment, setOpenAddAppointment] = useState(false);
@@ -56,11 +57,13 @@ const OutPatient = () => {
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(true);
   };
 
   const showSchedulingToEdit = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
   const handleRefresh = () => {
@@ -74,6 +77,7 @@ const OutPatient = () => {
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
 
@@ -347,20 +351,27 @@ const OutPatient = () => {
         </div>
 
         {/* Open the OutPatientMDetails component  */}
-        <div
+        {/* <div
           className={
             openScheduling || openScheduleDelete
               ? "appScheduling-wrapper ActiveScheduling"
               : "appScheduling-wrapper"
           }
-        >
-          <OutPatientMDetails
-            setOpenScheduling={setOpenScheduling}
-            setOpenScheduleDelete={setOpenScheduleDelete}
-            openScheduleDelete={openScheduleDelete}
-            addOnSubmit={addOnSubmit}
-          />
-        </div>
+        > */}
+
+        {openPage && (
+          <div className="popup-wrapper">
+            <div className="popup">
+              <OutPatientMDetails
+                setOpenScheduling={setOpenScheduling}
+                setOpenScheduleDelete={setOpenScheduleDelete}
+                openScheduleDelete={openScheduleDelete}
+                addOnSubmit={addOnSubmit}
+                setOpenPage={setOpenPage}
+              />
+            </div>
+          </div>
+        )}
 
         {/* section to set a doctor appointment */}
         {openAddAppointment && (

@@ -14,6 +14,7 @@ const AddUserDetails = ({
   addOnSubmit,
   setOpenScheduleDelete,
   openScheduleDelete,
+  setOpenPage,
 }) => {
   const [inputs, setInputs] = useState({
     userID: "",
@@ -47,6 +48,7 @@ const AddUserDetails = ({
   ];
 
   const handleCloseScheduling = () => {
+    setOpenPage(false);
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
     setInputs({

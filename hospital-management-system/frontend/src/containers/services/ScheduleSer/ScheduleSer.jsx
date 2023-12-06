@@ -15,6 +15,7 @@ const ScheduleSer = ({
   addOnSubmit,
   setOpenScheduleDelete,
   openScheduleDelete,
+  setOpenPage,
 }) => {
   const [appointmentInfos, setAppointmentInfos] = useState({
     schedulingID: "",
@@ -62,6 +63,7 @@ const ScheduleSer = ({
   };
 
   const handleCloseScheduling = () => {
+    setOpenPage(false);
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
     setAppointmentInfos({
@@ -100,11 +102,6 @@ const ScheduleSer = ({
         const nextScheduleId = `schedule_${(numericPart + 1)
           .toString()
           .padStart(3, "0")}`;
-        // const numericPart = parseInt(lastMServiceID.split("_")[1]);
-
-        // const nextMServiceID = `service_${(numericPart + 1)
-        //   .toString()
-        //   .padStart(3, "0")}`;
         setAppointmentInfos({
           ...appointmentInfos,
           schedulingID: nextScheduleId,

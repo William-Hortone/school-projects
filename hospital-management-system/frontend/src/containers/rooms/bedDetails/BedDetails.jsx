@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import { ButtonAction, ButtonSkip, Input } from "../../../components";
-// import "./appScheduling.css";
-// import Scheduling from "../scheduling/Scheduling";
 import { useSelector } from "react-redux";
-// import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
 import { useNavigate } from "react-router-dom";
 import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
 import { Input, ButtonAction, ButtonSkip } from "../../../components";
 import { BedMoreDetails } from "../..";
 import axios from "axios";
-// import BedMoreDetails from "../bedMoreDetails/BedMoreDetails";
-// import { BedMoreDetails } from "../..";
-// import { BedMoreDetails } from "../bedMoreDetails/BedMoreDetails";
 
 const BedDetails = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
+  const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const [isEmpty, setIsEmpty] = useState(true);
@@ -52,11 +46,13 @@ const BedDetails = () => {
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(true);
   };
 
   const showSchedulingToEdit = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
   const handleRefresh = () => {
@@ -70,6 +66,7 @@ const BedDetails = () => {
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
 
@@ -236,20 +233,27 @@ const BedDetails = () => {
       </div>
 
       {/* Open the scheduling component  */}
-      <div
+      {/* <div
         className={
           openScheduling || openScheduleDelete
             ? "appScheduling-wrapper ActiveScheduling"
             : "appScheduling-wrapper"
         }
-      >
-        <BedMoreDetails
-          setOpenScheduling={setOpenScheduling}
-          setOpenScheduleDelete={setOpenScheduleDelete}
-          openScheduleDelete={openScheduleDelete}
-          addOnSubmit={addOnSubmit}
-        />
-      </div>
+      > */}
+
+      {openPage && (
+        <div className="popup-wrapper">
+          <div className="popup">
+            <BedMoreDetails
+              setOpenScheduling={setOpenScheduling}
+              setOpenScheduleDelete={setOpenScheduleDelete}
+              openScheduleDelete={openScheduleDelete}
+              addOnSubmit={addOnSubmit}
+              setOpenPage={setOpenPage}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

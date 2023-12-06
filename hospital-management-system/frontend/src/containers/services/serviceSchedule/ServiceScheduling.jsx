@@ -7,6 +7,7 @@ import ScheduleSer from "../ScheduleSer/ScheduleSer";
 
 const ServiceScheduling = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
+  const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const [isEmpty, setIsEmpty] = useState(true);
@@ -17,22 +18,25 @@ const ServiceScheduling = () => {
 
   const handleShowScheduling = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(true);
   };
   const showSchedulingToEdit = () => {
     setOpenScheduling(true);
+    setOpenPage(true);
     setAddOnSubmit(false);
   };
   const handleRefresh = () => {
     window.location.reload();
   };
   const handleClose = () => {
-    navigate("/adminDashboard");
+    navigate("/adminDashboard/dashboard");
   };
   const handleViewAll = () => {
     navigate("/vizHospitalSer");
   };
   const showSchedulingToDelete = () => {
+    setOpenPage(true);
     setOpenScheduleDelete(true);
     setAddOnSubmit(false);
   };
@@ -218,20 +222,28 @@ const ServiceScheduling = () => {
           </div>
         </div>
 
-        <div
+        {/* <div
           className={
             openScheduling || openScheduleDelete
               ? "appScheduling-wrapper ActiveScheduling"
               : "appScheduling-wrapper"
           }
-        >
-          <ScheduleSer
-            setOpenScheduling={setOpenScheduling}
-            setOpenScheduleDelete={setOpenScheduleDelete}
-            openScheduleDelete={openScheduleDelete}
-            addOnSubmit={addOnSubmit}
-          />
-        </div>
+        > */}
+
+        {openPage && (
+          <div className="popup-wrapper">
+            <div className="popup">
+              <ScheduleSer
+                setOpenScheduling={setOpenScheduling}
+                setOpenScheduleDelete={setOpenScheduleDelete}
+                openScheduleDelete={openScheduleDelete}
+                addOnSubmit={addOnSubmit}
+                setOpenPage={setOpenPage}
+              />
+              {/* </div> */}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

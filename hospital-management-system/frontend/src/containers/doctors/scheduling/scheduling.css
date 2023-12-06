@@ -1,7 +1,16 @@
 .app__scheduling {
-  width: 100%;
+  width: 98vw;
+  height: auto;
+  min-height: 100vh;
+  overflow-y: auto;
+  z-index: 10;
+  /* margin: 0 auto !important; */
+  background-color: var(--color-bg);
+  padding-top: 2rem;
+  /* width: 98vw;
   height: auto;
   z-index: 20;
+  min-height: 100vh;
   margin: 0 !important;
   overflow: hidden !important;
   background: rgb(29, 26, 69);
@@ -11,7 +20,7 @@
     rgba(19, 93, 108, 1) 100%,
     rgba(0, 0, 0, 1) 100%
   );
-  padding-bottom: 2rem;
+  padding-bottom: 2rem; */
 }
 .app__scheduling-container {
   width: 90%;
