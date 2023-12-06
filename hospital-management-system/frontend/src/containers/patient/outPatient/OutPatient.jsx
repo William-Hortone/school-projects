@@ -10,12 +10,14 @@ import OutPatientMDetails from "../outPatientMDetails/OutPatientMDetails";
 import axios from "axios";
 import AddDocAppointment from "../addDocAppointment/AddDocAppointment";
 import { toast } from "react-toastify";
+import AddHospAppointment from "../addHospAppointment/AddHospAppointment";
 
 const OutPatient = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const [openAddAppointment, setOpenAddAppointment] = useState(false);
+  const [openAddHospitalApp, setOpenAddHospitalApp] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
   const [allOutPatients, setAllOutPatients] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState("");
@@ -112,7 +114,8 @@ const OutPatient = () => {
       setOpenAddAppointment(true);
     } else {
       if (selectedPlace === "hospitalServices") {
-        toast.error("Please select an appointment");
+        setOpenAddHospitalApp(true);
+        // toast.error("Please select an appointment");
       } else {
         toast.error("Please select an appointment");
       }
@@ -342,6 +345,7 @@ const OutPatient = () => {
             </div>
           </div>
         </div>
+
         {/* Open the OutPatientMDetails component  */}
         <div
           className={
@@ -358,12 +362,23 @@ const OutPatient = () => {
           />
         </div>
 
-        {/* section to set an appointment */}
+        {/* section to set a doctor appointment */}
         {openAddAppointment && (
           <div className="popup-wrapper">
             <div className="popup">
               <AddDocAppointment
                 setOpenAddAppointment={setOpenAddAppointment}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* section to set a hospital service appointment */}
+        {openAddHospitalApp && (
+          <div className="popup-wrapper">
+            <div className="popup">
+              <AddHospAppointment
+                setOpenAddHospitalApp={setOpenAddHospitalApp}
               />
             </div>
           </div>

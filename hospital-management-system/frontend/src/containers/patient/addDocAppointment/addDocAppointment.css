@@ -1,10 +1,11 @@
 .app__addAppointment {
   height: auto;
-  width: 100vw;
+  width: 98vw;
   height: auto;
   min-height: 100vh;
   overflow-y: auto;
   z-index: 10;
+  /* margin: 0 auto !important; */
   background-color: var(--color-bg);
   padding-top: 2rem;
 }
@@ -31,11 +32,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 84% !important;
-  height: 600px;
+  width: 50%;
+  height: 700px;
   /* flex: 1; */
-  background-color: aqua;
+  /* background-color: aqua; */
   padding: 1rem 0 2rem 0;
+  border: 2px solid #000;
+  border-radius: 10px;
+  margin-right: 1rem;
+  margin-top: 2rem;
+}
+.appointment-form {
+  padding: 1rem 1rem 2rem 1rem;
+}
+
+.custom-input-field {
+  margin-right: 6rem;
 }
 .table-view-app {
   width: 97%;
@@ -43,7 +55,8 @@
   max-height: 460px;
   margin: 0 auto;
   border: 2px solid #000;
-  background-color: blanchedalmond;
+
+  /* background-color: blanchedalmond; */
   text-align: center;
 }
 .table-view-app th {

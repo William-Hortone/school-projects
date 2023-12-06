@@ -11,7 +11,7 @@ router.post("/addDocAppointment", (req, res) => {
 });
 
 // Get all Doctors Appointments
-router.get("/getDocAppointments", (req, res) => {
+router.get("/getAddDocAppointments", (req, res) => {
   AddDocApp.find({ isDisplayed: true })
     .then((appointment) => res.json(appointment))
     .catch((err) => res.json(err));
