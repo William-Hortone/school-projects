@@ -251,6 +251,7 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   dateFormat="dd/MM/yyyy"
+                  // minDate={}
                 />
               </div>
             </div>
