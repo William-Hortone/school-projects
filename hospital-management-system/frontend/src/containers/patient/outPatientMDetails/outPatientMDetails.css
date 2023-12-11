@@ -1,0 +1,13 @@
+.container-more-infos {
+  width: 100%;
+  background-color: red;
+}
+.container {
+  width: 100%;
+  display: flex;
+  gap: 3rem;
+  background-color: aquamarine;
+}
+.container-wrapper {
+  background-color: bisque;
+}

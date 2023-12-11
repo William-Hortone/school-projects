@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import "./outPatientMDetails.css";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 
 const OutPatientMDetails = ({
@@ -181,7 +182,7 @@ const OutPatientMDetails = ({
   return (
     <>
       <div className="app__scheduling">
-        <div className="app__scheduling-container">
+        <div className="app__scheduling-container container-more-infos">
           <h2>Out Patient</h2>
 
           <form
@@ -189,120 +190,123 @@ const OutPatientMDetails = ({
               addOnSubmit ? handleSubmit : (e) => handleSubmitEditDoctor(e, id)
             }
           >
-            <div className="form-left-box">
-              <div className="details-title">
-                <h4> Out Patient Details</h4>
-                <div className="divider" />
-              </div>
-              <div className="input-fields">
-                <label form="patientID">Patient ID:</label>
-                <Input
-                  placeholder="Patient ID"
-                  name="patientID"
-                  value={inputs.patientID}
-                  handleOnChange={handleOnChange}
-                  inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
-                />
-              </div>
-              <div className="input-fields">
-                <label form="firstName">First Name:</label>
-                <Input
-                  placeholder="First Name"
-                  name="firstName"
-                  value={inputs.firstName}
-                  handleOnChange={handleOnChange}
-                  //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
-                />
-              </div>
-              <div className="input-fields">
-                <label form="lastName">Last Name:</label>
-                <Input
-                  placeholder="Last Name"
-                  name="lastName"
-                  value={inputs.lastName}
-                  handleOnChange={handleOnChange}
-                  //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
-                />
-              </div>
-
-              <div className="input-field doctor-types">
-                <label htmlFor="gender"> Gender</label>
-                <div>
-                  <select
-                    name="gender"
-                    id="gender"
-                    value={inputs.gender}
-                    onChange={handleOnChange}
-                    required
-                  >
-                    <option required value="">
-                      Select a gender
-                    </option>
-                    {selectGender.map((person, index) => (
-                      <option key={index} value={person.value}>
-                        {person.value}
-                      </option>
-                    ))}
-                  </select>
+            <div className="container">
+              <div className="container-wrapper">
+                <div className="details-title">
+                  <h4> Out Patient Details</h4>
+                  <div className="divider" />
+                </div>
+                <div className="input-fields">
+                  <label form="patientID">Patient ID:</label>
+                  <Input
+                    placeholder="Patient ID"
+                    name="patientID"
+                    value={inputs.patientID}
+                    handleOnChange={handleOnChange}
+                    inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="firstName">First Name:</label>
+                  <Input
+                    placeholder="First Name"
+                    name="firstName"
+                    value={inputs.firstName}
+                    handleOnChange={handleOnChange}
+                    //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="lastName">Last Name:</label>
+                  <Input
+                    placeholder="Last Name"
+                    name="lastName"
+                    value={inputs.lastName}
+                    handleOnChange={handleOnChange}
+                    //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                  />
                 </div>
               </div>
-              <div className="input-fields">
-                <label form="telephone">Telephone:</label>
-                <Input
-                  placeholder="Telephone"
-                  name="telephone"
-                  value={inputs.telephone}
-                  handleOnChange={handleOnChange}
-                  //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
-                />
-              </div>
-              <div className="input-field">
-                <label form="address"> Address:</label>
-                <textarea
-                  name="address"
-                  id="address"
-                  cols="39"
-                  rows="10"
-                  onChange={handleOnChange}
-                  value={inputs.address}
-                ></textarea>
-              </div>
-              <div className="input-fields">
-                <label form="status">Status:</label>
-                <Input
-                  placeholder="Status"
-                  name="status"
-                  value={inputs.status}
-                  handleOnChange={handleOnChange}
-                  //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
-                />
-              </div>
-              <div className="input-field">
-                <label form="notes"> Notes:</label>
-                <textarea
-                  name="notes"
-                  value={inputs.notes}
-                  onChange={handleOnChange}
-                  id="notes"
-                  cols="39"
-                  rows="10"
-                ></textarea>
-              </div>
+              <div className="container-wrapper">
+                <div className="input-field doctor-types">
+                  <label htmlFor="gender"> Gender</label>
+                  <div>
+                    <select
+                      name="gender"
+                      id="gender"
+                      value={inputs.gender}
+                      onChange={handleOnChange}
+                      required
+                    >
+                      <option required value="">
+                        Select a gender
+                      </option>
+                      {selectGender.map((person, index) => (
+                        <option key={index} value={person.value}>
+                          {person.value}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="input-fields">
+                  <label form="telephone">Telephone:</label>
+                  <Input
+                    placeholder="Telephone"
+                    name="telephone"
+                    value={inputs.telephone}
+                    handleOnChange={handleOnChange}
+                    //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="address"> Address:</label>
+                  <textarea
+                    name="address"
+                    id="address"
+                    cols="39"
+                    rows="10"
+                    onChange={handleOnChange}
+                    value={inputs.address}
+                  ></textarea>
+                </div>
+                <div className="input-fields">
+                  <label form="status">Status:</label>
+                  <Input
+                    placeholder="Status"
+                    name="status"
+                    value={inputs.status}
+                    handleOnChange={handleOnChange}
+                    //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="notes"> Notes:</label>
+                  <textarea
+                    name="notes"
+                    value={inputs.notes}
+                    onChange={handleOnChange}
+                    id="notes"
+                    cols="39"
+                    rows="10"
+                  ></textarea>
+                </div>
 
-              {!openScheduleDelete && (
-                <button type="submit" className="submit-btn">
-                  Submit
-                </button>
-              )}
-              {openScheduleDelete && (
-                <button
-                  onClick={handleDelete}
-                  type="button"
-                  className="delete-btn"
-                >
-                  Delete
-                </button>
-              )}
+                {!openScheduleDelete && (
+                  <button type="submit" className="submit-btn">
+                    Submit
+                  </button>
+                )}
+                {openScheduleDelete && (
+                  <button
+                    onClick={handleDelete}
+                    type="button"
+                    className="delete-btn"
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
             </div>
           </form>
 
