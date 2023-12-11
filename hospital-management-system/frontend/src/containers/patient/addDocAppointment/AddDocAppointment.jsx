@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { ButtonAction, Input, Select } from "../../../components";
 import axios from "axios";
-import "./addDocAppointment.css";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
+import { ButtonAction, Input } from "../../../components";
+import "./addDocAppointment.css";
 
 const AddDocAppointment = ({ setOpenAddAppointment }) => {
   const [inputs, setInputs] = useState({
@@ -18,17 +18,31 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
   const [allOutPatients, setAllOutPatients] = useState([]);
   const [allAppointments, setAllAppointments] = useState([]);
   const [allDOctors, setAllDOctors] = useState([]);
-  const [startDate, setStartDate] = useState(new Date());
+  const [allDocSchedule, setAllDocSchedule] = useState([]);
+  const [allDocSchFiltered, setAllDocSchFiltered] = useState([]);
+  const [startDate, setStartDate] = useState(null);
   const [pickedTime, setPickedTime] = useState(null);
   const [isFocusedP, setIsFocusedP] = useState(false);
   const [isFocusedD, setIsFocusedD] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+  const [selectedDay, setSelectedDay] = useState("");
+  const [docID, setDocID] = useState("");
+  const [monday, setMonday] = useState();
+  const [tuesday, setTuesday] = useState();
+  const [wednesday, setWednesday] = useState();
+  const [thursday, setThursday] = useState();
+  const [friday, setFriday] = useState();
+  const [saturday, setSaturday] = useState();
+  const [sunday, setSunday] = useState();
+  // const [startTime, setStartTime] = useState();
+  // const [endTime, setEndTime] = useState();
 
   // To Get all outPatient
   const API_URL = "http://localhost:3001/getOutPatientsDetails";
   const API_URL_APPOINTMENT = "http://localhost:3001/getAddDocAppointments";
   const API_URL_DOCTORS = "http://localhost:3001/getDoctors";
+  const API_URL_DOCTORS_SCHEDULE = "http://localhost:3001/getDocAppointments";
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -51,6 +65,10 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
     const { data } = await axios.get(API_URL_APPOINTMENT);
     setAllAppointments(data);
   };
+  const fetchDocSchedule = async () => {
+    const { data } = await axios.get(API_URL_DOCTORS_SCHEDULE);
+    setAllDocSchedule(data);
+  };
 
   const handleFocusPatient = () => {
     setIsFocusedP(true);
@@ -72,11 +90,47 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
     fetchData();
     fetchDoctorsData();
     fetchAppointment();
+    fetchDocSchedule();
   }, []);
 
+  // Filter available days according to the doctor schedule available days
   useEffect(() => {
-    console.log("allAppointments", allAppointments);
-  }, [allAppointments]);
+    if (allDocSchFiltered) {
+      const allDocSchFilterDays = allDocSchFiltered.map((day) => {
+        return day.selectedDays;
+      });
+
+      const daysMap = {
+        Sun: { stateUpdater: setSunday, value: 0 },
+        Mon: { stateUpdater: setMonday, value: 1 },
+        Tue: { stateUpdater: setTuesday, value: 2 },
+        Wed: { stateUpdater: setWednesday, value: 3 },
+        Thu: { stateUpdater: setThursday, value: 4 },
+        Fri: { stateUpdater: setFriday, value: 5 },
+        Sat: { stateUpdater: setSaturday, value: 6 },
+      };
+
+      allDocSchFilterDays.forEach((day) => {
+        const dayName = day.substring(0, 3);
+        const { stateUpdater, value } = daysMap[dayName];
+        if (day.includes(dayName)) {
+          stateUpdater(value);
+        } else {
+          stateUpdater();
+        }
+      });
+    }
+  }, [allDocSchFiltered]);
+
+  useEffect(() => {
+    if (startDate) {
+      const text = startDate.toString();
+
+      const result = text.slice(0, 3);
+
+      setSelectedDay(result);
+    }
+  }, [startDate, selectedDay]);
 
   //  Set the format for the Date
   useEffect(() => {
@@ -95,13 +149,15 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
       "Dec",
     ];
 
-    const day = startDate.getDate();
-    const month = months[startDate.getMonth()];
-    const year = startDate.getFullYear();
+    if (startDate) {
+      const day = startDate.getDate();
+      const month = months[startDate.getMonth()];
+      const year = startDate.getFullYear();
 
-    const formattedDate = `${day} ${month} ${year}`;
-    setSelectedDate(formattedDate);
-  }, [startDate]);
+      const formattedDate = `${selectedDay} ${day} ${month} ${year}`;
+      setSelectedDate(formattedDate);
+    }
+  }, [startDate, selectedDay]);
 
   //  Set the format for the time
   useEffect(() => {
@@ -172,6 +228,29 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
         appointmentID: nextId,
       });
     }
+  };
+
+  useEffect(() => {
+    setDocID(inputs.doctorID);
+  }, [inputs.doctorID, docID]);
+
+  useEffect(() => {
+    const handleFilter = (id) => {
+      const result = allDocSchedule.filter((doctor) => doctor.doctorID === id);
+      setAllDocSchFiltered(result);
+    };
+
+    handleFilter(docID);
+  }, [docID, allDocSchedule]);
+
+  const filterTime = (time) => {
+    const startTime = new Date();
+    startTime.setHours(10, 0, 0); // 10:00 AM
+
+    const endTime = new Date();
+    endTime.setHours(19, 20, 0); // 7:20 PM
+
+    return time >= startTime && time <= endTime;
   };
 
   return (
@@ -257,7 +336,17 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
                   onChange={(date) => setStartDate(date)}
                   dateFormat="dd/MM/yyyy"
                   showYearDropdown
-                  scrollableMonthYearDropdown
+                  scrollableMonthYearDropdowns
+                  minDate={new Date()}
+                  filterDate={(date) =>
+                    date.getDay() == monday ||
+                    date.getDay() == tuesday ||
+                    date.getDay() == wednesday ||
+                    date.getDay() == thursday ||
+                    date.getDay() == friday ||
+                    date.getDay() == saturday ||
+                    date.getDay() == sunday
+                  }
                 />
               </div>
             </div>
@@ -272,6 +361,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
                   timeIntervals={10}
                   dateFormat="h:mm aa"
                   timeCaption="Time"
+                  filterTime={filterTime}
                 />
               </div>
             </div>
@@ -381,22 +471,22 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
         <table>
           <thead>
             <tr>
-              <th>Appointment ID </th>
-              <th>Patient ID</th>
+              <th>Scheduling ID </th>
               <th>Doctor ID</th>
-              <th>Appointment Date</th>
-              <th>Appointment Time</th>
+              <th>Time In</th>
+              <th>Time Out</th>
+              <th>Available Days </th>
             </tr>
           </thead>
           <tbody>
-            {allAppointments.map((appointment, index) => {
+            {allDocSchFiltered.map((schedule, index) => {
               return (
                 <tr className="doctor-infos" key={index}>
-                  <td>{appointment.appointmentID}</td>
-                  <td>{appointment.patientID}</td>
-                  <td>{appointment.doctorID}</td>
-                  <td>{appointment.appointmentDate}</td>
-                  <td>{appointment.appointmentTime}</td>
+                  <td>{schedule.schedulingID}</td>
+                  <td>{schedule.doctorID}</td>
+                  <td>{schedule.timeIn}</td>
+                  <td>{schedule.timeOut}</td>
+                  <td>{schedule.selectedDays}</td>
                 </tr>
               );
             })}
