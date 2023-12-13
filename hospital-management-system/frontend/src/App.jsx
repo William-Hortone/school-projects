@@ -11,6 +11,7 @@ import {
   AdminDashboard,
   AppScheduling,
   BedDetails,
+  CancelDocApp,
   DDetails,
   Dashboard,
   MedicalServices,
@@ -120,6 +121,10 @@ function App() {
             <Route path="/adminDashboard/addUser" element={<AddUser />} />
             <Route path="/adminDashboard/bedDetails" element={<BedDetails />} />
             <Route path="/adminDashboard/outPatient" element={<OutPatient />} />
+            <Route
+              path="/adminDashboard/cancelDocApp"
+              element={<CancelDocApp />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

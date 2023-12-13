@@ -49,6 +49,9 @@ const AdminDashboard = () => {
               <NavLink to="/adminDashboard/outPatient" className={activeLink}>
                 Out Patient
               </NavLink>
+              <NavLink to="/adminDashboard/cancelDocApp" className={activeLink}>
+                Cancel Doctor A.
+              </NavLink>
               {/* <NavLink to="/adminDashboard/outPatient" className={activeLink}>
                 Out Patient
               </NavLink> */}

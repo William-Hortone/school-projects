@@ -135,70 +135,77 @@ const OutPatient = () => {
             <div className="divider" />
           </div>
           <form>
-            <div className="input-field">
-              <label form="patientID">Patient ID:</label>
-              <Input
-                inputDisabled="true"
-                placeholder="Patient ID"
-                name="patientID"
-                value={lastElement ? lastElement.schedulingID : ""}
-              />
-            </div>
-            <div className="input-field">
-              <label form="firstName">First Name:</label>
-              <Input
-                placeholder="First Name"
-                name="firstName"
-                inputDisabled="true"
-                value={lastElement ? lastElement.doctorID : ""}
-              />
-            </div>
-            <div className="input-field">
-              <label form="lastName">Last Name:</label>
-              <Input
-                placeholder="Last Name"
-                name="lastName"
-                id="lastName"
-                inputDisabled="true"
-                value={lastElement ? lastElement.timeIn : ""}
-              />
-            </div>
-            <div className="input-field">
-              <label form="gender"> Gender:</label>
-              <Input
-                placeholder="Gender"
-                name="gender"
-                inputDisabled="true"
-                value={lastElement ? lastElement.timeOut : ""}
-              />
-            </div>
-            <div className="input-field">
-              <label form="telephone"> Telephone:</label>
-              <Input
-                inputDisabled="true"
-                placeholder="Telephone"
-                name="telephone"
-                value={lastElement ? lastElement.selectedDays : ""}
-              />
-            </div>
-            <div className="input-field">
-              <label form="address"> Address:</label>
-              <textarea name="" id="address" cols="39" rows="10"></textarea>
-            </div>
-            <div className="input-field">
-              <label form="status"> Status:</label>
-              <Input
-                placeholder="Status"
-                name="status"
-                id="status"
-                inputDisabled="true"
-                value={lastElement ? lastElement.schedulingNotes : ""}
-              />
-            </div>
+            <div className="container-display-infos">
+              <div className="container-wrapper">
+                <div className="input-field">
+                  <label form="patientID">Patient ID:</label>
+                  <Input
+                    inputDisabled="true"
+                    placeholder="Patient ID"
+                    name="patientID"
+                    value={lastElement ? lastElement.schedulingID : ""}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="firstName">First Name:</label>
+                  <Input
+                    placeholder="First Name"
+                    name="firstName"
+                    inputDisabled="true"
+                    value={lastElement ? lastElement.doctorID : ""}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="lastName">Last Name:</label>
+                  <Input
+                    placeholder="Last Name"
+                    name="lastName"
+                    id="lastName"
+                    inputDisabled="true"
+                    value={lastElement ? lastElement.timeIn : ""}
+                  />
+                </div>
 
-            <div className="input-field">
-              <label form="notes"> Notes:</label>
-              <textarea name="" id="notes" cols="39" rows="10"></textarea>
+                <div className="input-field">
+                  <label form="notes"> Notes:</label>
+                  <textarea name="" id="notes" cols="39" rows="10"></textarea>
+                </div>
+              </div>
+
+              <div className="container-wrapper">
+                <div className="input-field">
+                  <label form="gender"> Gender:</label>
+                  <Input
+                    placeholder="Gender"
+                    name="gender"
+                    inputDisabled="true"
+                    value={lastElement ? lastElement.timeOut : ""}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="telephone"> Telephone:</label>
+                  <Input
+                    inputDisabled="true"
+                    placeholder="Telephone"
+                    name="telephone"
+                    value={lastElement ? lastElement.selectedDays : ""}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="status"> Status:</label>
+                  <Input
+                    placeholder="Status"
+                    name="status"
+                    id="status"
+                    inputDisabled="true"
+                    value={lastElement ? lastElement.schedulingNotes : ""}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="address"> Address:</label>
+                  <textarea name="" id="address" cols="39" rows="10"></textarea>
+                </div>
+              </div>
             </div>
           </form>
         </div>

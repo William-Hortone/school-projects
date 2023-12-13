@@ -28,6 +28,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
   const [docID, setDocID] = useState("");
+
   const [monday, setMonday] = useState();
   const [tuesday, setTuesday] = useState();
   const [wednesday, setWednesday] = useState();
@@ -243,15 +244,15 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
     handleFilter(docID);
   }, [docID, allDocSchedule]);
 
-  const filterTime = (time) => {
-    const startTime = new Date();
-    startTime.setHours(10, 0, 0); // 10:00 AM
+  // const filterTime = (time) => {
+  //   const startTime = new Date();
+  //   startTime.setHours(10, 0, 0);
 
-    const endTime = new Date();
-    endTime.setHours(19, 20, 0); // 7:20 PM
+  //   const endTime = new Date();
+  //   endTime.setHours(19, 20, 0);
 
-    return time >= startTime && time <= endTime;
-  };
+  //   return time >= startTime && time <= endTime;
+  // };
 
   return (
     <div className="app__addAppointment">
@@ -361,7 +362,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
                   timeIntervals={10}
                   dateFormat="h:mm aa"
                   timeCaption="Time"
-                  filterTime={filterTime}
+                  // filterTime={filterTime}
                 />
               </div>
             </div>
@@ -447,7 +448,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
               </tbody>
             </table>
           )}
-          <div className="container-view-appoint-btn">
+          {/* <div className="container-view-appoint-btn">
             <ButtonAction
               iconName="valid"
               btnName="Ok"
@@ -462,7 +463,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
               buttonType="button"
               // onClick={handleCloseScheduling}
             />
-          </div>
+          </div> */}
         </aside>
       </div>
 

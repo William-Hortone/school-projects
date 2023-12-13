@@ -93,61 +93,67 @@ const AppScheduling = () => {
           <div className="divider" />
         </div>
         <form>
-          <div className="input-field">
-            <label form="schedulingId">Scheduling ID:</label>
-            <Input
-              inputDisabled="true"
-              placeholder="Scheduling ID"
-              name="schedulingID"
-              value={lastElement ? lastElement.schedulingID : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="doctorId"> Doctor ID:</label>
-            <Input
-              placeholder="Doctor ID"
-              name="doctorID"
-              inputDisabled="true"
-              value={lastElement ? lastElement.doctorID : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="timeIn"> Time In:</label>
-            <Input
-              placeholder="time In"
-              name="timeIn"
-              id="timeIn"
-              inputDisabled="true"
-              value={lastElement ? lastElement.timeIn : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="timeOut"> Time Out:</label>
-            <Input
-              placeholder="Time Out"
-              name="timeOut"
-              inputDisabled="true"
-              value={lastElement ? lastElement.timeOut : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="availableDays"> Available Days:</label>
-            <Input
-              inputDisabled="true"
-              placeholder="Available Days"
-              name="availableDays"
-              value={lastElement ? lastElement.selectedDays : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="schedulingNotes"> Scheduling Notes:</label>
-            <Input
-              placeholder="Scheduling Notes"
-              name="schedulingNotes"
-              id="schedulingNotes"
-              inputDisabled="true"
-              value={lastElement ? lastElement.schedulingNotes : ""}
-            />
+          <div className="container-display-infos">
+            <div className="container-wrapper">
+              <div className="input-field">
+                <label form="schedulingId">Scheduling ID:</label>
+                <Input
+                  inputDisabled="true"
+                  placeholder="Scheduling ID"
+                  name="schedulingID"
+                  value={lastElement ? lastElement.schedulingID : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label form="doctorId"> Doctor ID:</label>
+                <Input
+                  placeholder="Doctor ID"
+                  name="doctorID"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.doctorID : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label form="timeIn"> Time In:</label>
+                <Input
+                  placeholder="time In"
+                  name="timeIn"
+                  id="timeIn"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.timeIn : ""}
+                />
+              </div>
+            </div>
+            <div className="container-wrapper">
+              <div className="input-field">
+                <label form="timeOut"> Time Out:</label>
+                <Input
+                  placeholder="Time Out"
+                  name="timeOut"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.timeOut : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label form="availableDays"> Available Days:</label>
+                <Input
+                  inputDisabled="true"
+                  placeholder="Available Days"
+                  name="availableDays"
+                  value={lastElement ? lastElement.selectedDays : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label form="schedulingNotes"> Scheduling Notes:</label>
+                <Input
+                  placeholder="Scheduling Notes"
+                  name="schedulingNotes"
+                  id="schedulingNotes"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.schedulingNotes : ""}
+                />
+              </div>
+            </div>
           </div>
         </form>
       </div>

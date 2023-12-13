@@ -1,3 +1,12 @@
+.schedule-container-infos {
+  width: 100%;
+  padding: 2rem;
+  margin: 0 auto;
+}
+.container-display-infos {
+  display: flex;
+  gap: 2rem;
+}
 .input-record {
   width: 98% !important;
   margin: 0 auto;
@@ -60,7 +69,7 @@
     rgba(19, 93, 108, 1) 100%,
     rgba(0, 0, 0, 1) 100%
   );
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
   max-width: 100vw;
   max-height: 100%;
   overflow-x: hidden;
