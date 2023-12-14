@@ -1,6 +1,7 @@
 import AdminDashboard from "./adminDashbord/AdminDashboard";
 import Dashboard from "./dashboard/Dashboard";
 import AppScheduling from "./doctors/appSheduling/AppScheduling";
+import CancelDocApp from "./doctors/cancelDocApp/CancelDocApp";
 import DDetails from "./doctors/dDetails/DDetails";
 import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
 import Scheduling from "./doctors/scheduling/Scheduling";
@@ -64,4 +65,5 @@ export {
   VizAllOutPatient,
   AddDocAppointment,
   AddHospAppointment,
+  CancelDocApp,
 };

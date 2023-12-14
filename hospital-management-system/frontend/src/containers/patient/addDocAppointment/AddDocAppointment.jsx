@@ -28,6 +28,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
   const [docID, setDocID] = useState("");
+
   const [monday, setMonday] = useState();
   const [tuesday, setTuesday] = useState();
   const [wednesday, setWednesday] = useState();
@@ -99,26 +100,48 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
       const allDocSchFilterDays = allDocSchFiltered.map((day) => {
         return day.selectedDays;
       });
+      if (allDocSchFilterDays.length > 0) {
+        console.log("the alldoc ", allDocSchFilterDays);
 
-      const daysMap = {
-        Sun: { stateUpdater: setSunday, value: 0 },
-        Mon: { stateUpdater: setMonday, value: 1 },
-        Tue: { stateUpdater: setTuesday, value: 2 },
-        Wed: { stateUpdater: setWednesday, value: 3 },
-        Thu: { stateUpdater: setThursday, value: 4 },
-        Fri: { stateUpdater: setFriday, value: 5 },
-        Sat: { stateUpdater: setSaturday, value: 6 },
-      };
+        console.log(allDocSchFilterDays.includes("Mon"));
+      }
 
-      allDocSchFilterDays.forEach((day) => {
-        const dayName = day.substring(0, 3);
-        const { stateUpdater, value } = daysMap[dayName];
-        if (day.includes(dayName)) {
-          stateUpdater(value);
-        } else {
-          stateUpdater();
-        }
-      });
+      // const filterFriday = () => {
+      //   if (allDocSchFilterDays.includes("Fri")) {
+      //     console.log("yes there is Friday ", allDocSchFilterDays.includes("Fri"));
+      //   } else {
+      //     console.log("yes there is nooooo Friday ");
+      //   }
+      // try {
+      //   const result = await allDocSchFilterDays.filter((item) =>
+      //     item.selectedDays.includes("Fri")
+      //   );
+      //   setFridayValue(result.length);
+      // } catch (err) {
+      //   console.error(err);
+      // }
+      // };
+      // filterFriday();
+
+      // const daysMap = {
+      //   Sun: { stateUpdater: setSunday, value: 0 },
+      //   Mon: { stateUpdater: setMonday, value: 1 },
+      //   Tue: { stateUpdater: setTuesday, value: 2 },
+      //   Wed: { stateUpdater: setWednesday, value: 3 },
+      //   Thu: { stateUpdater: setThursday, value: 4 },
+      //   Fri: { stateUpdater: setFriday, value: 5 },
+      //   Sat: { stateUpdater: setSaturday, value: 6 },
+      // };
+
+      // allDocSchFilterDays.forEach((day) => {
+      //   const dayName = day.substring(0, 3);
+      //   const { stateUpdater, value } = daysMap[dayName];
+      //   if (day.includes(dayName)) {
+      //     stateUpdater(value);
+      //   } else {
+      //     stateUpdater();
+      //   }
+      // });
     }
   }, [allDocSchFiltered]);
 
@@ -243,15 +266,15 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
     handleFilter(docID);
   }, [docID, allDocSchedule]);
 
-  const filterTime = (time) => {
-    const startTime = new Date();
-    startTime.setHours(10, 0, 0); // 10:00 AM
+  // const filterTime = (time) => {
+  //   const startTime = new Date();
+  //   startTime.setHours(10, 0, 0);
 
-    const endTime = new Date();
-    endTime.setHours(19, 20, 0); // 7:20 PM
+  //   const endTime = new Date();
+  //   endTime.setHours(19, 20, 0);
 
-    return time >= startTime && time <= endTime;
-  };
+  //   return time >= startTime && time <= endTime;
+  // };
 
   return (
     <div className="app__addAppointment">
@@ -361,7 +384,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
                   timeIntervals={10}
                   dateFormat="h:mm aa"
                   timeCaption="Time"
-                  filterTime={filterTime}
+                  // filterTime={filterTime}
                 />
               </div>
             </div>
@@ -447,7 +470,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
               </tbody>
             </table>
           )}
-          <div className="container-view-appoint-btn">
+          {/* <div className="container-view-appoint-btn">
             <ButtonAction
               iconName="valid"
               btnName="Ok"
@@ -462,7 +485,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
               buttonType="button"
               // onClick={handleCloseScheduling}
             />
-          </div>
+          </div> */}
         </aside>
       </div>
 

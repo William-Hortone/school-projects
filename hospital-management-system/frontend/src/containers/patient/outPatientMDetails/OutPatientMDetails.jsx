@@ -181,9 +181,9 @@ const OutPatientMDetails = ({
 
   return (
     <>
-      <div className="app__scheduling">
+      <div className="app__scheduling schedule-container">
         <div className="app__scheduling-container container-more-infos">
-          <h2>Out Patient</h2>
+          <h2 className="page-title">Out Patient</h2>
 
           <form
             onSubmit={
@@ -226,60 +226,7 @@ const OutPatientMDetails = ({
                     //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                   />
                 </div>
-              </div>
-              <div className="container-wrapper">
-                <div className="input-field doctor-types">
-                  <label htmlFor="gender"> Gender</label>
-                  <div>
-                    <select
-                      name="gender"
-                      id="gender"
-                      value={inputs.gender}
-                      onChange={handleOnChange}
-                      required
-                    >
-                      <option required value="">
-                        Select a gender
-                      </option>
-                      {selectGender.map((person, index) => (
-                        <option key={index} value={person.value}>
-                          {person.value}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <div className="input-fields">
-                  <label form="telephone">Telephone:</label>
-                  <Input
-                    placeholder="Telephone"
-                    name="telephone"
-                    value={inputs.telephone}
-                    handleOnChange={handleOnChange}
-                    //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
-                  />
-                </div>
-                <div className="input-field">
-                  <label form="address"> Address:</label>
-                  <textarea
-                    name="address"
-                    id="address"
-                    cols="39"
-                    rows="10"
-                    onChange={handleOnChange}
-                    value={inputs.address}
-                  ></textarea>
-                </div>
-                <div className="input-fields">
-                  <label form="status">Status:</label>
-                  <Input
-                    placeholder="Status"
-                    name="status"
-                    value={inputs.status}
-                    handleOnChange={handleOnChange}
-                    //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
-                  />
-                </div>
+
                 <div className="input-field">
                   <label form="notes"> Notes:</label>
                   <textarea
@@ -306,6 +253,62 @@ const OutPatientMDetails = ({
                     Delete
                   </button>
                 )}
+              </div>
+
+              <div className="container-wrapper">
+                <div className="input-field doctor-types">
+                  <label htmlFor="gender"> Gender</label>
+                  <div>
+                    <select
+                      name="gender"
+                      id="gender"
+                      value={inputs.gender}
+                      onChange={handleOnChange}
+                      required
+                    >
+                      <option required value="">
+                        Select a gender
+                      </option>
+                      {selectGender.map((person, index) => (
+                        <option key={index} value={person.value}>
+                          {person.value}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="input-fields">
+                  <label form="status">Status:</label>
+                  <Input
+                    placeholder="Status"
+                    name="status"
+                    value={inputs.status}
+                    handleOnChange={handleOnChange}
+                    //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="telephone">Telephone:</label>
+                  <Input
+                    placeholder="Telephone"
+                    name="telephone"
+                    value={inputs.telephone}
+                    handleOnChange={handleOnChange}
+                    //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="address"> Address:</label>
+                  <textarea
+                    name="address"
+                    id="address"
+                    cols="39"
+                    rows="10"
+                    onChange={handleOnChange}
+                    value={inputs.address}
+                  ></textarea>
+                </div>
               </div>
             </div>
           </form>

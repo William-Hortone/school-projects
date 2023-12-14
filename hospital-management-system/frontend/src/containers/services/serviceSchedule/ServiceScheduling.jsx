@@ -59,74 +59,80 @@ const ServiceScheduling = () => {
             <div className="divider" />
           </div>
           <form>
-            <div className="input-field">
-              <label form="schedulingId"> Scheduling ID:</label>
-              <Input
-                inputDisabled="true"
-                placeholder="Scheduling ID"
-                name="schedulingID"
-                value={isEmpty ? "" : lastElement.schedulingID}
-                // onChange={handleOnChange}
-                // disabled={!isInputEnabled}
-              />
-            </div>
-            <div className="input-field">
-              <label form="serviceID"> Service ID:</label>
-              <Input
-                inputDisabled="true"
-                placeholder="Service ID"
-                name="serviceID"
-                value={isEmpty ? "" : lastElement.serviceID}
-                // onChange={handleOnChange}
-                // disabled={!isInputEnabled}
-              />
-            </div>
-            <div className="input-field">
-              <label form="timeIn"> Service Starts:</label>
-              <Input
-                placeholder="Service Starts"
-                name="serviceStart"
-                id="timeIn"
-                value={isEmpty ? "" : lastElement.serviceStarts}
-                inputDisabled="true"
-                // onChange={handleOnChange}
-                // disabled={!isInputEnabled}
-              />
-            </div>
-            <div className="input-field">
-              <label form="timeOut">Service Ends:</label>
-              <Input
-                placeholder="Service Ends"
-                name="serviceEnds"
-                value={isEmpty ? "" : lastElement.serviceEnds}
-                inputDisabled="true"
-                // onChange={handleOnChange}
-                // disabled={!isInputEnabled}
-              />
-            </div>
-            <div className="input-field">
-              <label form="availableDays">Available Days:</label>
-              <Input
-                placeholder="Available Days"
-                name="availableDays"
-                value={isEmpty ? "" : lastElement.selectedDays}
-                inputDisabled="true"
-                // onChange={handleOnChange}
-                // disabled={!isInputEnabled}
-              />
-            </div>
-            <div className="input-field">
-              <label form="schedulingNotes"> Scheduling Notes:</label>
-              <Input
-                placeholder="Scheduling Notes"
-                name="schedulingNotes"
-                id="schedulingNotes"
-                inputDisabled="true"
-                value={isEmpty ? "" : lastElement.schedulingNotes}
+            <div className="container-display-infos">
+              <div className="container-wrapper">
+                <div className="input-field">
+                  <label form="schedulingId"> Scheduling ID:</label>
+                  <Input
+                    inputDisabled="true"
+                    placeholder="Scheduling ID"
+                    name="schedulingID"
+                    value={isEmpty ? "" : lastElement.schedulingID}
+                    // onChange={handleOnChange}
+                    // disabled={!isInputEnabled}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="serviceID"> Service ID:</label>
+                  <Input
+                    inputDisabled="true"
+                    placeholder="Service ID"
+                    name="serviceID"
+                    value={isEmpty ? "" : lastElement.serviceID}
+                    // onChange={handleOnChange}
+                    // disabled={!isInputEnabled}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="timeIn"> Service Starts:</label>
+                  <Input
+                    placeholder="Service Starts"
+                    name="serviceStart"
+                    id="timeIn"
+                    value={isEmpty ? "" : lastElement.serviceStarts}
+                    inputDisabled="true"
+                    // onChange={handleOnChange}
+                    // disabled={!isInputEnabled}
+                  />
+                </div>
+              </div>
+              <div className="container-wrapper">
+                <div className="input-field">
+                  <label form="timeOut">Service Ends:</label>
+                  <Input
+                    placeholder="Service Ends"
+                    name="serviceEnds"
+                    value={isEmpty ? "" : lastElement.serviceEnds}
+                    inputDisabled="true"
+                    // onChange={handleOnChange}
+                    // disabled={!isInputEnabled}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="availableDays">Available Days:</label>
+                  <Input
+                    placeholder="Available Days"
+                    name="availableDays"
+                    value={isEmpty ? "" : lastElement.selectedDays}
+                    inputDisabled="true"
+                    // onChange={handleOnChange}
+                    // disabled={!isInputEnabled}
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="schedulingNotes"> Scheduling Notes:</label>
+                  <Input
+                    placeholder="Scheduling Notes"
+                    name="schedulingNotes"
+                    id="schedulingNotes"
+                    inputDisabled="true"
+                    value={isEmpty ? "" : lastElement.schedulingNotes}
 
-                // onChange={handleOnChange}
-                // disabled={!isInputEnabled}
-              />
+                    // onChange={handleOnChange}
+                    // disabled={!isInputEnabled}
+                  />
+                </div>
+              </div>
             </div>
           </form>
         </div>

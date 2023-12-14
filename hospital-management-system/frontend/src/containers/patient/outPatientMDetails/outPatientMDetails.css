@@ -1,13 +1,29 @@
+.schedule-container {
+  padding: 0 !important;
+}
+.schedule-container h2 {
+  padding: 0 !important;
+  margin-bottom: 2rem;
+}
+
 .container-more-infos {
   width: 100%;
-  background-color: red;
+  /* background-color: red; */
 }
 .container {
   width: 100%;
+
   display: flex;
   gap: 3rem;
-  background-color: aquamarine;
+  border: 2px solid #000000a8;
+  border-radius: 10px;
+  padding: 1rem;
+  /* background-color: aquamarine; */
 }
 .container-wrapper {
-  background-color: bisque;
+  flex: 1;
+  /* background-color: bisque; */
+}
+.container-wrapper .input-fields {
+  margin-right: 0 !important;
 }

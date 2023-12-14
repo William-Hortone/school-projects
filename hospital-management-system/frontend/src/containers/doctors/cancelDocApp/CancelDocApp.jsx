@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "./addUser.css";
+import "./cancelDocApp.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
-import AddUserDetails from "../addUserDetails/AddUserDetails";
+// import AddUserDetails from "../addUserDetails/AddUserDetails";
 
-const AddUser = () => {
+const CancelDocApp = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
@@ -80,7 +80,7 @@ const AddUser = () => {
   return (
     <div className="roomDetails">
       <div className="roomDetails-container">
-        <h2>USER DETAILS</h2>
+        <h2>CANCEL DOCTOR APPOINTMENT</h2>
         <form>
           <div className="container-display-infos">
             <div className="container-wrapper">
@@ -266,7 +266,7 @@ const AddUser = () => {
 
       > */}
 
-      {openPage && (
+      {/* {openPage && (
         <div className="popup-wrapper">
           <div className="popup">
             <AddUserDetails
@@ -278,9 +278,9 @@ const AddUser = () => {
             />
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
 
-export default AddUser;
+export default CancelDocApp;
