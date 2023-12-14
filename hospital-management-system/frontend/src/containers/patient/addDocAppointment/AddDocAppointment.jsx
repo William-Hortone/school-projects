@@ -95,55 +95,182 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
   }, []);
 
   // Filter available days according to the doctor schedule available days
+  // useEffect(() => {
+  //   if (allDocSchFiltered) {
+  //     const allDocSchFilterDays = allDocSchFiltered.map((day) => {
+  //       return day.selectedDays;
+  //     });
+  //     if (allDocSchFilterDays.length > 0) {
+  //       console.log("the alldoc ", allDocSchFilterDays);
+
+  //       // console.log(allDocSchFilterDays.includes("Mon"));
+
+  //       const containsMon = allDocSchFilterDays.some((dayString) =>
+  //         dayString.includes("Mon")
+  //       );
+  //       if (containsMon) {
+  //         setMonday(1);
+  //       } else {
+  //         setMonday();
+  //       }
+  //       const containsTue = allDocSchFilterDays.some((dayString) =>
+  //         dayString.includes("Tue")
+  //       );
+  //       if (containsTue) {
+  //         setTuesday(2);
+  //       } else {
+  //         setTuesday();
+  //       }
+  //       const containsWed = allDocSchFilterDays.some((dayString) =>
+  //         dayString.includes("Wed")
+  //       );
+  //       if (containsWed) {
+  //         setWednesday(3);
+  //       } else {
+  //         setWednesday();
+  //       }
+  //       const containsThu = allDocSchFilterDays.some((dayString) =>
+  //         dayString.includes("Thu")
+  //       );
+  //       if (containsThu) {
+  //         setThursday(4);
+  //       } else {
+  //         setThursday();
+  //       }
+  //       const containsFri = allDocSchFilterDays.some((dayString) =>
+  //         dayString.includes("Fri")
+  //       );
+  //       if (containsFri) {
+  //         setFriday(5);
+  //       } else {
+  //         setFriday();
+  //       }
+  //       const containsSat = allDocSchFilterDays.some((dayString) =>
+  //         dayString.includes("Sat")
+  //       );
+  //       if (containsSat) {
+  //         setSaturday(6);
+  //       } else {
+  //         setSaturday();
+  //       }
+  //       const containsSun = allDocSchFilterDays.some((dayString) =>
+  //         dayString.includes("Sun")
+  //       );
+  //       if (containsSun) {
+  //         setSunday(0);
+  //       } else {
+  //         setSunday();
+  //       }
+
+  //       console.log(containsMon);
+  //       console.log(
+  //         "days of week are",
+  //         monday,
+  //         tuesday,
+  //         wednesday,
+  //         thursday,
+  //         friday,
+  //         saturday,
+  //         sunday
+  //       );
+  //     }
+
+  //     // const allDocSchFilterDays =["Mon, Wed, Fri, Sun","Mon, Thu, Sat"]
+  //     // const filterFriday = () => {
+  //     //   if (allDocSchFilterDays.includes("Fri")) {
+  //     //     console.log("yes there is Friday ", allDocSchFilterDays.includes("Fri"));
+  //     //   } else {
+  //     //     console.log("yes there is nooooo Friday ");
+  //     //   }
+  //     // try {
+  //     //   const result = await allDocSchFilterDays.filter((item) =>
+  //     //     item.selectedDays.includes("Fri")
+  //     //   );
+  //     //   setFridayValue(result.length);
+  //     // } catch (err) {
+  //     //   console.error(err);
+  //     // }
+  //     // };
+  //     // filterFriday();
+
+  //     // const daysMap = {
+  //     //   Sun: { stateUpdater: setSunday, value: 0 },
+  //     //   Mon: { stateUpdater: setMonday, value: 1 },
+  //     //   Tue: { stateUpdater: setTuesday, value: 2 },
+  //     //   Wed: { stateUpdater: setWednesday, value: 3 },
+  //     //   Thu: { stateUpdater: setThursday, value: 4 },
+  //     //   Fri: { stateUpdater: setFriday, value: 5 },
+  //     //   Sat: { stateUpdater: setSaturday, value: 6 },
+  //     // };
+
+  //     // allDocSchFilterDays.forEach((day) => {
+  //     //   const dayName = day.substring(0, 3);
+  //     //   const { stateUpdater, value } = daysMap[dayName];
+  //     //   if (day.includes(dayName)) {
+  //     //     stateUpdater(value);
+  //     //   } else {
+  //     //     stateUpdater();
+  //     //   }
+  //     // });
+  //   }
+  // }, [
+  //   allDocSchFiltered,
+  //   monday,
+  //   tuesday,
+  //   wednesday,
+  //   thursday,
+  //   friday,
+  //   saturday,
+  //   sunday,
+  // ]);
   useEffect(() => {
     if (allDocSchFiltered) {
-      const allDocSchFilterDays = allDocSchFiltered.map((day) => {
-        return day.selectedDays;
-      });
+      const allDocSchFilterDays = allDocSchFiltered.map(
+        (day) => day.selectedDays
+      );
+
       if (allDocSchFilterDays.length > 0) {
-        console.log("the alldoc ", allDocSchFilterDays);
+        const daysMap = {
+          Mon: { stateUpdater: setMonday, value: 1 },
+          Tue: { stateUpdater: setTuesday, value: 2 },
+          Wed: { stateUpdater: setWednesday, value: 3 },
+          Thu: { stateUpdater: setThursday, value: 4 },
+          Fri: { stateUpdater: setFriday, value: 5 },
+          Sat: { stateUpdater: setSaturday, value: 6 },
+          Sun: { stateUpdater: setSunday, value: 0 },
+        };
 
-        console.log(allDocSchFilterDays.includes("Mon"));
+        Object.keys(daysMap).forEach((dayName) => {
+          const containsDay = allDocSchFilterDays.some((dayString) =>
+            dayString.includes(dayName)
+          );
+
+          const { stateUpdater, value } = daysMap[dayName];
+          containsDay ? stateUpdater(value) : stateUpdater();
+        });
+
+        console.log(
+          "days of week are",
+          monday,
+          tuesday,
+          wednesday,
+          thursday,
+          friday,
+          saturday,
+          sunday
+        );
       }
-
-      // const filterFriday = () => {
-      //   if (allDocSchFilterDays.includes("Fri")) {
-      //     console.log("yes there is Friday ", allDocSchFilterDays.includes("Fri"));
-      //   } else {
-      //     console.log("yes there is nooooo Friday ");
-      //   }
-      // try {
-      //   const result = await allDocSchFilterDays.filter((item) =>
-      //     item.selectedDays.includes("Fri")
-      //   );
-      //   setFridayValue(result.length);
-      // } catch (err) {
-      //   console.error(err);
-      // }
-      // };
-      // filterFriday();
-
-      // const daysMap = {
-      //   Sun: { stateUpdater: setSunday, value: 0 },
-      //   Mon: { stateUpdater: setMonday, value: 1 },
-      //   Tue: { stateUpdater: setTuesday, value: 2 },
-      //   Wed: { stateUpdater: setWednesday, value: 3 },
-      //   Thu: { stateUpdater: setThursday, value: 4 },
-      //   Fri: { stateUpdater: setFriday, value: 5 },
-      //   Sat: { stateUpdater: setSaturday, value: 6 },
-      // };
-
-      // allDocSchFilterDays.forEach((day) => {
-      //   const dayName = day.substring(0, 3);
-      //   const { stateUpdater, value } = daysMap[dayName];
-      //   if (day.includes(dayName)) {
-      //     stateUpdater(value);
-      //   } else {
-      //     stateUpdater();
-      //   }
-      // });
     }
-  }, [allDocSchFiltered]);
+  }, [
+    allDocSchFiltered,
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday,
+  ]);
 
   useEffect(() => {
     if (startDate) {
