@@ -100,26 +100,48 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
       const allDocSchFilterDays = allDocSchFiltered.map((day) => {
         return day.selectedDays;
       });
+      if (allDocSchFilterDays.length > 0) {
+        console.log("the alldoc ", allDocSchFilterDays);
 
-      const daysMap = {
-        Sun: { stateUpdater: setSunday, value: 0 },
-        Mon: { stateUpdater: setMonday, value: 1 },
-        Tue: { stateUpdater: setTuesday, value: 2 },
-        Wed: { stateUpdater: setWednesday, value: 3 },
-        Thu: { stateUpdater: setThursday, value: 4 },
-        Fri: { stateUpdater: setFriday, value: 5 },
-        Sat: { stateUpdater: setSaturday, value: 6 },
-      };
+        console.log(allDocSchFilterDays.includes("Mon"));
+      }
 
-      allDocSchFilterDays.forEach((day) => {
-        const dayName = day.substring(0, 3);
-        const { stateUpdater, value } = daysMap[dayName];
-        if (day.includes(dayName)) {
-          stateUpdater(value);
-        } else {
-          stateUpdater();
-        }
-      });
+      // const filterFriday = () => {
+      //   if (allDocSchFilterDays.includes("Fri")) {
+      //     console.log("yes there is Friday ", allDocSchFilterDays.includes("Fri"));
+      //   } else {
+      //     console.log("yes there is nooooo Friday ");
+      //   }
+      // try {
+      //   const result = await allDocSchFilterDays.filter((item) =>
+      //     item.selectedDays.includes("Fri")
+      //   );
+      //   setFridayValue(result.length);
+      // } catch (err) {
+      //   console.error(err);
+      // }
+      // };
+      // filterFriday();
+
+      // const daysMap = {
+      //   Sun: { stateUpdater: setSunday, value: 0 },
+      //   Mon: { stateUpdater: setMonday, value: 1 },
+      //   Tue: { stateUpdater: setTuesday, value: 2 },
+      //   Wed: { stateUpdater: setWednesday, value: 3 },
+      //   Thu: { stateUpdater: setThursday, value: 4 },
+      //   Fri: { stateUpdater: setFriday, value: 5 },
+      //   Sat: { stateUpdater: setSaturday, value: 6 },
+      // };
+
+      // allDocSchFilterDays.forEach((day) => {
+      //   const dayName = day.substring(0, 3);
+      //   const { stateUpdater, value } = daysMap[dayName];
+      //   if (day.includes(dayName)) {
+      //     stateUpdater(value);
+      //   } else {
+      //     stateUpdater();
+      //   }
+      // });
     }
   }, [allDocSchFiltered]);
 
