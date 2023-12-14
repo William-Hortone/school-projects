@@ -182,9 +182,9 @@ const AddUserDetails = ({
       });
 
       // setSelectedDays(room.selectedDays);
-      setPickedServiceID(user.userID);
-      setDocIDisPicked(true);
-      setDisabledInput(true);
+      // setPickedServiceID(user.userID);
+      // setDocIDisPicked(true);
+      // setDisabledInput(true);
     }
   };
 
@@ -199,150 +199,183 @@ const AddUserDetails = ({
               addOnSubmit ? handleSubmit : (e) => handleSubmitEditRoom(e, id)
             }
           >
-            <div className="container">
-              <div className="container-wrapper">
-                <div className="form--content">
-                  <div className="details-title">
-                    <h4> User Details</h4>
-                    <div className="divider" />
-                  </div>
-                  <div className="input-fields">
-                    <label htmlFor="userID"> User ID</label>
-                    <Input
-                      placeholder="User ID"
-                      id="userID"
-                      name="userID"
-                      value={inputs.userID}
-                      handleOnChange={handleOnChange}
-                      inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
-                    />
-                  </div>
-                  <div className="input-fields">
-                    <label htmlFor="firstName"> First Name</label>
-                    <Input
-                      placeholder="First Name"
-                      id="firstName"
-                      name="firstName"
-                      value={inputs.firstName}
-                      handleOnChange={handleOnChange}
-                    />
-                  </div>
+            <div className="container container-content">
+              {/* <div className="container-wrapper"> */}
+              <div className="form--content">
+                <div className="details-title">
+                  <h4> User Details</h4>
+                  <div className="divider" />
+                </div>
+                <div className="input-fields">
+                  <label htmlFor="userID"> User ID</label>
+                  <Input
+                    placeholder="User ID"
+                    id="userID"
+                    name="userID"
+                    value={inputs.userID}
+                    handleOnChange={handleOnChange}
+                    inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                  />
+                </div>
+                <div className="input-fields">
+                  <label htmlFor="firstName"> First Name</label>
+                  <Input
+                    placeholder="First Name"
+                    id="firstName"
+                    name="firstName"
+                    value={inputs.firstName}
+                    handleOnChange={handleOnChange}
+                  />
+                </div>
 
-                  <div className="input-fields">
-                    <label htmlFor="lastName"> Last Name:</label>
-                    <Input
-                      placeholder="Last Name"
-                      name="lastName"
-                      id="lastName"
-                      value={inputs.lastName}
-                      handleOnChange={handleOnChange}
-                    />
-                  </div>
-                  <div className="input-fields">
-                    <label htmlFor="gender">Gender:</label>
-                    <Select
-                      name="gender"
-                      label="sex"
-                      defaultOptionValue="Select the gender"
-                      value={inputs.gender}
-                      options={userSexOptions}
-                      handleOnChange={handleOnChange}
+                <div className="input-fields">
+                  <label htmlFor="lastName"> Last Name:</label>
+                  <Input
+                    placeholder="Last Name"
+                    name="lastName"
+                    id="lastName"
+                    value={inputs.lastName}
+                    handleOnChange={handleOnChange}
+                  />
+                </div>
+                <div className="input-fields">
+                  <label htmlFor="gender">Gender:</label>
+                  <Select
+                    name="gender"
+                    label="sex"
+                    defaultOptionValue="Select the gender"
+                    value={inputs.gender}
+                    options={userSexOptions}
+                    handleOnChange={handleOnChange}
+                  />
+                </div>
+                <div className="input-fields">
+                  <label htmlFor="userName"> User Name:</label>
+                  <Input
+                    placeholder="User Name"
+                    name="userName"
+                    id="userName"
+                    value={inputs.userName}
+                    handleOnChange={handleOnChange}
+                  />
+                </div>
+                {!openScheduleDelete && (
+                  <button type="submit" className="submit-btn">
+                    Submit
+                  </button>
+                )}
+                {openScheduleDelete && (
+                  <button
+                    onClick={handleDelete}
+                    type="button"
+                    className="delete-btn"
+                  >
+                    Delete
+                  </button>
+                )}
+                {/* </div> */}
+              </div>
+
+              {/* <div className="container-wrapper"> */}
+              <div className="form--content">
+                <div className="input-fields">
+                  <label htmlFor="address">Address:</label>
+                  <Input
+                    placeholder="Address"
+                    name="address"
+                    id="address"
+                    value={inputs.address}
+                    handleOnChange={handleOnChange}
+                  />
+                </div>
+                <div className="input-fields">
+                  <label htmlFor="email">Email:</label>
+                  <Input
+                    placeholder="Email"
+                    name="email"
+                    id="email"
+                    value={inputs.email}
+                    handleOnChange={handleOnChange}
+                  />
+                </div>
+                <div className="input-fields">
+                  <label htmlFor="telephone"> Telephone:</label>
+                  <div>
+                    <input
+                      type="tel"
+                      placeholder="Telephone"
+                      name="telephone"
+                      id="telephone"
+                      value={inputs.telephone}
+                      onChange={handleOnChange}
+                      required
                     />
                   </div>
                 </div>
-                <div className="container-wrapper">
-                  <div className="input-fields">
-                    <label htmlFor="address">Address:</label>
-                    <Input
-                      placeholder="Address"
-                      name="address"
-                      id="address"
-                      value={inputs.address}
-                      handleOnChange={handleOnChange}
-                    />
-                  </div>
-                  <div className="input-fields">
-                    <label htmlFor="email">Email:</label>
-                    <Input
-                      placeholder="Email"
-                      name="email"
-                      id="email"
-                      value={inputs.email}
-                      handleOnChange={handleOnChange}
-                    />
-                  </div>
-                  <div className="input-fields">
-                    <label htmlFor="telephone"> Telephone:</label>
-                    <div>
-                      <input
-                        type="tel"
-                        placeholder="Telephone"
-                        name="telephone"
-                        id="telephone"
-                        value={inputs.telephone}
-                        onChange={handleOnChange}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="input-fields">
-                    <label htmlFor="status"> Status:</label>
-                    <Input
-                      placeholder="Status"
-                      name="status"
-                      id="status"
-                      value={inputs.status}
-                      handleOnChange={handleOnChange}
-                    />
-                  </div>
-                  <div className="input-fields">
-                    <label htmlFor="notes"> Notes:</label>
-                    <Input
-                      placeholder="Notes"
-                      name="notes"
-                      id="notes"
-                      value={inputs.notes}
-                      handleOnChange={handleOnChange}
-                    />
-                  </div>
-                  <div className="input-fields">
-                    <label htmlFor="userType"> User Type:</label>
-                    <Input
-                      placeholder="User Type"
-                      name="userType"
-                      id="userType"
-                      value={inputs.userType}
-                      handleOnChange={handleOnChange}
-                    />
-                  </div>
-                  <div className="input-fields">
-                    <label htmlFor="userName"> User Name:</label>
-                    <Input
-                      placeholder="User Name"
-                      name="userName"
-                      id="userName"
-                      value={inputs.userName}
-                      handleOnChange={handleOnChange}
-                    />
-                  </div>
-                  {!openScheduleDelete && (
-                    <button type="submit" className="submit-btn">
-                      Submit
-                    </button>
-                  )}
-                  {openScheduleDelete && (
-                    <button
-                      onClick={handleDelete}
-                      type="button"
-                      className="delete-btn"
-                    >
-                      Delete
-                    </button>
-                  )}
+                <div className="input-fields">
+                  <label htmlFor="status"> Status:</label>
+                  <Input
+                    placeholder="Status"
+                    name="status"
+                    id="status"
+                    value={inputs.status}
+                    handleOnChange={handleOnChange}
+                  />
                 </div>
+                <div className="input-fields">
+                  <label htmlFor="notes"> Notes:</label>
+                  <Input
+                    placeholder="Notes"
+                    name="notes"
+                    id="notes"
+                    value={inputs.notes}
+                    handleOnChange={handleOnChange}
+                  />
+                </div>
+                <div className="input-fields">
+                  <label htmlFor="userType"> User Type:</label>
+                  <Input
+                    placeholder="User Type"
+                    name="userType"
+                    id="userType"
+                    value={inputs.userType}
+                    handleOnChange={handleOnChange}
+                  />
+                </div>
+
+                {/* </div> */}
               </div>
             </div>
+            {/* </div> */}
           </form>
+
+          {/* The buttons container */}
+          <div className="container-menu">
+            <div className="container-menu-header">
+              <ButtonSkip iconName="doubleLeft" color="green" />
+              <ButtonSkip iconName="arrowLeft" color="blue" />
+              <input type="text" placeholder="Record No" />
+              <ButtonSkip iconName="arrowRight" color="blue" />
+              <ButtonSkip iconName="doubleRight" color="green" />
+            </div>
+            <div className="container-menu-btn">
+              <ButtonAction
+                iconName="add"
+                btnName="Add"
+                color="green"
+                buttonType="submit"
+                onClick={handleAddAppointment}
+              />
+
+              <ButtonAction
+                iconName="close"
+                btnName="Cancel"
+                color="red"
+                buttonType="button"
+                onClick={handleCloseScheduling}
+              />
+            </div>
+          </div>
 
           {/* The table  to display the schedules*/}
           <div className="app__roomMDetails-table">
@@ -392,41 +425,13 @@ const AddUserDetails = ({
             </table>
           </div>
 
-          {/* The buttons container */}
-          <div className="container-menu">
-            <div className="container-menu-header">
-              <ButtonSkip iconName="doubleLeft" color="green" />
-              <ButtonSkip iconName="arrowLeft" color="blue" />
-              <input type="text" placeholder="Record No" />
-              <ButtonSkip iconName="arrowRight" color="blue" />
-              <ButtonSkip iconName="doubleRight" color="green" />
-            </div>
-            <div className="container-menu-btn">
-              <ButtonAction
-                iconName="add"
-                btnName="Add"
-                color="green"
-                buttonType="submit"
-                onClick={handleAddAppointment}
-              />
-
-              <ButtonAction
-                iconName="close"
-                btnName="Cancel"
-                color="red"
-                buttonType="button"
-                onClick={handleCloseScheduling}
-              />
-            </div>
-          </div>
-
           {/* The popup to delete */}
           {showPopupDelete && (
             <div style={{ position: "relative" }}>
               <div className="schedule-delete-popup">
                 <p>
                   Do you really want to delete <br />
-                  the Service with ID of {inputs.schedulingID} ?
+                  the User with ID of {inputs.userID} ?
                 </p>
                 <div className="delete-buttons">
                   <button onClick={handleClosePopup}> Cancel</button>

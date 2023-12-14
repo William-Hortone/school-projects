@@ -470,7 +470,7 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
         </aside>
       </div>
 
-      {/* Table for all Hospital service appointments */}
+      {/* Table for all Hospital service Schedule */}
       <div className="appScheduling-table">
         <table>
           <thead>
@@ -491,6 +491,40 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
                   <td>{schedule.serviceStarts}</td>
                   <td>{schedule.serviceEnds}</td>
                   <td>{schedule.selectedDays}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <h2
+        className="page-title"
+        style={{ textTransform: "uppercase", margin: 50 }}
+      >
+        Hospital service appointments
+      </h2>
+      {/* Table for all Hospital service appointments */}
+      <div className="appScheduling-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Appointment ID </th>
+              <th>Patient ID</th>
+              <th>Hospital service ID</th>
+              <th>Appointment Date</th>
+              <th>Appointment Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allAppointments.map((schedule, index) => {
+              return (
+                <tr className="doctor-infos" key={index}>
+                  <td>{schedule.appointmentID}</td>
+                  <td>{schedule.patientID}</td>
+                  <td>{schedule.hospitalServiceID}</td>
+                  <td>{schedule.appointmentDate}</td>
+                  <td>{schedule.appointmentTime}</td>
                 </tr>
               );
             })}

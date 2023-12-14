@@ -1,0 +1,11 @@
+.container-content .input-fields {
+  padding-left: 0 !important;
+  margin-right: 0 !important;
+}
+.container-content .form--content {
+  border: none !important;
+}
+
+.app__roomMDetails-container .container-menu {
+  width: 100% !important;
+}

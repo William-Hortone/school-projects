@@ -23,10 +23,12 @@
   /* flex-direction: column; */
 }
 .form--content {
-  width: 100%;
+  /* width: 100%; */
+  flex: 1;
+  /* background-color: rebeccapurple; */
   /* background: rebeccapurple; */
   border-radius: 15px;
-  padding: 3rem 0 3rem 4rem;
+  padding: 1.5rem 1rem 1rem 2rem;
   border: 2px solid #0000005d;
 }
 .app__roomMDetails-table {

@@ -248,17 +248,14 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
           const { stateUpdater, value } = daysMap[dayName];
           containsDay ? stateUpdater(value) : stateUpdater();
         });
-
-        console.log(
-          "days of week are",
-          monday,
-          tuesday,
-          wednesday,
-          thursday,
-          friday,
-          saturday,
-          sunday
-        );
+      } else {
+        setMonday();
+        setTuesday();
+        setWednesday();
+        setThursday();
+        setFriday();
+        setSaturday();
+        setSunday();
       }
     }
   }, [
@@ -637,6 +634,40 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
                   <td>{schedule.timeIn}</td>
                   <td>{schedule.timeOut}</td>
                   <td>{schedule.selectedDays}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <h2
+        className="page-title"
+        style={{ textTransform: "uppercase", margin: 50 }}
+      >
+        Doctor appointments
+      </h2>
+      {/* Table for all Doctor appointments */}
+      <div className="appScheduling-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Appointment ID </th>
+              <th>Patient ID</th>
+              <th>DoctorID</th>
+              <th>Appointment Date</th>
+              <th>Appointment Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allAppointments.map((appointment, index) => {
+              return (
+                <tr className="doctor-infos" key={index}>
+                  <td>{appointment.appointmentID}</td>
+                  <td>{appointment.patientID}</td>
+                  <td>{appointment.doctorID}</td>
+                  <td>{appointment.appointmentDate}</td>
+                  <td>{appointment.appointmentTime}</td>
                 </tr>
               );
             })}
