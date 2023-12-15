@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
-import { ButtonAction, Input } from "../../../components";
+import { ButtonAction } from "../../../components";
 import "./cancelAppointment.css";
 
 const CancelDocAppDetails = ({
@@ -29,36 +29,24 @@ const CancelDocAppDetails = ({
   const [filteredDocAppTable, setFilteredDocAppTable] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [pickedTime, setPickedTime] = useState(null);
-  const [isFocusedP, setIsFocusedP] = useState(false);
-  const [isFocusedD, setIsFocusedD] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
+  const [doctorId, setDoctorId] = useState("");
+  const [selectDocId, setSelectDocId] = useState();
   const [selectedStartDay, setSelectedStartDay] = useState("");
   const [selectedEndDay, setSelectedEndDay] = useState("");
   const [showFilteredTable, setShowFilteredTable] = useState(false);
 
-  const [monday, setMonday] = useState();
-  const [tuesday, setTuesday] = useState();
-  const [wednesday, setWednesday] = useState();
-  const [thursday, setThursday] = useState();
-  const [friday, setFriday] = useState();
-  const [saturday, setSaturday] = useState();
-  const [sunday, setSunday] = useState();
+  // const [monday, setMonday] = useState();
+  // const [tuesday, setTuesday] = useState();
+  // const [wednesday, setWednesday] = useState();
+  // const [thursday, setThursday] = useState();
+  // const [friday, setFriday] = useState();
+  // const [saturday, setSaturday] = useState();
+  // const [sunday, setSunday] = useState();
 
   // To Get all outPatient
   const API_URL = "http://localhost:3001/getOutPatientsDetails";
   const API_URL_APPOINTMENT = "http://localhost:3001/getAddDocAppointments";
   const API_URL_DOCTORS = "http://localhost:3001/getDoctors";
-  const API_URL_DOCTORS_SCHEDULE = "http://localhost:3001/getDocAppointments";
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
@@ -73,56 +61,59 @@ const CancelDocAppDetails = ({
     const { data } = await axios.get(API_URL_APPOINTMENT);
     setAllAppointments(data);
   };
-  const fetchDocSchedule = async () => {
-    const { data } = await axios.get(API_URL_DOCTORS_SCHEDULE);
-    setAllDocSchedule(data);
-  };
 
   useEffect(() => {
     fetchData();
     fetchDoctorsData();
     fetchAppointment();
-    fetchDocSchedule();
-  }, []);
+  }, [doctorId]);
 
   const handleClose = () => {
     setOpenPage(false);
   };
 
-  // function to filter the table according to the date range
   const handleRefreshFields = () => {
     setShowFilteredTable(false);
     setStartDate();
     setEndDate();
+    setSelectDocId(false);
   };
+
+  // function to filter the table according to the date range
   const handleFilterTable = () => {
-    console.log("clicked");
-    if (allAppointments) {
-      const allDocAppFilterDays = allAppointments.map(
-        (day) => day.appointmentDate
-      );
+    if (startDate != null && endDate != null) {
+      if (allAppointments) {
+        const allDocAppFilterDays = allAppointments.map(
+          (day) => day.appointmentDate
+        );
 
-      const sd = new Date(selectedStartDay);
-      const ed = new Date(selectedEndDay);
+        const sd = new Date(selectedStartDay);
+        const ed = new Date(selectedEndDay);
 
-      const filteredDays = allDocAppFilterDays.filter((day) => {
-        const currentDate = new Date(day);
-        return currentDate >= sd && currentDate <= ed;
-      });
-      setAllDaysFiltered(filteredDays);
+        const filteredDays = allDocAppFilterDays.filter((day) => {
+          const currentDate = new Date(day);
+          return currentDate >= sd && currentDate <= ed;
+        });
+        // setAllDaysFiltered(filteredDays);
 
-      const results = allAppointments.filter((appointment) =>
-        filteredDays.includes(appointment.appointmentDate)
-      );
+        const results = allAppointments.filter((appointment) =>
+          filteredDays.includes(appointment.appointmentDate)
+        );
 
-      setFilteredDocAppTable(results);
+        setFilteredDocAppTable(results);
+      }
+      setShowFilteredTable(true);
+    } else {
+      toast.error("please enter the range date");
     }
-    setShowFilteredTable(true);
   };
 
-  useEffect(() => {
-    console.log("the filtered days are", allAppointments);
-  }, [allAppointments]);
+  // useEffect(() => {
+  //   console.log("the doctorId", doctorId);
+  // }, [doctorId]);
+  // useEffect(() => {
+  //   console.log("the allAppointments", allAppointments);
+  // }, [allAppointments]);
 
   // To extract  the date  as the date format
   useEffect(() => {
@@ -138,11 +129,19 @@ const CancelDocAppDetails = ({
     }
   }, [startDate, endDate, selectedEndDay]);
 
-  // useEffect(() => {
-  //   console.log("startDate", selectedStartDay);
-  //   console.log("startDate", startDate);
-  //   console.log("endDate", endDate);
-  // }, [endDate, startDate, selectedStartDay]);
+  const handleCheckboxChange = (e) => {
+    setSelectDocId(e.target.checked);
+
+    if (!selectDocId) {
+      const result = allAppointments.filter(
+        (appointment) => appointment.doctorID === doctorId
+      );
+      setFilteredDocAppTable(result);
+
+      setShowFilteredTable(true);
+      console.log("Checkbox filteredDocAppTable", result);
+    }
+  };
 
   return (
     <div className="app__addAppointment">
@@ -187,14 +186,21 @@ const CancelDocAppDetails = ({
           </div>
           <div className="wrapper-input">
             <label htmlFor="startDate">of</label>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={selectDocId}
+              onChange={handleCheckboxChange}
+            />
             <p>Doctor ID</p>
           </div>
           <div className="wrapper-input">
             <label htmlFor="endDate">To</label>
-            <select name="endDate" id="endDate">
-              <option value="">Nothing</option>
-            </select>
+            <input
+              type="text"
+              value={doctorId}
+              onChange={(e) => setDoctorId(e.target.value)}
+              placeholder="Doctor ID"
+            />
           </div>
           <ButtonAction
             iconName="add"
