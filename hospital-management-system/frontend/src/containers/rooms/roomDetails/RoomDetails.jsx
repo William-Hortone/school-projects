@@ -534,13 +534,6 @@ const RoomDetails = () => {
         </div>
       </div>
 
-      {/* <div
-        className={
-          openScheduling || openScheduleDelete
-            ? "appScheduling-wrapper ActiveScheduling"
-            : "appScheduling-wrapper"
-        }
-      > */}
       {openPage && (
         <div className="popup-wrapper">
           <div className="popup">

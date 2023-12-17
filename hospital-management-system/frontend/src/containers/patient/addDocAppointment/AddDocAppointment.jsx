@@ -36,8 +36,6 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
   const [friday, setFriday] = useState();
   const [saturday, setSaturday] = useState();
   const [sunday, setSunday] = useState();
-  // const [startTime, setStartTime] = useState();
-  // const [endTime, setEndTime] = useState();
 
   // To Get all outPatient
   const API_URL = "http://localhost:3001/getOutPatientsDetails";
@@ -97,53 +95,49 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
   // Filter available days according to the doctor schedule available days
   useEffect(() => {
     if (allDocSchFiltered) {
-      const allDocSchFilterDays = allDocSchFiltered.map((day) => {
-        return day.selectedDays;
-      });
+      const allDocSchFilterDays = allDocSchFiltered.map(
+        (day) => day.selectedDays
+      );
+
       if (allDocSchFilterDays.length > 0) {
-        console.log("the alldoc ", allDocSchFilterDays);
+        const daysMap = {
+          Mon: { stateUpdater: setMonday, value: 1 },
+          Tue: { stateUpdater: setTuesday, value: 2 },
+          Wed: { stateUpdater: setWednesday, value: 3 },
+          Thu: { stateUpdater: setThursday, value: 4 },
+          Fri: { stateUpdater: setFriday, value: 5 },
+          Sat: { stateUpdater: setSaturday, value: 6 },
+          Sun: { stateUpdater: setSunday, value: 0 },
+        };
 
-        console.log(allDocSchFilterDays.includes("Mon"));
+        Object.keys(daysMap).forEach((dayName) => {
+          const containsDay = allDocSchFilterDays.some((dayString) =>
+            dayString.includes(dayName)
+          );
+
+          const { stateUpdater, value } = daysMap[dayName];
+          containsDay ? stateUpdater(value) : stateUpdater();
+        });
+      } else {
+        setMonday();
+        setTuesday();
+        setWednesday();
+        setThursday();
+        setFriday();
+        setSaturday();
+        setSunday();
       }
-
-      // const filterFriday = () => {
-      //   if (allDocSchFilterDays.includes("Fri")) {
-      //     console.log("yes there is Friday ", allDocSchFilterDays.includes("Fri"));
-      //   } else {
-      //     console.log("yes there is nooooo Friday ");
-      //   }
-      // try {
-      //   const result = await allDocSchFilterDays.filter((item) =>
-      //     item.selectedDays.includes("Fri")
-      //   );
-      //   setFridayValue(result.length);
-      // } catch (err) {
-      //   console.error(err);
-      // }
-      // };
-      // filterFriday();
-
-      // const daysMap = {
-      //   Sun: { stateUpdater: setSunday, value: 0 },
-      //   Mon: { stateUpdater: setMonday, value: 1 },
-      //   Tue: { stateUpdater: setTuesday, value: 2 },
-      //   Wed: { stateUpdater: setWednesday, value: 3 },
-      //   Thu: { stateUpdater: setThursday, value: 4 },
-      //   Fri: { stateUpdater: setFriday, value: 5 },
-      //   Sat: { stateUpdater: setSaturday, value: 6 },
-      // };
-
-      // allDocSchFilterDays.forEach((day) => {
-      //   const dayName = day.substring(0, 3);
-      //   const { stateUpdater, value } = daysMap[dayName];
-      //   if (day.includes(dayName)) {
-      //     stateUpdater(value);
-      //   } else {
-      //     stateUpdater();
-      //   }
-      // });
     }
-  }, [allDocSchFiltered]);
+  }, [
+    allDocSchFiltered,
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday,
+  ]);
 
   useEffect(() => {
     if (startDate) {
@@ -510,6 +504,40 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
                   <td>{schedule.timeIn}</td>
                   <td>{schedule.timeOut}</td>
                   <td>{schedule.selectedDays}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <h2
+        className="page-title"
+        style={{ textTransform: "uppercase", margin: 50 }}
+      >
+        Doctor appointments
+      </h2>
+      {/* Table for all Doctor appointments */}
+      <div className="appScheduling-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Appointment ID </th>
+              <th>Patient ID</th>
+              <th>DoctorID</th>
+              <th>Appointment Date</th>
+              <th>Appointment Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allAppointments.map((appointment, index) => {
+              return (
+                <tr className="doctor-infos" key={index}>
+                  <td>{appointment.appointmentID}</td>
+                  <td>{appointment.patientID}</td>
+                  <td>{appointment.doctorID}</td>
+                  <td>{appointment.appointmentDate}</td>
+                  <td>{appointment.appointmentTime}</td>
                 </tr>
               );
             })}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import "./outPatient.css";
 // import Scheduling from "../scheduling/Scheduling";
 import { useSelector } from "react-redux";

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
-// import AddUserDetails from "../addUserDetails/AddUserDetails";
+import CancelDocAppDetails from "../cancelDocAppDetails/CancelDocAppDetails";
 
 const CancelDocApp = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
@@ -85,95 +85,52 @@ const CancelDocApp = () => {
           <div className="container-display-infos">
             <div className="container-wrapper">
               <div className="input-fields">
-                <label htmlFor="userID"> User ID</label>
+                <label htmlFor="appointmentID"> Appointment ID</label>
                 <Input
-                  placeholder="User ID"
-                  id="userID"
-                  name="userID"
+                  placeholder="Appointment ID"
+                  id="appointmentID"
+                  name="appointmentID"
                   value={lastElement ? lastElement.userID : ""}
                   inputDisabled="true"
                 />
               </div>
               <div className="input-fields">
-                <label htmlFor="firstName"> First Name</label>
+                <label htmlFor="patientID"> Patient ID</label>
                 <Input
-                  placeholder="First Name"
-                  id="firstName"
-                  name="firstName"
+                  placeholder="Patient ID"
+                  id="patientID"
+                  name="patientID"
                   value={lastElement ? lastElement.firstName : ""}
                   inputDisabled="true"
                 />
               </div>
               <div className="input-fields">
-                <label htmlFor="lastName"> Last Name:</label>
+                <label htmlFor="doctorID"> Doctor ID:</label>
                 <Input
-                  placeholder="Last Name"
-                  name="lastName"
-                  id="lastName"
+                  placeholder="Doctor ID"
+                  name="doctorID"
+                  id="doctorID"
                   value={lastElement ? lastElement.lastName : ""}
                   inputDisabled="true"
                 />
               </div>
               <div className="input-fields">
-                <label htmlFor="gender">Gender:</label>
+                <label htmlFor="appDate">Appointment Date:</label>
                 <Input
-                  placeholder="Gender"
-                  name="gender"
-                  id="gender"
+                  placeholder="Appointment Date"
+                  name="appDate"
+                  id="appDate"
                   value={lastElement ? lastElement.gender : ""}
                   inputDisabled="true"
                 />
               </div>
               <div className="input-fields">
-                <label htmlFor="address">Address:</label>
+                <label htmlFor="appTime">Appointment Time:</label>
                 <Input
-                  placeholder="Address"
-                  name="address"
-                  id="address"
+                  placeholder="Appointment Time"
+                  name="appTime"
+                  id="appTime"
                   value={lastElement ? lastElement.address : ""}
-                  inputDisabled="true"
-                />
-              </div>
-            </div>
-
-            <div className="container-wrapper">
-              <div className="input-fields">
-                <label htmlFor="email">Email:</label>
-                <Input
-                  placeholder="Email"
-                  name="email"
-                  id="email"
-                  value={lastElement ? lastElement.email : ""}
-                  inputDisabled="true"
-                />
-              </div>
-              <div className="input-fields">
-                <label htmlFor="telephone"> Telephone:</label>
-                <Input
-                  placeholder="Telephone"
-                  name="telephone"
-                  id="telephone"
-                  value={lastElement ? lastElement.telephone : ""}
-                  inputDisabled="true"
-                />
-              </div>
-              <div className="input-fields">
-                <label htmlFor="status"> Status:</label>
-                <Input
-                  placeholder="Status"
-                  name="status"
-                  id="status"
-                  value={lastElement ? lastElement.status : ""}
-                  inputDisabled="true"
-                />
-              </div>
-              <div className="input-fields">
-                <label htmlFor="notes"> Notes:</label>
-                <Input
-                  placeholder="Notes"
-                  name="notes"
-                  id="notes"
-                  value={lastElement ? lastElement.notes : ""}
                   inputDisabled="true"
                 />
               </div>
@@ -256,6 +213,20 @@ const CancelDocApp = () => {
           />
         </div>
       </div>
+
+      {openPage && (
+        <div className="popup-wrapper">
+          <div className="popup">
+            <CancelDocAppDetails
+              setOpenScheduling={setOpenScheduling}
+              setOpenScheduleDelete={setOpenScheduleDelete}
+              openScheduleDelete={openScheduleDelete}
+              addOnSubmit={addOnSubmit}
+              setOpenPage={setOpenPage}
+            />
+          </div>
+        </div>
+      )}
 
       {/* <div
         className={

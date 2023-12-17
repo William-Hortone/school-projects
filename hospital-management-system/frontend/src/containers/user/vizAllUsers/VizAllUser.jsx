@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
 import { ButtonAction, Header } from "../../../components";
-// import { ButtonAction, Header } from "../../../components";
-// import { selectWardDetails } from "../../../redux/slice/wardSlice";
 
 const ViewAllUsers = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -53,7 +51,7 @@ const ViewAllUsers = () => {
     setHideDataSearched(false);
   };
   const handleClose = () => {
-    navigate("/adminDashboard/wardDetails");
+    navigate("/adminDashboard/addUser");
   };
 
   return (

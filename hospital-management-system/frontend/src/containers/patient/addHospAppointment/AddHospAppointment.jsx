@@ -1,4 +1,4 @@
-import axios, { all } from "axios";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -62,142 +62,25 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
   const fetchAppointment = async () => {
     const { data } = await axios.get(API_URL_APPOINTMENT);
     setAllAppointments(data);
-    // ! this bust be change
   };
 
   const fetchDocSchedule = async () => {
     const { data } = await axios.get(API_URL_HOSPITAL_SCHEDULE);
     setAllDocSchedule(data);
   };
-
-  // const handleFocusPatient = () => {
-  //   setIsFocusedP(true);
-  // };
-
-  // const handleBlurPatient = () => {
-  //   setIsFocusedP(false);
-  // };
-
-  // const handleFocusDoctor = () => {
-  //   setIsFocusedD(true);
-  // };
-
-  // const handleBlurDoctor = () => {
-  //   setIsFocusedD(false);
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  //   fetchDoctorsData();
-  //   fetchAppointment();
-  //   fetchHospitalSchedule();
-  // }, []);
-
-  // // Filter available days according to the doctor schedule available days
-  // useEffect(() => {
-  //   if (allDocSchFiltered) {
-  //     const allDocSchFilterDays = allDocSchFiltered.map((day) => {
-  //       return day.selectedDays;
-  //     });
-
-  //     console.log("allDocSchFiltered", allDocSchFilterDays);
-  //     const daysMap = {
-  //       Sun: { stateUpdater: setSunday, value: 0 },
-  //       Mon: { stateUpdater: setMonday, value: 1 },
-  //       Tue: { stateUpdater: setTuesday, value: 2 },
-  //       Wed: { stateUpdater: setWednesday, value: 3 },
-  //       Thu: { stateUpdater: setThursday, value: 4 },
-  //       Fri: { stateUpdater: setFriday, value: 5 },
-  //       Sat: { stateUpdater: setSaturday, value: 6 },
-  //     };
-
-  //     allDocSchFilterDays.forEach((day) => {
-  //       const dayName = day.substring(0, 3);
-  //       const { stateUpdater, value } = daysMap[dayName];
-  //       if (day.includes(dayName)) {
-  //         stateUpdater(value);
-  //       } else {
-  //         stateUpdater();
-  //       }
-  //     });
-  //   }
-  // }, [allDocSchFiltered]);
-
-  // useEffect(() => {
-  //   console.log("allDocSchFiltered", allDocSchFiltered);
-  // }, [allDocSchFiltered]);
-  // useEffect(() => {
-  //   console.log(
-  //     "allDocSchFiltered",
-  //     monday,
-  //     tuesday,
-  //     wednesday,
-  //     thursday,
-  //     friday,
-  //     saturday
-  //   );
-  // }, [monday, tuesday, wednesday, thursday, friday, saturday]);
-
-  // useEffect(() => {
-  //   if (startDate) {
-  //     const text = startDate.toString();
-
-  //     const result = text.slice(0, 3);
-
-  //     setSelectedDay(result);
-  //   }
-  // }, [startDate, selectedDay]);
-
-  // useEffect(() => {
-  //   const handleFilter = (id) => {
-  //     const result = allDocSchedule.filter(
-  //       (service) => service.serviceID === id
-  //     );
-  //     setAllDocSchFiltered(result);
-  //   };
-
-  //   handleFilter(docID);
-  // }, [docID, allDocSchedule]);
-
-  // //  Set the format for the Date
-  // useEffect(() => {
-  //   const months = [
-  //     "Jan",
-  //     "Feb",
-  //     "Mar",
-  //     "Apr",
-  //     "May",
-  //     "Jun",
-  //     "Jul",
-  //     "Aug",
-  //     "Sep",
-  //     "Oct",
-  //     "Nov",
-  //     "Dec",
-  //   ];
-  //   if (startDate) {
-  //     const day = startDate.getDate();
-  //     const month = months[startDate.getMonth()];
-  //     const year = startDate.getFullYear();
-
-  //     const formattedDate = `${selectedDay} ${day} ${month} ${year}`;
-  //     setSelectedDate(formattedDate);
-  //   }
-  // }, [startDate, selectedDay]);
-
-  // useEffect(() => {
-  //   setDocID(inputs.hospitalServiceID);
-  //   console.log("the patient`", docID);
-  // }, [inputs.hospitalServiceID, docID]);
+  useEffect(() => {
+    fetchData();
+    fetchDoctorsData();
+    fetchAppointment();
+    fetchDocSchedule();
+  }, []);
 
   const handleFocusPatient = () => {
     setIsFocusedP(true);
   };
-
   const handleBlurPatient = () => {
     setIsFocusedP(false);
   };
-
   const handleFocusDoctor = () => {
     setIsFocusedD(true);
   };
@@ -206,64 +89,57 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
     setIsFocusedD(false);
   };
 
-  useEffect(() => {
-    fetchData();
-    fetchDoctorsData();
-    fetchAppointment();
-    fetchDocSchedule();
-  }, []);
-
-  useEffect(() => {
-    console.log("allDocSchFiltered", allDocSchFiltered);
-  }, [allDocSchFiltered]);
-  useEffect(() => {
-    console.log(
-      "allDocSchFhospitalServiceIDiltered",
-      monday,
-      tuesday,
-      wednesday,
-      thursday,
-      friday
-    );
-    console.log("selectedDay", selectedDay);
-  }, [monday, tuesday, wednesday, thursday, friday, selectedDay]);
-
-  // Filter available days according to the doctor schedule available days
+  // Filter available days according to the Hospital Medical  schedule available days
   useEffect(() => {
     if (allDocSchFiltered) {
-      const allDocSchFilterDays = allDocSchFiltered.map((day) => {
-        return day.selectedDays;
-      });
-      console.log("allDocSchFilterDays", allDocSchFilterDays);
+      const allDocSchFilterDays = allDocSchFiltered.map(
+        (day) => day.selectedDays
+      );
 
-      const daysMap = {
-        Sun: { stateUpdater: setSunday, value: 0 },
-        Mon: { stateUpdater: setMonday, value: 1 },
-        Tue: { stateUpdater: setTuesday, value: 2 },
-        Wed: { stateUpdater: setWednesday, value: 3 },
-        Thu: { stateUpdater: setThursday, value: 4 },
-        Fri: { stateUpdater: setFriday, value: 5 },
-        Sat: { stateUpdater: setSaturday, value: 6 },
-      };
+      if (allDocSchFilterDays.length > 0) {
+        const daysMap = {
+          Mon: { stateUpdater: setMonday, value: 1 },
+          Tue: { stateUpdater: setTuesday, value: 2 },
+          Wed: { stateUpdater: setWednesday, value: 3 },
+          Thu: { stateUpdater: setThursday, value: 4 },
+          Fri: { stateUpdater: setFriday, value: 5 },
+          Sat: { stateUpdater: setSaturday, value: 6 },
+          Sun: { stateUpdater: setSunday, value: 0 },
+        };
+        Object.keys(daysMap).forEach((dayName) => {
+          const containsDay = allDocSchFilterDays.some((dayString) =>
+            dayString.includes(dayName)
+          );
 
-      allDocSchFilterDays.forEach((day) => {
-        const dayName = day.substring(0, 3);
-        const { stateUpdater, value } = daysMap[dayName];
-        if (day.includes(dayName)) {
-          stateUpdater(value);
-        } else {
-          stateUpdater();
-        }
-      });
+          const { stateUpdater, value } = daysMap[dayName];
+          containsDay ? stateUpdater(value) : stateUpdater();
+        });
+      } else {
+        setMonday();
+        setTuesday();
+        setWednesday();
+        setThursday();
+        setFriday();
+        setSaturday();
+        setSunday();
+      }
     }
-  }, [allDocSchFiltered]);
+  }, [
+    allDocSchFiltered,
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday,
+  ]);
 
+  // To extract the the 3 letters of all days
   useEffect(() => {
     if (startDate) {
       const text = startDate.toString();
-
       const result = text.slice(0, 3);
-
       setSelectedDay(result);
     }
   }, [startDate, selectedDay]);
@@ -322,35 +198,6 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
     }));
   }, [selectedTime]);
 
-  // =======================================
-
-  //  Set the format for the time
-  // useEffect(() => {
-  //   if (pickedTime) {
-  //     const formattedTime = pickedTime.toLocaleTimeString("en-US", {
-  //       hour: "numeric",
-  //       minute: "2-digit",
-  //       hour12: true,
-  //     });
-
-  //     setSelectedTime(formattedTime);
-  //   }
-  // }, [pickedTime]);
-
-  // useEffect(() => {
-  //   setInputs((inputsValue) => ({
-  //     ...inputsValue,
-  //     appointmentDate: selectedDate,
-  //   }));
-  // }, [selectedDate]);
-
-  // useEffect(() => {
-  //   setInputs((inputsValue) => ({
-  //     ...inputsValue,
-  //     appointmentTime: selectedTime,
-  //   }));
-  // }, [selectedTime]);
-
   // Function to add a doctor Appointment
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -394,17 +241,6 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
       });
     }
   };
-
-  // Function to filter the time
-  // const filterTime = (time) => {
-  //   const startTime = new Date();
-  //   startTime.setHours(10, 0, 0);
-
-  //   const endTime = new Date();
-  //   endTime.setHours(19, 20, 0);
-
-  //   return time >= startTime && time <= endTime;
-  // };
 
   useEffect(() => {
     setDocID(inputs.hospitalServiceID);
@@ -615,7 +451,7 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
               </tbody>
             </table>
           )}
-          <div className="container-view-appoint-btn">
+          {/* <div className="container-view-appoint-btn">
             <ButtonAction
               iconName="valid"
               btnName="Ok"
@@ -630,11 +466,11 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
               buttonType="button"
               // onClick={handleCloseScheduling}
             />
-          </div>
+          </div> */}
         </aside>
       </div>
 
-      {/* Table for all Hospital service appointments */}
+      {/* Table for all Hospital service Schedule */}
       <div className="appScheduling-table">
         <table>
           <thead>
@@ -655,6 +491,40 @@ const AddHospAppointment = ({ setOpenAddHospitalApp }) => {
                   <td>{schedule.serviceStarts}</td>
                   <td>{schedule.serviceEnds}</td>
                   <td>{schedule.selectedDays}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <h2
+        className="page-title"
+        style={{ textTransform: "uppercase", margin: 50 }}
+      >
+        Hospital service appointments
+      </h2>
+      {/* Table for all Hospital service appointments */}
+      <div className="appScheduling-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Appointment ID </th>
+              <th>Patient ID</th>
+              <th>Hospital service ID</th>
+              <th>Appointment Date</th>
+              <th>Appointment Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allAppointments.map((schedule, index) => {
+              return (
+                <tr className="doctor-infos" key={index}>
+                  <td>{schedule.appointmentID}</td>
+                  <td>{schedule.patientID}</td>
+                  <td>{schedule.hospitalServiceID}</td>
+                  <td>{schedule.appointmentDate}</td>
+                  <td>{schedule.appointmentTime}</td>
                 </tr>
               );
             })}
