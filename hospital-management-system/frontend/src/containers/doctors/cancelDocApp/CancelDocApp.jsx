@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
 import CancelDocAppDetails from "../cancelDocAppDetails/CancelDocAppDetails";
-// import AddUserDetails from "../addUserDetails/AddUserDetails";
 
 const CancelDocApp = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
