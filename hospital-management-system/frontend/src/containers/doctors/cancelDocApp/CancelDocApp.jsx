@@ -26,7 +26,7 @@ const CancelDocApp = () => {
     setLastElement(addedUserInfos[usersLength]);
   }, [usersLength, addedUserInfos]);
 
-  const handleShowScheduling = () => {
+  const handleViewAll = () => {
     setOpenPage(true);
     setOpenScheduling(true);
     setAddOnSubmit(true);
@@ -37,9 +37,9 @@ const CancelDocApp = () => {
     setOpenPage(true);
     setAddOnSubmit(false);
   };
-  const handleViewAll = () => {
-    navigate("/vizAllUsers");
-  };
+  // const handleViewAll = () => {
+  //   navigate("/vizAllUsers");
+  // };
   const handleClose = () => {
     navigate("/adminDashboard/dashboard");
   };
@@ -170,26 +170,26 @@ const CancelDocApp = () => {
         </div>
         <div className="container-menu-btn">
           <ButtonAction
-            iconName="add"
-            btnName="Add"
-            color="green"
+            iconName="delete"
+            btnName="Cancel"
+            color="red"
             buttonType="submit"
-            onClick={handleShowScheduling}
+            onClick={handleViewAll}
           />
-          <ButtonAction
+          {/* <ButtonAction
             iconName="edit"
             btnName="Edit"
             color="green"
             onClick={showRoomsToEdit}
             buttonType="submit"
-          />
-          <ButtonAction
+          /> */}
+          {/* <ButtonAction
             iconName="delete"
             btnName="Delete"
             buttonType="button"
             color="red"
             onClick={showSchedulingToDelete}
-          />
+          /> */}
           <ButtonAction
             iconName="refresh"
             btnName="Refresh"
@@ -204,11 +204,12 @@ const CancelDocApp = () => {
             buttonType="button"
             onClick={handleClose}
           />
+
           <ButtonAction
             iconName="all"
             btnName="View All"
             color="blue"
-            buttonType="button"
+            buttonType="submit"
             onClick={handleViewAll}
           />
         </div>

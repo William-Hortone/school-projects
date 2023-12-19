@@ -12,11 +12,17 @@
   height: 100px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   /* margin: 0 auto; */
   border: 2px solid #000;
   border-radius: 15px;
   padding: 0.5rem;
   margin-top: 2rem;
+  color: white;
+  background: var(--color-primary);
+}
+.app__cancelApp-header button {
+  margin-top: 0 !important;
 }
 .wrapper-input {
   width: auto;
@@ -31,7 +37,7 @@
   height: 30px;
 }
 .input-options {
-  width: 170px !important;
+  width: 150px !important;
   height: 30px;
 }
 
@@ -62,4 +68,20 @@
   width: 37%;
   height: 100%;
   background-color: rgb(255, 0, 0);
+}
+
+.search-container {
+  width: 95%;
+  height: 150px;
+  margin: 0 auto 4rem auto;
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  /* background-color: blanchedalmond; */
+}
+.search-container .container-inputs {
+  width: 95%;
+  height: 150px;
+  margin: 0 auto;
+  border-radius: 10px;
+  align-items: center;
 }

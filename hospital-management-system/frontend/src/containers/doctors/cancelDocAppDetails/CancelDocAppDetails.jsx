@@ -34,6 +34,10 @@ const CancelDocAppDetails = ({
   const [selectedStartDay, setSelectedStartDay] = useState("");
   const [selectedEndDay, setSelectedEndDay] = useState("");
   const [showFilteredTable, setShowFilteredTable] = useState(false);
+  const [searchOptions, setSearchOptions] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  const [hideDefaultTable, setHideDefaultTable] = useState(false);
 
   // const [monday, setMonday] = useState();
   // const [tuesday, setTuesday] = useState();
@@ -77,6 +81,8 @@ const CancelDocAppDetails = ({
     setStartDate();
     setEndDate();
     setSelectDocId(false);
+    setHideDefaultTable(false);
+    setSearchTerm("");
   };
 
   // function to filter the table according to the date range
@@ -104,7 +110,7 @@ const CancelDocAppDetails = ({
       }
       setShowFilteredTable(true);
     } else {
-      toast.error("please enter the range date");
+      toast.error("Please enter the range date");
     }
   };
 
@@ -143,15 +149,51 @@ const CancelDocAppDetails = ({
     }
   };
 
+  // Function to search
+  const handleSearch = () => {
+    setHideDefaultTable(true);
+    // search by patient ID
+    if (searchOptions === "appointmentId") {
+      const result = allAppointments.filter(
+        (appointment) => appointment.appointmentID === searchTerm
+      );
+      setSearchResult(result);
+      console.log("Search", result);
+    }
+    // search by the patient first Name
+    else if (searchOptions === "patientId") {
+      const result = allAppointments.filter(
+        (patient) => patient.patientID === searchTerm
+      );
+      setSearchResult(result);
+      console.log("Search", result);
+    }
+    // setHideDada(true);
+    // setHideDataSearched(true);
+  };
+
   return (
     <div className="app__addAppointment">
       <h2 className="page-title">ADD DOCTOR APPOINTMENT</h2>
       <section className="app__cancelApp">
         <div className="app__cancelApp-header">
-          <div>
-            <button onClick={handleFilterTable}>Click</button>
-            <button onClick={handleRefreshFields}>Refresh</button>
+          <div style={{ display: "flex", gap: 20 }}>
+            <ButtonAction
+              iconName="search"
+              btnName="Search"
+              color="green"
+              buttonType="button"
+              onClick={handleFilterTable}
+            />
+            <ButtonAction
+              iconName="refresh"
+              btnName="Refresh"
+              color="blue"
+              buttonType="button"
+              onClick={handleRefreshFields}
+            />
           </div>
+
           <div className="wrapper-input">
             <label htmlFor="startDate">From</label>
             <div className="">
@@ -185,7 +227,9 @@ const CancelDocAppDetails = ({
             </div>
           </div>
           <div className="wrapper-input">
-            <label htmlFor="startDate">of</label>
+            <label htmlFor="startDate" style={{ marginLeft: 5 }}>
+              of
+            </label>
             <input
               type="checkbox"
               checked={selectDocId}
@@ -203,8 +247,8 @@ const CancelDocAppDetails = ({
             />
           </div>
           <ButtonAction
-            iconName="add"
-            btnName="Add Appointment"
+            iconName="display"
+            btnName="Display"
             color="green"
             buttonType="submit"
 
@@ -226,6 +270,7 @@ const CancelDocAppDetails = ({
                 </thead>
                 <tbody>
                   {!showFilteredTable &&
+                    !hideDefaultTable &&
                     allAppointments.map((appointment, index) => {
                       return (
                         <tr className="doctor-infos" key={index}>
@@ -238,7 +283,20 @@ const CancelDocAppDetails = ({
                       );
                     })}
                   {showFilteredTable &&
+                    !hideDefaultTable &&
                     filteredDocAppTable.map((appointment, index) => {
+                      return (
+                        <tr className="doctor-infos" key={index}>
+                          <td>{appointment.appointmentID}</td>
+                          <td>{appointment.patientID}</td>
+                          <td>{appointment.doctorID}</td>
+                          <td>{appointment.appointmentDate}</td>
+                          <td>{appointment.appointmentTime}</td>
+                        </tr>
+                      );
+                    })}
+                  {hideDefaultTable &&
+                    searchResult.map((appointment, index) => {
                       return (
                         <tr className="doctor-infos" key={index}>
                           <td>{appointment.appointmentID}</td>
@@ -282,34 +340,49 @@ const CancelDocAppDetails = ({
       </section>
 
       {/* Table for all Doctor appointments */}
-      <div className="appScheduling-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Appointment ID </th>
-              <th>Patient ID</th>
-              <th>DoctorID</th>
-              <th>Appointment Date</th>
-              <th>Appointment Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allAppointments.map((appointment, index) => {
-              return (
-                <tr className="doctor-infos" key={index}>
-                  <td>{appointment.appointmentID}</td>
-                  <td>{appointment.patientID}</td>
-                  <td>{appointment.doctorID}</td>
-                  <td>{appointment.appointmentDate}</td>
-                  <td>{appointment.appointmentTime}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <section className="search-container">
+        <div className="container-inputs">
+          <div className="content">
+            <label htmlFor="searchOptions">Search For</label>
+            <select
+              name="searchOptions"
+              id="searchOptions"
+              onChange={(e) => setSearchOptions(e.target.value)}
+            >
+              <option value="">Select one option</option>
+              <option value="appointmentId">Appointment ID</option>
+              <option value="patientId">Patient ID</option>
+            </select>
+          </div>
+          <div className="content">
+            <label htmlFor="">Search text</label>
+            <input
+              type="text"
+              placeholder="Search text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <div style={{ display: "flex", gap: 20 }}>
+            <ButtonAction
+              iconName="search"
+              btnName="Search"
+              color="blue"
+              buttonType="button"
+              onClick={handleSearch}
+            />
+            <ButtonAction
+              iconName="close"
+              btnName="Close"
+              color="red"
+              buttonType="button"
+              onClick={handleClose}
+            />
+          </div>
+        </div>
+      </section>
 
-      <div className="container-view-appoint-btn">
+      {/* <div className="container-view-appoint-btn">
         <ButtonAction
           iconName="add"
           btnName="Add Appointment"
@@ -324,7 +397,7 @@ const CancelDocAppDetails = ({
           buttonType="button"
           onClick={handleClose}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
