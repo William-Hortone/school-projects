@@ -17,17 +17,11 @@ const OutPatientCancelP = ({
   setOpenPage,
 }) => {
   const [inputs, setInputs] = useState({
-    userID: "",
-    firstName: "",
-    lastName: "",
-    gender: "",
-    address: "",
-    email: "",
-    telephone: "",
-    status: "",
-    notes: "",
-    userType: "",
-    userName: "",
+    appointmentID: "",
+    patientID: "",
+    doctorID: "",
+    appointmentDate: "",
+    appointmentTime: "",
   });
 
   const [id, setId] = useState("");

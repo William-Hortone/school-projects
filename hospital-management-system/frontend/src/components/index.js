@@ -8,6 +8,7 @@ import TextArea from "./textarea/TextArea";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import Reset from "./reset/Reset";
+import ButtonMenu from "./buttonMenu/ButtonMenu";
 
 export {
   Register,
@@ -20,4 +21,5 @@ export {
   TextArea,
   Footer,
   Reset,
+  ButtonMenu,
 };

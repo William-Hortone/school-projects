@@ -141,12 +141,7 @@ const CancelDocApp = () => {
                 ))} */}
               </select>
 
-              {/* <span
-                onClick={handleShowDocDetailsTable}
-                className="btn-docSchedule"
-              >
-                Doctors Schedule
-              </span> */}
+              {/*   */}
             </div>
           </div>
 
