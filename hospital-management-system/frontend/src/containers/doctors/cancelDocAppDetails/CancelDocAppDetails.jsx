@@ -222,7 +222,7 @@ const CancelDocAppDetails = ({
                 dateFormat="dd/MM/yyyy"
                 showYearDropdown
                 scrollableMonthYearDropdowns
-                minDate={new Date()}
+                // minDate={new Date()}
               />
             </div>
           </div>

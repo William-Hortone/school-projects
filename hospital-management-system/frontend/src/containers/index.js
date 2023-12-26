@@ -12,6 +12,7 @@ import AddDocAppointment from "./patient/addDocAppointment/AddDocAppointment";
 import AddHospAppointment from "./patient/addHospAppointment/AddHospAppointment";
 import OutPatient from "./patient/outPatient/OutPatient";
 import OutPatientMDetails from "./patient/outPatientMDetails/OutPatientMDetails";
+import OutPatientCancelP from "./patient/outPatientcancelApp/OutPatientCancelP";
 import VizAllOutPatient from "./patient/vizAllOutPatient/VizAllOutPatient";
 import BedDetails from "./rooms/bedDetails/BedDetails";
 import BedMoreDetails from "./rooms/bedMoreDetails/BedMoreDetails";
@@ -68,4 +69,5 @@ export {
   AddHospAppointment,
   CancelDocApp,
   CancelDocAppDetails,
+  OutPatientCancelP,
 };

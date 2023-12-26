@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
 import CancelDocAppDetails from "../cancelDocAppDetails/CancelDocAppDetails";
+import OutPatientCancelP from "../../patient/outPatientcancelApp/OutPatientCancelP";
 
 const CancelDocApp = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
@@ -81,61 +82,114 @@ const CancelDocApp = () => {
     <div className="roomDetails">
       <div className="roomDetails-container">
         <h2>CANCEL DOCTOR APPOINTMENT</h2>
-        <form>
-          <div className="container-display-infos">
-            <div className="container-wrapper">
-              <div className="input-fields">
-                <label htmlFor="appointmentID"> Appointment ID</label>
-                <Input
-                  placeholder="Appointment ID"
-                  id="appointmentID"
-                  name="appointmentID"
-                  value={lastElement ? lastElement.userID : ""}
-                  inputDisabled="true"
-                />
-              </div>
-              <div className="input-fields">
-                <label htmlFor="patientID"> Patient ID</label>
-                <Input
-                  placeholder="Patient ID"
-                  id="patientID"
-                  name="patientID"
-                  value={lastElement ? lastElement.firstName : ""}
-                  inputDisabled="true"
-                />
-              </div>
-              <div className="input-fields">
-                <label htmlFor="doctorID"> Doctor ID:</label>
-                <Input
-                  placeholder="Doctor ID"
-                  name="doctorID"
-                  id="doctorID"
-                  value={lastElement ? lastElement.lastName : ""}
-                  inputDisabled="true"
-                />
-              </div>
-              <div className="input-fields">
-                <label htmlFor="appDate">Appointment Date:</label>
-                <Input
-                  placeholder="Appointment Date"
-                  name="appDate"
-                  id="appDate"
-                  value={lastElement ? lastElement.gender : ""}
-                  inputDisabled="true"
-                />
-              </div>
-              <div className="input-fields">
-                <label htmlFor="appTime">Appointment Time:</label>
-                <Input
-                  placeholder="Appointment Time"
-                  name="appTime"
-                  id="appTime"
-                  value={lastElement ? lastElement.address : ""}
-                  inputDisabled="true"
-                />
-              </div>
+        <form
+        // onSubmit={handleSubmit}
+        >
+          <div className="input-fields">
+            <label form="AppointmentID">Appointment ID:</label>
+            <Input
+              placeholder="Appointment ID"
+              name="appointmentID"
+              // value={inputs.appointmentID}
+              // handleOnChange={handleOnChange}
+              inputDisabled="true"
+            />
+          </div>
+          <div className="input-field doctor-types">
+            <label htmlFor="patientID"> Patient ID</label>
+            <div>
+              <select
+                className="custom-input-field"
+                name="patientID"
+                id="patientID"
+                // value={inputs.patientID}
+                // onChange={handleOnChange}
+                // onFocus={handleFocusPatient}
+                // onBlur={handleBlurPatient}
+                required
+              >
+                <option required value="">
+                  Select a Patient ID
+                </option>
+                {/* {allOutPatients.map((patient, index) => (
+                  <option key={index} value={patient.patientID}>
+                    {patient.patientID}
+                  </option>
+                ))} */}
+              </select>
             </div>
           </div>
+          <div className="input-field doctor-types">
+            <label htmlFor="doctorID"> Doctor ID</label>
+            <div>
+              <select
+                name="doctorID"
+                id="doctorID"
+                // value={inputs.doctorID}
+                // onChange={handleOnChange}
+                // required
+                // onFocus={handleFocusDoctor}
+                // onBlur={handleBlurDoctor}
+              >
+                <option required value="">
+                  Select a doctor ID
+                </option>
+                {/* {allDOctors.map((doctor, index) => (
+                  <option key={index} value={doctor.doctorID}>
+                    {doctor.doctorID}
+                  </option>
+                ))} */}
+              </select>
+
+              {/* <span
+                onClick={handleShowDocDetailsTable}
+                className="btn-docSchedule"
+              >
+                Doctors Schedule
+              </span> */}
+            </div>
+          </div>
+
+          <div className="input-field">
+            <label htmlFor="gender"> Appointment Date:</label>
+            <div className="custom-input-field">
+              {/* <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                dateFormat="dd/MM/yyyy"
+                showYearDropdown
+                scrollableMonthYearDropdowns
+                minDate={new Date()}
+                filterDate={(date) =>
+                  date.getDay() == monday ||
+                  date.getDay() == tuesday ||
+                  date.getDay() == wednesday ||
+                  date.getDay() == thursday ||
+                  date.getDay() == friday ||
+                  date.getDay() == saturday ||
+                  date.getDay() == sunday
+                }
+              /> */}
+            </div>
+          </div>
+          <div className="input-field">
+            <label htmlFor="gender"> Appointment Time:</label>
+            <div className="custom-input-field">
+              {/* <DatePicker
+                selected={pickedTime}
+                onChange={(time) => setPickedTime(time)}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={10}
+                dateFormat="h:mm aa"
+                timeCaption="Time"
+                // filterTime={filterTime}
+              /> */}
+            </div>
+          </div>
+          <button type="submit" className="submit-btn">
+            Submit
+          </button>
         </form>
       </div>
 
@@ -204,7 +258,6 @@ const CancelDocApp = () => {
             buttonType="button"
             onClick={handleClose}
           />
-
           <ButtonAction
             iconName="all"
             btnName="View All"
@@ -228,6 +281,19 @@ const CancelDocApp = () => {
           </div>
         </div>
       )}
+      {/* {openPage && (
+        <div className="popup-wrapper">
+          <div className="popup">
+            <OutPatientCancelP
+              setOpenScheduling={setOpenScheduling}
+              setOpenScheduleDelete={setOpenScheduleDelete}
+              openScheduleDelete={openScheduleDelete}
+              addOnSubmit={addOnSubmit}
+              setOpenPage={setOpenPage}
+            />
+          </div>
+        </div>
+      )} */}
 
       {/* <div
         className={
