@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./outPatient.css";
+import axios from "axios";
 // import Scheduling from "../scheduling/Scheduling";
 import { useSelector } from "react-redux";
 import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import OutPatientMDetails from "../outPatientMDetails/OutPatientMDetails";
-import axios from "axios";
 import AddDocAppointment from "../addDocAppointment/AddDocAppointment";
+import "./outPatient.css";
 import { toast } from "react-toastify";
 import AddHospAppointment from "../addHospAppointment/AddHospAppointment";
 

@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
+import VizDocApp from "../vizDocApp/VizDocApp";
 import CancelDocAppDetails from "../cancelDocAppDetails/CancelDocAppDetails";
-import OutPatientCancelP from "../../patient/outPatientcancelApp/OutPatientCancelP";
 
 const CancelDocApp = () => {
+  const [openCancelPage, setOpenCancelPage] = useState(false);
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
@@ -29,18 +30,13 @@ const CancelDocApp = () => {
 
   const handleViewAll = () => {
     setOpenPage(true);
-    setOpenScheduling(true);
     setAddOnSubmit(true);
   };
-
-  const showRoomsToEdit = () => {
-    setOpenScheduling(true);
-    setOpenPage(true);
-    setAddOnSubmit(false);
+  const handleOpenCancelPage = () => {
+    setOpenCancelPage(true);
+    // setAddOnSubmit(true);
   };
-  // const handleViewAll = () => {
-  //   navigate("/vizAllUsers");
-  // };
+
   const handleClose = () => {
     navigate("/adminDashboard/dashboard");
   };
@@ -68,12 +64,6 @@ const CancelDocApp = () => {
     }
   };
 
-  const showSchedulingToDelete = () => {
-    setOpenPage(true);
-    setOpenScheduleDelete(true);
-    setAddOnSubmit(false);
-  };
-
   const handleRefresh = () => {
     window.location.reload();
   };
@@ -81,7 +71,7 @@ const CancelDocApp = () => {
   return (
     <div className="roomDetails">
       <div className="roomDetails-container">
-        <h2>CANCEL DOCTOR APPOINTMENT</h2>
+        <h2 className="page-title">CANCEL DOCTOR APPOINTMENT</h2>
         <form
         // onSubmit={handleSubmit}
         >
@@ -98,88 +88,52 @@ const CancelDocApp = () => {
           <div className="input-field doctor-types">
             <label htmlFor="patientID"> Patient ID</label>
             <div>
-              <select
-                className="custom-input-field"
-                name="patientID"
-                id="patientID"
-                // value={inputs.patientID}
-                // onChange={handleOnChange}
-                // onFocus={handleFocusPatient}
-                // onBlur={handleBlurPatient}
-                required
-              >
-                <option required value="">
-                  Select a Patient ID
-                </option>
-                {/* {allOutPatients.map((patient, index) => (
-                  <option key={index} value={patient.patientID}>
-                    {patient.patientID}
-                  </option>
-                ))} */}
-              </select>
+              <Input
+                placeholder="Appointment ID"
+                name="appointmentID"
+                // value={inputs.appointmentID}
+                // handleOnChange={handleOnChange}
+                inputDisabled="true"
+              />
             </div>
           </div>
           <div className="input-field doctor-types">
             <label htmlFor="doctorID"> Doctor ID</label>
             <div>
-              <select
-                name="doctorID"
-                id="doctorID"
-                // value={inputs.doctorID}
-                // onChange={handleOnChange}
-                // required
-                // onFocus={handleFocusDoctor}
-                // onBlur={handleBlurDoctor}
-              >
-                <option required value="">
-                  Select a doctor ID
-                </option>
-                {/* {allDOctors.map((doctor, index) => (
-                  <option key={index} value={doctor.doctorID}>
-                    {doctor.doctorID}
-                  </option>
-                ))} */}
-              </select>
-
-              {/*   */}
+              <Input
+                placeholder="Appointment ID"
+                name="appointmentID"
+                // value={inputs.appointmentID}
+                // handleOnChange={handleOnChange}
+                inputDisabled="true"
+              />
             </div>
           </div>
 
           <div className="input-field">
             <label htmlFor="gender"> Appointment Date:</label>
             <div className="custom-input-field">
-              {/* <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                dateFormat="dd/MM/yyyy"
-                showYearDropdown
-                scrollableMonthYearDropdowns
-                minDate={new Date()}
-                filterDate={(date) =>
-                  date.getDay() == monday ||
-                  date.getDay() == tuesday ||
-                  date.getDay() == wednesday ||
-                  date.getDay() == thursday ||
-                  date.getDay() == friday ||
-                  date.getDay() == saturday ||
-                  date.getDay() == sunday
-                }
-              /> */}
+              <div>
+                <Input
+                  placeholder="Appointment ID"
+                  name="appointmentID"
+                  // value={inputs.appointmentID}
+                  // handleOnChange={handleOnChange}
+                  inputDisabled="true"
+                />
+              </div>
             </div>
           </div>
           <div className="input-field">
             <label htmlFor="gender"> Appointment Time:</label>
             <div className="custom-input-field">
-              {/* <DatePicker
-                selected={pickedTime}
-                onChange={(time) => setPickedTime(time)}
-                showTimeSelect
-                showTimeSelectOnly
-                timeIntervals={10}
-                dateFormat="h:mm aa"
-                timeCaption="Time"
-                // filterTime={filterTime}
-              /> */}
+              <Input
+                placeholder="Appointment ID"
+                name="appointmentID"
+                // value={inputs.appointmentID}
+                // handleOnChange={handleOnChange}
+                inputDisabled="true"
+              />
             </div>
           </div>
           <button type="submit" className="submit-btn">
@@ -223,22 +177,9 @@ const CancelDocApp = () => {
             btnName="Cancel"
             color="red"
             buttonType="submit"
-            onClick={handleViewAll}
+            onClick={handleOpenCancelPage}
           />
-          {/* <ButtonAction
-            iconName="edit"
-            btnName="Edit"
-            color="green"
-            onClick={showRoomsToEdit}
-            buttonType="submit"
-          /> */}
-          {/* <ButtonAction
-            iconName="delete"
-            btnName="Delete"
-            buttonType="button"
-            color="red"
-            onClick={showSchedulingToDelete}
-          /> */}
+
           <ButtonAction
             iconName="refresh"
             btnName="Refresh"
@@ -266,7 +207,7 @@ const CancelDocApp = () => {
       {openPage && (
         <div className="popup-wrapper">
           <div className="popup">
-            <CancelDocAppDetails
+            <VizDocApp
               setOpenScheduling={setOpenScheduling}
               setOpenScheduleDelete={setOpenScheduleDelete}
               openScheduleDelete={openScheduleDelete}
@@ -276,42 +217,20 @@ const CancelDocApp = () => {
           </div>
         </div>
       )}
-      {/* {openPage && (
+
+      {openCancelPage && (
         <div className="popup-wrapper">
           <div className="popup">
-            <OutPatientCancelP
-              setOpenScheduling={setOpenScheduling}
-              setOpenScheduleDelete={setOpenScheduleDelete}
-              openScheduleDelete={openScheduleDelete}
-              addOnSubmit={addOnSubmit}
-              setOpenPage={setOpenPage}
+            <CancelDocAppDetails
+            // setOpenScheduling={setOpenScheduling}
+            // setOpenScheduleDelete={setOpenScheduleDelete}
+            // openScheduleDelete={openScheduleDelete}
+            // addOnSubmit={addOnSubmit}
+            // setOpenPage={setOpenPage}
             />
           </div>
         </div>
-      )} */}
-
-      {/* <div
-        className={
-          openScheduling || openScheduleDelete
-            ? "appScheduling-wrapper ActiveScheduling"
-            : "appScheduling-wrapper"
-        }
-
-      > */}
-
-      {/* {openPage && (
-        <div className="popup-wrapper">
-          <div className="popup">
-            <AddUserDetails
-              setOpenScheduling={setOpenScheduling}
-              setOpenScheduleDelete={setOpenScheduleDelete}
-              openScheduleDelete={openScheduleDelete}
-              addOnSubmit={addOnSubmit}
-              setOpenPage={setOpenPage}
-            />
-          </div>
-        </div>
-      )} */}
+      )}
     </div>
   );
 };

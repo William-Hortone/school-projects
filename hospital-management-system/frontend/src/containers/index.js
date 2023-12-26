@@ -2,11 +2,10 @@ import AdminDashboard from "./adminDashbord/AdminDashboard";
 import Dashboard from "./dashboard/Dashboard";
 import AppScheduling from "./doctors/appSheduling/AppScheduling";
 import CancelDocApp from "./doctors/cancelDocApp/CancelDocApp";
-import CancelDocAppDetails from "./doctors/cancelDocAppDetails/CancelDocAppDetails";
 import DDetails from "./doctors/dDetails/DDetails";
 import DoctorMenu from "./doctors/doctorMenu/DoctorMenu";
 import Scheduling from "./doctors/scheduling/Scheduling";
-import VizDocApp from "./doctors/vizDocApp/VizDocApp";
+import VizDocSchedule from "./doctors/vizDocSchedule/VizDocSchedule";
 import VizDoctorDetails from "./doctors/vizDoctorDetails/VizDoctorDetails";
 import AddDocAppointment from "./patient/addDocAppointment/AddDocAppointment";
 import AddHospAppointment from "./patient/addHospAppointment/AddHospAppointment";
@@ -33,6 +32,8 @@ import VizHospitalSer from "./services/vizHospitalSer/VizHospitalSer";
 import AddUser from "./user/addUser/AddUser";
 import AddUserDetails from "./user/addUserDetails/AddUserDetails";
 import ViewAllUsers from "./user/vizAllUsers/VizAllUser";
+import VizDocApp from "./doctors/vizDocApp/VizDocApp";
+import CancelDocAppDetails from "./doctors/cancelDocAppDetails/CancelDocAppDetails";
 
 export {
   DDetails,
@@ -54,7 +55,7 @@ export {
   AddUser,
   AddUserDetails,
   Dashboard,
-  VizDocApp,
+  VizDocSchedule,
   VizHospitalSer,
   VizAllRooms,
   ViewAllUsers,
@@ -70,4 +71,5 @@ export {
   CancelDocApp,
   CancelDocAppDetails,
   OutPatientCancelP,
+  VizDocApp,
 };
