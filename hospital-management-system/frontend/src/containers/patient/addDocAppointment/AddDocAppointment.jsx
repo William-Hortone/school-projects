@@ -517,6 +517,7 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
       >
         Doctor appointments
       </h2>
+
       {/* Table for all Doctor appointments */}
       <div className="appScheduling-table">
         <table>

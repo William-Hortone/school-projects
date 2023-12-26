@@ -18,7 +18,6 @@ const OutPatient = () => {
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const [openAddAppointment, setOpenAddAppointment] = useState(false);
   const [openAddHospitalApp, setOpenAddHospitalApp] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(true);
   const [allOutPatients, setAllOutPatients] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState("");
 
@@ -357,14 +356,6 @@ const OutPatient = () => {
         </div>
 
         {/* Open the OutPatientMDetails component  */}
-        {/* <div
-          className={
-            openScheduling || openScheduleDelete
-              ? "appScheduling-wrapper ActiveScheduling"
-              : "appScheduling-wrapper"
-          }
-        > */}
-
         {openPage && (
           <div className="popup-wrapper">
             <div className="popup">

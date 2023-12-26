@@ -221,13 +221,7 @@ const CancelDocApp = () => {
       {openCancelPage && (
         <div className="popup-wrapper">
           <div className="popup">
-            <CancelDocAppDetails
-            // setOpenScheduling={setOpenScheduling}
-            // setOpenScheduleDelete={setOpenScheduleDelete}
-            // openScheduleDelete={openScheduleDelete}
-            // addOnSubmit={addOnSubmit}
-            // setOpenPage={setOpenPage}
-            />
+            <CancelDocAppDetails setOpenCancelPage={setOpenCancelPage} />
           </div>
         </div>
       )}
