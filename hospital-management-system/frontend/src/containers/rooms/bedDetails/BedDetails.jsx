@@ -233,13 +233,6 @@ const BedDetails = () => {
       </div>
 
       {/* Open the scheduling component  */}
-      {/* <div
-        className={
-          openScheduling || openScheduleDelete
-            ? "appScheduling-wrapper ActiveScheduling"
-            : "appScheduling-wrapper"
-        }
-      > */}
 
       {openPage && (
         <div className="popup-wrapper">

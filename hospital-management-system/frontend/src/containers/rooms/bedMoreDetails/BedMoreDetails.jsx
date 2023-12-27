@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
-import "./bedMoreDetails.css";
-import { ButtonAction, ButtonSkip, Input } from "../../../components";
-import {
-  selectDocAppointment,
-  selectDoctorDetails,
-} from "../../../redux/slice/doctorSlice";
-import { useSelector } from "react-redux";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
 import { selectWardDetails } from "../../../redux/slice/wardSlice";
+import "./bedMoreDetails.css";
 
 const BedMoreDetails = ({
   setOpenScheduling,

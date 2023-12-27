@@ -12,6 +12,7 @@ import {
   AppScheduling,
   BedDetails,
   CancelDocApp,
+  CancelServiceApp,
   DDetails,
   Dashboard,
   MedicalServices,
@@ -24,7 +25,7 @@ import {
   VizAllBeds,
   VizAllOutPatient,
   VizAllRooms,
-  VizDocApp,
+  VizDocSchedule,
   VizDoctorDetails,
   VizHospitalSer,
   VizRoomType,
@@ -88,7 +89,7 @@ function App() {
           {/* Routes for visualization  */}
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />
           <Route path="/vHospital" element={<ViewHospitalSD />} />
-          <Route path="/vizDocApp" element={<VizDocApp />} />
+          <Route path="/VizDocSchedule" element={<VizDocSchedule />} />
           <Route path="/vizHospitalSer" element={<VizHospitalSer />} />
           <Route path="/vizRooms" element={<VizAllRooms />} />
           <Route path="/vizAllWards" element={<ViewWardDetails />} />
@@ -124,6 +125,10 @@ function App() {
             <Route
               path="/adminDashboard/cancelDocApp"
               element={<CancelDocApp />}
+            />
+            <Route
+              path="/adminDashboard/cancelServiceApp"
+              element={<CancelServiceApp />}
             />
           </Route>
         </Routes>

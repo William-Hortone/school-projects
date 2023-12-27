@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { Header } from "../../components";
+import { ButtonMenu, Header } from "../../components";
 import "./adminDashboard.css";
 
 const AdminDashboard = () => {
+  const [showList, setShowList] = useState(false);
   const activeLink = ({ isActive }) =>
-    isActive ? "activeLink nav-link admin-category" : "nav-link admin-category";
+    isActive
+      ? "activeSection nav-link admin-category"
+      : "nav-link admin-category";
 
   return (
     <div className="app__AdminDashboard">
@@ -17,21 +20,28 @@ const AdminDashboard = () => {
               <NavLink to="/adminDashboard/dashboard" className={activeLink}>
                 DashBoard
               </NavLink>
-              <NavLink to="/adminDashboard/doctorD" className={activeLink}>
-                Doctor Details
-              </NavLink>
-              <NavLink to="/adminDashboard/mServices" className={activeLink}>
-                Medical Services
-              </NavLink>
-              <NavLink
-                to="/adminDashboard/serviceSchedule"
-                className={activeLink}
-              >
-                Service Scheduling
-              </NavLink>
-              <NavLink to="/adminDashboard/doctorApp" className={activeLink}>
-                Doctor Appointments
-              </NavLink>
+
+              <ButtonMenu
+                setShowList={setShowList}
+                title="Doctors"
+                title1="Doctor Details"
+                title2="Doctor Schedule"
+                title3="Cancel Doctor App."
+                link1="/adminDashboard/doctorD"
+                link2="/adminDashboard/doctorApp"
+                link3="/adminDashboard/cancelDocApp"
+              />
+
+              <ButtonMenu
+                setShowList={setShowList}
+                title="Hospital Services"
+                title1="Medical Services"
+                title2="Service Scheduling"
+                title3="Cancel Doctor App."
+                link1="/adminDashboard/mServices"
+                link2="/adminDashboard/serviceSchedule"
+                link3="/adminDashboard/cancelServiceApp"
+              />
 
               <NavLink to="/adminDashboard/rooms" className={activeLink}>
                 Rooms Details
@@ -49,9 +59,9 @@ const AdminDashboard = () => {
               <NavLink to="/adminDashboard/outPatient" className={activeLink}>
                 Out Patient
               </NavLink>
-              <NavLink to="/adminDashboard/cancelDocApp" className={activeLink}>
+              {/* <NavLink to="/adminDashboard/cancelDocApp" className={activeLink}>
                 Cancel Doctor A.
-              </NavLink>
+              </NavLink> */}
               {/* <NavLink to="/adminDashboard/outPatient" className={activeLink}>
                 Out Patient
               </NavLink> */}

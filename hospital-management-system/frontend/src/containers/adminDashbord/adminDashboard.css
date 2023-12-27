@@ -45,7 +45,15 @@
   background-color: var(--color-bg);
 }
 
-.activeLink {
+.activeSection {
+  font-weight: 600;
+  letter-spacing: 1.5px;
   background-color: var(--color-primary);
   color: white;
+  font-family: var(--font-title) !important;
+  font-size: 18px;
+}
+.activeLink {
+  color: var(--color-primary);
+  font-weight: 900;
 }

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./cancelDocAppDetails.css";
 import { ButtonAction, Input } from "../../../components";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const CancelDocAppDetails = ({ setOpenCancelPage }) => {
+const CancelServiceAppDetails = ({ setOpenCancelPage }) => {
   const [inputs, setInputs] = useState({
     appointmentID: "",
     patientID: "",
-    doctorID: "",
+    serviceID: "",
     appointmentDate: "",
     appointmentTime: "",
   });
@@ -17,7 +16,7 @@ const CancelDocAppDetails = ({ setOpenCancelPage }) => {
   const [allAppointments, setAllAppointments] = useState([]);
   const [disabledInput, setDisabledInput] = useState(false);
 
-  const API_URL_APPOINTMENT = "http://localhost:3001/getAddDocAppointments";
+  const API_URL_APPOINTMENT = "http://localhost:3001/getAddHospitalSerApp";
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -43,10 +42,10 @@ const CancelDocAppDetails = ({ setOpenCancelPage }) => {
   // Function to Delete a bed
   const handleCancelApp = (appId) => {
     if (appId === undefined || appId === "") {
-      toast.error("Please provide a bed ID");
+      toast.error("Please provide an appointment ID");
     } else {
       axios
-        .put(`http://localhost:3001/cancelAppointment/${appId}`)
+        .put(`http://localhost:3001/cancelHosAppointment/${appId}`)
         .then((res) => {
           if (res.data === "success") {
             toast.success("Deleted Successfully");
@@ -78,7 +77,7 @@ const CancelDocAppDetails = ({ setOpenCancelPage }) => {
     setInputs({
       appointmentID: appointment.appointmentID,
       patientID: appointment.patientID,
-      doctorID: appointment.doctorID,
+      serviceID: appointment.hospitalServiceID,
       appointmentDate: appointment.appointmentDate,
       appointmentTime: appointment.appointmentTime,
     });
@@ -89,7 +88,7 @@ const CancelDocAppDetails = ({ setOpenCancelPage }) => {
     <>
       <div className="app__cancelAppD">
         <div className="roomDetails-container">
-          <h2 className="page-title">CANCEL DOCTOR APPOINTMENT</h2>
+          <h2 className="page-title">CANCEL HOSPITAL SERVICE APPOINTMENT</h2>
           <form>
             <div className="input-field doctor-types">
               <label htmlFor="AppointmentID">Appointment ID:</label>
@@ -104,7 +103,7 @@ const CancelDocAppDetails = ({ setOpenCancelPage }) => {
               </div>
             </div>
             <div className="input-field doctor-types">
-              <label htmlFor="patientID"> Patient ID</label>
+              <label htmlFor="patientID"> Patient ID :</label>
               <div>
                 <Input
                   placeholder="Patient ID"
@@ -116,19 +115,19 @@ const CancelDocAppDetails = ({ setOpenCancelPage }) => {
               </div>
             </div>
             <div className="input-field doctor-types">
-              <label htmlFor="doctorID"> Doctor ID</label>
+              <label htmlFor="serviceID"> Service ID :</label>
               <div>
                 <Input
-                  placeholder="Doctor ID"
-                  name="doctorID"
-                  value={inputs.doctorID}
+                  placeholder="Service ID"
+                  name="serviceID"
+                  value={inputs.serviceID}
                   handleOnChange={handleOnChange}
                   inputDisabled={disabledInput}
                 />
               </div>
             </div>
             <div className="input-field doctor-types">
-              <label htmlFor="gender"> Appointment Date:</label>
+              <label htmlFor="gender"> Appointment Date :</label>
               <div>
                 <Input
                   placeholder="AppointmentDate "
@@ -140,7 +139,7 @@ const CancelDocAppDetails = ({ setOpenCancelPage }) => {
               </div>
             </div>
             <div className="input-field doctor-types">
-              <label htmlFor="gender"> Appointment Time:</label>
+              <label htmlFor="gender"> Appointment Time :</label>
               <Input
                 placeholder="Appointment Time"
                 name="appointmentTime"
@@ -181,14 +180,14 @@ const CancelDocAppDetails = ({ setOpenCancelPage }) => {
           </div>
         )}
 
-        {/* Table for all Doctor appointments */}
+        {/* Table for all Hospital service appointments */}
         <div className="appScheduling-table">
           <table>
             <thead>
               <tr>
                 <th>Appointment ID </th>
                 <th>Patient ID</th>
-                <th>DoctorID</th>
+                <th>Hospital service ID</th>
                 <th>Appointment Date</th>
                 <th>Appointment Time</th>
               </tr>
@@ -203,7 +202,7 @@ const CancelDocAppDetails = ({ setOpenCancelPage }) => {
                   >
                     <td>{appointment.appointmentID}</td>
                     <td>{appointment.patientID}</td>
-                    <td>{appointment.doctorID}</td>
+                    <td>{appointment.hospitalServiceID}</td>
                     <td>{appointment.appointmentDate}</td>
                     <td>{appointment.appointmentTime}</td>
                   </tr>
@@ -217,4 +216,4 @@ const CancelDocAppDetails = ({ setOpenCancelPage }) => {
   );
 };
 
-export default CancelDocAppDetails;
+export default CancelServiceAppDetails;

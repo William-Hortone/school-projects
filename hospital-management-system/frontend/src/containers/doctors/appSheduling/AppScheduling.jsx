@@ -50,7 +50,7 @@ const AppScheduling = () => {
     navigate("/adminDashboard/dashboard");
   };
   const handleViewAll = () => {
-    navigate("/vizDocApp");
+    navigate("/VizDocSchedule");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -271,14 +271,6 @@ const AppScheduling = () => {
         </div>
       </div>
 
-      {/* Open the scheduling component  */}
-      {/* <div
-        className={
-          openScheduling || openScheduleDelete
-            ? "appScheduling-wrapper ActiveScheduling"
-            : "appScheduling-wrapper"
-        }
-      > */}
       {openPage && (
         <div className="popup-wrapper">
           <div className="popup">

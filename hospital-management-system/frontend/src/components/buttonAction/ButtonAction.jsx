@@ -12,7 +12,7 @@ import {
   FaArrowAltCircleRight,
   FaCheck,
 } from "react-icons/fa";
-
+import { FcViewDetails } from "react-icons/fc";
 const iconComponents = {
   add: FaUserPlus,
   refresh: FaUndo,
@@ -23,6 +23,7 @@ const iconComponents = {
   search: FaSearch,
   arrow: FaArrowAltCircleRight,
   valid: FaCheck,
+  display: FcViewDetails,
 };
 
 const ButtonAction = ({ btnName, iconName, onClick, color, buttonType }) => {
