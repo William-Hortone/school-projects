@@ -50,7 +50,8 @@
 }
 
 .doctor-types div {
-  height: 80px;
+  /* height: 80px; */
+  padding: 0.2rem 0;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -143,6 +144,7 @@
 }
 .delete-btn {
   width: 100px;
+  height: 40px;
   border-radius: 7px;
   border: none;
   background-color: red;

@@ -12,6 +12,7 @@ import {
   AppScheduling,
   BedDetails,
   CancelDocApp,
+  CancelServiceApp,
   DDetails,
   Dashboard,
   MedicalServices,
@@ -124,6 +125,10 @@ function App() {
             <Route
               path="/adminDashboard/cancelDocApp"
               element={<CancelDocApp />}
+            />
+            <Route
+              path="/adminDashboard/cancelServiceApp"
+              element={<CancelServiceApp />}
             />
           </Route>
         </Routes>

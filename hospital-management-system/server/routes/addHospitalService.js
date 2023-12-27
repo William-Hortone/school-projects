@@ -17,4 +17,25 @@ router.get("/getAddHospitalSerApp", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+//To cancel an appointment
+router.put("/cancelHosAppointment/:appId", (req, res) => {
+  const id = req.params.appId;
+
+  AddHospitalSerApp.findOneAndUpdate(
+    {
+      appointmentID: id,
+    },
+    { $set: { isDisplayed: false } },
+    { new: true }
+  )
+    .then((appointment) => {
+      if (!appointment) {
+        return res.json("notfound");
+      } else {
+        return res.json("success");
+      }
+    })
+    .catch((err) => res.status(500).json(err));
+});
+
 module.exports = router;

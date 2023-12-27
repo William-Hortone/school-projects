@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 
 const ButtonMenu = ({
   setShowList,
-  initialShowList,
   title,
   title1,
   title2,
@@ -14,11 +13,21 @@ const ButtonMenu = ({
   link3,
 }) => {
   const location = useLocation();
-  const [showList, setShowListLocal] = useState(initialShowList);
+  const buttonMenuRef = useRef(null);
+  const isActive = (link) => link === location.pathname;
+
+  const [showList, setShowListLocal] = useState(() => {
+    return JSON.parse(localStorage.getItem("showList")) || false;
+  });
 
   const handleShowList = () => {
     setShowListLocal(!showList);
   };
+
+  useEffect(() => {
+    localStorage.setItem("showList", JSON.stringify(showList));
+    setShowList(showList);
+  }, [showList, setShowList]);
 
   const handleOutsideClick = (event) => {
     const buttonMenu = buttonMenuRef.current;
@@ -27,8 +36,6 @@ const ButtonMenu = ({
       setShowListLocal(false);
     }
   };
-
-  const buttonMenuRef = useRef(null);
 
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick);
@@ -41,8 +48,6 @@ const ButtonMenu = ({
   useEffect(() => {
     setShowList(showList);
   }, [showList, setShowList]);
-
-  const isActive = (link) => link === location.pathname;
 
   const handleHideList = () => {
     setShowListLocal(!showList);

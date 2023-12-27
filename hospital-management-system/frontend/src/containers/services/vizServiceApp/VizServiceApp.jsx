@@ -4,9 +4,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import { ButtonAction } from "../../../components";
-import "./vizDocApp.css";
+// import "./vizDocApp.css";
 
-const VizDocApp = ({ setOpenPage }) => {
+const VizServiceApp = ({ setOpenPage }) => {
   const [allOutPatients, setAllOutPatients] = useState([]);
   const [allAppointments, setAllAppointments] = useState([]);
   const [allDOctors, setAllDOctors] = useState([]);
@@ -26,7 +26,7 @@ const VizDocApp = ({ setOpenPage }) => {
 
   // To Get all outPatient
   const API_URL = "http://localhost:3001/getOutPatientsDetails";
-  const API_URL_APPOINTMENT = "http://localhost:3001/getAddDocAppointments";
+  const API_URL_APPOINTMENT = "http://localhost:3001/getAddHospitalSerApp";
   const API_URL_DOCTORS = "http://localhost:3001/getDoctors";
 
   const fetchData = async () => {
@@ -110,7 +110,7 @@ const VizDocApp = ({ setOpenPage }) => {
 
     if (!selectDocId) {
       const result = allAppointments.filter(
-        (appointment) => appointment.doctorID === doctorId
+        (appointment) => appointment.hospitalServiceID === doctorId
       );
       setFilteredDocAppTable(result);
 
@@ -202,7 +202,7 @@ const VizDocApp = ({ setOpenPage }) => {
               checked={selectDocId}
               onChange={handleCheckboxChange}
             />
-            <p>Doctor ID</p>
+            <p>Service ID</p>
           </div>
           <div className="wrapper-input">
             <label htmlFor="endDate">To</label>
@@ -210,7 +210,7 @@ const VizDocApp = ({ setOpenPage }) => {
               type="text"
               value={doctorId}
               onChange={(e) => setDoctorId(e.target.value)}
-              placeholder="Doctor ID"
+              placeholder="Service ID"
             />
           </div>
           <ButtonAction
@@ -230,7 +230,7 @@ const VizDocApp = ({ setOpenPage }) => {
                   <tr>
                     <th>Appointment ID </th>
                     <th>Patient ID</th>
-                    <th>DoctorID</th>
+                    <th>Service ID</th>
                     <th>Appointment Date</th>
                     <th>Appointment Time</th>
                   </tr>
@@ -243,7 +243,7 @@ const VizDocApp = ({ setOpenPage }) => {
                         <tr className="doctor-infos" key={index}>
                           <td>{appointment.appointmentID}</td>
                           <td>{appointment.patientID}</td>
-                          <td>{appointment.doctorID}</td>
+                          <td>{appointment.hospitalServiceID}</td>
                           <td>{appointment.appointmentDate}</td>
                           <td>{appointment.appointmentTime}</td>
                         </tr>
@@ -256,7 +256,7 @@ const VizDocApp = ({ setOpenPage }) => {
                         <tr className="doctor-infos" key={index}>
                           <td>{appointment.appointmentID}</td>
                           <td>{appointment.patientID}</td>
-                          <td>{appointment.doctorID}</td>
+                          <td>{appointment.hospitalServiceID}</td>
                           <td>{appointment.appointmentDate}</td>
                           <td>{appointment.appointmentTime}</td>
                         </tr>
@@ -268,7 +268,7 @@ const VizDocApp = ({ setOpenPage }) => {
                         <tr className="doctor-infos" key={index}>
                           <td>{appointment.appointmentID}</td>
                           <td>{appointment.patientID}</td>
-                          <td>{appointment.doctorID}</td>
+                          <td>{appointment.hospitalServiceID}</td>
                           <td>{appointment.appointmentDate}</td>
                           <td>{appointment.appointmentTime}</td>
                         </tr>
@@ -328,4 +328,4 @@ const VizDocApp = ({ setOpenPage }) => {
   );
 };
 
-export default VizDocApp;
+export default VizServiceApp;

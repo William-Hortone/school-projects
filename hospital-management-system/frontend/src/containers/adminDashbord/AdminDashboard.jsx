@@ -23,7 +23,6 @@ const AdminDashboard = () => {
 
               <ButtonMenu
                 setShowList={setShowList}
-                initialShowList="false"
                 title="Doctors"
                 title1="Doctor Details"
                 title2="Doctor Schedule"
@@ -35,30 +34,14 @@ const AdminDashboard = () => {
 
               <ButtonMenu
                 setShowList={setShowList}
-                initialShowList="false"
                 title="Hospital Services"
                 title1="Medical Services"
                 title2="Service Scheduling"
                 title3="Cancel Doctor App."
                 link1="/adminDashboard/mServices"
                 link2="/adminDashboard/serviceSchedule"
-                // link3=""
+                link3="/adminDashboard/cancelServiceApp"
               />
-              {/* <NavLink to="/adminDashboard/doctorD" className={activeLink}>
-                Doctor Details
-              </NavLink> */}
-              {/* <NavLink to="/adminDashboard/mServices" className={activeLink}>
-                Medical Services
-              </NavLink> */}
-              {/* <NavLink
-                to="/adminDashboard/serviceSchedule"
-                className={activeLink}
-              >
-                Service Scheduling
-              </NavLink> */}
-              {/* <NavLink to="/adminDashboard/doctorApp" className={activeLink}>
-                Doctor Appointments
-              </NavLink> */}
 
               <NavLink to="/adminDashboard/rooms" className={activeLink}>
                 Rooms Details

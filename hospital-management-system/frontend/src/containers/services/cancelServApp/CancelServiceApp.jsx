@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import "./cancelDocApp.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ButtonAction, ButtonSkip, Input } from "../../../components";
+// import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
+// import VizDocApp from "../vizDocApp/VizDocApp";
+// import CancelDocAppDetails from "../cancelDocAppDetails/CancelDocAppDetails";
 import { selectAddedUserInfos } from "../../../redux/slice/addedUserSlide";
-import VizDocApp from "../vizDocApp/VizDocApp";
-import CancelDocAppDetails from "../cancelDocAppDetails/CancelDocAppDetails";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
+import CancelServiceAppDetails from "../cancelServAppDetails/CancelServiceAppDetails";
+import VizServiceApp from "../vizServiceApp/VizServiceApp";
 
-const CancelDocApp = () => {
+const CancelServiceApp = () => {
   const [openCancelPage, setOpenCancelPage] = useState(false);
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openPage, setOpenPage] = useState(false);
@@ -71,7 +73,7 @@ const CancelDocApp = () => {
   return (
     <div className="roomDetails">
       <div className="roomDetails-container">
-        <h2 className="page-title">CANCEL DOCTOR APPOINTMENT</h2>
+        <h2 className="page-title">CANCEL SERVICE APPOINTMENT</h2>
         <form>
           <div className="input-field doctor-types">
             <label form="AppointmentID">Appointment ID:</label>
@@ -86,7 +88,7 @@ const CancelDocApp = () => {
             <label htmlFor="patientID"> Patient ID</label>
             <div>
               <Input
-                placeholder="Appointment ID"
+                placeholder="Patient ID"
                 name="appointmentID"
                 // value={inputs.appointmentID}
                 inputDisabled="true"
@@ -94,10 +96,10 @@ const CancelDocApp = () => {
             </div>
           </div>
           <div className="input-field doctor-types">
-            <label htmlFor="doctorID"> Doctor ID</label>
+            <label htmlFor="doctorID"> Service ID</label>
             <div>
               <Input
-                placeholder="Appointment ID"
+                placeholder="Service ID"
                 name="appointmentID"
                 // value={inputs.appointmentID}
                 inputDisabled="true"
@@ -109,7 +111,7 @@ const CancelDocApp = () => {
             <label htmlFor="gender"> Appointment Date:</label>
             <div>
               <Input
-                placeholder="Appointment ID"
+                placeholder="Appointment Date"
                 name="appointmentID"
                 // value={inputs.appointmentID}
                 inputDisabled="true"
@@ -119,7 +121,7 @@ const CancelDocApp = () => {
           <div className="input-field doctor-types">
             <label htmlFor="gender"> Appointment Time:</label>
             <Input
-              placeholder="Appointment ID"
+              placeholder="Appointment Time"
               name="appointmentID"
               inputDisabled="true"
             />
@@ -193,7 +195,7 @@ const CancelDocApp = () => {
       {openPage && (
         <div className="popup-wrapper">
           <div className="popup">
-            <VizDocApp
+            <VizServiceApp
               setOpenScheduling={setOpenScheduling}
               setOpenScheduleDelete={setOpenScheduleDelete}
               openScheduleDelete={openScheduleDelete}
@@ -208,7 +210,7 @@ const CancelDocApp = () => {
       {openCancelPage && (
         <div className="popup-wrapper">
           <div className="popup">
-            <CancelDocAppDetails setOpenCancelPage={setOpenCancelPage} />
+            <CancelServiceAppDetails setOpenCancelPage={setOpenCancelPage} />
           </div>
         </div>
       )}
@@ -216,4 +218,4 @@ const CancelDocApp = () => {
   );
 };
 
-export default CancelDocApp;
+export default CancelServiceApp;

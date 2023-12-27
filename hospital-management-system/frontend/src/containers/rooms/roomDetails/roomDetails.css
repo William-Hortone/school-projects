@@ -5,8 +5,9 @@
   overflow: hidden;
 }
 .roomDetails .roomDetails-container {
-  width: 100%;
+  width: 98%;
   height: auto;
+  margin: 0 auto;
   /* margin: 90px auto 0; */
   /* padding: 2rem; */
   /* background-color: #da5757; */
@@ -32,7 +33,7 @@
   height: auto;
   background: #efefef;
   margin-top: 4rem;
-  padding: 2rem 1rem;
+  padding: 2rem 2.5rem;
   border-radius: 10px;
   -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
   -moz-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);

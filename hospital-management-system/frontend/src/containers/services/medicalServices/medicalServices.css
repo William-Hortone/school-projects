@@ -22,7 +22,8 @@
   box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);
 }
 .input-field {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
+  /* margin: 1rem 0; */
 }
 .input-field input {
   width: 300px;

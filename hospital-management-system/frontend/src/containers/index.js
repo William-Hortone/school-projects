@@ -34,6 +34,9 @@ import AddUserDetails from "./user/addUserDetails/AddUserDetails";
 import ViewAllUsers from "./user/vizAllUsers/VizAllUser";
 import VizDocApp from "./doctors/vizDocApp/VizDocApp";
 import CancelDocAppDetails from "./doctors/cancelDocAppDetails/CancelDocAppDetails";
+import CancelServiceAppDetails from "./services/cancelServAppDetails/CancelServiceAppDetails";
+import CancelServiceApp from "./services/cancelServApp/CancelServiceApp";
+import VizServiceApp from "./services/vizServiceApp/VizServiceApp";
 
 export {
   DDetails,
@@ -72,4 +75,7 @@ export {
   CancelDocAppDetails,
   OutPatientCancelP,
   VizDocApp,
+  CancelServiceAppDetails,
+  CancelServiceApp,
+  VizServiceApp,
 };
