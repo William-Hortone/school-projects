@@ -17,6 +17,7 @@ const bedRoutes = require("./routes/bedInfos");
 const OutPatientRoutes = require("./routes/outPatientInfos");
 const AddDocAppRoutes = require("./routes/addDocAppointments");
 const AddHospitalSerAppRoutes = require("./routes/addHospitalService");
+const OutPTreatmentRoutes = require("./routes/outPTreatmentInfos");
 
 const app = express();
 app.use(express.json());
@@ -58,6 +59,8 @@ app.use(OutPatientRoutes);
 app.use(AddDocAppRoutes);
 
 app.use(AddHospitalSerAppRoutes);
+
+app.use(OutPTreatmentRoutes);
 
 app.listen(3001, () => {
   console.log("The server is running");

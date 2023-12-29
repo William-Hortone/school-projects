@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
 import { Input, ButtonAction, ButtonSkip } from "../../../components";
-import { BedMoreDetails } from "../..";
+import { BedMoreDetails, OutPTreatmentDetails } from "../..";
 import axios from "axios";
 
-const BedDetails = () => {
+const OutPTreatment = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
@@ -97,41 +97,88 @@ const BedDetails = () => {
 
   return (
     <div className="appScheduling">
-      <h2 className="page-title">BED DETAILS</h2>
+      <h2 className="page-title">OUT PATIENT TREATMENTS</h2>
       <div className="appScheduling-container">
         <div className="details-title">
-          <h4>Bed infos</h4>
+          <h4>Treatment infos</h4>
           <div className="divider" />
         </div>
         <form>
-          <div className="input-field">
-            <label form="schedulingId">Bed ID:</label>
-            <Input
-              inputDisabled="true"
-              placeholder="Scheduling ID"
-              name="schedulingID"
-              value={lastElement ? lastElement.bedID : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="doctorId"> Room / Ward ID:</label>
-            <Input
-              placeholder="Doctor ID"
-              name="doctorID"
-              inputDisabled="true"
-              value={lastElement ? lastElement.bedPlace : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="doctorId"> Bed Description :</label>
-            <textarea
-              name=""
-              id=""
-              cols="39"
-              rows="10"
-              value={lastElement ? lastElement.bedDesc : ""}
-              // disabled
-            ></textarea>
+          <div className="container-display-infos">
+            <div className="container-wrapper">
+              <div className="input-field">
+                <label form="schedulingId">Treatment ID:</label>
+                <Input
+                  inputDisabled="true"
+                  placeholder="Treatment ID"
+                  name="treatmentId"
+                  value={lastElement ? lastElement.bedID : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label form="doctorId"> Patient ID:</label>
+                <Input
+                  placeholder="Patient ID"
+                  name="patientId"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.bedPlace : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label form="doctorId"> Doctor ID:</label>
+                <Input
+                  placeholder="Doctor ID"
+                  name="doctorId"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.bedPlace : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label htmlFor="prescription">Prescription :</label>
+                <textarea
+                  placeholder="Prescription"
+                  name="prescription"
+                  id="prescription"
+                  cols="39"
+                  rows="10"
+                  value={lastElement ? lastElement.bedDesc : ""}
+                  // disabled
+                ></textarea>
+              </div>
+            </div>
+
+            <div className="container-wrapper">
+              <div className="input-field">
+                <label form="doctorId"> Date:</label>
+                <Input
+                  placeholder="Date"
+                  name="date"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.bedPlace : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label form="doctorId"> Time:</label>
+                <Input
+                  placeholder="Time"
+                  name="time"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.bedPlace : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label htmlFor="Description">Description :</label>
+                <textarea
+                  placeholder="Description"
+                  name="description"
+                  id="description"
+                  cols="39"
+                  rows="10"
+                  value={lastElement ? lastElement.bedDesc : ""}
+                  // disabled
+                ></textarea>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -231,12 +278,12 @@ const BedDetails = () => {
         </div>
       </div>
 
-      {/* Open the scheduling component  */}
+      {/* Open the OutPTreatmentDetails component  */}
 
       {openPage && (
         <div className="popup-wrapper">
           <div className="popup">
-            <BedMoreDetails
+            <OutPTreatmentDetails
               setOpenScheduling={setOpenScheduling}
               setOpenScheduleDelete={setOpenScheduleDelete}
               openScheduleDelete={openScheduleDelete}
@@ -250,4 +297,4 @@ const BedDetails = () => {
   );
 };
 
-export default BedDetails;
+export default OutPTreatment;

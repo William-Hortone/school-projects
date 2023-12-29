@@ -37,6 +37,8 @@ import CancelDocAppDetails from "./doctors/cancelDocAppDetails/CancelDocAppDetai
 import CancelServiceAppDetails from "./services/cancelServAppDetails/CancelServiceAppDetails";
 import CancelServiceApp from "./services/cancelServApp/CancelServiceApp";
 import VizServiceApp from "./services/vizServiceApp/VizServiceApp";
+import OutPTreatment from "./patient/outPTreatment/OutPTreatment";
+import OutPTreatmentDetails from "./patient/outPTreatmentDetails/OutPTreatmentDetails";
 
 export {
   DDetails,
@@ -78,4 +80,6 @@ export {
   CancelServiceAppDetails,
   CancelServiceApp,
   VizServiceApp,
+  OutPTreatment,
+  OutPTreatmentDetails,
 };
