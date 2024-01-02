@@ -21,9 +21,9 @@ router.get("/getOutPTreatment", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-// Update  OutPatients information
-router.put("/editOutPTreatment/:id", (req, res) => {
-  const id = req.params.id;
+// Update  OutPatients  treatment information
+router.put("/editOutPTreatment/:ID", (req, res) => {
+  const id = req.params.ID;
   const updatedData = req.body;
 
   OutPTreatmentModel.findOneAndUpdate(

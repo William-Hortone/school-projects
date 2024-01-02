@@ -260,16 +260,6 @@ const AddDocAppointment = ({ setOpenAddAppointment }) => {
     handleFilter(docID);
   }, [docID, allDocSchedule]);
 
-  // const filterTime = (time) => {
-  //   const startTime = new Date();
-  //   startTime.setHours(10, 0, 0);
-
-  //   const endTime = new Date();
-  //   endTime.setHours(19, 20, 0);
-
-  //   return time >= startTime && time <= endTime;
-  // };
-
   return (
     <div className="app__addAppointment">
       <h2 className="page-title">ADD DOCTOR APPOINTMENT</h2>

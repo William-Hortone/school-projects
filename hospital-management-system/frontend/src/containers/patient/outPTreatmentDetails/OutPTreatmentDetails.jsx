@@ -38,15 +38,15 @@ const OutPTreatmentDetails = ({
 
   const navigate = useNavigate();
 
-  // To Get all the available beds
-  // const API_URL = "http://localhost:3001/getOutPTreatment";
+  // To Get all the available Treatments
+  const API_URL = "http://localhost:3001/getOutPTreatment";
   const API_URL_DOCTORS = "http://localhost:3001/getDoctors";
   const API_URL_PATIENTS = "http://localhost:3001/getOutPatientsDetails";
 
-  // const fetchData = async () => {
-  //   const { data } = await axios.get(API_URL);
-  //   setAllBeds(data);
-  // };
+  const fetchData = async () => {
+    const { data } = await axios.get(API_URL);
+    setAllOutPTreatment(data);
+  };
   const fetchDoctorsData = async () => {
     const { data } = await axios.get(API_URL_DOCTORS);
     setAllDOctors(data);
@@ -57,6 +57,7 @@ const OutPTreatmentDetails = ({
   };
 
   useEffect(() => {
+    fetchData();
     fetchDoctorsData();
     fetchDataOPatients();
   }, []);
@@ -68,6 +69,10 @@ const OutPTreatmentDetails = ({
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    setId(inputs.treatmentId);
+  }, [inputs.treatmentId]);
 
   //  Set the format for the Date
   useEffect(() => {
@@ -107,7 +112,7 @@ const OutPTreatmentDetails = ({
     }));
   }, [selectedTime]);
 
-  //   Function to add user  a new roo ID
+  //   Function to generate a new  ID
   const handleAddATreatment = () => {
     if (addOnSubmit) {
       // Initialize the Id if the array is empty
@@ -134,11 +139,10 @@ const OutPTreatmentDetails = ({
     }
   };
 
-  // The function to add a User details
+  // The function to add out patient treatment details
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("inputs", inputs);
     axios
       .post("http://localhost:3001/addOutPTreatment", inputs)
       .then((res) => {
@@ -150,27 +154,43 @@ const OutPTreatmentDetails = ({
   };
 
   // function to Edit a Out patient treatment details
-  const handleSubmitEditRoom = (e, userId) => {
+  const handleSubmitEditInfos = (e, ID) => {
     e.preventDefault();
 
-    // axios
-    //   .put(`http://localhost:3001/editUserDetails/${userId}`, inputs)
-    //   .then((res) => {
-    //     if (res.data === "success") {
-    //       toast.success("Room updated successfully");
-    //     } else if (res.data === "notfound") {
-    //       toast.error("Wrong ID");
-    //     } else {
-    //       toast.error("An error occurred while updating the user");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     toast.error(err);
-    //   });
+    axios
+      .put(`http://localhost:3001/editOutPTreatment/${ID}`, inputs)
+      .then((res) => {
+        if (res.data === "success") {
+          toast.success("Updated successfully");
+        } else if (res.data === "notfound") {
+          toast.error("Wrong ID");
+        } else {
+          toast.error("An error occurred while updating ");
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   };
 
   const handleClose = () => {
     setOpenPage(false);
+  };
+
+  // Automatically fill the form when click on one element of the table
+  const handleUpdateInfos = (treatment) => {
+    if (!addOnSubmit) {
+      setInputs({
+        treatmentId: treatment.treatmentId,
+        patientId: treatment.patientId,
+        doctorId: treatment.doctorId,
+        prescription: treatment.prescription,
+        description: treatment.description,
+      });
+      setSelectedDate(treatment.date);
+      setSelectedTime(treatment.time);
+      // setDisabledInput(true);
+    }
   };
 
   return (
@@ -183,7 +203,7 @@ const OutPTreatmentDetails = ({
         </div>
         <form
           onSubmit={
-            addOnSubmit ? handleSubmit : (e) => handleSubmitEditRoom(e, id)
+            addOnSubmit ? handleSubmit : (e) => handleSubmitEditInfos(e, id)
           }
         >
           <div className="container-display-infos">
@@ -268,6 +288,7 @@ const OutPTreatmentDetails = ({
                   style={{ marginRight: "0" }}
                 >
                   <DatePicker
+                    value={selectedDate}
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     dateFormat="EEE MMM dd yyyy"
@@ -285,6 +306,7 @@ const OutPTreatmentDetails = ({
                   style={{ marginRight: "0" }}
                 >
                   <DatePicker
+                    value={selectedTime}
                     selected={pickedTime}
                     onChange={(time) => setPickedTime(time)}
                     showTimeSelect
@@ -317,21 +339,37 @@ const OutPTreatmentDetails = ({
         <table>
           <thead>
             <tr>
-              <th>Bed ID </th>
-              <th>Bed Place </th>
-              <th>Bed Description</th>
+              <th>Treatment ID </th>
+              <th>Patient ID</th>
+              <th>Doctor ID</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Prescription</th>
+              <th>Description</th>
             </tr>
           </thead>
           <tbody>
-            {/* {allBeds.map((bed, index) => {
+            {allOutPTreatment.map((treatment, index) => {
               return (
-                <tr className="doctor-infos" key={index}>
-                  <td>{bed.bedID}</td>
-                  <td>{bed.bedPlace}</td>
-                  <td>{bed.bedDesc}</td>
+                <tr
+                  onClick={(e) => handleUpdateInfos(treatment)}
+                  className={
+                    !addOnSubmit
+                      ? "doctor-infos select-doctorID"
+                      : "doctor-infos"
+                  }
+                  key={index}
+                >
+                  <td>{treatment.treatmentId}</td>
+                  <td>{treatment.patientId}</td>
+                  <td>{treatment.doctorId}</td>
+                  <td>{treatment.date}</td>
+                  <td>{treatment.time}</td>
+                  <td>{treatment.prescription}</td>
+                  <td>{treatment.description}</td>
                 </tr>
               );
-            })} */}
+            })}
           </tbody>
         </table>
       </div>
