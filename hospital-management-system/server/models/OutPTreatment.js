@@ -18,6 +18,6 @@ const OutPTreatmentSchema = new mongoose.Schema({
   },
 });
 
-const OutPTreatmentModel = mongoose.model("OutPatient", OutPTreatmentSchema);
+const OutPTreatmentModel = mongoose.model("OutPTreatment", OutPTreatmentSchema);
 
 module.exports = OutPTreatmentModel;

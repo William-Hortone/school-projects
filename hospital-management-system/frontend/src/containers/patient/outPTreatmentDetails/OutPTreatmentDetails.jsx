@@ -5,6 +5,8 @@ import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
 import { Input, ButtonAction, ButtonSkip } from "../../../components";
 import { BedMoreDetails } from "../..";
 import axios from "axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./outPTreatmentD.css";
 import { toast } from "react-toastify";
 
@@ -29,6 +31,10 @@ const OutPTreatmentDetails = ({
   const [allOutPatients, setAllOutPatients] = useState([]);
   const [allOutPTreatment, setAllOutPTreatment] = useState([]);
   const [id, setId] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [pickedTime, setPickedTime] = useState(null);
+  const [selectedTime, setSelectedTime] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
 
   const navigate = useNavigate();
 
@@ -51,7 +57,6 @@ const OutPTreatmentDetails = ({
   };
 
   useEffect(() => {
-    // fetchData();
     fetchDoctorsData();
     fetchDataOPatients();
   }, []);
@@ -63,6 +68,44 @@ const OutPTreatmentDetails = ({
       [name]: value,
     });
   };
+
+  //  Set the format for the Date
+  useEffect(() => {
+    const handleFilterDate = () => {
+      if (startDate) {
+        const result = startDate.toString();
+        const formattedDate = result.slice(0, 15);
+        setSelectedDate(formattedDate);
+      }
+    };
+    handleFilterDate();
+  }, [startDate]);
+
+  useEffect(() => {
+    setInputs((prev) => ({
+      ...prev,
+      date: selectedDate,
+    }));
+  }, [selectedDate]);
+
+  //  Set the format for the time
+  useEffect(() => {
+    if (pickedTime) {
+      const formattedTime = pickedTime.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+      setSelectedTime(formattedTime);
+    }
+  }, [pickedTime]);
+
+  useEffect(() => {
+    setInputs((prev) => ({
+      ...prev,
+      time: selectedTime,
+    }));
+  }, [selectedTime]);
 
   //   Function to add user  a new roo ID
   const handleAddATreatment = () => {
@@ -95,8 +138,9 @@ const OutPTreatmentDetails = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    console.log("inputs", inputs);
     axios
-      .post("http://localhost:3001/usersInfos", inputs)
+      .post("http://localhost:3001/addOutPTreatment", inputs)
       .then((res) => {
         if (res.data === "success") {
           toast.success("Added successfully");
@@ -211,28 +255,45 @@ const OutPTreatmentDetails = ({
                   // disabled
                 ></textarea>
               </div>
+              <button type="submit" className="submit-btn">
+                Submit
+              </button>
             </div>
 
             <div className="container-wrapper">
               <div className="input-field">
-                <label form="doctorId"> Date:</label>
-                <Input
-                  placeholder="Date"
-                  name="date"
-                  handleOnChange={handleOnChange}
-                  // inputDisabled="true"
-                  value={inputs.date}
-                />
+                <label htmlFor="gender"> Date:</label>
+                <div
+                  className="custom-input-field"
+                  style={{ marginRight: "0" }}
+                >
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    dateFormat="EEE MMM dd yyyy"
+                    showYearDropdown
+                    scrollableMonthYearDropdowns
+                    minDate={new Date()}
+                  />
+                </div>
               </div>
+
               <div className="input-field">
-                <label form="doctorId"> Time:</label>
-                <Input
-                  placeholder="Time"
-                  name="time"
-                  handleOnChange={handleOnChange}
-                  // inputDisabled="true"
-                  value={inputs.time}
-                />
+                <label htmlFor="gender"> Time:</label>
+                <div
+                  className="custom-input-field"
+                  style={{ marginRight: "0" }}
+                >
+                  <DatePicker
+                    selected={pickedTime}
+                    onChange={(time) => setPickedTime(time)}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={10}
+                    dateFormat="h:mm aa"
+                    timeCaption="Time"
+                  />
+                </div>
               </div>
               <div className="input-field">
                 <label htmlFor="Description">Description :</label>

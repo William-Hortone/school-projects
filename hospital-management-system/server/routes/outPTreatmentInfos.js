@@ -22,23 +22,23 @@ router.get("/getOutPTreatment", (req, res) => {
 });
 
 // Update  OutPatients information
-// router.put("/editOutPatientDetails/:id", (req, res) => {
-//   const id = req.params.id;
-//   const updatedData = req.body;
+router.put("/editOutPTreatment/:id", (req, res) => {
+  const id = req.params.id;
+  const updatedData = req.body;
 
-//   OutPTreatmentModel.findOneAndUpdate(
-//     { patientID: id },
-//     { $set: updatedData },
-//     { new: true }
-//   )
-//     .then((user) => {
-//       if (!user) {
-//         return res.json("notfound");
-//       }
-//       return res.json("success");
-//     })
-//     .catch((err) => res.json(err));
-// });
+  OutPTreatmentModel.findOneAndUpdate(
+    { treatmentId: id },
+    { $set: updatedData },
+    { new: true }
+  )
+    .then((user) => {
+      if (!user) {
+        return res.json("notfound");
+      }
+      return res.json("success");
+    })
+    .catch((err) => res.json(err));
+});
 
 // Delete OutPatients
 // router.put("/deleteOutPatient/:id", (req, res) => {

@@ -19,6 +19,6 @@ const OutPatientSchema = new mongoose.Schema({
   },
 });
 
-const OutpatientModel = mongoose.model("OutPatient", OutPatientSchema);
+const OutpatientModel = mongoose.model("OutPatients", OutPatientSchema);
 
 module.exports = OutpatientModel;
