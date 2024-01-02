@@ -57,10 +57,10 @@ const AdminDashboard = () => {
                 setShowList={setShowList}
                 title="In Patients"
                 title1="In Patient Details"
-                title2="Out Patient Treatment"
+                title2="Add Guardian"
                 // title3="Cancel Doctor App."
                 link1="/adminDashboard/inPatients"
-                link2="/adminDashboard/outPTreatment"
+                link2="/adminDashboard/addGuardian"
                 // link3="/adminDashboard/cancelServiceApp"
               />
 

@@ -43,6 +43,9 @@ import VizAllOPtreatment from "./patient/vizAllOPTreatment/VizAllOPtreatment";
 import InPatients from "./patient/inPatients/InPatients";
 import InPatientDetails from "./patient/inPatientDetails/InpatientDetails";
 import VizAllInPatients from "./patient/vizInPatients/VizAllInPatients";
+import AddGuardian from "./patient/addGuardian/AddGuardian";
+import GuardianDetails from "./patient/guardianDetails/GuardianDetails";
+import VizAllGuardian from "./patient/vizAllGuardian/VizAllGuardian";
 
 export {
   DDetails,
@@ -90,4 +93,7 @@ export {
   InPatients,
   InPatientDetails,
   VizAllInPatients,
+  AddGuardian,
+  GuardianDetails,
+  VizAllGuardian,
 };

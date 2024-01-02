@@ -11,6 +11,8 @@ import {
   FaSearch,
   FaArrowAltCircleRight,
   FaCheck,
+  FaUserTie,
+  FaUserInjured,
 } from "react-icons/fa";
 import { FcViewDetails } from "react-icons/fc";
 const iconComponents = {
@@ -24,6 +26,8 @@ const iconComponents = {
   arrow: FaArrowAltCircleRight,
   valid: FaCheck,
   display: FcViewDetails,
+  guardian: FaUserTie,
+  sick: FaUserInjured,
 };
 
 const ButtonAction = ({ btnName, iconName, onClick, color, buttonType }) => {

@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
-import InPatientDetails from "../inPatientDetails/InpatientDetails";
+import GuardianDetails from "../guardianDetails/GuardianDetails";
+// import { ButtonAction, ButtonSkip, Input } from "../../../components";
+// import InPatientDetails from "../inPatientDetails/InpatientDetails";
 
-const InPatients = () => {
+const AddGuardian = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
@@ -65,7 +67,7 @@ const InPatients = () => {
     navigate("/adminDashboard/dashboard");
   };
   const handleViewAll = () => {
-    navigate("/VizAllInPatient");
+    navigate("/VizAllGuardian");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -99,32 +101,27 @@ const InPatients = () => {
     setUsersLength(docAppointmentDetails.length - 1);
   };
 
-  //  Function for the appointment option
-  const handleSelectAppointment = (e) => {
-    setSelectedPlace(e.target.value);
-  };
-
-  //  Function to open the add appointment page
-  const handleAddGuardian = () => {
-    navigate("/adminDashboard/addGuardian");
+  //  Function to open the add in patient page
+  const handleOpenApp = () => {
+    navigate("/adminDashboard/inPatients");
   };
   return (
     <>
       <div className="appScheduling">
-        <h2 className="page-title">IN PATIENTS</h2>
+        <h2 className="page-title">ADD GUARDIAN</h2>
         <div className="appScheduling-container">
           <div className="details-title">
-            <h4>In Patient Details</h4>
+            <h4>Guardian Details</h4>
             <div className="divider" />
           </div>
           <form>
             <div className="container" style={{ border: "none" }}>
               <div className="container-wrapper">
                 <div className="input-fields">
-                  <label form="patientID">Patient ID:</label>
+                  <label form="guardian">Guardian ID:</label>
                   <Input
-                    placeholder="Patient ID"
-                    name="patientID"
+                    placeholder="Guardian ID"
+                    name="guardian"
                     // value={inputs.patientID}
                     // handleOnChange={handleOnChange}
                     // inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
@@ -152,85 +149,37 @@ const InPatients = () => {
                 </div>
 
                 <div className="input-fields">
-                  <label form="blood">Date of born :</label>
+                  <label form="blood">Occupation :</label>
                   <Input
-                    placeholder="Blood type"
-                    name="blood"
+                    placeholder="Occupation"
+                    name="occupation"
                     // value={inputs.blood}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
-                  <label form="blood">Blood :</label>
-                  <Input
-                    placeholder="Blood type"
-                    name="blood"
-                    // value={inputs.blood}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
-                  <label form="weight">Weight (Kg) :</label>
-                  <Input
-                    placeholder="Weight"
-                    name="weight"
-                    // value={inputs.weight}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
 
                 <div className="input-field">
-                  <label form="notes"> Notes:</label>
+                  <label form="address"> Address:</label>
                   <textarea
-                    placeholder="Notes"
-                    name="notes"
-                    // value={inputs.notes}
-                    // onChange={handleOnChange}
-                    id="notes"
+                    placeholder="address"
+                    name="address"
+                    id="address"
                     cols="39"
                     rows="10"
+                    // // onChange={handleOnChange}
+                    // value={inputs.address}
                   ></textarea>
                 </div>
               </div>
 
               <div className="container-wrapper">
                 <div className="input-fields">
-                  <label form="status">Gender:</label>
-                  <Input
-                    placeholder="Status"
-                    name="status"
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
-                  <label form="status">Status:</label>
-                  <Input
-                    placeholder="Status"
-                    name="status"
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
                   <label form="weight">NIC Number :</label>
                   <Input
                     placeholder="NIC Number"
                     name="nicNumber"
                     // value={inputs.nicNumber}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
-                  <label form="status">Height:</label>
-                  <Input
-                    placeholder="Height"
-                    name="height"
-                    // value={inputs.height}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
@@ -255,17 +204,16 @@ const InPatients = () => {
                     inputDisabled="true"
                   />
                 </div>
-                <div className="input-field">
-                  <label form="address"> Address:</label>
-                  <textarea
-                    placeholder="address"
-                    name="address"
-                    id="address"
-                    cols="39"
-                    rows="10"
-                    // // onChange={handleOnChange}
-                    // value={inputs.address}
-                  ></textarea>
+
+                <div className="input-fields">
+                  <label form="blood">RelationShip :</label>
+                  <Input
+                    placeholder="RelationShip"
+                    name="relationShip"
+                    // value={inputs.blood}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
                 </div>
               </div>
             </div>
@@ -394,38 +342,13 @@ const InPatients = () => {
                   className="action-options-wrapper"
                   style={{ height: 230, justifyContent: "center" }}
                 >
-                  {/* <div className="box-input-radio">
-                    <input
-                      type="radio"
-                      id="doctors"
-                      name="doctors"
-                      value="doctors"
-                      checked={selectedPlace === "doctors"}
-                      onChange={handleSelectAppointment}
-                      className="input-radio"
-                    />
-                    <label htmlFor="doctors">Doctors</label>
-                  </div> */}
-
-                  {/* <div className="box-input-radio">
-                    <input
-                      type="radio"
-                      id="hospitalServices"
-                      name="hospitalServices"
-                      value="hospitalServices"
-                      checked={selectedPlace === "hospitalServices"}
-                      onChange={handleSelectAppointment}
-                      className="input-radio"
-                    />
-                    <label htmlFor="hospitalServices">Hospital Services</label>
-                  </div> */}
                   <div className="btn-action-box" style={{ marginTop: 0 }}>
                     <ButtonAction
-                      iconName="guardian"
-                      btnName="Add Guardian"
+                      iconName="sick"
+                      btnName="Register patient"
                       color="green"
                       buttonType="submit"
-                      onClick={handleAddGuardian}
+                      onClick={handleOpenApp}
                     />
                   </div>
                 </aside>
@@ -438,7 +361,7 @@ const InPatients = () => {
         {openPage && (
           <div className="popup-wrapper">
             <div className="popup">
-              <InPatientDetails
+              <GuardianDetails
                 setOpenScheduling={setOpenScheduling}
                 setOpenScheduleDelete={setOpenScheduleDelete}
                 openScheduleDelete={openScheduleDelete}
@@ -448,31 +371,9 @@ const InPatients = () => {
             </div>
           </div>
         )}
-
-        {/* section to set a doctor appointment */}
-        {/* {openAddAppointment && (
-          <div className="popup-wrapper">
-            <div className="popup">
-              <AddDocAppointment
-                setOpenAddAppointment={setOpenAddAppointment}
-              />
-            </div>
-          </div>
-        )} */}
-
-        {/* section to set a hospital service appointment */}
-        {/* {openAddHospitalApp && (
-          <div className="popup-wrapper">
-            <div className="popup">
-              <AddHospAppointment
-                setOpenAddHospitalApp={setOpenAddHospitalApp}
-              />
-            </div>
-          </div>
-        )} */}
       </div>
     </>
   );
 };
 
-export default InPatients;
+export default AddGuardian;
