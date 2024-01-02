@@ -58,11 +58,21 @@ const AdminDashboard = () => {
                 title="In Patients"
                 title1="In Patient Details"
                 title2="Add Guardian"
-                // title3="Cancel Doctor App."
+                title3="Patient Admission"
                 link1="/adminDashboard/inPatients"
                 link2="/adminDashboard/addGuardian"
-                // link3="/adminDashboard/cancelServiceApp"
+                link3="/adminDashboard/admission"
               />
+              {/* <ButtonMenu
+                setShowList={setShowList}
+                title="Admission"
+                title1="In Patient Details"
+                title2="Add Guardian"
+                // title3="Cancel Doctor App."
+                link1="/adminDashboard/admission"
+                link2="/adminDashboard/addGuardian"
+                // link3="/adminDashboard/cancelServiceApp"
+              /> */}
 
               <NavLink to="/adminDashboard/rooms" className={activeLink}>
                 Rooms Details

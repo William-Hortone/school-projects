@@ -46,6 +46,8 @@ import VizAllInPatients from "./patient/vizInPatients/VizAllInPatients";
 import AddGuardian from "./patient/addGuardian/AddGuardian";
 import GuardianDetails from "./patient/guardianDetails/GuardianDetails";
 import VizAllGuardian from "./patient/vizAllGuardian/VizAllGuardian";
+import Admission from "./patient/admission/Admission";
+import AdmissionDetails from "./patient/admissionDetails/AdmissionDetails";
 
 export {
   DDetails,
@@ -96,4 +98,6 @@ export {
   AddGuardian,
   GuardianDetails,
   VizAllGuardian,
+  Admission,
+  AdmissionDetails,
 };

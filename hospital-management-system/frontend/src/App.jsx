@@ -10,6 +10,7 @@ import {
   AddGuardian,
   AddUser,
   AdminDashboard,
+  Admission,
   AppScheduling,
   BedDetails,
   CancelDocApp,
@@ -148,6 +149,7 @@ function App() {
               path="/adminDashboard/addGuardian"
               element={<AddGuardian />}
             />
+            <Route path="/adminDashboard/admission" element={<Admission />} />
           </Route>
         </Routes>
       </BrowserRouter>
