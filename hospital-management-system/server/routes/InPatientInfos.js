@@ -40,8 +40,8 @@ router.put("/editInPatientDetails/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-// Delete OutPatients
-router.put("/deleteOutPatient/:id", (req, res) => {
+// Delete  inPatients
+router.put("/deleteInPatient/:id", (req, res) => {
   const id = req.params.id;
 
   InpatientModel.findOneAndUpdate(

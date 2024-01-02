@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
-// import Scheduling from "../scheduling/Scheduling";
-import { useSelector } from "react-redux";
-// import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { ButtonAction, ButtonSkip, Input } from "../../../components";
-// import OutPatientMDetails from "../outPatientMDetails/OutPatientMDetails";
-// import AddDocAppointment from "../addDocAppointment/AddDocAppointment";
-// import "./outPatient.css";
 import { toast } from "react-toastify";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import InPatientDetails from "../inPatientDetails/InpatientDetails";
-// import AddHospAppointment from "../addHospAppointment/AddHospAppointment";
 
 const InPatients = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
@@ -20,23 +12,22 @@ const InPatients = () => {
   const [addOnSubmit, setAddOnSubmit] = useState(true);
   const [openAddAppointment, setOpenAddAppointment] = useState(false);
   const [openAddHospitalApp, setOpenAddHospitalApp] = useState(false);
-  const [allOutPatients, setAllOutPatients] = useState([]);
+  const [allInPatients, setAllInPatients] = useState([]);
   const [docAppointmentDetails, setDocAppointmentDetails] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState("");
 
   // To Get all outPatient
-  const API_URL = "http://localhost:3001/getOutPatientsDetails";
+  const API_URL = "http://localhost:3001/getInPatientsDetails";
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
-    setAllOutPatients(data);
+    setAllInPatients(data);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  // const docAppointmentDetails = useSelector(selectDocAppointment);
   const [usersLength, setUsersLength] = useState(
     docAppointmentDetails.length - 1
   );
@@ -74,7 +65,7 @@ const InPatients = () => {
     navigate("/adminDashboard/dashboard");
   };
   const handleViewAll = () => {
-    navigate("/VizAllOutPatient");
+    navigate("/VizAllInPatient");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -136,75 +127,154 @@ const InPatients = () => {
             <div className="divider" />
           </div>
           <form>
-            <div className="container-display-infos">
+            <div className="container" style={{ border: "none" }}>
               <div className="container-wrapper">
-                <div className="input-field">
+                <div className="input-fields">
                   <label form="patientID">Patient ID:</label>
                   <Input
-                    inputDisabled="true"
                     placeholder="Patient ID"
                     name="patientID"
-                    value={lastElement ? lastElement.schedulingID : ""}
+                    // value={inputs.patientID}
+                    // handleOnChange={handleOnChange}
+                    // inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                   />
                 </div>
-                <div className="input-field">
+                <div className="input-fields">
                   <label form="firstName">First Name:</label>
                   <Input
                     placeholder="First Name"
                     name="firstName"
+                    // value={inputs.firstName}
+                    // // handleOnChange={handleOnChange}
                     inputDisabled="true"
-                    value={lastElement ? lastElement.doctorID : ""}
                   />
                 </div>
-                <div className="input-field">
+                <div className="input-fields">
                   <label form="lastName">Last Name:</label>
                   <Input
                     placeholder="Last Name"
                     name="lastName"
-                    id="lastName"
+                    // value={inputs.lastName}
+                    // // handleOnChange={handleOnChange}
                     inputDisabled="true"
-                    value={lastElement ? lastElement.timeIn : ""}
+                  />
+                </div>
+
+                <div className="input-fields">
+                  <label form="blood">Date of born :</label>
+                  <Input
+                    placeholder="Blood type"
+                    name="blood"
+                    // value={inputs.blood}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="blood">Blood :</label>
+                  <Input
+                    placeholder="Blood type"
+                    name="blood"
+                    // value={inputs.blood}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="weight">Weight (Kg) :</label>
+                  <Input
+                    placeholder="Weight"
+                    name="weight"
+                    // value={inputs.weight}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
                   />
                 </div>
 
                 <div className="input-field">
                   <label form="notes"> Notes:</label>
-                  <textarea name="" id="notes" cols="39" rows="10"></textarea>
+                  <textarea
+                    placeholder="Notes"
+                    name="notes"
+                    // value={inputs.notes}
+                    // onChange={handleOnChange}
+                    id="notes"
+                    cols="39"
+                    rows="10"
+                  ></textarea>
                 </div>
               </div>
 
               <div className="container-wrapper">
-                <div className="input-field">
-                  <label form="gender"> Gender:</label>
-                  <Input
-                    placeholder="Gender"
-                    name="gender"
-                    inputDisabled="true"
-                    value={lastElement ? lastElement.timeOut : ""}
-                  />
-                </div>
-                <div className="input-field">
-                  <label form="telephone"> Telephone:</label>
-                  <Input
-                    inputDisabled="true"
-                    placeholder="Telephone"
-                    name="telephone"
-                    value={lastElement ? lastElement.selectedDays : ""}
-                  />
-                </div>
-                <div className="input-field">
-                  <label form="status"> Status:</label>
+                <div className="input-fields">
+                  <label form="status">Gender:</label>
                   <Input
                     placeholder="Status"
                     name="status"
-                    id="status"
+                    // // handleOnChange={handleOnChange}
                     inputDisabled="true"
-                    value={lastElement ? lastElement.schedulingNotes : ""}
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="status">Status:</label>
+                  <Input
+                    placeholder="Status"
+                    name="status"
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="weight">NIC Number :</label>
+                  <Input
+                    placeholder="NIC Number"
+                    name="nicNumber"
+                    // value={inputs.nicNumber}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="status">Height:</label>
+                  <Input
+                    placeholder="Height"
+                    name="height"
+                    // value={inputs.height}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="telephone">Telephone:</label>
+                  <Input
+                    placeholder="Telephone"
+                    name="telephone"
+                    // value={inputs.telephone}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="telephone"> Home phone:</label>
+                  <Input
+                    placeholder=" Home phone"
+                    name="homePhone"
+                    // value={inputs.homePhone}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
                   />
                 </div>
                 <div className="input-field">
                   <label form="address"> Address:</label>
-                  <textarea name="" id="address" cols="39" rows="10"></textarea>
+                  <textarea
+                    placeholder="address"
+                    name="address"
+                    id="address"
+                    cols="39"
+                    rows="10"
+                    // // onChange={handleOnChange}
+                    // value={inputs.address}
+                  ></textarea>
                 </div>
               </div>
             </div>
@@ -222,11 +292,17 @@ const InPatients = () => {
                 <th>Address</th>
                 <th>Telephone</th>
                 <th>Status</th>
+                <th>Date of Born</th>
                 <th>Notes</th>
+                <th>Blood</th>
+                <th>Weight</th>
+                <th>Height</th>
+                <th>Home phone</th>
+                <th>NIC Number</th>
               </tr>
             </thead>
             <tbody>
-              {allOutPatients.map((patient, index) => {
+              {allInPatients.map((patient, index) => {
                 return (
                   <tr className="doctor-infos" key={index}>
                     <td>{patient.patientID}</td>
@@ -236,7 +312,13 @@ const InPatients = () => {
                     <td>{patient.address}</td>
                     <td>{patient.telephone}</td>
                     <td>{patient.status}</td>
+                    <td>{patient.dateOB}</td>
                     <td>{patient.notes}</td>
+                    <td>{patient.blood}</td>
+                    <td>{patient.weight}</td>
+                    <td>{patient.height}</td>
+                    <td>{patient.homePhone}</td>
+                    <td>{patient.nicNumber}</td>
                   </tr>
                 );
               })}

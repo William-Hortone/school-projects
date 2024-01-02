@@ -42,6 +42,7 @@ import OutPTreatmentDetails from "./patient/outPTreatmentDetails/OutPTreatmentDe
 import VizAllOPtreatment from "./patient/vizAllOPTreatment/VizAllOPtreatment";
 import InPatients from "./patient/inPatients/InPatients";
 import InPatientDetails from "./patient/inPatientDetails/InpatientDetails";
+import VizAllInPatients from "./patient/vizInPatients/VizAllInPatients";
 
 export {
   DDetails,
@@ -88,4 +89,5 @@ export {
   VizAllOPtreatment,
   InPatients,
   InPatientDetails,
+  VizAllInPatients,
 };

@@ -141,19 +141,19 @@ const InPatientDetails = ({
 
   const handleDelete = () => {
     if (id === undefined || id === "") {
-      toast.error("Please provide a out patient ID");
+      toast.error("Please provide a Inpatient ID");
     } else {
       setShowPopupDelete(true);
     }
   };
 
-  // Function to Delete an Out patient
-  const handleDeleteAppointment = (id) => {
+  // Function to Delete an In patient
+  const handleDeleteInPatient = (id) => {
     if (id === undefined || id === "") {
-      toast.error("Please provide a out patient ID");
+      toast.error("Please provide a  inpatient ID");
     } else {
       axios
-        .put(`http://localhost:3001/deleteOutPatient/${id}`)
+        .put(`http://localhost:3001/deleteInPatient/${id}`)
         .then((res) => {
           if (res.data === "success") {
             toast.success("Deleted Successfully");
@@ -485,7 +485,7 @@ const InPatientDetails = ({
                 </p>
                 <div className="delete-buttons">
                   <button onClick={handleClosePopup}> Cancel</button>
-                  <button onClick={() => handleDeleteAppointment(id)}>
+                  <button onClick={() => handleDeleteInPatient(id)}>
                     Delete
                   </button>
                 </div>
