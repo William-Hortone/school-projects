@@ -15,6 +15,7 @@ import {
   CancelServiceApp,
   DDetails,
   Dashboard,
+  InPatients,
   MedicalServices,
   OutPTreatment,
   OutPatient,
@@ -137,6 +138,7 @@ function App() {
               path="/adminDashboard/outPTreatment"
               element={<OutPTreatment />}
             />
+            <Route path="/adminDashboard/inPatients" element={<InPatients />} />
           </Route>
         </Routes>
       </BrowserRouter>

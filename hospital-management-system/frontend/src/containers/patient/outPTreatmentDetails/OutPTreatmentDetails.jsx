@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
-import { Input, ButtonAction, ButtonSkip } from "../../../components";
-import { BedMoreDetails } from "../..";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./outPTreatmentD.css";
 import { toast } from "react-toastify";
+import { ButtonAction, ButtonSkip, Input } from "../../../components";
+import "./outPTreatmentD.css";
 
 const OutPTreatmentDetails = ({
   addOnSubmit,
@@ -30,9 +26,9 @@ const OutPTreatmentDetails = ({
   const [allOutPTreatment, setAllOutPTreatment] = useState([]);
   const [id, setId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState("");
   const [pickedTime, setPickedTime] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
   const [showPopupDelete, setShowPopupDelete] = useState(false);
 
   // To Get all the available Treatments

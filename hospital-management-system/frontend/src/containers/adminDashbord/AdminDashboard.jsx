@@ -45,11 +45,21 @@ const AdminDashboard = () => {
 
               <ButtonMenu
                 setShowList={setShowList}
-                title="Out Patient"
+                title="Out Patients"
                 title1="Out Patient Details"
                 title2="Out Patient Treatment"
                 // title3="Cancel Doctor App."
                 link1="/adminDashboard/outPatient"
+                link2="/adminDashboard/outPTreatment"
+                // link3="/adminDashboard/cancelServiceApp"
+              />
+              <ButtonMenu
+                setShowList={setShowList}
+                title="In Patients"
+                title1="In Patient Details"
+                title2="Out Patient Treatment"
+                // title3="Cancel Doctor App."
+                link1="/adminDashboard/inPatients"
                 link2="/adminDashboard/outPTreatment"
                 // link3="/adminDashboard/cancelServiceApp"
               />

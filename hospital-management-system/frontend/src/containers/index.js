@@ -40,6 +40,8 @@ import VizServiceApp from "./services/vizServiceApp/VizServiceApp";
 import OutPTreatment from "./patient/outPTreatment/OutPTreatment";
 import OutPTreatmentDetails from "./patient/outPTreatmentDetails/OutPTreatmentDetails";
 import VizAllOPtreatment from "./patient/vizAllOPTreatment/VizAllOPtreatment";
+import InPatients from "./patient/inPatients/InPatients";
+import InPatientDetails from "./patient/inPatientDetails/InpatientDetails";
 
 export {
   DDetails,
@@ -84,4 +86,6 @@ export {
   OutPTreatment,
   OutPTreatmentDetails,
   VizAllOPtreatment,
+  InPatients,
+  InPatientDetails,
 };
