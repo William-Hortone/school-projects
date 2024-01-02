@@ -5,10 +5,6 @@ import { toast } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
-// import { ButtonAction, ButtonSkip, Input } from "../../../components";
-// import { selectRoomsDetails } from "../../../redux/slice/roomsSlice";
-// import { selectWardDetails } from "../../../redux/slice/wardSlice";
-// import "./AdmissionDetails.css";
 
 const AdmissionDetails = ({
   setOpenScheduling,
@@ -32,6 +28,8 @@ const AdmissionDetails = ({
   const [selectedRooms, setSelectedRooms] = useState("");
   const [selectedWards, setSelectedWards] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
+  const [selectedBed, setSelectedBed] = useState("");
+  const [choosedBed, setChoosedBed] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [startDate, setStartDate] = useState();
   const [pickedTime, setPickedTime] = useState(null);
@@ -284,6 +282,7 @@ const AdmissionDetails = ({
       admissionTime: selectedTime,
     }));
   }, [selectedTime]);
+
   return (
     <>
       <div className="app__scheduling">
@@ -387,7 +386,7 @@ const AdmissionDetails = ({
                   name="emergency"
                   value={inputs.emergency}
                   handleOnChange={handleOnChange}
-                  inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                  //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
               </div>
 
@@ -492,28 +491,6 @@ const AdmissionDetails = ({
                   </div>
                 </div>
               )}
-
-              {/* <div className="input-fields" style={{ marginRight: 0 }}>
-                <label htmlFor="place"> Room / Ward:</label>
-                <Input
-                  placeholder="Place infos"
-                  name="bedPlace"
-                  value={inputs.bedPlace}
-                  handleOnChange={handleOnChange}
-                  readOnly
-                />
-              </div> */}
-
-              {/* <div className="input-fields" style={{ marginRight: 0 }}>
-                <label htmlFor="place"> Room / Ward:</label>
-                <Input
-                  placeholder="Place infos"
-                  name="bedPlace"
-                  value={inputs.bedPlace}
-                  handleOnChange={handleOnChange}
-                  readOnly
-                />
-              </div> */}
 
               <div className="input-field doctor-types">
                 <label htmlFor="patientID"> Bed ID</label>
