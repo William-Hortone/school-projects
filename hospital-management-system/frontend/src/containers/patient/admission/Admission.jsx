@@ -1,24 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
-import GuardianDetails from "../guardianDetails/GuardianDetails";
+import AdmissionDetails from "../admissionDetails/AdmissionDetails";
+// import { ButtonAction, ButtonSkip, Input } from "../../../components";
+// import InPatientDetails from "../inPatientDetails/InpatientDetails";
 
-const AddGuardian = () => {
+const Admission = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
-  const [allGuardians, setAllGuardians] = useState([]);
+  const [allInPatients, setAllInPatients] = useState([]);
   const [docAppointmentDetails, setDocAppointmentDetails] = useState([]);
 
-  // To Get all guardians
-  const API_URL = "http://localhost:3001/getGuardianDetails";
+  // To Get all outPatient
+  const API_URL = "http://localhost:3001/getInPatientsDetails";
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
-    setAllGuardians(data);
+    setAllInPatients(data);
   };
 
   useEffect(() => {
@@ -62,7 +63,7 @@ const AddGuardian = () => {
     navigate("/adminDashboard/dashboard");
   };
   const handleViewAll = () => {
-    navigate("/VizAllGuardian");
+    navigate("/VizAllInPatient");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -96,47 +97,47 @@ const AddGuardian = () => {
     setUsersLength(docAppointmentDetails.length - 1);
   };
 
-  //  Function to open the add in patient page
-  const handleOpenApp = () => {
-    navigate("/adminDashboard/inPatients");
+  //  Function to open the add appointment page
+  const handleAddGuardian = () => {
+    navigate("/adminDashboard/addGuardian");
   };
   return (
     <>
       <div className="appScheduling">
-        <h2 className="page-title">ADD GUARDIAN</h2>
+        <h2 className="page-title">PATIENT ADMISSION</h2>
         <div className="appScheduling-container">
           <div className="details-title">
-            <h4>Guardian Details</h4>
+            <h4>Admission Details</h4>
             <div className="divider" />
           </div>
           <form>
             <div className="container" style={{ border: "none" }}>
               <div className="container-wrapper">
                 <div className="input-fields">
-                  <label form="guardian">Guardian ID:</label>
+                  <label form="admission">Admission ID:</label>
                   <Input
-                    placeholder="Guardian ID"
-                    name="guardian"
-                    // value={inputs.patientID}
+                    placeholder="Admission ID"
+                    name="admissionID"
+                    // value={inputs.admission}
                     // handleOnChange={handleOnChange}
                     // inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="firstName">First Name:</label>
+                  <label form="patientID">Patient ID:</label>
                   <Input
-                    placeholder="First Name"
-                    name="firstName"
+                    placeholder="Patient ID"
+                    name="patientID"
                     // value={inputs.firstName}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="lastName">Last Name:</label>
+                  <label form="admissionDate">Admission Date:</label>
                   <Input
-                    placeholder="Last Name"
-                    name="lastName"
+                    placeholder="Admission Date"
+                    name="admissionDate"
                     // value={inputs.lastName}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
@@ -144,30 +145,20 @@ const AddGuardian = () => {
                 </div>
 
                 <div className="input-fields">
-                  <label form="blood">PatientID :</label>
+                  <label form="blood">Emergency :</label>
                   <Input
-                    placeholder="PatientID"
-                    name="patientID"
+                    placeholder="Emergency"
+                    name="emergency"
                     // value={inputs.blood}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="blood">Occupation :</label>
+                  <label form="blood">Room / Ward :</label>
                   <Input
-                    placeholder="Occupation"
-                    name="occupation"
-                    // value={inputs.blood}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
-                  <label form="blood">RelationShip :</label>
-                  <Input
-                    placeholder="RelationShip"
-                    name="relationShip"
+                    placeholder="Room / Ward "
+                    name="place"
                     // value={inputs.blood}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
@@ -177,47 +168,42 @@ const AddGuardian = () => {
 
               <div className="container-wrapper">
                 <div className="input-fields">
-                  <label form="weight">NIC Number :</label>
+                  <label form="status">Guardian:</label>
                   <Input
-                    placeholder="NIC Number"
-                    name="nicNumber"
+                    placeholder="guardian"
+                    name="guardian"
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="status">Admission Time:</label>
+                  <Input
+                    placeholder="Admission Time"
+                    name="admissionTime"
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="weight">Reffered Doctor :</label>
+                  <Input
+                    placeholder="Reffered Doctor"
+                    name="refferedDoctor"
                     // value={inputs.nicNumber}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="telephone">Telephone:</label>
+                  <label form="status">BedID:</label>
                   <Input
-                    placeholder="Telephone"
-                    name="telephone"
-                    // value={inputs.telephone}
+                    placeholder="BedID"
+                    name="bedID"
+                    // value={inputs.height}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
-                </div>
-                <div className="input-fields">
-                  <label form="telephone"> Home phone:</label>
-                  <Input
-                    placeholder=" Home phone"
-                    name="homePhone"
-                    // value={inputs.homePhone}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-
-                <div className="input-field">
-                  <label form="address"> Address:</label>
-                  <textarea
-                    placeholder="address"
-                    name="address"
-                    id="address"
-                    cols="39"
-                    rows="10"
-                    // // onChange={handleOnChange}
-                    // value={inputs.address}
-                  ></textarea>
                 </div>
               </div>
             </div>
@@ -228,32 +214,40 @@ const AddGuardian = () => {
           <table>
             <thead>
               <tr>
-                <th>Guardian ID </th>
+                <th>Patient ID </th>
                 <th>First Name </th>
                 <th>Last Name</th>
-                <th>Patient ID </th>
-                <th>Occupation</th>
-                <th>Telephone</th>
-                <th>NIC Number</th>
-                <th>RelationShip</th>
-                <th>Home phone</th>
+                <th>Gender</th>
                 <th>Address</th>
+                <th>Telephone</th>
+                <th>Status</th>
+                <th>Date of Born</th>
+                <th>Notes</th>
+                <th>Blood</th>
+                <th>Weight</th>
+                <th>Height</th>
+                <th>Home phone</th>
+                <th>NIC Number</th>
               </tr>
             </thead>
             <tbody>
-              {allGuardians.map((guardian, index) => {
+              {allInPatients.map((patient, index) => {
                 return (
                   <tr className="doctor-infos" key={index}>
-                    <td>{guardian.guardianID}</td>
-                    <td>{guardian.firstName}</td>
-                    <td>{guardian.lastName}</td>
-                    <td>{guardian.patientID}</td>
-                    <td>{guardian.occupation}</td>
-                    <td>{guardian.telephone}</td>
-                    <td>{guardian.nicNumber}</td>
-                    <td>{guardian.relationShip}</td>
-                    <td>{guardian.homePhone}</td>
-                    <td>{guardian.address}</td>
+                    <td>{patient.patientID}</td>
+                    <td>{patient.firstName}</td>
+                    <td>{patient.lastName}</td>
+                    <td>{patient.gender}</td>
+                    <td>{patient.address}</td>
+                    <td>{patient.telephone}</td>
+                    <td>{patient.status}</td>
+                    <td>{patient.dateOB}</td>
+                    <td>{patient.notes}</td>
+                    <td>{patient.blood}</td>
+                    <td>{patient.weight}</td>
+                    <td>{patient.height}</td>
+                    <td>{patient.homePhone}</td>
+                    <td>{patient.nicNumber}</td>
                   </tr>
                 );
               })}
@@ -340,11 +334,11 @@ const AddGuardian = () => {
                 >
                   <div className="btn-action-box" style={{ marginTop: 0 }}>
                     <ButtonAction
-                      iconName="sick"
-                      btnName="Register patient"
+                      iconName="guardian"
+                      btnName="Add Guardian"
                       color="green"
                       buttonType="submit"
-                      onClick={handleOpenApp}
+                      onClick={handleAddGuardian}
                     />
                   </div>
                 </aside>
@@ -357,7 +351,7 @@ const AddGuardian = () => {
         {openPage && (
           <div className="popup-wrapper">
             <div className="popup">
-              <GuardianDetails
+              <AdmissionDetails
                 setOpenScheduling={setOpenScheduling}
                 setOpenScheduleDelete={setOpenScheduleDelete}
                 openScheduleDelete={openScheduleDelete}
@@ -372,4 +366,4 @@ const AddGuardian = () => {
   );
 };
 
-export default AddGuardian;
+export default Admission;

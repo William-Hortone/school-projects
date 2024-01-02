@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import InPatientDetails from "../inPatientDetails/InpatientDetails";
 
@@ -10,11 +9,8 @@ const InPatients = () => {
   const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
-  const [openAddAppointment, setOpenAddAppointment] = useState(false);
-  const [openAddHospitalApp, setOpenAddHospitalApp] = useState(false);
   const [allInPatients, setAllInPatients] = useState([]);
   const [docAppointmentDetails, setDocAppointmentDetails] = useState([]);
-  const [selectedPlace, setSelectedPlace] = useState("");
 
   // To Get all outPatient
   const API_URL = "http://localhost:3001/getInPatientsDetails";
@@ -97,11 +93,6 @@ const InPatients = () => {
   };
   const handleShowLastEl = () => {
     setUsersLength(docAppointmentDetails.length - 1);
-  };
-
-  //  Function for the appointment option
-  const handleSelectAppointment = (e) => {
-    setSelectedPlace(e.target.value);
   };
 
   //  Function to open the add appointment page
@@ -272,6 +263,7 @@ const InPatients = () => {
           </form>
         </div>
 
+        {/* table to see details */}
         <div className="appScheduling-table">
           <table>
             <thead>
@@ -394,31 +386,6 @@ const InPatients = () => {
                   className="action-options-wrapper"
                   style={{ height: 230, justifyContent: "center" }}
                 >
-                  {/* <div className="box-input-radio">
-                    <input
-                      type="radio"
-                      id="doctors"
-                      name="doctors"
-                      value="doctors"
-                      checked={selectedPlace === "doctors"}
-                      onChange={handleSelectAppointment}
-                      className="input-radio"
-                    />
-                    <label htmlFor="doctors">Doctors</label>
-                  </div> */}
-
-                  {/* <div className="box-input-radio">
-                    <input
-                      type="radio"
-                      id="hospitalServices"
-                      name="hospitalServices"
-                      value="hospitalServices"
-                      checked={selectedPlace === "hospitalServices"}
-                      onChange={handleSelectAppointment}
-                      className="input-radio"
-                    />
-                    <label htmlFor="hospitalServices">Hospital Services</label>
-                  </div> */}
                   <div className="btn-action-box" style={{ marginTop: 0 }}>
                     <ButtonAction
                       iconName="guardian"
@@ -448,28 +415,6 @@ const InPatients = () => {
             </div>
           </div>
         )}
-
-        {/* section to set a doctor appointment */}
-        {/* {openAddAppointment && (
-          <div className="popup-wrapper">
-            <div className="popup">
-              <AddDocAppointment
-                setOpenAddAppointment={setOpenAddAppointment}
-              />
-            </div>
-          </div>
-        )} */}
-
-        {/* section to set a hospital service appointment */}
-        {/* {openAddHospitalApp && (
-          <div className="popup-wrapper">
-            <div className="popup">
-              <AddHospAppointment
-                setOpenAddHospitalApp={setOpenAddHospitalApp}
-              />
-            </div>
-          </div>
-        )} */}
       </div>
     </>
   );
