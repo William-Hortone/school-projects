@@ -37,7 +37,7 @@ const AdminDashboard = () => {
                 title="Hospital Services"
                 title1="Medical Services"
                 title2="Service Scheduling"
-                title3="Cancel Doctor App."
+                title3="Cancel Service App."
                 link1="/adminDashboard/mServices"
                 link2="/adminDashboard/serviceSchedule"
                 link3="/adminDashboard/cancelServiceApp"
@@ -48,10 +48,10 @@ const AdminDashboard = () => {
                 title="Out Patient"
                 title1="Out Patient Details"
                 title2="Out Patient Treatment"
-                title3="Cancel Doctor App."
+                // title3="Cancel Doctor App."
                 link1="/adminDashboard/outPatient"
                 link2="/adminDashboard/outPTreatment"
-                link3="/adminDashboard/cancelServiceApp"
+                // link3="/adminDashboard/cancelServiceApp"
               />
 
               <NavLink to="/adminDashboard/rooms" className={activeLink}>

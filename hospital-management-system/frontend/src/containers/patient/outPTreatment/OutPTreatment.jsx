@@ -11,20 +11,20 @@ const OutPTreatment = () => {
   const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
-  const [allBeds, setAllBeds] = useState([]);
+  const [allOPTreatments, setAllOPTreatments] = useState([]);
 
   const docAppointmentDetails = useSelector(selectDocAppointment);
   const [usersLength, setUsersLength] = useState(
     docAppointmentDetails.length - 1
   );
-  const [lastElement, setLastElement] = useState(allBeds[usersLength]);
+  const [lastElement, setLastElement] = useState(allOPTreatments[usersLength]);
 
-  // To Get all the available beds
-  const API_URL = "http://localhost:3001/getBedsDetails";
+  // To Get all the available Out patient treatments
+  const API_URL = "http://localhost:3001/getOutPTreatment";
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
-    setAllBeds(data);
+    setAllOPTreatments(data);
   };
 
   useEffect(() => {
@@ -32,12 +32,12 @@ const OutPTreatment = () => {
   }, []);
 
   useEffect(() => {
-    setUsersLength(allBeds.length - 1);
-  }, [allBeds.length]);
+    setUsersLength(allOPTreatments.length - 1);
+  }, [allOPTreatments.length]);
 
   useEffect(() => {
-    setLastElement(allBeds[usersLength]);
-  }, [usersLength, allBeds]);
+    setLastElement(allOPTreatments[usersLength]);
+  }, [usersLength, allOPTreatments]);
 
   const navigate = useNavigate();
 
@@ -61,7 +61,7 @@ const OutPTreatment = () => {
     navigate("/adminDashboard/dashboard");
   };
   const handleViewAll = () => {
-    navigate("/VizAllBed");
+    navigate("/VizAllOPtreatment");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -84,15 +84,15 @@ const OutPTreatment = () => {
 
   // Display the infos of the next element
   const handleShowNext = () => {
-    if (usersLength < allBeds.length - 1) {
+    if (usersLength < allOPTreatments.length - 1) {
       setUsersLength(usersLength + 1);
-      if (usersLength == allBeds.length - 1) {
+      if (usersLength == allOPTreatments.length - 1) {
         return;
       }
     }
   };
   const handleShowLastEl = () => {
-    setUsersLength(allBeds.length - 1);
+    setUsersLength(allOPTreatments.length - 1);
   };
 
   return (
@@ -187,18 +187,26 @@ const OutPTreatment = () => {
         <table>
           <thead>
             <tr>
-              <th>Bed ID </th>
-              <th>Bed Place </th>
-              <th>Bed Description</th>
+              <th>Treatment ID </th>
+              <th>Patient ID</th>
+              <th>Doctor ID</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Prescription</th>
+              <th>Description</th>
             </tr>
           </thead>
           <tbody>
-            {allBeds.map((bed, index) => {
+            {allOPTreatments.map((treatment, index) => {
               return (
                 <tr className="doctor-infos" key={index}>
-                  <td>{bed.bedID}</td>
-                  <td>{bed.bedPlace}</td>
-                  <td>{bed.bedDesc}</td>
+                  <td>{treatment.treatmentId}</td>
+                  <td>{treatment.patientId}</td>
+                  <td>{treatment.doctorId}</td>
+                  <td>{treatment.date}</td>
+                  <td>{treatment.time}</td>
+                  <td>{treatment.prescription}</td>
+                  <td>{treatment.description}</td>
                 </tr>
               );
             })}
@@ -279,13 +287,11 @@ const OutPTreatment = () => {
       </div>
 
       {/* Open the OutPTreatmentDetails component  */}
-
       {openPage && (
         <div className="popup-wrapper">
           <div className="popup">
             <OutPTreatmentDetails
-              setOpenScheduling={setOpenScheduling}
-              setOpenScheduleDelete={setOpenScheduleDelete}
+              // setOpenScheduling={setOpenScheduling}
               openScheduleDelete={openScheduleDelete}
               addOnSubmit={addOnSubmit}
               setOpenPage={setOpenPage}

@@ -11,9 +11,7 @@ import "./outPTreatmentD.css";
 import { toast } from "react-toastify";
 
 const OutPTreatmentDetails = ({
-  setOpenScheduling,
   addOnSubmit,
-  setOpenScheduleDelete,
   openScheduleDelete,
   setOpenPage,
 }) => {
@@ -35,8 +33,7 @@ const OutPTreatmentDetails = ({
   const [pickedTime, setPickedTime] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
-
-  const navigate = useNavigate();
+  const [showPopupDelete, setShowPopupDelete] = useState(false);
 
   // To Get all the available Treatments
   const API_URL = "http://localhost:3001/getOutPTreatment";
@@ -193,6 +190,41 @@ const OutPTreatmentDetails = ({
     }
   };
 
+  const handleDelete = () => {
+    if (id === undefined || id === "") {
+      toast.error("Please provide a out patient ID");
+    } else {
+      setShowPopupDelete(true);
+    }
+  };
+
+  const handleClosePopup = () => {
+    setShowPopupDelete(false);
+  };
+
+  // Function to Delete an Out patient
+  const handleDeleteAppointment = (id) => {
+    if (id === undefined || id === "") {
+      toast.error("Please provide a out patient treatment ID");
+    } else {
+      axios
+        .put(`http://localhost:3001/deleteOutPTreatment/${id}`)
+        .then((res) => {
+          if (res.data === "success") {
+            toast.success("Deleted Successfully");
+          }
+          if (res.data === "notfound") {
+            toast.error("Service not found");
+          }
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+      // handleRefresh();
+    }
+    setShowPopupDelete(false);
+  };
+
   return (
     <div className="app-container">
       <h2 className="page-title">OUT PATIENT TREATMENTS DETAILS</h2>
@@ -275,9 +307,20 @@ const OutPTreatmentDetails = ({
                   // disabled
                 ></textarea>
               </div>
-              <button type="submit" className="submit-btn">
-                Submit
-              </button>
+              {!openScheduleDelete && (
+                <button type="submit" className="submit-btn">
+                  Submit
+                </button>
+              )}
+              {openScheduleDelete && (
+                <button
+                  onClick={handleDelete}
+                  type="button"
+                  className="delete-btn"
+                >
+                  Delete
+                </button>
+              )}
             </div>
 
             <div className="container-wrapper">
@@ -400,6 +443,24 @@ const OutPTreatmentDetails = ({
           />
         </div>
       </div>
+
+      {/* Delete popup */}
+      {showPopupDelete && (
+        <div style={{ position: "relative" }}>
+          <div className="schedule-delete-popup">
+            <p>
+              Do you really want to delete <br />
+              the Out Patient treatment with ID of {inputs.treatmentId} ?
+            </p>
+            <div className="delete-buttons">
+              <button onClick={handleClosePopup}> Cancel</button>
+              <button onClick={() => handleDeleteAppointment(id)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

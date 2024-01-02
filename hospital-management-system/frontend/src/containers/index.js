@@ -39,6 +39,7 @@ import CancelServiceApp from "./services/cancelServApp/CancelServiceApp";
 import VizServiceApp from "./services/vizServiceApp/VizServiceApp";
 import OutPTreatment from "./patient/outPTreatment/OutPTreatment";
 import OutPTreatmentDetails from "./patient/outPTreatmentDetails/OutPTreatmentDetails";
+import VizAllOPtreatment from "./patient/vizAllOPTreatment/VizAllOPtreatment";
 
 export {
   DDetails,
@@ -82,4 +83,5 @@ export {
   VizServiceApp,
   OutPTreatment,
   OutPTreatmentDetails,
+  VizAllOPtreatment,
 };

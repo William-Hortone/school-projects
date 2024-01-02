@@ -40,25 +40,25 @@ router.put("/editOutPTreatment/:ID", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-// Delete OutPatients
-// router.put("/deleteOutPatient/:id", (req, res) => {
-//   const id = req.params.id;
+// Delete OutPatients treatment
+router.put("/deleteOutPTreatment/:id", (req, res) => {
+  const id = req.params.id;
 
-//   OutPTreatmentModel.findOneAndUpdate(
-//     {
-//       patientID: id,
-//     },
-//     { $set: { isDisplayed: false } },
-//     { new: true }
-//   )
-//     .then((patient) => {
-//       if (!patient) {
-//         return res.json("notfound");
-//       } else {
-//         return res.json("success");
-//       }
-//     })
-//     .catch((err) => res.status(500).json(err));
-// });
+  OutPTreatmentModel.findOneAndUpdate(
+    {
+      treatmentId: id,
+    },
+    { $set: { isDisplayed: false } },
+    { new: true }
+  )
+    .then((treatment) => {
+      if (!treatment) {
+        return res.json("notfound");
+      } else {
+        return res.json("success");
+      }
+    })
+    .catch((err) => res.status(500).json(err));
+});
 
 module.exports = router;
