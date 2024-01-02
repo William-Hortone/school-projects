@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import { Login, Register, Reset } from "./components";
 import {
+  AddGuardian,
   AddUser,
   AdminDashboard,
   AppScheduling,
@@ -15,7 +16,9 @@ import {
   CancelServiceApp,
   DDetails,
   Dashboard,
+  InPatients,
   MedicalServices,
+  OutPTreatment,
   OutPatient,
   RoomDetails,
   ServiceScheduling,
@@ -23,6 +26,9 @@ import {
   ViewHospitalSD,
   ViewWardDetails,
   VizAllBeds,
+  VizAllGuardian,
+  VizAllInPatients,
+  VizAllOPtreatment,
   VizAllOutPatient,
   VizAllRooms,
   VizDocSchedule,
@@ -97,6 +103,9 @@ function App() {
           <Route path="/VizRoomType" element={<VizRoomType />} />
           <Route path="/VizAllBed" element={<VizAllBeds />} />
           <Route path="/VizAllOutPatient" element={<VizAllOutPatient />} />
+          <Route path="/VizAllOPtreatment" element={<VizAllOPtreatment />} />
+          <Route path="/VizAllInPatient" element={<VizAllInPatients />} />
+          <Route path="/VizAllGuardian" element={<VizAllGuardian />} />
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>
@@ -129,6 +138,15 @@ function App() {
             <Route
               path="/adminDashboard/cancelServiceApp"
               element={<CancelServiceApp />}
+            />
+            <Route
+              path="/adminDashboard/outPTreatment"
+              element={<OutPTreatment />}
+            />
+            <Route path="/adminDashboard/inPatients" element={<InPatients />} />
+            <Route
+              path="/adminDashboard/addGuardian"
+              element={<AddGuardian />}
             />
           </Route>
         </Routes>

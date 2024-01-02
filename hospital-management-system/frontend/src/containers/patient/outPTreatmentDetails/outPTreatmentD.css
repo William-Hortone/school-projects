@@ -1,0 +1,5 @@
+.app-container {
+  min-width: 95vw;
+  padding-top: 2rem;
+  background: var(--color-bg);
+}

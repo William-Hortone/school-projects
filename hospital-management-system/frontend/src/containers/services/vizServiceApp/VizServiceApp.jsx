@@ -113,9 +113,7 @@ const VizServiceApp = ({ setOpenPage }) => {
         (appointment) => appointment.hospitalServiceID === doctorId
       );
       setFilteredDocAppTable(result);
-
       setShowFilteredTable(true);
-      console.log("Checkbox filteredDocAppTable", result);
     }
   };
 

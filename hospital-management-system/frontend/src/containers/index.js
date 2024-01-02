@@ -37,6 +37,15 @@ import CancelDocAppDetails from "./doctors/cancelDocAppDetails/CancelDocAppDetai
 import CancelServiceAppDetails from "./services/cancelServAppDetails/CancelServiceAppDetails";
 import CancelServiceApp from "./services/cancelServApp/CancelServiceApp";
 import VizServiceApp from "./services/vizServiceApp/VizServiceApp";
+import OutPTreatment from "./patient/outPTreatment/OutPTreatment";
+import OutPTreatmentDetails from "./patient/outPTreatmentDetails/OutPTreatmentDetails";
+import VizAllOPtreatment from "./patient/vizAllOPTreatment/VizAllOPtreatment";
+import InPatients from "./patient/inPatients/InPatients";
+import InPatientDetails from "./patient/inPatientDetails/InpatientDetails";
+import VizAllInPatients from "./patient/vizInPatients/VizAllInPatients";
+import AddGuardian from "./patient/addGuardian/AddGuardian";
+import GuardianDetails from "./patient/guardianDetails/GuardianDetails";
+import VizAllGuardian from "./patient/vizAllGuardian/VizAllGuardian";
 
 export {
   DDetails,
@@ -78,4 +87,13 @@ export {
   CancelServiceAppDetails,
   CancelServiceApp,
   VizServiceApp,
+  OutPTreatment,
+  OutPTreatmentDetails,
+  VizAllOPtreatment,
+  InPatients,
+  InPatientDetails,
+  VizAllInPatients,
+  AddGuardian,
+  GuardianDetails,
+  VizAllGuardian,
 };

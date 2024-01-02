@@ -537,13 +537,7 @@ const WardDetails = () => {
         </div>
       </div>
 
-      {/* <div
-        className={
-          openScheduling || openScheduleDelete
-            ? "appScheduling-wrapper ActiveScheduling"
-            : "appScheduling-wrapper"
-        }
-      > */}
+      {/* Open the WardMoreDetails component */}
       {openPage && (
         <div className="popup-wrapper">
           <div className="popup">

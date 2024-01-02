@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const OutPatientSchema = new mongoose.Schema({
+const InPatientSchema = new mongoose.Schema({
   patientID: {
     type: String,
     required: true,
@@ -13,12 +13,18 @@ const OutPatientSchema = new mongoose.Schema({
   telephone: String,
   status: String,
   notes: String,
+  nicNumber: String,
+  blood: String,
+  weight: String,
+  height: String,
+  dateOB: String,
+  homePhone: String,
   isDisplayed: {
     type: Boolean,
     default: true,
   },
 });
 
-const OutpatientModel = mongoose.model("OutPatients", OutPatientSchema);
+const OutpatientModel = mongoose.model("InPatients", InPatientSchema);
 
 module.exports = OutpatientModel;

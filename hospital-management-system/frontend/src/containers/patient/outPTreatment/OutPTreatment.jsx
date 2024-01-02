@@ -3,28 +3,28 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectDocAppointment } from "../../../redux/slice/doctorSlice";
 import { Input, ButtonAction, ButtonSkip } from "../../../components";
-import { BedMoreDetails } from "../..";
+import { BedMoreDetails, OutPTreatmentDetails } from "../..";
 import axios from "axios";
 
-const BedDetails = () => {
+const OutPTreatment = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
   const [addOnSubmit, setAddOnSubmit] = useState(true);
-  const [allBeds, setAllBeds] = useState([]);
+  const [allOPTreatments, setAllOPTreatments] = useState([]);
 
   const docAppointmentDetails = useSelector(selectDocAppointment);
   const [usersLength, setUsersLength] = useState(
     docAppointmentDetails.length - 1
   );
-  const [lastElement, setLastElement] = useState(allBeds[usersLength]);
+  const [lastElement, setLastElement] = useState(allOPTreatments[usersLength]);
 
-  // To Get all the available beds
-  const API_URL = "http://localhost:3001/getBedsDetails";
+  // To Get all the available Out patient treatments
+  const API_URL = "http://localhost:3001/getOutPTreatment";
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
-    setAllBeds(data);
+    setAllOPTreatments(data);
   };
 
   useEffect(() => {
@@ -32,12 +32,12 @@ const BedDetails = () => {
   }, []);
 
   useEffect(() => {
-    setUsersLength(allBeds.length - 1);
-  }, [allBeds.length]);
+    setUsersLength(allOPTreatments.length - 1);
+  }, [allOPTreatments.length]);
 
   useEffect(() => {
-    setLastElement(allBeds[usersLength]);
-  }, [usersLength, allBeds]);
+    setLastElement(allOPTreatments[usersLength]);
+  }, [usersLength, allOPTreatments]);
 
   const navigate = useNavigate();
 
@@ -61,7 +61,7 @@ const BedDetails = () => {
     navigate("/adminDashboard/dashboard");
   };
   const handleViewAll = () => {
-    navigate("/VizAllBed");
+    navigate("/VizAllOPtreatment");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -84,54 +84,101 @@ const BedDetails = () => {
 
   // Display the infos of the next element
   const handleShowNext = () => {
-    if (usersLength < allBeds.length - 1) {
+    if (usersLength < allOPTreatments.length - 1) {
       setUsersLength(usersLength + 1);
-      if (usersLength == allBeds.length - 1) {
+      if (usersLength == allOPTreatments.length - 1) {
         return;
       }
     }
   };
   const handleShowLastEl = () => {
-    setUsersLength(allBeds.length - 1);
+    setUsersLength(allOPTreatments.length - 1);
   };
 
   return (
     <div className="appScheduling">
-      <h2 className="page-title">BED DETAILS</h2>
+      <h2 className="page-title">OUT PATIENT TREATMENTS</h2>
       <div className="appScheduling-container">
         <div className="details-title">
-          <h4>Bed infos</h4>
+          <h4>Treatment infos</h4>
           <div className="divider" />
         </div>
         <form>
-          <div className="input-field">
-            <label form="schedulingId">Bed ID:</label>
-            <Input
-              inputDisabled="true"
-              placeholder="Scheduling ID"
-              name="schedulingID"
-              value={lastElement ? lastElement.bedID : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="doctorId"> Room / Ward ID:</label>
-            <Input
-              placeholder="Doctor ID"
-              name="doctorID"
-              inputDisabled="true"
-              value={lastElement ? lastElement.bedPlace : ""}
-            />
-          </div>
-          <div className="input-field">
-            <label form="doctorId"> Bed Description :</label>
-            <textarea
-              name=""
-              id=""
-              cols="39"
-              rows="10"
-              value={lastElement ? lastElement.bedDesc : ""}
-              // disabled
-            ></textarea>
+          <div className="container-display-infos">
+            <div className="container-wrapper">
+              <div className="input-field">
+                <label form="schedulingId">Treatment ID:</label>
+                <Input
+                  inputDisabled="true"
+                  placeholder="Treatment ID"
+                  name="treatmentId"
+                  value={lastElement ? lastElement.bedID : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label form="doctorId"> Patient ID:</label>
+                <Input
+                  placeholder="Patient ID"
+                  name="patientId"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.bedPlace : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label form="doctorId"> Doctor ID:</label>
+                <Input
+                  placeholder="Doctor ID"
+                  name="doctorId"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.bedPlace : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label htmlFor="prescription">Prescription :</label>
+                <textarea
+                  placeholder="Prescription"
+                  name="prescription"
+                  id="prescription"
+                  cols="39"
+                  rows="10"
+                  value={lastElement ? lastElement.bedDesc : ""}
+                  // disabled
+                ></textarea>
+              </div>
+            </div>
+
+            <div className="container-wrapper">
+              <div className="input-field">
+                <label form="doctorId"> Date:</label>
+                <Input
+                  placeholder="Date"
+                  name="date"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.bedPlace : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label form="doctorId"> Time:</label>
+                <Input
+                  placeholder="Time"
+                  name="time"
+                  inputDisabled="true"
+                  value={lastElement ? lastElement.bedPlace : ""}
+                />
+              </div>
+              <div className="input-field">
+                <label htmlFor="Description">Description :</label>
+                <textarea
+                  placeholder="Description"
+                  name="description"
+                  id="description"
+                  cols="39"
+                  rows="10"
+                  value={lastElement ? lastElement.bedDesc : ""}
+                  // disabled
+                ></textarea>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -140,18 +187,26 @@ const BedDetails = () => {
         <table>
           <thead>
             <tr>
-              <th>Bed ID </th>
-              <th>Bed Place </th>
-              <th>Bed Description</th>
+              <th>Treatment ID </th>
+              <th>Patient ID</th>
+              <th>Doctor ID</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Prescription</th>
+              <th>Description</th>
             </tr>
           </thead>
           <tbody>
-            {allBeds.map((bed, index) => {
+            {allOPTreatments.map((treatment, index) => {
               return (
                 <tr className="doctor-infos" key={index}>
-                  <td>{bed.bedID}</td>
-                  <td>{bed.bedPlace}</td>
-                  <td>{bed.bedDesc}</td>
+                  <td>{treatment.treatmentId}</td>
+                  <td>{treatment.patientId}</td>
+                  <td>{treatment.doctorId}</td>
+                  <td>{treatment.date}</td>
+                  <td>{treatment.time}</td>
+                  <td>{treatment.prescription}</td>
+                  <td>{treatment.description}</td>
                 </tr>
               );
             })}
@@ -231,14 +286,12 @@ const BedDetails = () => {
         </div>
       </div>
 
-      {/* Open the scheduling component  */}
-
+      {/* Open the OutPTreatmentDetails component  */}
       {openPage && (
         <div className="popup-wrapper">
           <div className="popup">
-            <BedMoreDetails
-              setOpenScheduling={setOpenScheduling}
-              setOpenScheduleDelete={setOpenScheduleDelete}
+            <OutPTreatmentDetails
+              // setOpenScheduling={setOpenScheduling}
               openScheduleDelete={openScheduleDelete}
               addOnSubmit={addOnSubmit}
               setOpenPage={setOpenPage}
@@ -250,4 +303,4 @@ const BedDetails = () => {
   );
 };
 
-export default BedDetails;
+export default OutPTreatment;
