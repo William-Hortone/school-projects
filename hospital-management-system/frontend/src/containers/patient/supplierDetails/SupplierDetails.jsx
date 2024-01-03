@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
+// import { ButtonAction, ButtonSkip, Input } from "../../../components";
 
-const AdmissionDetails = ({
+const SupplierDetails = ({
   setOpenScheduling,
   addOnSubmit,
   setOpenScheduleDelete,
@@ -14,16 +15,12 @@ const AdmissionDetails = ({
   setOpenPage,
 }) => {
   const [inputs, setInputs] = useState({
-    admissionID: "",
-    patientID: "",
-    doctorID: "",
-    guardianID: "",
-    admissionDate: "",
-    admissionTime: "",
-    bedID: "",
-    bedPlace: "",
-    emergency: "",
-    bedAvailability: "",
+    supplierID: "",
+    companyName: "",
+    contactName: "",
+    address: "",
+    phone: "",
+    fax: "",
   });
   const [selectedRooms, setSelectedRooms] = useState("");
   const [selectedWards, setSelectedWards] = useState("");
@@ -45,6 +42,7 @@ const AdmissionDetails = ({
   const [allGuardians, setAllGuardians] = useState([]);
   const [allAdmission, setAllAdmission] = useState([]);
   const [allDoctors, setAllDoctors] = useState([]);
+  const [allSuppliers, setAllSuppliers] = useState([]);
 
   //   const roomsDetails = useSelector(selectRoomsDetails);
   //   const wardsDetails = useSelector(selectWardDetails);
@@ -57,6 +55,7 @@ const AdmissionDetails = ({
   const API_URL_GUARDIAN = "http://localhost:3001/getGuardianDetails";
   const API_URL_DOCTOR = "http://localhost:3001/getDoctors";
   const API_URL_ADMISSION = "http://localhost:3001/getAdmissionDetails";
+  const API_URL_SUPPLIER = "http://localhost:3001/getSupplierDetails";
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
@@ -86,6 +85,10 @@ const AdmissionDetails = ({
     const { data } = await axios.get(API_URL_ADMISSION);
     setAllAdmission(data);
   };
+  const fetchDataSupplier = async () => {
+    const { data } = await axios.get(API_URL_SUPPLIER);
+    setAllSuppliers(data);
+  };
 
   useEffect(() => {
     fetchDataGuardians();
@@ -94,6 +97,7 @@ const AdmissionDetails = ({
     fetchDataDoctors();
     fetchDataRooms();
     fetchDataWars();
+    fetchDataSupplier();
     fetchData();
   }, []);
 
@@ -123,19 +127,19 @@ const AdmissionDetails = ({
   // Function to generate the ID
   const handleAddBed = () => {
     if (addOnSubmit) {
-      if (allAdmission.length === 0) {
+      if (allSuppliers.length === 0) {
         setInputs({
           ...inputs,
-          admissionID: "ad_001",
+          supplierID: "sup_001",
         });
       } else {
-        const lastElementId = allAdmission[allAdmission.length - 1].admissionID;
+        const lastElementId = allSuppliers[allSuppliers.length - 1].supplierID;
         const numericPart = parseInt(lastElementId.split("_")[1]);
-        const nextId = `ad_${(numericPart + 1).toString().padStart(3, "0")}`;
+        const nextId = `sup_${(numericPart + 1).toString().padStart(3, "0")}`;
 
         setInputs({
           ...inputs,
-          admissionID: nextId,
+          supplierID: nextId,
         });
       }
     } else {
@@ -148,7 +152,7 @@ const AdmissionDetails = ({
     e.preventDefault();
 
     axios
-      .post("http://localhost:3001/addAdmission", inputs)
+      .post("http://localhost:3001/addSupplier", inputs)
       .then((res) => {
         toast.success("Added successfully");
       })
@@ -294,7 +298,7 @@ const AdmissionDetails = ({
     <>
       <div className="app__scheduling">
         <div className="app__scheduling-container">
-          <h2>Admission Details</h2>
+          <h2>Suppliers Details</h2>
 
           <form
             onSubmit={
@@ -305,26 +309,26 @@ const AdmissionDetails = ({
           >
             <div className="form-left-box" style={{ maxWidth: "60%" }}>
               <div className="details-title">
-                <h4> Admission Details</h4>
+                <h4> Supplier Details</h4>
                 <div className="divider" />
               </div>
               <div className="input-fields" style={{ marginRight: 0 }}>
-                <label form="admissionID"> AdmissionID:</label>
+                <label form="admissionID"> supplierID:</label>
                 <Input
-                  placeholder="AdmissionID"
-                  name="admissionID"
-                  value={inputs.admissionID}
+                  placeholder="supplierID"
+                  name="supplierID"
+                  value={inputs.supplierID}
                   handleOnChange={handleOnChange}
                   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
               </div>
-              <div className="input-field doctor-types">
-                <label htmlFor="patientID"> PatientID</label>
+              {/* <div className="input-field doctor-types">
+                <label htmlFor="patientID"> Company</label>
                 <div>
                   <select
-                    name="patientID"
-                    id="patientID"
-                    value={inputs.patientID}
+                    name="companyName"
+                    id="companyName"
+                    value={inputs.companyName}
                     onChange={handleOnChange}
                     required
                   >
@@ -338,8 +342,8 @@ const AdmissionDetails = ({
                     ))}
                   </select>
                 </div>
-              </div>
-              <div className="input-fields" style={{ marginRight: 0 }}>
+              </div> */}
+              {/* <div className="input-fields" style={{ marginRight: 0 }}>
                 <label htmlFor="place"> Room / Ward:</label>
                 <Input
                   placeholder="Place infos"
@@ -348,8 +352,8 @@ const AdmissionDetails = ({
                   handleOnChange={handleOnChange}
                   readOnly
                 />
-              </div>
-              <div className="input-field">
+              </div> */}
+              {/* <div className="input-field">
                 <label htmlFor="admissionDate"> Admission Date:</label>
                 <div
                   className="custom-input-field"
@@ -385,13 +389,53 @@ const AdmissionDetails = ({
                     timeCaption="Time"
                   />
                 </div>
+              </div> */}
+              <div className="input-fields" style={{ marginRight: 0 }}>
+                <label form="admissionID"> contactName:</label>
+                <Input
+                  placeholder="contactName"
+                  name="contactName"
+                  value={inputs.contactName}
+                  handleOnChange={handleOnChange}
+                  //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                />
               </div>
               <div className="input-fields" style={{ marginRight: 0 }}>
-                <label form="admissionID"> Emergency:</label>
+                <label form="admissionID"> companyName:</label>
                 <Input
-                  placeholder="Emergency"
-                  name="emergency"
-                  value={inputs.emergency}
+                  placeholder="companyName"
+                  name="companyName"
+                  value={inputs.companyName}
+                  handleOnChange={handleOnChange}
+                  //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                />
+              </div>
+              <div className="input-fields" style={{ marginRight: 0 }}>
+                <label form="admissionID"> address:</label>
+                <Input
+                  placeholder="address"
+                  name="address"
+                  value={inputs.address}
+                  handleOnChange={handleOnChange}
+                  //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                />
+              </div>
+              <div className="input-fields" style={{ marginRight: 0 }}>
+                <label form="admissionID"> phone:</label>
+                <Input
+                  placeholder="phone"
+                  name="phone"
+                  value={inputs.phone}
+                  handleOnChange={handleOnChange}
+                  //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
+                />
+              </div>
+              <div className="input-fields" style={{ marginRight: 0 }}>
+                <label form="admissionID"> fax:</label>
+                <Input
+                  placeholder="fax"
+                  name="fax"
+                  value={inputs.fax}
                   handleOnChange={handleOnChange}
                   //   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
@@ -415,11 +459,11 @@ const AdmissionDetails = ({
 
             {/* To select a room or ward */}
             <aside style={{ width: "40%" }}>
-              <div className="details-title">
+              {/* <div className="details-title">
                 <h4> Choose a room or ward</h4>
-              </div>
+              </div> */}
               {/* To select a room ID */}
-              <div className="box-input-radio" style={{ marginTop: 10 }}>
+              {/* <div className="box-input-radio" style={{ marginTop: 10 }}>
                 <input
                   type="radio"
                   id="rooms"
@@ -430,9 +474,9 @@ const AdmissionDetails = ({
                   className="input-radio"
                 />
                 <label htmlFor="rooms">Rooms</label>
-              </div>
+              </div> */}
 
-              <div className="box-input-radio" style={{ marginTop: 10 }}>
+              {/* <div className="box-input-radio" style={{ marginTop: 10 }}>
                 <input
                   type="radio"
                   id="contactChoice2"
@@ -443,10 +487,10 @@ const AdmissionDetails = ({
                   className="input-radio"
                 />
                 <label htmlFor="wards">Wards</label>
-              </div>
+              </div> */}
 
               {/* Display for select a room*/}
-              {selectedPlace === "room" && (
+              {/* {selectedPlace === "room" && (
                 <div
                   className="aside-option-box"
                   style={{ marginTop: 10, marginLeft: 140 }}
@@ -469,10 +513,10 @@ const AdmissionDetails = ({
                     </select>
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* Display for select a ward*/}
-              {selectedPlace === "ward" && (
+              {/* {selectedPlace === "ward" && (
                 <div
                   className="aside-option-box"
                   style={{ marginTop: 10, marginLeft: 140 }}
@@ -497,9 +541,9 @@ const AdmissionDetails = ({
                     </select>
                   </div>
                 </div>
-              )}
+              )} */}
 
-              <div className="input-field doctor-types">
+              {/* <div className="input-field doctor-types">
                 <label htmlFor="patientID"> Bed ID</label>
                 <div>
                   <select
@@ -519,9 +563,9 @@ const AdmissionDetails = ({
                     ))}
                   </select>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="input-fields" style={{ marginRight: 0 }}>
+              {/* <div className="input-fields" style={{ marginRight: 0 }}>
                 <label form="admissionID"> Bed Availability:</label>
                 <Input
                   placeholder="Bed Availability"
@@ -530,9 +574,9 @@ const AdmissionDetails = ({
                   handleOnChange={handleOnChange}
                   inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                 />
-              </div>
+              </div> */}
 
-              <div className="input-field doctor-types">
+              {/* <div className="input-field doctor-types">
                 <label htmlFor="patientID"> Affered Doctor</label>
                 <div>
                   <select
@@ -552,9 +596,9 @@ const AdmissionDetails = ({
                     ))}
                   </select>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="input-field doctor-types">
+              {/* <div className="input-field doctor-types">
                 <label htmlFor="guardianID"> Guardian ID</label>
                 <div>
                   <select
@@ -574,7 +618,7 @@ const AdmissionDetails = ({
                     ))}
                   </select>
                 </div>
-              </div>
+              </div> */}
             </aside>
           </form>
 
@@ -661,4 +705,4 @@ const AdmissionDetails = ({
   );
 };
 
-export default AdmissionDetails;
+export default SupplierDetails;

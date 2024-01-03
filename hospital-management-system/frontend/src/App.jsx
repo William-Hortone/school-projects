@@ -23,9 +23,11 @@ import {
   OutPatient,
   RoomDetails,
   ServiceScheduling,
+  Supplier,
   ViewAllUsers,
   ViewHospitalSD,
   ViewWardDetails,
+  VizAllAdmissions,
   VizAllBeds,
   VizAllGuardian,
   VizAllInPatients,
@@ -107,6 +109,7 @@ function App() {
           <Route path="/VizAllOPtreatment" element={<VizAllOPtreatment />} />
           <Route path="/VizAllInPatient" element={<VizAllInPatients />} />
           <Route path="/VizAllGuardian" element={<VizAllGuardian />} />
+          <Route path="/VizAllAdmissions" element={<VizAllAdmissions />} />
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>
@@ -150,6 +153,7 @@ function App() {
               element={<AddGuardian />}
             />
             <Route path="/adminDashboard/admission" element={<Admission />} />
+            <Route path="/adminDashboard/supplier" element={<Supplier />} />
           </Route>
         </Routes>
       </BrowserRouter>
