@@ -57,6 +57,7 @@ import VizAllMedicineCat from "./patient/vizAllMedicineCat/VizAllMedicineCat";
 import Medicine from "./patient/medicine/Medicine";
 import MedicineDetails from "./patient/medicineDetails/MedicineDetails";
 import PurchaseOrder from "./patient/purchaseOrder/PurchaseOrder";
+import VizAllPurchaseO from "./patient/vizAllPurchaseO/VizAllPurchase";
 
 export {
   DDetails,
@@ -118,4 +119,5 @@ export {
   Medicine,
   MedicineDetails,
   PurchaseOrder,
+  VizAllPurchaseO,
 };

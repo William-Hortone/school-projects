@@ -38,6 +38,7 @@ import {
   VizAllMedicineCat,
   VizAllOPtreatment,
   VizAllOutPatient,
+  VizAllPurchaseO,
   VizAllRooms,
   VizAllSuppliers,
   VizDocSchedule,
@@ -120,6 +121,7 @@ function App() {
           <Route path="/VizAllSuppliers" element={<VizAllSuppliers />} />
           <Route path="/VizAllMedicineCat" element={<VizAllMedicineCat />} />
           <Route path="/VizAllMedicine" element={<VizAllMedicine />} />
+          <Route path="/vizAllPurchaseO" element={<VizAllPurchaseO />} />
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>

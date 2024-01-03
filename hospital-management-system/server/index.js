@@ -24,6 +24,7 @@ const AdmissionRoutes = require("./routes/admissionInfos");
 const SupplierRoutes = require("./routes/supplierInfos");
 const MedicineCatRoutes = require("./routes/medicineCatInfos");
 const MedicineRoutes = require("./routes/medicineInfos");
+const PurchaseORoutes = require("./routes/purchaseOrderDetails");
 
 const app = express();
 app.use(express.json());
@@ -79,6 +80,7 @@ app.use(SupplierRoutes);
 app.use(MedicineCatRoutes);
 
 app.use(MedicineRoutes);
+app.use(PurchaseORoutes);
 
 app.listen(3001, () => {
   console.log("The server is running");

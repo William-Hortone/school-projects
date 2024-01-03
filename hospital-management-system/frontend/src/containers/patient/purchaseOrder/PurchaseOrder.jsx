@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
+import { useNavigate } from "react-router-dom";
 
 const PurchaseOrder = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   const [inputs, setInputs] = useState({
@@ -27,6 +28,7 @@ const PurchaseOrder = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   const [allMedicineFiltered, setAllMedicineFiltered] = useState([]);
   const [allMedicineCat, setAllMedicineCat] = useState([]);
   const [allMedicine, setAllMedicine] = useState([]);
+  const [allPurchaseOrder, setAllPurchaseOrder] = useState([]);
   const [id, setId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState("");
@@ -36,12 +38,14 @@ const PurchaseOrder = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   const [proID, setProID] = useState("");
   const [showPopupDelete, setShowPopupDelete] = useState(false);
 
+  const navigate = useNavigate();
   // To Get all the available Treatments
   const API_URL = "http://localhost:3001/getMedicineCat";
   const API_URL_MEDICINE = "http://localhost:3001/getMedicine";
   const API_URL_DOCTORS = "http://localhost:3001/getDoctors";
   const API_URL_PATIENTS = "http://localhost:3001/getOutPatientsDetails";
   const API_URL_SUPPLIERS = "http://localhost:3001/getSupplierDetails";
+  const API_URL_PURChASE = "http://localhost:3001/getPurchaseOrder";
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
@@ -63,6 +67,10 @@ const PurchaseOrder = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     const { data } = await axios.get(API_URL_MEDICINE);
     setAllMedicine(data);
   };
+  const fetchDataPurchaseO = async () => {
+    const { data } = await axios.get(API_URL_PURChASE);
+    setAllPurchaseOrder(data);
+  };
 
   useEffect(() => {
     fetchData();
@@ -70,6 +78,7 @@ const PurchaseOrder = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     fetchDataSuppliers();
     fetchDataOPatients();
     fetchDataMedicine();
+    fetchDataPurchaseO();
   }, []);
 
   const handleOnChange = (e) => {
@@ -123,29 +132,33 @@ const PurchaseOrder = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   }, [selectedTime]);
 
   //   Function to generate a new  ID
+  //   const handleAddATreatment = () => {
+  //     if (addOnSubmit) {
+  //       // Initialize the Id if the array is empty
+  //       if (allMedicine.length === 0) {
+  //         setInputs({
+  //           ...inputs,
+  //           productID: "Medicine_001",
+  //         });
+  //       } else {
+  //         // Get the last Id and increment it
+  //         const lastElementId = allMedicine[allMedicine.length - 1].productID;
+  //         const numericPart = parseInt(lastElementId.split("_")[1]);
+  //         const nextElementId = `Medicine_${(numericPart + 1)
+  //           .toString()
+  //           .padStart(3, "0")}`;
+  //         setInputs({
+  //           ...inputs,
+  //           productID: nextElementId,
+  //         });
+  //       }
+  //     } else {
+  //       toast.error("Please Enter a Id manually to update");
+  //     }
+  //   };
+
   const handleAddATreatment = () => {
-    if (addOnSubmit) {
-      // Initialize the Id if the array is empty
-      if (allMedicine.length === 0) {
-        setInputs({
-          ...inputs,
-          productID: "Medicine_001",
-        });
-      } else {
-        // Get the last Id and increment it
-        const lastElementId = allMedicine[allMedicine.length - 1].productID;
-        const numericPart = parseInt(lastElementId.split("_")[1]);
-        const nextElementId = `Medicine_${(numericPart + 1)
-          .toString()
-          .padStart(3, "0")}`;
-        setInputs({
-          ...inputs,
-          productID: nextElementId,
-        });
-      }
-    } else {
-      toast.error("Please Enter a Id manually to update");
-    }
+    navigate("/vizAllPurchaseO");
   };
 
   // The function to add Medicine Cat details
@@ -153,7 +166,7 @@ const PurchaseOrder = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3001/addMedicine", inputs)
+      .post("http://localhost:3001/addPurchaseOrder", inputs)
       .then((res) => {
         if (res.data === "success") {
           toast.success("Added successfully");
@@ -163,44 +176,44 @@ const PurchaseOrder = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   };
 
   // function to Edit a Out patient treatment details
-  const handleSubmitEditInfos = (e, ID) => {
-    e.preventDefault();
+  //   const handleSubmitEditInfos = (e, ID) => {
+  //     e.preventDefault();
 
-    axios
-      .put(`http://localhost:3001/editOutPTreatment/${ID}`, inputs)
-      .then((res) => {
-        if (res.data === "success") {
-          toast.success("Updated successfully");
-        } else if (res.data === "notfound") {
-          toast.error("Wrong ID");
-        } else {
-          toast.error("An error occurred while updating ");
-        }
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
-  };
+  //     axios
+  //       .put(`http://localhost:3001/editOutPTreatment/${ID}`, inputs)
+  //       .then((res) => {
+  //         if (res.data === "success") {
+  //           toast.success("Updated successfully");
+  //         } else if (res.data === "notfound") {
+  //           toast.error("Wrong ID");
+  //         } else {
+  //           toast.error("An error occurred while updating ");
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         toast.error(err);
+  //       });
+  //   };
 
   const handleClose = () => {
     setOpenPage(false);
   };
 
   // Automatically fill the form when click on one element of the table
-  const handleUpdateInfos = (treatment) => {
-    if (!addOnSubmit) {
-      setInputs({
-        treatmentId: treatment.treatmentId,
-        patientId: treatment.patientId,
-        doctorId: treatment.doctorId,
-        prescription: treatment.prescription,
-        description: treatment.description,
-      });
-      setSelectedDate(treatment.date);
-      setSelectedTime(treatment.time);
-      // setDisabledInput(true);
-    }
-  };
+  //   const handleUpdateInfos = (treatment) => {
+  //     if (!addOnSubmit) {
+  //       setInputs({
+  //         treatmentId: treatment.treatmentId,
+  //         patientId: treatment.patientId,
+  //         doctorId: treatment.doctorId,
+  //         prescription: treatment.prescription,
+  //         description: treatment.description,
+  //       });
+  //       setSelectedDate(treatment.date);
+  //       setSelectedTime(treatment.time);
+  //       // setDisabledInput(true);
+  //     }
+  //   };
 
   const handleDelete = () => {
     if (id === undefined || id === "") {
@@ -308,11 +321,7 @@ const PurchaseOrder = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
           <h4>Purchase infos</h4>
           <div className="divider" />
         </div>
-        <form
-          onSubmit={
-            addOnSubmit ? handleSubmit : (e) => handleSubmitEditInfos(e, id)
-          }
-        >
+        <form onSubmit={handleSubmit}>
           <div className="container-display-infos">
             <div className="container-wrapper">
               <div className="input-field doctor-types">
@@ -572,9 +581,9 @@ const PurchaseOrder = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
         </div>
         <div className="container-menu-btn">
           <ButtonAction
-            iconName="add"
-            btnName="Add"
-            color="green"
+            iconName="all"
+            btnName="View All"
+            color="blue"
             buttonType="submit"
             onClick={handleAddATreatment}
           />
