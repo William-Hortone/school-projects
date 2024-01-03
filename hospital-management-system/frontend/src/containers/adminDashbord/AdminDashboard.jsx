@@ -78,11 +78,10 @@ const AdminDashboard = () => {
                 title="Medicine"
                 title1="Medicine Category"
                 title2="Add Medicine"
-                // title3="Patient Admission"
+                title3="Purchase Order"
                 link1="/adminDashboard/medicineCategory"
                 link2="/adminDashboard/medicine"
-                // link2="/adminDashboard/addGuardian"
-                // link3="/adminDashboard/admission"
+                link3="/adminDashboard/purchaseOrder"
               />
               {/* <ButtonMenu
                 setShowList={setShowList}

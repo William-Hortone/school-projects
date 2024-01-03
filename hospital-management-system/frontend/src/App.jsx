@@ -24,6 +24,7 @@ import {
   MedicineDetails,
   OutPTreatment,
   OutPatient,
+  PurchaseOrder,
   RoomDetails,
   ServiceScheduling,
   Supplier,
@@ -168,6 +169,10 @@ function App() {
               element={<MedicineCategory />}
             />
             <Route path="/adminDashboard/medicine" element={<Medicine />} />
+            <Route
+              path="/adminDashboard/purchaseOrder"
+              element={<PurchaseOrder />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
