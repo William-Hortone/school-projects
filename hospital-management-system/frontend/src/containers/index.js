@@ -51,6 +51,11 @@ import AdmissionDetails from "./patient/admissionDetails/AdmissionDetails";
 import VizAllAdmissions from "./patient/vizAllAdmission/VizAllAdmission";
 import Supplier from "./patient/suppliers/Supplier";
 import SupplierDetails from "./patient/supplierDetails/SupplierDetails";
+import VizAllSuppliers from "./patient/vizAllSuppliers/VizAllSuppliers";
+import MedicineCategory from "./patient/medicineCategory/MedicineCategory";
+import VizAllMedicineCat from "./patient/vizAllMedicineCat/VizAllMedicineCat";
+import Medicine from "./patient/medicine/Medicine";
+import MedicineDetails from "./patient/medicineDetails/MedicineDetails";
 
 export {
   DDetails,
@@ -106,4 +111,9 @@ export {
   VizAllAdmissions,
   Supplier,
   SupplierDetails,
+  VizAllSuppliers,
+  MedicineCategory,
+  VizAllMedicineCat,
+  Medicine,
+  MedicineDetails,
 };

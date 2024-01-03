@@ -73,6 +73,17 @@ const AdminDashboard = () => {
                 // link2="/adminDashboard/addGuardian"
                 // link3="/adminDashboard/admission"
               />
+              <ButtonMenu
+                setShowList={setShowList}
+                title="Medicine"
+                title1="Medicine Category"
+                title2="Add Medicine"
+                // title3="Patient Admission"
+                link1="/adminDashboard/medicineCategory"
+                link2="/adminDashboard/medicine"
+                // link2="/adminDashboard/addGuardian"
+                // link3="/adminDashboard/admission"
+              />
               {/* <ButtonMenu
                 setShowList={setShowList}
                 title="Admission"

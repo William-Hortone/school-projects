@@ -579,7 +579,7 @@ const AdmissionDetails = ({
           </form>
 
           {/* Table to display all beds */}
-          <div className="appScheduling-table">
+          {/* <div className="appScheduling-table">
             <table>
               <thead>
                 <tr>
@@ -608,7 +608,7 @@ const AdmissionDetails = ({
                 })}
               </tbody>
             </table>
-          </div>
+          </div> */}
 
           {/* Popup to delete a bed */}
           {showPopupDelete && (

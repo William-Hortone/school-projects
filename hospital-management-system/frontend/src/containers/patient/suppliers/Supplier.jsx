@@ -63,7 +63,7 @@ const Supplier = () => {
     navigate("/adminDashboard/dashboard");
   };
   const handleViewAll = () => {
-    navigate("/VizAllInPatient");
+    navigate("/VizAllSuppliers");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -104,7 +104,7 @@ const Supplier = () => {
   return (
     <>
       <div className="appScheduling">
-        <h2 className="page-title">IN PATIENTS</h2>
+        <h2 className="page-title">SUPPLIERS</h2>
         <div className="appScheduling-container">
           <div className="details-title">
             <h4>Suppliers Details</h4>
@@ -266,7 +266,7 @@ const Supplier = () => {
         </div>
 
         {/* table to see details */}
-        <div className="appScheduling-table">
+        {/* <div className="appScheduling-table">
           <table>
             <thead>
               <tr>
@@ -309,7 +309,7 @@ const Supplier = () => {
               })}
             </tbody>
           </table>
-        </div>
+        </div> */}
 
         {/* Container buttons */}
         <div className="container-btn-menus-actions">

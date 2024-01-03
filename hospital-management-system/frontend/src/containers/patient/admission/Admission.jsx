@@ -210,7 +210,7 @@ const Admission = () => {
           </form>
         </div>
 
-        <div className="appScheduling-table">
+        {/* <div className="appScheduling-table">
           <table>
             <thead>
               <tr>
@@ -253,7 +253,7 @@ const Admission = () => {
               })}
             </tbody>
           </table>
-        </div>
+        </div> */}
 
         {/* Container buttons */}
         <div className="container-btn-menus-actions">
