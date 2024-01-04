@@ -8,9 +8,11 @@ const ButtonMenu = ({
   title1,
   title2,
   title3,
+  title4,
   link1,
   link2,
   link3,
+  link4,
 }) => {
   const location = useLocation();
   const buttonMenuRef = useRef(null);
@@ -87,6 +89,13 @@ const ButtonMenu = ({
             to={link3}
           >
             {title3}
+          </Link>
+          <Link
+            onClick={handleHideList}
+            className={`buttonMenu-list ${isActive(link4) ? "activeLink" : ""}`}
+            to={link4}
+          >
+            {title4}
           </Link>
         </ul>
       )}

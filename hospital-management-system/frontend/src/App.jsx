@@ -31,6 +31,7 @@ import {
   ViewAllUsers,
   ViewHospitalSD,
   ViewWardDetails,
+  Visit,
   VizAllAdmissions,
   VizAllBeds,
   VizAllGuardian,
@@ -41,6 +42,7 @@ import {
   VizAllPurchaseO,
   VizAllRooms,
   VizAllSuppliers,
+  VizAllVisits,
   VizDocSchedule,
   VizDoctorDetails,
   VizHospitalSer,
@@ -122,6 +124,7 @@ function App() {
           <Route path="/VizAllMedicineCat" element={<VizAllMedicineCat />} />
           <Route path="/VizAllMedicine" element={<VizAllMedicine />} />
           <Route path="/vizAllPurchaseO" element={<VizAllPurchaseO />} />
+          <Route path="/vizAllVisits" element={<VizAllVisits />} />
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>
@@ -175,6 +178,7 @@ function App() {
               path="/adminDashboard/purchaseOrder"
               element={<PurchaseOrder />}
             />
+            <Route path="/adminDashboard/visit" element={<Visit />} />
           </Route>
         </Routes>
       </BrowserRouter>
