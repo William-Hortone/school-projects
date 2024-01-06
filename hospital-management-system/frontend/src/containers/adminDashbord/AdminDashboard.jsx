@@ -60,10 +60,14 @@ const AdminDashboard = () => {
                 title2="Add Guardian"
                 title3="Patient Admission"
                 title4="Doctor Visit"
+                title5="In Patient M. Issue"
+                title6="Medicine ORder"
                 link1="/adminDashboard/inPatients"
                 link2="/adminDashboard/addGuardian"
                 link3="/adminDashboard/admission"
                 link4="/adminDashboard/visit"
+                link5="/adminDashboard/inPMI"
+                link6="/adminDashboard/medicineOrder"
               />
               <ButtonMenu
                 setShowList={setShowList}

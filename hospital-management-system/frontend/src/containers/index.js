@@ -61,6 +61,9 @@ import VizAllPurchaseO from "./patient/vizAllPurchaseO/VizAllPurchase";
 import Visit from "./patient/visit/Visit";
 import VisitDetails from "./patient/visitDetails/VisitDetails";
 import VizAllVisits from "./patient/vizAllVisits/VizAllVisit";
+import InPMedicineIssue from "./patient/InPMedicineIssue/InPMedicineIssue";
+import InPMIssueDetails from "./patient/inPMIssueDetails/InPMIssueDetails";
+import VizAllInpMIssue from "./patient/VizAllInPMIssue/VizAllInPMIssue";
 
 export {
   DDetails,
@@ -126,4 +129,7 @@ export {
   Visit,
   VisitDetails,
   VizAllVisits,
+  InPMedicineIssue,
+  InPMIssueDetails,
+  VizAllInpMIssue,
 };

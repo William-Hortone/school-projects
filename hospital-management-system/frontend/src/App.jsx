@@ -17,6 +17,8 @@ import {
   CancelServiceApp,
   DDetails,
   Dashboard,
+  InPMIssueDetails,
+  InPMedicineIssue,
   InPatients,
   MedicalServices,
   Medicine,
@@ -36,6 +38,7 @@ import {
   VizAllBeds,
   VizAllGuardian,
   VizAllInPatients,
+  VizAllInpMIssue,
   VizAllMedicineCat,
   VizAllOPtreatment,
   VizAllOutPatient,
@@ -61,6 +64,7 @@ import fetchRoomsDetails from "./redux/actions/room.action";
 import fetchWardDetails from "./redux/actions/ward.actions";
 import { IS_USER_LOGIN, REMOVE_ACTIVE_USER } from "./redux/slice/userSlide";
 import VizAllMedicine from "./containers/patient/vizAllMedicine/VizAllMedicine";
+import MedicineOrder from "./containers/patient/Medicineorder/MedicineOrder";
 
 function App() {
   const dispatch = useDispatch();
@@ -125,6 +129,7 @@ function App() {
           <Route path="/VizAllMedicine" element={<VizAllMedicine />} />
           <Route path="/vizAllPurchaseO" element={<VizAllPurchaseO />} />
           <Route path="/vizAllVisits" element={<VizAllVisits />} />
+          <Route path="/vizAllInPMIssue" element={<VizAllInpMIssue />} />
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>
@@ -179,6 +184,14 @@ function App() {
               element={<PurchaseOrder />}
             />
             <Route path="/adminDashboard/visit" element={<Visit />} />
+            <Route
+              path="/adminDashboard/inPMI"
+              element={<InPMIssueDetails />}
+            />
+            <Route
+              path="/adminDashboard/medicineOrder"
+              element={<MedicineOrder />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
