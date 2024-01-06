@@ -6,7 +6,7 @@ import {
 import "./dashboard.css";
 
 import axios from "axios";
-import { FaCalendarCheck, FaUserAlt } from "react-icons/fa";
+import { FaCalendarCheck, FaUserAlt, FaUserInjured } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -50,6 +50,10 @@ const Dashboard = () => {
   const [saturdayValue, setSaturdayValue] = useState();
   const [sundayValue, setSundayValue] = useState();
   const [appInfos, setAppInfos] = useState([]);
+  const [allAppointments, setAllAppointments] = useState([]);
+  const [allInPatients, setAllInPatients] = useState([]);
+  const [allOutPatients, setAllOutPatients] = useState([]);
+
   const [barChartData, setBarChartData] = useState([
     { name: "Monday", value: 0 },
     { name: "Tuesday", value: 0 },
@@ -64,17 +68,35 @@ const Dashboard = () => {
     navigate("/vizDoctorD");
   };
   const doctorDetails = useSelector(selectDoctorDetails);
-  const docAppDetails = useSelector(selectDocAppointment);
+  // const docAppDetails = useSelector(selectDocAppointment);
   // To Get all the available Appointments
   const API_URL = "http://localhost:3001/getDocAppointments";
+  const API_URL_APPOINTMENT = "http://localhost:3001/getAddHospitalSerApp";
+  const API_URL_PATIENT = "http://localhost:3001/getInPatientsDetails";
+  const API_OPATIENT = "http://localhost:3001/getOutPatientsDetails";
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
     setAppInfos(data);
   };
+  const fetchAppointment = async () => {
+    const { data } = await axios.get(API_URL_APPOINTMENT);
+    setAllAppointments(data);
+  };
+  const fetchDataInPatients = async () => {
+    const { data } = await axios.get(API_URL_PATIENT);
+    setAllInPatients(data);
+  };
+  const fetchDataOutPatient = async () => {
+    const { data } = await axios.get(API_OPATIENT);
+    setAllOutPatients(data);
+  };
 
   useEffect(() => {
     fetchData();
+    fetchAppointment();
+    fetchDataOutPatient();
+    fetchDataInPatients();
   }, []);
 
   useEffect(() => {
@@ -216,20 +238,36 @@ const Dashboard = () => {
       <div className="app__dashboard-container">
         <div className="app__dashboard-container-header">
           <div className="container-header content-one">
-            <h4>TOTAL Appointments</h4>
-            <div>
+            <h4>
               <span>
                 <FaCalendarCheck size={20} />
               </span>
-              <p>{appInfos.length}</p>
-            </div>
+              &nbsp; Doc. Appointments &nbsp;
+              <span>{appInfos.length}</span>
+            </h4>
+            <h4>
+              <span>
+                <FaCalendarCheck size={20} />
+              </span>
+              &nbsp; Ser. Appointments &nbsp;
+              <span>{allAppointments.length}</span>
+            </h4>
           </div>
           <div className="container-header content-two">
-            <h4>TOTAL PATIENTS</h4>
-            <div>
-              <span>Icon</span>
-              <p>0</p>
-            </div>
+            <h4>
+              <span>
+                <FaUserInjured size={20} />
+              </span>
+              &nbsp; In PATIENTS &nbsp;
+              <span>{allInPatients.length}</span>
+            </h4>
+            <h4>
+              <span>
+                <FaUserInjured size={20} />
+              </span>
+              &nbsp; Out PATIENTS &nbsp;
+              <span>{allOutPatients.length}</span>
+            </h4>
           </div>
           <div className="container-header content-three">
             <h4>Available Doctors</h4>

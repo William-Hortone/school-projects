@@ -29,7 +29,7 @@ const AdmissionDetails = ({
   const [selectedWards, setSelectedWards] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
   const [selectedBed, setSelectedBed] = useState("");
-  const [choosedBed, setChoosedBed] = useState("");
+  const [id, setId] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [startDate, setStartDate] = useState();
   const [pickedTime, setPickedTime] = useState(null);
@@ -99,6 +99,10 @@ const AdmissionDetails = ({
     setTheBedId(inputs.bedID);
   }, [inputs.bedID]);
 
+  useEffect(() => {
+    setId(inputs.admissionID);
+  }, [inputs.admissionID]);
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputs({
@@ -112,9 +116,16 @@ const AdmissionDetails = ({
     setOpenScheduling(false);
     setOpenScheduleDelete(false);
     setInputs({
+      admissionID: "",
+      patientID: "",
+      doctorID: "",
+      guardianID: "",
+      admissionDate: "",
+      admissionTime: "",
       bedID: "",
       bedPlace: "",
-      bedDesc: "",
+      emergency: "",
+      bedAvailability: "",
     });
   };
 
@@ -142,56 +153,8 @@ const AdmissionDetails = ({
   };
 
   // Function to add a new admission
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (
-  //     inputs.bedAvailability === undefined ||
-  //     inputs.bedAvailability === "" ||
-  //     inputs.bedAvailability != "the bed is available"
-  //   ) {
-  //     toast.error("Please select an available bed");
-  //   } else {
-  //     const handleChangeBedStatus = (theBedId) => {
-  //       const result = allBeds.filter((beds) => beds.bedID === theBedId);
-  //       console.log("the result", result);
-  //       if (result.length > 0) {
-  //         if (result[0].isOccupied === false) {
-  //           result[0].isOccupied = true;
-  //         }
-  //       }
-  //     };
-
-  //     handleChangeBedStatus(theBedId);
-
-  //     axios
-  //       .post("http://localhost:3001/addAdmission", inputs)
-  //       .then((res) => {
-  //         toast.success("Added successfully");
-  //       })
-  //       .catch((err) => toast.error(err));
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // const handleChangeBedStatus = (theBedId) => {
-
-    //   const result = allBeds.filter((beds) => beds.bedID === theBedId);
-
-    //   console.log("the result", result);
-    //   if (result.length > 0) {
-    //     if (result[0].isOccupied === false) {
-    //       result[0].isOccupied = true;
-    //     }
-    //   }
-    // };
-
-    // Function to update an bed details
-    // const handleSubmitEditBed = (e, theBedId) => {
-    //   e.preventDefault();
-
-    // };
 
     if (
       inputs.bedAvailability === undefined ||
@@ -201,8 +164,7 @@ const AdmissionDetails = ({
       toast.error("Please select an available bed");
     } else {
       try {
-        // await handleSubmitEditBed(theBedId);
-
+        // update the bed availability
         axios
           .put(`http://localhost:3001/updateBedStatus/${theBedId}`)
           .then((res) => {
@@ -218,6 +180,7 @@ const AdmissionDetails = ({
             toast.error(err);
           });
 
+        // Send data for creating a new admission
         axios
           .post("http://localhost:3001/addAdmission", inputs)
           .then((res) => {
@@ -230,12 +193,12 @@ const AdmissionDetails = ({
     }
   };
 
-  // Function to update an bed details
-  const handleSubmitEdit = (e, theBedId) => {
+  // Function to update an admission details
+  const handleSubmitEdit = (e, id) => {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:3001/editBedDetails/${theBedId}`, inputs)
+      .put(`http://localhost:3001/editAdmissionDetails/${id}`, inputs)
       .then((res) => {
         if (res.data === "success") {
           toast.success("Updated successfully");
@@ -261,13 +224,13 @@ const AdmissionDetails = ({
     setShowPopupDelete(false);
   };
 
-  // Function to Delete a bed
-  const handleDeleteBed = (theBedId) => {
-    if (theBedId === undefined || theBedId === "") {
-      toast.error("Please provide a bed ID");
+  // Function to Delete a admission
+  const handleDeleteBed = (id) => {
+    if (id === undefined || id === "") {
+      toast.error("Please provide an admission ID");
     } else {
       axios
-        .put(`http://localhost:3001/deleteBed/${theBedId}`)
+        .put(`http://localhost:3001/deleteAdmission/${id}`)
         .then((res) => {
           if (res.data === "success") {
             toast.success("Deleted Successfully");
@@ -284,13 +247,20 @@ const AdmissionDetails = ({
   };
 
   // Automatically fill the form when click on one  element of the table
-  const handleUpdateInfos = (bed) => {
+  const handleUpdateInfos = (admission) => {
     if (!addOnSubmit) {
       setInputs({
-        bedID: bed.bedID,
-        bedPlace: bed.bedPlace,
-        bedDesc: bed.bedDesc,
+        admissionID: admission.admissionID,
+        patientID: admission.patientID,
+        doctorID: admission.doctorID,
+        guardianID: admission.guardianID,
+        bedID: admission.bedID,
+        bedPlace: admission.bedPlace,
+        emergency: admission.emergency,
+        bedAvailability: admission.bedAvailability,
       });
+      setSelectedDate(admission.admissionDate);
+      setSelectedTime(admission.admissionTime);
 
       setDisabledInput(true);
     }
@@ -353,25 +323,18 @@ const AdmissionDetails = ({
     }));
   }, [bedStatus]);
 
-  // useEffect(() => {}, [selectedDate]);
-
-  // To filter the SUPPLIers according to the supplier selected
+  //Define a bed status according to the bed selected
   useEffect(() => {
     const handleFilter = (theBedId) => {
       const result = allBeds.filter((beds) => beds.bedID === theBedId);
-      console.log("the result", result);
+
       if (result.length > 0) {
         if (result[0].isOccupied === false) {
           setBedStatus("the bed is available");
-          console.log("the bed is available");
-          console.log("the bed is bedStatus", bedStatus);
         } else {
-          console.log("the bed is not available");
           setBedStatus("the bed is not available");
-          console.log("the bed status", bedStatus);
         }
       }
-      // setAllSupplierFiltered(result);
     };
 
     handleFilter(theBedId);
@@ -404,7 +367,7 @@ const AdmissionDetails = ({
 
           <form
             onSubmit={
-              addOnSubmit ? handleSubmit : (e) => handleSubmitEdit(e, theBedId)
+              addOnSubmit ? handleSubmit : (e) => handleSubmitEdit(e, id)
             }
           >
             <div className="form-left-box" style={{ maxWidth: "60%" }}>
@@ -682,51 +645,17 @@ const AdmissionDetails = ({
             </aside>
           </form>
 
-          {/* Table to display all beds */}
-          {/* <div className="appScheduling-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Bed ID </th>
-                  <th>Bed Place </th>
-                  <th>Bed Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allBeds.map((bed, index) => {
-                  return (
-                    <tr
-                      onClick={(e) => handleUpdateInfos(bed)}
-                      className={
-                        !addOnSubmit
-                          ? "doctor-infos select-doctorID"
-                          : "doctor-infos"
-                      }
-                      key={index}
-                    >
-                      <td>{bed.bedID}</td>
-                      <td>{bed.bedPlace}</td>
-                      <td>{bed.bedDesc}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div> */}
-
           {/* Popup to delete a bed */}
           {showPopupDelete && (
             <div style={{ position: "relative" }}>
               <div className="schedule-delete-popup">
                 <p>
                   Do you really want to delete <br />
-                  the bed with ID of {inputs.bedID} ?
+                  the admission with ID of {inputs.admissionID} ?
                 </p>
                 <div className="delete-buttons">
                   <button onClick={handleClosePopup}> Cancel</button>
-                  <button onClick={() => handleDeleteBed(theBedId)}>
-                    Delete
-                  </button>
+                  <button onClick={() => handleDeleteBed(id)}>Delete</button>
                 </div>
               </div>
             </div>
@@ -758,6 +687,50 @@ const AdmissionDetails = ({
                 onClick={handleCloseScheduling}
               />
             </div>
+          </div>
+
+          {/* Table to display all beds */}
+          <div className="appScheduling-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>admissionID </th>
+                  <th>patientID </th>
+                  <th>doctorID</th>
+                  <th>guardianID </th>
+                  <th>admissionDate</th>
+                  <th>admissionTime</th>
+                  <th>bedID</th>
+                  <th>bedPlace</th>
+                  <th>emergency</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allAdmission.map((admission, index) => {
+                  return (
+                    <tr
+                      onClick={(e) => handleUpdateInfos(admission)}
+                      className={
+                        !addOnSubmit
+                          ? "doctor-infos select-doctorID"
+                          : "doctor-infos"
+                      }
+                      key={index}
+                    >
+                      <td>{admission.admissionID}</td>
+                      <td>{admission.patientID}</td>
+                      <td>{admission.doctorID}</td>
+                      <td>{admission.guardianID}</td>
+                      <td>{admission.admissionDate}</td>
+                      <td>{admission.admissionTime}</td>
+                      <td>{admission.bedID}</td>
+                      <td>{admission.bedPlace}</td>
+                      <td>{admission.emergency}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
