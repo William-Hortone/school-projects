@@ -48,6 +48,22 @@ import GuardianDetails from "./patient/guardianDetails/GuardianDetails";
 import VizAllGuardian from "./patient/vizAllGuardian/VizAllGuardian";
 import Admission from "./patient/admission/Admission";
 import AdmissionDetails from "./patient/admissionDetails/AdmissionDetails";
+import VizAllAdmissions from "./patient/vizAllAdmission/VizAllAdmission";
+import Supplier from "./patient/suppliers/Supplier";
+import SupplierDetails from "./patient/supplierDetails/SupplierDetails";
+import VizAllSuppliers from "./patient/vizAllSuppliers/VizAllSuppliers";
+import MedicineCategory from "./patient/medicineCategory/MedicineCategory";
+import VizAllMedicineCat from "./patient/vizAllMedicineCat/VizAllMedicineCat";
+import Medicine from "./patient/medicine/Medicine";
+import MedicineDetails from "./patient/medicineDetails/MedicineDetails";
+import PurchaseOrder from "./patient/purchaseOrder/PurchaseOrder";
+import VizAllPurchaseO from "./patient/vizAllPurchaseO/VizAllPurchase";
+import Visit from "./patient/visit/Visit";
+import VisitDetails from "./patient/visitDetails/VisitDetails";
+import VizAllVisits from "./patient/vizAllVisits/VizAllVisit";
+import InPMedicineIssue from "./patient/InPMedicineIssue/InPMedicineIssue";
+import InPMIssueDetails from "./patient/inPMIssueDetails/InPMIssueDetails";
+import VizAllInpMIssue from "./patient/VizAllInPMIssue/VizAllInPMIssue";
 
 export {
   DDetails,
@@ -100,4 +116,20 @@ export {
   VizAllGuardian,
   Admission,
   AdmissionDetails,
+  VizAllAdmissions,
+  Supplier,
+  SupplierDetails,
+  VizAllSuppliers,
+  MedicineCategory,
+  VizAllMedicineCat,
+  Medicine,
+  MedicineDetails,
+  PurchaseOrder,
+  VizAllPurchaseO,
+  Visit,
+  VisitDetails,
+  VizAllVisits,
+  InPMedicineIssue,
+  InPMIssueDetails,
+  VizAllInpMIssue,
 };

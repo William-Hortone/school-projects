@@ -59,9 +59,35 @@ const AdminDashboard = () => {
                 title1="In Patient Details"
                 title2="Add Guardian"
                 title3="Patient Admission"
+                title4="Doctor Visit"
+                title5="In Patient M. Issue"
+                title6="Medicine ORder"
                 link1="/adminDashboard/inPatients"
                 link2="/adminDashboard/addGuardian"
                 link3="/adminDashboard/admission"
+                link4="/adminDashboard/visit"
+                link5="/adminDashboard/inPMI"
+                link6="/adminDashboard/medicineOrder"
+              />
+              <ButtonMenu
+                setShowList={setShowList}
+                title="Suppliers"
+                title1="Supplier Details"
+                // title2="Add Guardian"
+                // title3="Patient Admission"
+                link1="/adminDashboard/supplier"
+                // link2="/adminDashboard/addGuardian"
+                // link3="/adminDashboard/admission"
+              />
+              <ButtonMenu
+                setShowList={setShowList}
+                title="Medicine"
+                title1="Medicine Category"
+                title2="Add Medicine"
+                title3="Purchase Order"
+                link1="/adminDashboard/medicineCategory"
+                link2="/adminDashboard/medicine"
+                link3="/adminDashboard/purchaseOrder"
               />
               {/* <ButtonMenu
                 setShowList={setShowList}

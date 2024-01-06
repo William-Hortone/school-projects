@@ -20,6 +20,14 @@ const AddHospitalSerAppRoutes = require("./routes/addHospitalService");
 const OutPTreatmentRoutes = require("./routes/outPTreatmentInfos");
 const InPatientsRoutes = require("./routes/InPatientInfos");
 const GuardiansRoutes = require("./routes/guardianDetails");
+const AdmissionRoutes = require("./routes/admissionInfos");
+const SupplierRoutes = require("./routes/supplierInfos");
+const MedicineCatRoutes = require("./routes/medicineCatInfos");
+const MedicineRoutes = require("./routes/medicineInfos");
+const PurchaseORoutes = require("./routes/purchaseOrderDetails");
+const VisitsRoutes = require("./routes/visitInfos");
+const InPMIssueRoutes = require("./routes/InPMIssueInfos");
+const MedicineOrderRoutes = require("./routes/medicineOrderInfos");
 
 const app = express();
 app.use(express.json());
@@ -67,6 +75,18 @@ app.use(OutPTreatmentRoutes);
 app.use(InPatientsRoutes);
 
 app.use(GuardiansRoutes);
+
+app.use(AdmissionRoutes);
+
+app.use(SupplierRoutes);
+
+app.use(MedicineCatRoutes);
+
+app.use(MedicineRoutes);
+app.use(PurchaseORoutes);
+app.use(VisitsRoutes);
+app.use(InPMIssueRoutes);
+app.use(MedicineOrderRoutes);
 
 app.listen(3001, () => {
   console.log("The server is running");

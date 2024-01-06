@@ -17,21 +17,35 @@ import {
   CancelServiceApp,
   DDetails,
   Dashboard,
+  InPMIssueDetails,
+  InPMedicineIssue,
   InPatients,
   MedicalServices,
+  Medicine,
+  MedicineCategory,
+  MedicineDetails,
   OutPTreatment,
   OutPatient,
+  PurchaseOrder,
   RoomDetails,
   ServiceScheduling,
+  Supplier,
   ViewAllUsers,
   ViewHospitalSD,
   ViewWardDetails,
+  Visit,
+  VizAllAdmissions,
   VizAllBeds,
   VizAllGuardian,
   VizAllInPatients,
+  VizAllInpMIssue,
+  VizAllMedicineCat,
   VizAllOPtreatment,
   VizAllOutPatient,
+  VizAllPurchaseO,
   VizAllRooms,
+  VizAllSuppliers,
+  VizAllVisits,
   VizDocSchedule,
   VizDoctorDetails,
   VizHospitalSer,
@@ -49,6 +63,8 @@ import fetchMedicalService, {
 import fetchRoomsDetails from "./redux/actions/room.action";
 import fetchWardDetails from "./redux/actions/ward.actions";
 import { IS_USER_LOGIN, REMOVE_ACTIVE_USER } from "./redux/slice/userSlide";
+import VizAllMedicine from "./containers/patient/vizAllMedicine/VizAllMedicine";
+import MedicineOrder from "./containers/patient/Medicineorder/MedicineOrder";
 
 function App() {
   const dispatch = useDispatch();
@@ -107,6 +123,13 @@ function App() {
           <Route path="/VizAllOPtreatment" element={<VizAllOPtreatment />} />
           <Route path="/VizAllInPatient" element={<VizAllInPatients />} />
           <Route path="/VizAllGuardian" element={<VizAllGuardian />} />
+          <Route path="/VizAllAdmissions" element={<VizAllAdmissions />} />
+          <Route path="/VizAllSuppliers" element={<VizAllSuppliers />} />
+          <Route path="/VizAllMedicineCat" element={<VizAllMedicineCat />} />
+          <Route path="/VizAllMedicine" element={<VizAllMedicine />} />
+          <Route path="/vizAllPurchaseO" element={<VizAllPurchaseO />} />
+          <Route path="/vizAllVisits" element={<VizAllVisits />} />
+          <Route path="/vizAllInPMIssue" element={<VizAllInpMIssue />} />
 
           {/* Routes on the dashboard */}
           <Route path="/adminDashboard" element={<AdminDashboard />}>
@@ -150,6 +173,25 @@ function App() {
               element={<AddGuardian />}
             />
             <Route path="/adminDashboard/admission" element={<Admission />} />
+            <Route path="/adminDashboard/supplier" element={<Supplier />} />
+            <Route
+              path="/adminDashboard/medicineCategory"
+              element={<MedicineCategory />}
+            />
+            <Route path="/adminDashboard/medicine" element={<Medicine />} />
+            <Route
+              path="/adminDashboard/purchaseOrder"
+              element={<PurchaseOrder />}
+            />
+            <Route path="/adminDashboard/visit" element={<Visit />} />
+            <Route
+              path="/adminDashboard/inPMI"
+              element={<InPMIssueDetails />}
+            />
+            <Route
+              path="/adminDashboard/medicineOrder"
+              element={<MedicineOrder />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

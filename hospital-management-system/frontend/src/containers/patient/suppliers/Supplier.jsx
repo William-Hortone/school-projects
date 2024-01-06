@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
-import AdmissionDetails from "../admissionDetails/AdmissionDetails";
+import SupplierDetails from "../supplierDetails/SupplierDetails";
 // import { ButtonAction, ButtonSkip, Input } from "../../../components";
 // import InPatientDetails from "../inPatientDetails/InpatientDetails";
 
-const Admission = () => {
+const Supplier = () => {
   const [openScheduling, setOpenScheduling] = useState(false);
   const [openPage, setOpenPage] = useState(false);
   const [openScheduleDelete, setOpenScheduleDelete] = useState(false);
@@ -63,7 +63,7 @@ const Admission = () => {
     navigate("/adminDashboard/dashboard");
   };
   const handleViewAll = () => {
-    navigate("/VizAllAdmissions");
+    navigate("/VizAllSuppliers");
   };
   const showSchedulingToDelete = () => {
     setOpenScheduleDelete(true);
@@ -104,40 +104,40 @@ const Admission = () => {
   return (
     <>
       <div className="appScheduling">
-        <h2 className="page-title">PATIENT ADMISSION</h2>
+        <h2 className="page-title">SUPPLIERS</h2>
         <div className="appScheduling-container">
           <div className="details-title">
-            <h4>Admission Details</h4>
+            <h4>Suppliers Details</h4>
             <div className="divider" />
           </div>
           <form>
             <div className="container" style={{ border: "none" }}>
               <div className="container-wrapper">
                 <div className="input-fields">
-                  <label form="admission">Admission ID:</label>
+                  <label form="patientID">Patient ID:</label>
                   <Input
-                    placeholder="Admission ID"
-                    name="admissionID"
-                    // value={inputs.admission}
+                    placeholder="Patient ID"
+                    name="patientID"
+                    // value={inputs.patientID}
                     // handleOnChange={handleOnChange}
                     // inputDisabled={disabledInput || addOnSubmit ? "true" : ""}
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="patientID">Patient ID:</label>
+                  <label form="firstName">First Name:</label>
                   <Input
-                    placeholder="Patient ID"
-                    name="patientID"
+                    placeholder="First Name"
+                    name="firstName"
                     // value={inputs.firstName}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="admissionDate">Admission Date:</label>
+                  <label form="lastName">Last Name:</label>
                   <Input
-                    placeholder="Admission Date"
-                    name="admissionDate"
+                    placeholder="Last Name"
+                    name="lastName"
                     // value={inputs.lastName}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
@@ -145,71 +145,127 @@ const Admission = () => {
                 </div>
 
                 <div className="input-fields">
-                  <label form="blood">Emergency :</label>
+                  <label form="blood">Date of born :</label>
                   <Input
-                    placeholder="Emergency"
-                    name="emergency"
+                    placeholder="Blood type"
+                    name="blood"
                     // value={inputs.blood}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="blood">Room / Ward :</label>
+                  <label form="blood">Blood :</label>
                   <Input
-                    placeholder="Room / Ward "
-                    name="place"
+                    placeholder="Blood type"
+                    name="blood"
                     // value={inputs.blood}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
+                </div>
+                <div className="input-fields">
+                  <label form="weight">Weight (Kg) :</label>
+                  <Input
+                    placeholder="Weight"
+                    name="weight"
+                    // value={inputs.weight}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+
+                <div className="input-field">
+                  <label form="notes"> Notes:</label>
+                  <textarea
+                    placeholder="Notes"
+                    name="notes"
+                    // value={inputs.notes}
+                    // onChange={handleOnChange}
+                    id="notes"
+                    cols="39"
+                    rows="10"
+                  ></textarea>
                 </div>
               </div>
 
               <div className="container-wrapper">
                 <div className="input-fields">
-                  <label form="status">Guardian:</label>
+                  <label form="status">Gender:</label>
                   <Input
-                    placeholder="guardian"
-                    name="guardian"
+                    placeholder="Status"
+                    name="status"
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="status">Admission Time:</label>
+                  <label form="status">Status:</label>
                   <Input
-                    placeholder="Admission Time"
-                    name="admissionTime"
+                    placeholder="Status"
+                    name="status"
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="weight">Reffered Doctor :</label>
+                  <label form="weight">NIC Number :</label>
                   <Input
-                    placeholder="Reffered Doctor"
-                    name="refferedDoctor"
+                    placeholder="NIC Number"
+                    name="nicNumber"
                     // value={inputs.nicNumber}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="status">BedID:</label>
+                  <label form="status">Height:</label>
                   <Input
-                    placeholder="BedID"
-                    name="bedID"
+                    placeholder="Height"
+                    name="height"
                     // value={inputs.height}
                     // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
+                </div>
+                <div className="input-fields">
+                  <label form="telephone">Telephone:</label>
+                  <Input
+                    placeholder="Telephone"
+                    name="telephone"
+                    // value={inputs.telephone}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="telephone"> Home phone:</label>
+                  <Input
+                    placeholder=" Home phone"
+                    name="homePhone"
+                    // value={inputs.homePhone}
+                    // // handleOnChange={handleOnChange}
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-field">
+                  <label form="address"> Address:</label>
+                  <textarea
+                    placeholder="address"
+                    name="address"
+                    id="address"
+                    cols="39"
+                    rows="10"
+                    // // onChange={handleOnChange}
+                    // value={inputs.address}
+                  ></textarea>
                 </div>
               </div>
             </div>
           </form>
         </div>
 
+        {/* table to see details */}
         {/* <div className="appScheduling-table">
           <table>
             <thead>
@@ -351,7 +407,7 @@ const Admission = () => {
         {openPage && (
           <div className="popup-wrapper">
             <div className="popup">
-              <AdmissionDetails
+              <SupplierDetails
                 setOpenScheduling={setOpenScheduling}
                 setOpenScheduleDelete={setOpenScheduleDelete}
                 openScheduleDelete={openScheduleDelete}
@@ -366,4 +422,4 @@ const Admission = () => {
   );
 };
 
-export default Admission;
+export default Supplier;
