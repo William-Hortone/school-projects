@@ -35,6 +35,7 @@ const AdmissionDetails = ({
   const [pickedTime, setPickedTime] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [theBedId, setTheBedId] = useState("");
+  const [bedStatus, setBedStatus] = useState("");
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
   const [roomIsSelected, setRoomIsSelected] = useState(true);
@@ -45,9 +46,6 @@ const AdmissionDetails = ({
   const [allGuardians, setAllGuardians] = useState([]);
   const [allAdmission, setAllAdmission] = useState([]);
   const [allDoctors, setAllDoctors] = useState([]);
-
-  //   const roomsDetails = useSelector(selectRoomsDetails);
-  //   const wardsDetails = useSelector(selectWardDetails);
 
   // To Get all the available beds
   const API_URL = "http://localhost:3001/getBedsDetails";
@@ -143,20 +141,39 @@ const AdmissionDetails = ({
     }
   };
 
-  // Function to add a new bed
+  // Function to add a new admission
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (
+      inputs.bedAvailability === undefined ||
+      inputs.bedAvailability === "" ||
+      inputs.bedAvailability != "the bed is available"
+    ) {
+      toast.error("Please select an available bed");
+    } else {
+      const handleChangeBedStatus = (theBedId) => {
+        const result = allBeds.filter((beds) => beds.bedID === theBedId);
+        console.log("the result", result);
+        if (result.length > 0) {
+          if (result[0].isOccupied === false) {
+            result[0].isOccupied = true;
+          }
+        }
+      };
 
-    axios
-      .post("http://localhost:3001/addAdmission", inputs)
-      .then((res) => {
-        toast.success("Added successfully");
-      })
-      .catch((err) => toast.error(err));
+      handleChangeBedStatus(theBedId);
+
+      axios
+        .post("http://localhost:3001/addAdmission", inputs)
+        .then((res) => {
+          toast.success("Added successfully");
+        })
+        .catch((err) => toast.error(err));
+    }
   };
 
   // Function to update an bed details
-  const handleSubmitEditDoctor = (e, theBedId) => {
+  const handleSubmitEdit = (e, theBedId) => {
     e.preventDefault();
 
     axios
@@ -271,6 +288,37 @@ const AdmissionDetails = ({
     }));
   }, [selectedDate]);
 
+  useEffect(() => {
+    setInputs((prev) => ({
+      ...prev,
+      bedAvailability: bedStatus,
+    }));
+  }, [bedStatus]);
+
+  // useEffect(() => {}, [selectedDate]);
+
+  // To filter the SUPPLIers according to the supplier selected
+  useEffect(() => {
+    const handleFilter = (theBedId) => {
+      const result = allBeds.filter((beds) => beds.bedID === theBedId);
+      console.log("the result", result);
+      if (result.length > 0) {
+        if (result[0].isOccupied === false) {
+          setBedStatus("the bed is available");
+          console.log("the bed is available");
+          console.log("the bed is bedStatus", bedStatus);
+        } else {
+          console.log("the bed is not available");
+          setBedStatus("the bed is not available");
+          console.log("the bed status", bedStatus);
+        }
+      }
+      // setAllSupplierFiltered(result);
+    };
+
+    handleFilter(theBedId);
+  }, [theBedId, allBeds, bedStatus]);
+
   //  Set the format for the time
   useEffect(() => {
     if (pickedTime) {
@@ -298,9 +346,7 @@ const AdmissionDetails = ({
 
           <form
             onSubmit={
-              addOnSubmit
-                ? handleSubmit
-                : (e) => handleSubmitEditDoctor(e, theBedId)
+              addOnSubmit ? handleSubmit : (e) => handleSubmitEdit(e, theBedId)
             }
           >
             <div className="form-left-box" style={{ maxWidth: "60%" }}>
