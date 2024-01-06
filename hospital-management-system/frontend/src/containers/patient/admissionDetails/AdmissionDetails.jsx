@@ -142,33 +142,91 @@ const AdmissionDetails = ({
   };
 
   // Function to add a new admission
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (
+  //     inputs.bedAvailability === undefined ||
+  //     inputs.bedAvailability === "" ||
+  //     inputs.bedAvailability != "the bed is available"
+  //   ) {
+  //     toast.error("Please select an available bed");
+  //   } else {
+  //     const handleChangeBedStatus = (theBedId) => {
+  //       const result = allBeds.filter((beds) => beds.bedID === theBedId);
+  //       console.log("the result", result);
+  //       if (result.length > 0) {
+  //         if (result[0].isOccupied === false) {
+  //           result[0].isOccupied = true;
+  //         }
+  //       }
+  //     };
+
+  //     handleChangeBedStatus(theBedId);
+
+  //     axios
+  //       .post("http://localhost:3001/addAdmission", inputs)
+  //       .then((res) => {
+  //         toast.success("Added successfully");
+  //       })
+  //       .catch((err) => toast.error(err));
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // const handleChangeBedStatus = (theBedId) => {
+
+    //   const result = allBeds.filter((beds) => beds.bedID === theBedId);
+
+    //   console.log("the result", result);
+    //   if (result.length > 0) {
+    //     if (result[0].isOccupied === false) {
+    //       result[0].isOccupied = true;
+    //     }
+    //   }
+    // };
+
+    // Function to update an bed details
+    // const handleSubmitEditBed = (e, theBedId) => {
+    //   e.preventDefault();
+
+    // };
+
     if (
       inputs.bedAvailability === undefined ||
       inputs.bedAvailability === "" ||
-      inputs.bedAvailability != "the bed is available"
+      inputs.bedAvailability !== "the bed is available"
     ) {
       toast.error("Please select an available bed");
     } else {
-      const handleChangeBedStatus = (theBedId) => {
-        const result = allBeds.filter((beds) => beds.bedID === theBedId);
-        console.log("the result", result);
-        if (result.length > 0) {
-          if (result[0].isOccupied === false) {
-            result[0].isOccupied = true;
-          }
-        }
-      };
+      try {
+        // await handleSubmitEditBed(theBedId);
 
-      handleChangeBedStatus(theBedId);
+        axios
+          .put(`http://localhost:3001/updateBedStatus/${theBedId}`)
+          .then((res) => {
+            if (res.data === "success") {
+              toast.success("Bed status updated ");
+            } else if (res.data === "notfound") {
+              toast.error("Wrong ID");
+            } else {
+              toast.error("An error occurred while updating ");
+            }
+          })
+          .catch((err) => {
+            toast.error(err);
+          });
 
-      axios
-        .post("http://localhost:3001/addAdmission", inputs)
-        .then((res) => {
-          toast.success("Added successfully");
-        })
-        .catch((err) => toast.error(err));
+        axios
+          .post("http://localhost:3001/addAdmission", inputs)
+          .then((res) => {
+            toast.success("Admission added successfully");
+          })
+          .catch((err) => toast.error(err));
+      } catch (error) {
+        toast.error("Error handling bed status: " + error.message);
+      }
     }
   };
 
