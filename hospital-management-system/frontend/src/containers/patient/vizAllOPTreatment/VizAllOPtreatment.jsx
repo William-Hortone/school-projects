@@ -59,7 +59,7 @@ const VizAllOPtreatment = () => {
       <Header />
       <div className="app__vDoctorDetails">
         <div>
-          <h1> Bed Details</h1>
+          <h1>Out patient Treatment Details</h1>
 
           <div className="app__vDoctorDetails-container">
             <table>

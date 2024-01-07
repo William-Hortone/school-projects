@@ -1,30 +1,23 @@
 .app__dashboard {
   width: 100%;
   height: auto;
-  /* background-color: aquamarine; */
-  /* display: flex; */
-  /* flex-direction: row; */
   padding-top: 2rem;
 }
 .app__dashboard-container {
   width: 96%;
   height: 100vh;
-  /* background-color: rgb(234, 127, 255); */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin: 4rem auto;
   gap: 1rem;
-  /* padding: 2rem; */
-  /* flex-direction: column; */
 }
 .app__dashboard-container-header {
   width: 100%;
   height: auto;
   display: flex;
   justify-content: space-between;
-  /* background-color: rebeccapurple; */
 }
 .container-header {
   height: 100px;
@@ -112,7 +105,7 @@
 .container_content {
   /* flex: 1; */
   /* width: 200px; */
-  height: 300px !important;
+  min-height: 300px !important;
   background-color: #fff;
   border-radius: 10px;
   -webkit-box-shadow: 17px 13px 29px 0px rgba(0, 0, 0, 0.42);

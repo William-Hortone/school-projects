@@ -115,7 +115,7 @@ const Visit = () => {
             <div className="container" style={{ border: "none" }}>
               <div className="container-wrapper">
                 <div className="input-fields">
-                  <label form="patientID">Patient ID:</label>
+                  <label form="patientID">Visit ID:</label>
                   <Input
                     placeholder="Patient ID"
                     name="patientID"
@@ -125,132 +125,68 @@ const Visit = () => {
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="firstName">First Name:</label>
+                  <label form="firstName"> Patient ID:</label>
                   <Input
                     placeholder="First Name"
                     name="firstName"
                     // value={inputs.firstName}
-                    // // handleOnChange={handleOnChange}
+
                     inputDisabled="true"
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="lastName">Last Name:</label>
+                  <label form="lastName">Doctor ID :</label>
                   <Input
                     placeholder="Last Name"
                     name="lastName"
                     // value={inputs.lastName}
-                    // // handleOnChange={handleOnChange}
+
                     inputDisabled="true"
                   />
                 </div>
 
                 <div className="input-fields">
-                  <label form="blood">Date of born :</label>
+                  <label form="blood"> Admission ID</label>
                   <Input
                     placeholder="Blood type"
                     name="blood"
                     // value={inputs.blood}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
-                  <label form="blood">Blood :</label>
-                  <Input
-                    placeholder="Blood type"
-                    name="blood"
-                    // value={inputs.blood}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
-                  <label form="weight">Weight (Kg) :</label>
-                  <Input
-                    placeholder="Weight"
-                    name="weight"
-                    // value={inputs.weight}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
 
-                <div className="input-field">
-                  <label form="notes"> Notes:</label>
-                  <textarea
-                    placeholder="Notes"
-                    name="notes"
-                    // value={inputs.notes}
-                    // onChange={handleOnChange}
-                    id="notes"
-                    cols="39"
-                    rows="10"
-                  ></textarea>
+                    inputDisabled="true"
+                  />
+                </div>
+                <div className="input-fields">
+                  <label form="blood">status :</label>
+                  <Input
+                    placeholder="Blood type"
+                    name="blood"
+                    // value={inputs.blood}
+
+                    inputDisabled="true"
+                  />
                 </div>
               </div>
 
               <div className="container-wrapper">
                 <div className="input-fields">
-                  <label form="status">Gender:</label>
+                  <label form="status">Visit Date :</label>
                   <Input
                     placeholder="Status"
                     name="status"
-                    // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
                 <div className="input-fields">
-                  <label form="status">Status:</label>
+                  <label form="status">Visit Time :</label>
                   <Input
                     placeholder="Status"
                     name="status"
-                    // // handleOnChange={handleOnChange}
                     inputDisabled="true"
                   />
                 </div>
-                <div className="input-fields">
-                  <label form="weight">NIC Number :</label>
-                  <Input
-                    placeholder="NIC Number"
-                    name="nicNumber"
-                    // value={inputs.nicNumber}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
-                  <label form="status">Height:</label>
-                  <Input
-                    placeholder="Height"
-                    name="height"
-                    // value={inputs.height}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
-                  <label form="telephone">Telephone:</label>
-                  <Input
-                    placeholder="Telephone"
-                    name="telephone"
-                    // value={inputs.telephone}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
-                <div className="input-fields">
-                  <label form="telephone"> Home phone:</label>
-                  <Input
-                    placeholder=" Home phone"
-                    name="homePhone"
-                    // value={inputs.homePhone}
-                    // // handleOnChange={handleOnChange}
-                    inputDisabled="true"
-                  />
-                </div>
+
                 <div className="input-field">
-                  <label form="address"> Address:</label>
+                  <label form="address"> Description:</label>
                   <textarea
                     placeholder="address"
                     name="address"
@@ -314,7 +250,10 @@ const Visit = () => {
 
         {/* Container buttons */}
         <div className="container-btn-menus-actions">
-          <div className="appScheduling-container-menus">
+          <div
+            className="appScheduling-container-menus"
+            style={{ flexDirection: "column" }}
+          >
             <div>
               <div className="input-record appSchedule-container-menu-header">
                 <ButtonSkip
@@ -385,20 +324,6 @@ const Visit = () => {
                     onClick={handleViewAll}
                   />
                 </div>
-                <aside
-                  className="action-options-wrapper"
-                  style={{ height: 230, justifyContent: "center" }}
-                >
-                  <div className="btn-action-box" style={{ marginTop: 0 }}>
-                    <ButtonAction
-                      iconName="guardian"
-                      btnName="Add Guardian"
-                      color="green"
-                      buttonType="submit"
-                      onClick={handleAddGuardian}
-                    />
-                  </div>
-                </aside>
               </div>
             </div>
           </div>

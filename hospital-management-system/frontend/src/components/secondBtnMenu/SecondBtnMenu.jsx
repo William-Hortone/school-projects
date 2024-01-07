@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./buttonMenu.css";
 import { Link, useLocation } from "react-router-dom";
 
-const ButtonMenu = ({
+const SecondBtnMenu = ({
   setShowList,
   title,
   title1,
@@ -45,7 +44,6 @@ const ButtonMenu = ({
 
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick);
-
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
@@ -94,7 +92,7 @@ const ButtonMenu = ({
           >
             {title3}
           </Link>
-          {/* <Link
+          <Link
             onClick={handleHideList}
             className={`buttonMenu-list ${isActive(link4) ? "activeLink" : ""}`}
             to={link4}
@@ -114,11 +112,11 @@ const ButtonMenu = ({
             to={link6}
           >
             {title6}
-          </Link> */}
+          </Link>
         </ul>
       )}
     </div>
   );
 };
 
-export default ButtonMenu;
+export default SecondBtnMenu;

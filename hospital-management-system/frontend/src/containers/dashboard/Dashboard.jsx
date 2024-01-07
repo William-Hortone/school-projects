@@ -68,7 +68,6 @@ const Dashboard = () => {
     navigate("/vizDoctorD");
   };
   const doctorDetails = useSelector(selectDoctorDetails);
-  // const docAppDetails = useSelector(selectDocAppointment);
   // To Get all the available Appointments
   const API_URL = "http://localhost:3001/getDocAppointments";
   const API_URL_APPOINTMENT = "http://localhost:3001/getAddHospitalSerApp";
