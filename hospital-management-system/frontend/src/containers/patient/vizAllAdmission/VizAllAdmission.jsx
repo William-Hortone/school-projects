@@ -10,7 +10,7 @@ const VizAllAdmissions = () => {
   const [hideData, setHideDada] = useState(false);
   const [hideDataSearched, setHideDataSearched] = useState(true);
 
-  const [allGuardians, setAllGuardians] = useState([]);
+  const [allAdmissions, setAllAdmissions] = useState([]);
   const navigate = useNavigate();
 
   // To Get all the available getGuardian
@@ -18,7 +18,7 @@ const VizAllAdmissions = () => {
 
   const fetchData = async () => {
     const { data } = await axios.get(API_URL);
-    setAllGuardians(data);
+    setAllAdmissions(data);
   };
 
   useEffect(() => {
@@ -29,14 +29,14 @@ const VizAllAdmissions = () => {
   const handleSearch = () => {
     // search by the guardian ID
     if (searchOptions === "guardianID") {
-      const result = allGuardians.filter(
+      const result = allAdmissions.filter(
         (guardian) => guardian.guardianID === searchTerm
       );
       setSearchResult(result);
     }
     // search by the patientId
     else if (searchOptions === "patientId") {
-      const result = allGuardians.filter(
+      const result = allAdmissions.filter(
         (guardian) => guardian.patientID === searchTerm
       );
       setSearchResult(result);
@@ -73,13 +73,12 @@ const VizAllAdmissions = () => {
                   <th>admissionTime</th>
                   <th>bedID</th>
                   <th>bedPlace</th>
-                  {/* <th>Home phone</th> */}
                   <th>emergency</th>
                 </tr>
               </thead>
               <tbody>
                 {!hideData &&
-                  allGuardians.map((guardian, index) => {
+                  allAdmissions.map((guardian, index) => {
                     return (
                       <tr className="doctor-infos" key={index}>
                         <td>{guardian.admissionID}</td>

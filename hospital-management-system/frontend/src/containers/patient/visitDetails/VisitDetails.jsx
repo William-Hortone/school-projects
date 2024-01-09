@@ -8,7 +8,7 @@ import { ButtonAction, ButtonSkip, Input } from "../../../components";
 const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   const [inputs, setInputs] = useState({
     visitID: "",
-    patientId: "",
+    patientID: "",
     doctorId: "",
     date: "",
     admissionID: "",
@@ -18,35 +18,24 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   });
 
   const [allDOctors, setAllDOctors] = useState([]);
-  const [allOutPatients, setAllOutPatients] = useState([]);
-  const [allOutPTreatment, setAllOutPTreatment] = useState([]);
+  const [allAdFiltered, setAllAdFiltered] = useState([]);
   const [allAdmission, setAllAdmission] = useState([]);
   const [allVisits, setAllVisits] = useState([]);
   const [id, setId] = useState("");
+  const [adId, setAdId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState("");
   const [pickedTime, setPickedTime] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [showPopupDelete, setShowPopupDelete] = useState(false);
 
-  // To Get all the available Treatments
-  const API_URL = "http://localhost:3001/getOutPTreatment";
   const API_URL_DOCTORS = "http://localhost:3001/getDoctors";
-  const API_URL_PATIENTS = "http://localhost:3001/getInPatientsDetails";
   const API_URL_ADMISSION = "http://localhost:3001/getAdmissionDetails";
   const API_URL_VISITS = "http://localhost:3001/getVisitDetails";
 
-  const fetchData = async () => {
-    const { data } = await axios.get(API_URL);
-    setAllOutPTreatment(data);
-  };
   const fetchDoctorsData = async () => {
     const { data } = await axios.get(API_URL_DOCTORS);
     setAllDOctors(data);
-  };
-  const fetchDataOPatients = async () => {
-    const { data } = await axios.get(API_URL_PATIENTS);
-    setAllOutPatients(data);
   };
   const fetchDataAdmission = async () => {
     const { data } = await axios.get(API_URL_ADMISSION);
@@ -58,9 +47,7 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   };
 
   useEffect(() => {
-    fetchData();
     fetchDoctorsData();
-    fetchDataOPatients();
     fetchDataAdmission();
     fetchDataVisit();
   }, []);
@@ -74,8 +61,8 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   };
 
   useEffect(() => {
-    setId(inputs.treatmentId);
-  }, [inputs.treatmentId]);
+    setId(inputs.visitID);
+  }, [inputs.visitID]);
 
   //  Set the format for the Date
   useEffect(() => {
@@ -155,12 +142,12 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
       .catch((err) => toast.error(err));
   };
 
-  // function to Edit a Out patient treatment details
-  const handleSubmitEditInfos = (e, ID) => {
+  // function to Edit a doctor visit details
+  const handleSubmitEditInfos = (e, id) => {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:3001/editOutPTreatment/${ID}`, inputs)
+      .put(`http://localhost:3001/editVisits/${id}`, inputs)
       .then((res) => {
         if (res.data === "success") {
           toast.success("Updated successfully");
@@ -180,24 +167,28 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   };
 
   // Automatically fill the form when click on one element of the table
-  const handleUpdateInfos = (treatment) => {
+  const handleUpdateInfos = (visit) => {
     if (!addOnSubmit) {
       setInputs({
-        treatmentId: treatment.treatmentId,
-        patientId: treatment.patientId,
-        doctorId: treatment.doctorId,
-        prescription: treatment.prescription,
-        description: treatment.description,
+        visitID: visit.visitID,
+        patientId: visit.patientId,
+        admissionID: visit.admissionID,
+        doctorId: visit.doctorId,
+        date: visit.date,
+        time: visit.time,
+        prescription: visit.prescription,
+        description: visit.description,
+        status: visit.status,
       });
-      setSelectedDate(treatment.date);
-      setSelectedTime(treatment.time);
+      setSelectedDate(visit.date);
+      setSelectedTime(visit.time);
       // setDisabledInput(true);
     }
   };
 
   const handleDelete = () => {
     if (id === undefined || id === "") {
-      toast.error("Please provide a out patient ID");
+      toast.error("Please provide a visit ID");
     } else {
       setShowPopupDelete(true);
     }
@@ -207,13 +198,13 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     setShowPopupDelete(false);
   };
 
-  // Function to Delete an Out patient
-  const handleDeleteAppointment = (id) => {
+  // Function to Delete an visit
+  const handleDeleteVisit = (id) => {
     if (id === undefined || id === "") {
-      toast.error("Please provide a out patient treatment ID");
+      toast.error("Please provide a visit ID");
     } else {
       axios
-        .put(`http://localhost:3001/deleteOutPTreatment/${id}`)
+        .put(`http://localhost:3001/deleteVisit/${id}`)
         .then((res) => {
           if (res.data === "success") {
             toast.success("Deleted Successfully");
@@ -225,10 +216,35 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
         .catch((error) => {
           toast.error(error);
         });
-      // handleRefresh();
     }
     setShowPopupDelete(false);
   };
+
+  useEffect(() => {
+    setAdId(inputs.admissionID);
+  }, [inputs.admissionID]);
+
+  // To filter admissions according to the admission selected
+  useEffect(() => {
+    const handleFilter = (id) => {
+      const result = allAdmission.filter(
+        (admission) => admission.admissionID === id
+      );
+      setAllAdFiltered(result);
+    };
+
+    handleFilter(adId);
+  }, [adId, allAdmission]);
+
+  // Assign the patient value  according to the admission selected
+  useEffect(() => {
+    if (allAdFiltered.length > 0) {
+      setInputs((prev) => ({
+        ...prev,
+        patientID: allAdFiltered[0].patientID,
+      }));
+    }
+  }, [allAdFiltered]);
 
   return (
     <div className="app-container">
@@ -256,25 +272,36 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
               </div>
 
               <div className="input-field doctor-types">
-                <label htmlFor="patientId"> Patient ID :</label>
+                <label htmlFor="admissionId"> Admission ID :</label>
                 <div>
                   <select
-                    name="patientId"
-                    id="patientId"
-                    value={inputs.patientId}
+                    name="admissionID"
+                    id="admissionId"
+                    value={inputs.admissionID}
                     onChange={handleOnChange}
                     required
                   >
                     <option required value="">
-                      Select a patient ID
+                      Select a Admission
                     </option>
-                    {allOutPatients.map((patient, index) => (
-                      <option key={index} value={patient.patientID}>
-                        {patient.patientID}
+                    {allAdmission.map((admission, index) => (
+                      <option key={index} value={admission.admissionID}>
+                        {admission.admissionID}
                       </option>
                     ))}
                   </select>
                 </div>
+              </div>
+
+              <div className="input-field">
+                <label form="schedulingId">Patients ID:</label>
+                <Input
+                  inputDisabled="true"
+                  handleOnChange={handleOnChange}
+                  placeholder="Patient ID"
+                  name="patientID"
+                  value={inputs.patientID}
+                />
               </div>
 
               <div className="input-field doctor-types">
@@ -299,27 +326,6 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                 </div>
               </div>
 
-              <div className="input-field doctor-types">
-                <label htmlFor="admissionId"> Admission ID :</label>
-                <div>
-                  <select
-                    name="admissionID"
-                    id="admissionId"
-                    value={inputs.admissionID}
-                    onChange={handleOnChange}
-                    required
-                  >
-                    <option required value="">
-                      Select a Admission
-                    </option>
-                    {allAdmission.map((admission, index) => (
-                      <option key={index} value={admission.admissionID}>
-                        {admission.admissionID}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
               <div className="input-field">
                 <label form="schedulingId">status :</label>
                 <Input
@@ -330,19 +336,6 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                 />
               </div>
 
-              {/* <div className="input-field">
-                <label htmlFor="prescription">Prescription :</label>
-                <textarea
-                  placeholder="Prescription"
-                  name="prescription"
-                  id="prescription"
-                  cols="39"
-                  rows="10"
-                  value={inputs.prescription}
-                  onChange={handleOnChange}
-                  // disabled
-                ></textarea>
-              </div> */}
               {!openScheduleDelete && (
                 <button type="submit" className="submit-btn">
                   Submit
@@ -414,24 +407,26 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
         </form>
       </div>
 
-      {/* <div className="appScheduling-table">
+      {/* Table to see and select element to auto complete the form */}
+      <div className="appScheduling-table">
         <table>
           <thead>
             <tr>
-              <th>Treatment ID </th>
+              <th>Visit ID </th>
               <th>Patient ID</th>
               <th>Doctor ID</th>
+              <th>Admission ID</th>
+              <th>status</th>
               <th>Date</th>
               <th>Time</th>
-              <th>Prescription</th>
               <th>Description</th>
             </tr>
           </thead>
           <tbody>
-            {allOutPTreatment.map((treatment, index) => {
+            {allVisits.map((visit, index) => {
               return (
                 <tr
-                  onClick={(e) => handleUpdateInfos(treatment)}
+                  onClick={() => handleUpdateInfos(visit)}
                   className={
                     !addOnSubmit
                       ? "doctor-infos select-doctorID"
@@ -439,19 +434,20 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                   }
                   key={index}
                 >
-                  <td>{treatment.treatmentId}</td>
-                  <td>{treatment.patientId}</td>
-                  <td>{treatment.doctorId}</td>
-                  <td>{treatment.date}</td>
-                  <td>{treatment.time}</td>
-                  <td>{treatment.prescription}</td>
-                  <td>{treatment.description}</td>
+                  <td>{visit.visitID}</td>
+                  <td>{visit.admissionID}</td>
+                  <td>{visit.patientId}</td>
+                  <td>{visit.doctorId}</td>
+                  <td>{visit.date}</td>
+                  <td>{visit.time}</td>
+                  <td>{visit.status}</td>
+                  <td>{visit.description}</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-      </div> */}
+      </div>
 
       {/* Container buttons */}
       <div className="appScheduling-container-menus">
@@ -486,13 +482,11 @@ const VisitDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
           <div className="schedule-delete-popup">
             <p>
               Do you really want to delete <br />
-              the Out Patient treatment with ID of {inputs.treatmentId} ?
+              the Visit with ID of {inputs.visitID} ?
             </p>
             <div className="delete-buttons">
               <button onClick={handleClosePopup}> Cancel</button>
-              <button onClick={() => handleDeleteAppointment(id)}>
-                Delete
-              </button>
+              <button onClick={() => handleDeleteVisit(id)}>Delete</button>
             </div>
           </div>
         </div>

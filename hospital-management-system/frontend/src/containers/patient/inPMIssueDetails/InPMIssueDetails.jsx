@@ -207,22 +207,6 @@ const InPMIssueDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     setOpenPage(false);
   };
 
-  // Automatically fill the form when click on one element of the table
-  //   const handleUpdateInfos = (treatment) => {
-  //     if (!addOnSubmit) {
-  //       setInputs({
-  //         treatmentId: treatment.treatmentId,
-  //         patientId: treatment.patientId,
-  //         doctorId: treatment.doctorId,
-  //         prescription: treatment.prescription,
-  //         description: treatment.description,
-  //       });
-  //       setSelectedDate(treatment.date);
-  //       setSelectedTime(treatment.time);
-  //       // setDisabledInput(true);
-  //     }
-  //   };
-
   const handleDelete = () => {
     if (id === undefined || id === "") {
       toast.error("Please provide a out patient ID");
@@ -236,27 +220,27 @@ const InPMIssueDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   };
 
   // Function to Delete an Out patient
-  const handleDeleteAppointment = (id) => {
-    if (id === undefined || id === "") {
-      toast.error("Please provide a out patient treatment ID");
-    } else {
-      axios
-        .put(`http://localhost:3001/deleteOutPTreatment/${id}`)
-        .then((res) => {
-          if (res.data === "success") {
-            toast.success("Deleted Successfully");
-          }
-          if (res.data === "notfound") {
-            toast.error("Service not found");
-          }
-        })
-        .catch((error) => {
-          toast.error(error);
-        });
-      // handleRefresh();
-    }
-    setShowPopupDelete(false);
-  };
+  // const handleDeleteAppointment = (id) => {
+  //   if (id === undefined || id === "") {
+  //     toast.error("Please provide a out patient treatment ID");
+  //   } else {
+  //     axios
+  //       .put(`http://localhost:3001/deleteOutPTreatment/${id}`)
+  //       .then((res) => {
+  //         if (res.data === "success") {
+  //           toast.success("Deleted Successfully");
+  //         }
+  //         if (res.data === "notfound") {
+  //           toast.error("Service not found");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         toast.error(error);
+  //       });
+  //     // handleRefresh();
+  //   }
+  //   setShowPopupDelete(false);
+  // };
 
   // =========================== //
 
@@ -364,7 +348,7 @@ const InPMIssueDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                 />
               </div>
               <div className="input-field">
-                <label form="schedulingId">Bill NO:</label>
+                <label form="schedulingId">Bill No:</label>
                 <Input
                   //   inputDisabled="true"
                   handleOnChange={handleOnChange}
@@ -373,16 +357,6 @@ const InPMIssueDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                   value={inputs.billNumber}
                 />
               </div>
-              {/* <div className="input-field">
-                <label form="schedulingId">Contact Name:</label>
-                <Input
-                  //   inputDisabled="true"
-                  handleOnChange={handleOnChange}
-                  placeholder="Contact Name"
-                  name="contactName"
-                  value={inputs.contactName}
-                />
-              </div> */}
 
               <div className="input-field doctor-types">
                 <label htmlFor="gender"> Medical Type :</label>
@@ -637,7 +611,7 @@ const InPMIssueDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
       </div>
 
       {/* Delete popup */}
-      {showPopupDelete && (
+      {/* {showPopupDelete && (
         <div style={{ position: "relative" }}>
           <div className="schedule-delete-popup">
             <p>
@@ -652,7 +626,7 @@ const InPMIssueDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

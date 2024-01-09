@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { ButtonMenu, Header } from "../../components";
 import "./adminDashboard.css";
+import SecondBtnMenu from "../../components/secondBtnMenu/SecondBtnMenu";
 
 const AdminDashboard = () => {
   const [showList, setShowList] = useState(false);
@@ -53,7 +54,7 @@ const AdminDashboard = () => {
                 link2="/adminDashboard/outPTreatment"
                 // link3="/adminDashboard/cancelServiceApp"
               />
-              <ButtonMenu
+              <SecondBtnMenu
                 setShowList={setShowList}
                 title="In Patients"
                 title1="In Patient Details"

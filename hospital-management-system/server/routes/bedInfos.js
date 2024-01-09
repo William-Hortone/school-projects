@@ -37,6 +37,24 @@ router.put("/editBedDetails/:theBedId", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+// Update bed status
+router.put("/updateBedStatus/:theBedId", (req, res) => {
+  const id = req.params.theBedId;
+  // const updatedData = req.body;
+  ModelBed.findOneAndUpdate(
+    { bedID: id },
+    { $set: { isOccupied: true } },
+    { new: true }
+  )
+    .then((bed) => {
+      if (!bed) {
+        return res.json("notfound");
+      }
+      return res.json("success");
+    })
+    .catch((err) => res.json(err));
+});
+
 // Delete bed
 router.put("/deleteBed/:theBedId", (req, res) => {
   const id = req.params.theBedId;

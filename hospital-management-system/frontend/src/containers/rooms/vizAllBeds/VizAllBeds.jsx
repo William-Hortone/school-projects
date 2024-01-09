@@ -64,7 +64,7 @@ const VizAllBeds = () => {
                   <th>Bed ID </th>
                   <th>Bed Place </th>
                   <th>Available</th>
-                  <th>Bed Description</th>
+                  {/* <th>Bed Description</th> */}
                   <th>Admission ID</th>
                 </tr>
               </thead>
@@ -76,7 +76,7 @@ const VizAllBeds = () => {
                         <td>{bed.bedID}</td>
                         <td>{bed.bedPlace}</td>
                         <td>{bed.isOccupied ? "No" : "Yes"}</td>
-                        <td>{bed.admissionID}</td>
+                        {/* <td>{bed.admissionID}</td> */}
                         <td>{bed.bedDesc}</td>
                       </tr>
                     );
@@ -89,8 +89,8 @@ const VizAllBeds = () => {
                       <tr className="doctor-infos" key={index}>
                         <td>{bed.bedID}</td>
                         <td>{bed.bedPlace}</td>
-                        <td>{bed.isOccupied}</td>
-                        <td>{bed.admissionID}</td>
+                        <td>{bed.isOccupied ? "No" : "Yes"}</td>
+                        {/* <td>{bed.admissionID}</td> */}
                         <td>{bed.bedDesc}</td>
                       </tr>
                     );

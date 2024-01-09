@@ -176,6 +176,7 @@ const Admission = () => {
                     inputDisabled="true"
                   />
                 </div>
+
                 <div className="input-fields">
                   <label form="status">Admission Time:</label>
                   <Input
@@ -257,7 +258,10 @@ const Admission = () => {
 
         {/* Container buttons */}
         <div className="container-btn-menus-actions">
-          <div className="appScheduling-container-menus">
+          <div
+            className="appScheduling-container-menus"
+            style={{ flexDirection: "column" }}
+          >
             <div>
               <div className="input-record appSchedule-container-menu-header">
                 <ButtonSkip
@@ -328,7 +332,7 @@ const Admission = () => {
                     onClick={handleViewAll}
                   />
                 </div>
-                <aside
+                {/* <aside
                   className="action-options-wrapper"
                   style={{ height: 230, justifyContent: "center" }}
                 >
@@ -341,7 +345,7 @@ const Admission = () => {
                       onClick={handleAddGuardian}
                     />
                   </div>
-                </aside>
+                </aside> */}
               </div>
             </div>
           </div>
