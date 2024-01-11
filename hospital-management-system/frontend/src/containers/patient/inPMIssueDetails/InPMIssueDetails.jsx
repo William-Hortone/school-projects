@@ -242,8 +242,6 @@ const InPMIssueDetails = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   //   setShowPopupDelete(false);
   // };
 
-  // =========================== //
-
   useEffect(() => {
     setSupID(inputs.admissionID);
   }, [inputs.admissionID, supID]);

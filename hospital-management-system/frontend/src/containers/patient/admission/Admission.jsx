@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonAction, ButtonSkip, Input } from "../../../components";
 import AdmissionDetails from "../admissionDetails/AdmissionDetails";
-// import { ButtonAction, ButtonSkip, Input } from "../../../components";
-// import InPatientDetails from "../inPatientDetails/InpatientDetails";
 
 const Admission = () => {
   const [openScheduling, setOpenScheduling] = useState(false);

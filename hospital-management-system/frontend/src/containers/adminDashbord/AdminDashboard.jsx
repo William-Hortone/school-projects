@@ -49,10 +49,10 @@ const AdminDashboard = () => {
                 title="Out Patients"
                 title1="Out Patient Details"
                 title2="Out Patient Treatment"
-                // title3="Cancel Doctor App."
+                title3="Out Patient Bill"
                 link1="/adminDashboard/outPatient"
                 link2="/adminDashboard/outPTreatment"
-                // link3="/adminDashboard/cancelServiceApp"
+                link3="/adminDashboard/ouTPBill"
               />
               <SecondBtnMenu
                 setShowList={setShowList}
@@ -74,11 +74,7 @@ const AdminDashboard = () => {
                 setShowList={setShowList}
                 title="Suppliers"
                 title1="Supplier Details"
-                // title2="Add Guardian"
-                // title3="Patient Admission"
                 link1="/adminDashboard/supplier"
-                // link2="/adminDashboard/addGuardian"
-                // link3="/adminDashboard/admission"
               />
               <ButtonMenu
                 setShowList={setShowList}
@@ -114,27 +110,6 @@ const AdminDashboard = () => {
               <NavLink to="/adminDashboard/bedDetails" className={activeLink}>
                 Add Bed
               </NavLink>
-              {/* <NavLink to="/adminDashboard/outPatient" className={activeLink}>
-                Out Patient
-              </NavLink> */}
-              {/* <NavLink to="/adminDashboard/cancelDocApp" className={activeLink}>
-                Cancel Doctor A.
-              </NavLink> */}
-              {/* <NavLink to="/adminDashboard/outPatient" className={activeLink}>
-                Out Patient
-              </NavLink> */}
-              {/* <NavLink to="/adminDashboard/wardDetails" className={activeLink}>
-                Ward Details
-              </NavLink>
-              <NavLink to="/adminDashboard/addUser" className={activeLink}>
-                Add User
-              </NavLink>
-              <NavLink to="/adminDashboard/bedDetails" className={activeLink}>
-                Add Bed
-              </NavLink>
-              <NavLink to="/adminDashboard/outPatient" className={activeLink}>
-                Out Patient
-              </NavLink> */}
             </ul>
           </div>
         </aside>

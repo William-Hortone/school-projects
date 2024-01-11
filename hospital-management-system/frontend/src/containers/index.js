@@ -65,6 +65,7 @@ import InPMedicineIssue from "./patient/InPMedicineIssue/InPMedicineIssue";
 import InPMIssueDetails from "./patient/inPMIssueDetails/InPMIssueDetails";
 import VizAllInpMIssue from "./patient/VizAllInPMIssue/VizAllInPMIssue";
 import SecondBtnMenu from "../components/secondBtnMenu/SecondBtnMenu";
+import OutPatientBill from "./patient/outPatientBill/OutPatientBIll";
 
 export {
   DDetails,
@@ -134,4 +135,5 @@ export {
   InPMIssueDetails,
   VizAllInpMIssue,
   SecondBtnMenu,
+  OutPatientBill,
 };
