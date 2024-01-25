@@ -15,7 +15,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     productID: "",
     amount: 0,
     discount: 0,
-    totalAmount: 0,
+    totalAmount: "",
     selectedProduct: "",
   });
 
@@ -372,7 +372,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   useEffect(() => {
     const calculateBill = () => {
       // if(selectedPlace === "needMedicine"){
-      let total = 0;
+      let total;
 
       if (selectedPlace === "noNeed") {
         total = 25;
@@ -386,6 +386,10 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
         } else {
           total = amount + 25 - discount;
           console.log("the totale bill is", total);
+          setInputs((prev) => ({
+            ...prev,
+            totalAmount: total,
+          }));
         }
       }
       // const amount = parseInt(inputs.amount);
@@ -418,7 +422,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
         <form onSubmit={handleSubmit}>
           <div className="container-display-infos">
             <div className="container-wrapper">
-              <div className="input-field">
+              {/* <div className="input-field">
                 <label form="schedulingId">Bill ID:</label>
                 <Input
                   //   inputDisabled="true"
@@ -427,7 +431,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                   name="billID"
                   value={inputs.billID}
                 />
-              </div>
+              </div> */}
               <div className="input-field doctor-types">
                 <label htmlFor="gender"> Patient ID:</label>
                 <div>
@@ -453,7 +457,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
               <div className="input-field">
                 <label form="schedulingId">Treatment ID :</label>
                 <Input
-                  //   inputDisabled="true"
+                  inputDisabled="true"
                   handleOnChange={handleOnChange}
                   placeholder="Treatment ID "
                   name="treatmentID "
@@ -463,15 +467,30 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
               <div className="input-field">
                 <label form="schedulingId">Consultation feels:</label>
                 <Input
-                  //   inputDisabled="true"
+                  inputDisabled="true"
                   handleOnChange={handleOnChange}
                   placeholder="Consultation feels"
                   name="consultationFeel"
                   value={inputs.consultationFeel}
                 />
               </div>
+              {selectedPlace === "needMedicine" && (
+                <div className="input-field">
+                  <label htmlFor="selectedProduct">Selected Products:</label>
+                  <textarea
+                    name="selectedProduct"
+                    // onChange={(e) => setInputs({ ...inputs, selectedProduct: e.target.value })}
+                    onChange={handleOnChange}
+                    value={inputs.selectedProduct}
+                    id="selectedProduct"
+                    placeholder="Selected Medicine"
+                    cols="39"
+                    rows="10"
+                  ></textarea>
+                </div>
+              )}
 
-              <div className="input-field doctor-types">
+              {/* <div className="input-field doctor-types">
                 <label htmlFor="gender"> Product ID :</label>
                 <div>
                   <select
@@ -491,10 +510,10 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                     ))}
                   </select>
                 </div>
-              </div>
+              </div> */}
               {!openScheduleDelete && (
                 <button type="submit" className="submit-btn">
-                  Submit
+                  Ready to Pay
                 </button>
               )}
               {openScheduleDelete && (
@@ -510,10 +529,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
 
             <div className="container-wrapper">
               <aside style={{ width: "90%" }}>
-                {/* <div className="details-title">
-                  <h4> Choose a room or ward</h4>
-                </div> */}
-                {/* To select a room ID */}
+                {/* To select to buy medicine or not*/}
                 <div className="box-input-radio" style={{ marginTop: 10 }}>
                   <input
                     type="radio"
@@ -575,17 +591,16 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                 {selectedPlace === "needMedicine" && (
                   <div
                     className="aside-option-box"
-                    style={{ marginTop: 10, marginLeft: 140 }}
+                    style={{ marginTop: 10, marginLeft: 200 }}
                   >
                     <label htmlFor="medicine"> Medicine</label>
-                    <div className="option-wrapper" style={{ maxWidth: "68%" }}>
+                    <div className="option-wrapper" style={{ maxWidth: "67%" }}>
                       <select
                         name="medicine"
                         id="medicine"
                         value={selectedWards}
                         onChange={(e) => {
                           setSelectedWards(e.target.value);
-                          // Appel de handleOnChange pour mettre à jour le textarea
                           handleOnSelectMedicine(e);
                         }}
                         required
@@ -604,28 +619,19 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                 )}
               </aside>
 
-              <div className="input-field">
-                <label form="schedulingId">Amount:</label>
+              {selectedPlace === "needMedicine" && (
+                <div className="input-field">
+                  <label form="schedulingId">Amount:</label>
 
-                <input
-                  type="number"
-                  name="amount"
-                  onChange={handleOnChange}
-                  value={inputs.amount}
-                  placeholder="Amount"
-                  id="tip"
-                  step="1"
-                  required
-                ></input>
-
-                {/* <Input
-                  //   inputDisabled="true"
-                  handleOnChange={handleOnChange}
-                  placeholder="Amount"  placeholder="Amount"
-                  name="amount"
-                  value={inputs.amount}
-                /> */}
-              </div>
+                  <Input
+                    inputDisabled="true"
+                    handleOnChange={handleOnChange}
+                    placeholder="Amount"
+                    name="amount"
+                    value={inputs.amount}
+                  />
+                </div>
+              )}
               <div className="input-field">
                 <label form="schedulingId">Discount :</label>
                 <Input
@@ -640,27 +646,13 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
               <div className="input-field">
                 <label form="schedulingId">Total Amount:</label>
                 <Input
-                  //   inputDisabled="true"
+                  inputDisabled="true"
                   handleOnChange={handleOnChange}
                   placeholder="Total Amount"
                   name="totalAmount"
                   value={inputs.totalAmount}
                 />
               </div>
-              {selectedPlace === "needMedicine" && (
-                <div className="input-field">
-                  <label htmlFor="selectedProduct">Selected Products:</label>
-                  <textarea
-                    name="selectedProduct"
-                    // onChange={(e) => setInputs({ ...inputs, selectedProduct: e.target.value })}
-                    onChange={handleOnChange}
-                    value={inputs.selectedProduct}
-                    id="selectedProduct"
-                    cols="39"
-                    rows="10"
-                  ></textarea>
-                </div>
-              )}
             </div>
           </div>
         </form>
