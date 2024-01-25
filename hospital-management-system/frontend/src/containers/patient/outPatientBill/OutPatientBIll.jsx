@@ -13,9 +13,9 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     treatmentID: "",
     consultationFeel: 25,
     productID: "",
-    amount: "",
-    discount: "",
-    totalAmount: "",
+    amount: 0,
+    discount: 0,
+    totalAmount: 0,
     selectedProduct: "",
   });
 
@@ -141,7 +141,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
 
     setInputs((prev) => ({
       ...prev,
-      totalAmount: total,
+      amount: total,
     }));
     console.log("Total Price:", total);
   }, [selectedProductsArray, productPrices]);
@@ -313,6 +313,10 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     setThePatientID(inputs.patientID);
   }, [inputs.patientID, thePatientID]);
 
+  useEffect(() => {
+    console.log("the last inpuuuuuu", inputs);
+  }, [inputs]);
+
   // To filter the Out patients treatments according to the out patient  selected
   useEffect(() => {
     if (thePatientID) {
@@ -358,14 +362,47 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   //     handleFilter(thePatientID);
   //   }, [thePatientID, allMedicine]);
 
-  useEffect(() => {
-    //   console.log("thePatientID", thePatientID);
-    //   console.log("allOPTreatmentFiltered", allOPTreatmentFiltered);
-    //   console.log("allMedicineFiltered", allMedicine);
-    console.log("Input", inputs);
-  }, [inputs]);
+  // useEffect(() => {
+  //   setInputs((prev) => ({
+  //     ...prev,
+  //     totalAmount: prev.amount + prev.consultationFeel - prev.discount,
+  //   }));
+  // }, []);
 
-  //   ================
+  useEffect(() => {
+    const calculateBill = () => {
+      // if(selectedPlace === "needMedicine"){
+      let total = 0;
+
+      if (selectedPlace === "noNeed") {
+        total = 25;
+      } else if (selectedPlace === "needMedicine") {
+        const amount = parseInt(inputs.amount);
+        const discount = parseInt(inputs.discount);
+
+        if (isNaN(amount) || amount < 0 || isNaN(discount) || discount < 0) {
+          toast.error("Please enter valid values");
+          return;
+        } else {
+          total = amount + 25 - discount;
+          console.log("the totale bill is", total);
+        }
+      }
+      // const amount = parseInt(inputs.amount);
+
+      // const totalBill =  25 - discount;
+      // const perPersonShare = totalBill / numberOfPeople;
+    };
+    calculateBill();
+  }, [inputs.amount, inputs.discount, selectedPlace]);
+
+  // useEffect(() => {
+  //   setInputs((prev) => ({
+  //     ...prev,
+  //     totalAmount: prev.amount + prev.consultationFeel - prev.discount,
+  //   }));
+  // }, []);
+
   const handleSelectPlaceChange = (e) => {
     setSelectedPlace(e.target.value);
   };
@@ -569,13 +606,25 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
 
               <div className="input-field">
                 <label form="schedulingId">Amount:</label>
-                <Input
+
+                <input
+                  type="number"
+                  name="amount"
+                  onChange={handleOnChange}
+                  value={inputs.amount}
+                  placeholder="Amount"
+                  id="tip"
+                  step="1"
+                  required
+                ></input>
+
+                {/* <Input
                   //   inputDisabled="true"
                   handleOnChange={handleOnChange}
-                  placeholder="Amount"
+                  placeholder="Amount"  placeholder="Amount"
                   name="amount"
                   value={inputs.amount}
-                />
+                /> */}
               </div>
               <div className="input-field">
                 <label form="schedulingId">Discount :</label>
@@ -616,45 +665,6 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
           </div>
         </form>
       </div>
-
-      {/* <div className="appScheduling-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Treatment ID </th>
-              <th>Patient ID</th>
-              <th>Doctor ID</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Prescription</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allMedicineCat.map((treatment, index) => {
-              return (
-                <tr
-                  onClick={(e) => handleUpdateInfos(treatment)}
-                  className={
-                    !addOnSubmit
-                      ? "doctor-infos select-doctorID"
-                      : "doctor-infos"
-                  }
-                  key={index}
-                >
-                  <td>{treatment.treatmentId}</td>
-                  <td>{treatment.patientId}</td>
-                  <td>{treatment.doctorId}</td>
-                  <td>{treatment.date}</td>
-                  <td>{treatment.time}</td>
-                  <td>{treatment.prescription}</td>
-                  <td>{treatment.description}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div> */}
 
       {/* Container buttons */}
       <div className="appScheduling-container-menus">
