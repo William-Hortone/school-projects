@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  selectDocAppointment,
-  selectDoctorDetails,
-} from "../../redux/slice/doctorSlice";
+import { selectDoctorDetails } from "../../redux/slice/doctorSlice";
 import "./dashboard.css";
-
 import axios from "axios";
 import { FaCalendarCheck, FaUserAlt, FaUserInjured } from "react-icons/fa";
 import { useSelector } from "react-redux";

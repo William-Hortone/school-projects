@@ -26,6 +26,7 @@ import {
   MedicineDetails,
   OutPTreatment,
   OutPatient,
+  OutPatientBill,
   PurchaseOrder,
   RoomDetails,
   ServiceScheduling,
@@ -191,6 +192,10 @@ function App() {
             <Route
               path="/adminDashboard/medicineOrder"
               element={<MedicineOrder />}
+            />
+            <Route
+              path="/adminDashboard/ouTPBill"
+              element={<OutPatientBill />}
             />
           </Route>
         </Routes>
