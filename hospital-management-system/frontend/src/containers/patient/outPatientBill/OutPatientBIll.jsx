@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
-import { ButtonAction, ButtonSkip, Input } from "../../../components";
+import {
+  ButtonAction,
+  ButtonSkip,
+  Input,
+  PayButton,
+} from "../../../components";
 import { useNavigate } from "react-router-dom";
 
 const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
@@ -413,11 +418,10 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                   </select>
                 </div>
               </div> */}
-              {!openScheduleDelete && (
-                <button type="submit" className="submit-btn">
+              {!openScheduleDelete && <PayButton bill={inputs} />}
+              {/* <button type="submit" className="submit-btn">
                   Ready to Pay
-                </button>
-              )}
+                </button> */}
               {openScheduleDelete && (
                 <button
                   onClick={handleDelete}

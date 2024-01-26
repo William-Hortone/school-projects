@@ -9,6 +9,8 @@ import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import Reset from "./reset/Reset";
 import ButtonMenu from "./buttonMenu/ButtonMenu";
+import PayButton from "./payButton/PayButton";
+import CheckoutSuccess from "./checkout/checkoutSuccess/CheckoutSuccess";
 
 export {
   Register,
@@ -22,4 +24,6 @@ export {
   Footer,
   Reset,
   ButtonMenu,
+  PayButton,
+  CheckoutSuccess,
 };

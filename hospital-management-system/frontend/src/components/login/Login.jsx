@@ -33,12 +33,15 @@ const Login = () => {
       );
 
       if (response.data && response.data.success) {
-        const { name, email, role } = response.data.user;
+        const { name, email, role, userId } = response.data.user;
         // localStorage.setItem("token", response.data.token);
         Cookies.set("token", response.data.token);
-        Cookies.set("userDetails", JSON.stringify({ name, email, role }));
+        Cookies.set(
+          "userDetails",
+          JSON.stringify({ name, email, role, userId })
+        );
 
-        console.log("Login successful");
+        // console.log("Login successful");
         toast.success("login success");
 
         dispatch(
@@ -46,15 +49,16 @@ const Login = () => {
             email: email,
             name: name,
             role: role,
+            userId: userId,
           })
         );
         navigate("/adminDashboard/dashboard");
       } else {
-        console.log("User not logged in");
-        console.error("Login failed. No data in the response:", response);
+        // console.log("User not logged in");
+        // console.error("Login failed. No data in the response:", response);
       }
     } catch (error) {
-      console.error("Login failed", error.response?.data || error.message);
+      toast.error("Login failed", error.response?.data || error.message);
     }
   };
 

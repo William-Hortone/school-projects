@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { Login, Register, Reset } from "./components";
+import { CheckoutSuccess, Login, Register, Reset } from "./components";
 import {
   AddGuardian,
   AddUser,
@@ -74,15 +74,16 @@ function App() {
   useEffect(() => {
     const storedToken = Cookies.get("token");
     const storedUserDetails = Cookies.get("userDetails");
-
+    console.log("wee look for the user", storedUserDetails);
     if (storedToken) {
-      const { email, name, role } = JSON.parse(storedUserDetails);
+      const { email, name, role, userId } = JSON.parse(storedUserDetails);
 
       dispatch(
         IS_USER_LOGIN({
           email: email,
           name: name,
           role: role,
+          userId: userId,
         })
       );
     } else {
@@ -109,6 +110,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
+          <Route path="/checkout-success" element={<CheckoutSuccess />} />
 
           {/* Routes for visualization  */}
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />

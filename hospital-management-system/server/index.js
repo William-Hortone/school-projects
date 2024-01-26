@@ -28,6 +28,7 @@ const PurchaseORoutes = require("./routes/purchaseOrderDetails");
 const VisitsRoutes = require("./routes/visitInfos");
 const InPMIssueRoutes = require("./routes/InPMIssueInfos");
 const MedicineOrderRoutes = require("./routes/medicineOrderInfos");
+const Stripe = require("./routes/stripe");
 
 const app = express();
 app.use(express.json());
@@ -87,6 +88,7 @@ app.use(PurchaseORoutes);
 app.use(VisitsRoutes);
 app.use(InPMIssueRoutes);
 app.use(MedicineOrderRoutes);
+app.use(Stripe);
 
 app.listen(3001, () => {
   console.log("The server is running");
