@@ -233,9 +233,7 @@
 // // app.listen(4242, () => console.log('Running on port 4242'));
 
 const express = require("express");
-// const stripe = require("stripe")(
-//   "sk_test_51M1CnNHy4z3Ls6KK16IFyeg3ZWYq2E2lUJQTvnLi872jHc2dgO0wvEieg3aoDfli9IA2Xr0Gh7vkKX0QiyvfwUDI00g1bDsy3S"
-// );
+
 const Stripe = require("stripe");
 
 require("dotenv").config();
@@ -261,14 +259,14 @@ router.post("/stripe/create-checkout-session", async (req, res) => {
             product_data: {
               name: "Your Product",
             },
-            unit_amount: 100, // Convert to cents
+            unit_amount: 100,
           },
           quantity: 1,
         },
       ],
       mode: "payment",
-      success_url: "http://localhost:3000/success", // Redirect to success page
-      cancel_url: "http://localhost:3000/cancel", // Redirect to cancel page
+      success_url: "http://localhost:3000/success",
+      cancel_url: "http://localhost:3000/cancel",
     });
 
     res.json({ sessionId: session.id });
@@ -278,8 +276,4 @@ router.post("/stripe/create-checkout-session", async (req, res) => {
   }
 });
 
-// const PORT = process.env.PORT || 3001;
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });
 module.exports = router;
