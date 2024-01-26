@@ -110,7 +110,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
-          <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          <Route path="/success" element={<CheckoutSuccess />} />
 
           {/* Routes for visualization  */}
           <Route path="/vizDoctorD" element={<VizDoctorDetails />} />

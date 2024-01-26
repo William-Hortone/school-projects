@@ -193,34 +193,93 @@
 // Don’t submit any personally identifiable information in requests made with this key.
 // Sign in to see your own test API key embedded in code samples.
 
+// !newwww
+// const express = require("express");
+// const Stripe = require("stripe");
+
+// const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+// require("dotenv").config();
+// const router = express.Router();
+
+// const app = express();
+// app.use(express.static("public"));
+
+// const YOUR_DOMAIN = "http://localhost:3000";
+
+// router.post("/stripe/create-checkout-session", async (req, res) => {
+//   const session = await stripe.checkout.sessions.create({
+//     line_items: [
+//       {
+//         // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+//         price: "{{PRICE_ID}}",
+//         quantity: 1,
+//       },
+//     ],
+//     mode: "payment",
+//     success_url: `${YOUR_DOMAIN}/success`,
+//     cancel_url: `${process.env.CLIENT_URL}/cancel`,
+//   });
+
+//   res.json({ sessionId: session.id });
+// });
+// //  catch (error) {
+// //   console.error(error.message);
+// //   res.status(500).json({ error: "Internal Server Error" });
+// // // }
+// //   // res.send({ url: session.url });
+// // });
+// module.exports = router;
+
+// // app.listen(4242, () => console.log('Running on port 4242'));
+
 const express = require("express");
+// const stripe = require("stripe")(
+//   "sk_test_51M1CnNHy4z3Ls6KK16IFyeg3ZWYq2E2lUJQTvnLi872jHc2dgO0wvEieg3aoDfli9IA2Xr0Gh7vkKX0QiyvfwUDI00g1bDsy3S"
+// );
 const Stripe = require("stripe");
 
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 require("dotenv").config();
-const router = express.Router();
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const cors = require("cors");
 
 const app = express();
-app.use(express.static("public"));
+const router = express.Router();
+app.use(express.json());
+app.use(cors());
 
-const YOUR_DOMAIN = "http://localhost:4242";
+router.post("/stripe/create-checkout-session", async (req, res) => {
+  const { bill, userId } = req.body;
 
-router.post("/create-checkout-session", async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-        price: "{{PRICE_ID}}",
-        quantity: 1,
-      },
-    ],
-    mode: "payment",
-    success_url: `${process.env.CLIENT_URL}/checkout-success`,
-    cancel_url: `${process.env.CLIENT_URL}/bill`,
-  });
+  try {
+    // Create a Checkout Session
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "Your Product",
+            },
+            unit_amount: 100, // Convert to cents
+          },
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      success_url: "http://localhost:3000/success", // Redirect to success page
+      cancel_url: "http://localhost:3000/cancel", // Redirect to cancel page
+    });
 
-  res.send({ url: session.url });
+    res.json({ sessionId: session.id });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
-module.exports = router;
 
-// app.listen(4242, () => console.log('Running on port 4242'));
+// const PORT = process.env.PORT || 3001;
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+module.exports = router;
