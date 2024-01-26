@@ -116,10 +116,6 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     setSelectedProductsArray((prevArray) => [...prevArray, newValue]);
   };
 
-  //   useEffect(() => {
-  //     setId(inputs.treatmentId);
-  //   }, [inputs.treatmentId]);
-
   useEffect(() => {
     console.log("lets try iselectedProductsArray ", selectedProductsArray);
   }, [selectedProductsArray]);
@@ -166,49 +162,23 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   }, [selectedDate]);
 
   //  Set the format for the time
-  useEffect(() => {
-    if (pickedTime) {
-      const formattedTime = pickedTime.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      });
-      setSelectedTime(formattedTime);
-    }
-  }, [pickedTime]);
+  // useEffect(() => {
+  //   if (pickedTime) {
+  //     const formattedTime = pickedTime.toLocaleTimeString("en-US", {
+  //       hour: "numeric",
+  //       minute: "2-digit",
+  //       hour12: true,
+  //     });
+  //     setSelectedTime(formattedTime);
+  //   }
+  // }, [pickedTime]);
 
-  useEffect(() => {
-    setInputs((prev) => ({
-      ...prev,
-      time: selectedTime,
-    }));
-  }, [selectedTime]);
-
-  //   Function to generate a new  ID
-  //   const handleAddATreatment = () => {
-  //     if (addOnSubmit) {
-  //       // Initialize the Id if the array is empty
-  //       if (allMedicine.length === 0) {
-  //         setInputs({
-  //           ...inputs,
-  //           productID: "Medicine_001",
-  //         });
-  //       } else {
-  //         // Get the last Id and increment it
-  //         const lastElementId = allMedicine[allMedicine.length - 1].productID;
-  //         const numericPart = parseInt(lastElementId.split("_")[1]);
-  //         const nextElementId = `Medicine_${(numericPart + 1)
-  //           .toString()
-  //           .padStart(3, "0")}`;
-  //         setInputs({
-  //           ...inputs,
-  //           productID: nextElementId,
-  //         });
-  //       }
-  //     } else {
-  //       toast.error("Please Enter a Id manually to update");
-  //     }
-  //   };
+  // useEffect(() => {
+  //   setInputs((prev) => ({
+  //     ...prev,
+  //     time: selectedTime,
+  //   }));
+  // }, [selectedTime]);
 
   const handleAddATreatment = () => {
     navigate("/vizAllPurchaseO");
@@ -228,45 +198,9 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
       .catch((err) => toast.error(err));
   };
 
-  // function to Edit a Out patient treatment details
-  //   const handleSubmitEditInfos = (e, ID) => {
-  //     e.preventDefault();
-
-  //     axios
-  //       .put(`http://localhost:3001/editOutPTreatment/${ID}`, inputs)
-  //       .then((res) => {
-  //         if (res.data === "success") {
-  //           toast.success("Updated successfully");
-  //         } else if (res.data === "notfound") {
-  //           toast.error("Wrong ID");
-  //         } else {
-  //           toast.error("An error occurred while updating ");
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         toast.error(err);
-  //       });
-  //   };
-
   const handleClose = () => {
     setOpenPage(false);
   };
-
-  // Automatically fill the form when click on one element of the table
-  //   const handleUpdateInfos = (treatment) => {
-  //     if (!addOnSubmit) {
-  //       setInputs({
-  //         treatmentId: treatment.treatmentId,
-  //         patientId: treatment.patientId,
-  //         doctorId: treatment.doctorId,
-  //         prescription: treatment.prescription,
-  //         description: treatment.description,
-  //       });
-  //       setSelectedDate(treatment.date);
-  //       setSelectedTime(treatment.time);
-  //       // setDisabledInput(true);
-  //     }
-  //   };
 
   const handleDelete = () => {
     if (id === undefined || id === "") {
@@ -276,10 +210,11 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     }
   };
 
-  const handleClosePopup = () => {
-    setShowPopupDelete(false);
-  };
+  // const handleClosePopup = () => {
+  //   setShowPopupDelete(false);
+  // };
 
+  // ! Need to be deleted
   // Function to Delete an Out patient
   const handleDeleteAppointment = (id) => {
     if (id === undefined || id === "") {
@@ -298,24 +233,17 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
         .catch((error) => {
           toast.error(error);
         });
-      // handleRefresh();
     }
     setShowPopupDelete(false);
   };
 
-  // =========================== //
-
-  useEffect(() => {
-    setSupID(inputs.patientID);
-  }, [inputs.patientID, supID]);
+  // useEffect(() => {
+  //   setSupID(inputs.patientID);
+  // }, [inputs.patientID, supID]);
 
   useEffect(() => {
     setThePatientID(inputs.patientID);
   }, [inputs.patientID, thePatientID]);
-
-  useEffect(() => {
-    console.log("the last inpuuuuuu", inputs);
-  }, [inputs]);
 
   // To filter the Out patients treatments according to the out patient  selected
   useEffect(() => {
@@ -324,7 +252,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
         const result = allOPTreatments.filter(
           (treatment) => treatment.patientId === id
         );
-        console.log("the patient is", result);
+
         if (result.length === 0) {
           toast.error("This patient does not have any treatment");
           setInputs((prev) => ({
@@ -350,32 +278,17 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
     }
   }, [allOPTreatmentFiltered]);
 
-  // To filter the Product according to the Product selected
-  //   useEffect(() => {
-  //     const handleFilter = (id) => {
-  //       const result = allMedicine.filter(
-  //         (medicine) => medicine.productID === id
-  //       );
-  //       setAllMedicineFiltered(result);
-  //     };
-
-  //     handleFilter(thePatientID);
-  //   }, [thePatientID, allMedicine]);
-
-  // useEffect(() => {
-  //   setInputs((prev) => ({
-  //     ...prev,
-  //     totalAmount: prev.amount + prev.consultationFeel - prev.discount,
-  //   }));
-  // }, []);
-
+  // To Calculate the total amount of the bill
   useEffect(() => {
     const calculateBill = () => {
-      // if(selectedPlace === "needMedicine"){
       let total;
 
       if (selectedPlace === "noNeed") {
         total = 25;
+        setInputs((prev) => ({
+          ...prev,
+          totalAmount: total,
+        }));
       } else if (selectedPlace === "needMedicine") {
         const amount = parseInt(inputs.amount);
         const discount = parseInt(inputs.discount);
@@ -392,20 +305,9 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
           }));
         }
       }
-      // const amount = parseInt(inputs.amount);
-
-      // const totalBill =  25 - discount;
-      // const perPersonShare = totalBill / numberOfPeople;
     };
     calculateBill();
   }, [inputs.amount, inputs.discount, selectedPlace]);
-
-  // useEffect(() => {
-  //   setInputs((prev) => ({
-  //     ...prev,
-  //     totalAmount: prev.amount + prev.consultationFeel - prev.discount,
-  //   }));
-  // }, []);
 
   const handleSelectPlaceChange = (e) => {
     setSelectedPlace(e.target.value);
@@ -529,7 +431,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
 
             <div className="container-wrapper">
               <aside style={{ width: "90%" }}>
-                {/* To select to buy medicine or not*/}
+                {/* If No need to buy medicine*/}
                 <div className="box-input-radio" style={{ marginTop: 10 }}>
                   <input
                     type="radio"
@@ -537,10 +439,8 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                     name="noNeed"
                     value="noNeed"
                     checked={selectedPlace === "noNeed"}
-                    // onChange={handleSelectPlaceChange}
                     onChange={(e) => {
                       setSelectedPlace(e.target.value);
-                      // Appel de handleOnChange pour mettre à jour le textarea
                       handleOnChange(e);
                     }}
                     className="input-radio"
@@ -561,40 +461,14 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                   <label htmlFor="needMedicine">Need to buy medicine</label>
                 </div>
 
-                {/* Display for select a room*/}
-                {/* {selectedPlace === "noNeed" && (
-                <div
-                  className="aside-option-box"
-                  style={{ marginTop: 10, marginLeft: 140 }}
-                >
-                  <label htmlFor="rooms"> Rooms</label>
-                  <div className="option-wrapper" style={{ width: "68%" }}>
-                    <select
-                      name="rooms"
-                      id="wards"
-                      value={selectedRooms}
-                      onChange={(e) => setSelectedRooms(e.target.value)}
-                      required
-                    >
-                      <option value="">Select a room ID</option>
-                      {roomsDetails.map((room, index) => (
-                        <option key={index} value={room.roomID}>
-                          {room.roomID}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              )} */}
-
-                {/* Display for select a ward*/}
+                {/* If need to buy medicine*/}
                 {selectedPlace === "needMedicine" && (
                   <div
                     className="aside-option-box"
-                    style={{ marginTop: 10, marginLeft: 200 }}
+                    style={{ marginTop: 10, marginLeft: 248 }}
                   >
                     <label htmlFor="medicine"> Medicine</label>
-                    <div className="option-wrapper" style={{ maxWidth: "67%" }}>
+                    <div className="option-wrapper" style={{ maxWidth: "61%" }}>
                       <select
                         name="medicine"
                         id="medicine"
@@ -694,7 +568,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
               the Out Patient treatment with ID of {inputs.treatmentId} ?
             </p>
             <div className="delete-buttons">
-              <button onClick={handleClosePopup}> Cancel</button>
+              {/* <button onClick={handleClosePopup}> Cancel</button> */}
               <button onClick={() => handleDeleteAppointment(id)}>
                 Delete
               </button>
