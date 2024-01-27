@@ -122,6 +122,10 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
   };
 
   useEffect(() => {
+    setInputs((prev) => ({
+      ...prev,
+      selectedProduct: selectedProductsArray,
+    }));
     console.log("lets try iselectedProductsArray ", selectedProductsArray);
   }, [selectedProductsArray]);
 
@@ -144,7 +148,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
       ...prev,
       amount: total,
     }));
-    console.log("Total Price:", total);
+    // console.log("Total Price:", total);
   }, [selectedProductsArray, productPrices]);
 
   //  Set the format for the Date
@@ -303,7 +307,7 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
           return;
         } else {
           total = amount + 25 - discount;
-          console.log("the totale bill is", total);
+          // console.log("the totale bill is", total);
           setInputs((prev) => ({
             ...prev,
             totalAmount: total,
@@ -397,27 +401,6 @@ const OutPatientBill = ({ addOnSubmit, openScheduleDelete, setOpenPage }) => {
                 </div>
               )}
 
-              {/* <div className="input-field doctor-types">
-                <label htmlFor="gender"> Product ID :</label>
-                <div>
-                  <select
-                    name="productID"
-                    id="productID"
-                    value={inputs.productID}
-                    onChange={handleOnChange}
-                    required
-                  >
-                    <option required value="">
-                      Select a Product
-                    </option>
-                    {allMedicine.map((category, index) => (
-                      <option key={index} value={category.productID}>
-                        {category.productID}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div> */}
               {!openScheduleDelete && <PayButton bill={inputs} />}
               {/* <button type="submit" className="submit-btn">
                   Ready to Pay

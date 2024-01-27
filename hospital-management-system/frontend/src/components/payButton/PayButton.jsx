@@ -4,6 +4,7 @@ import { selectUserId } from "../../redux/slice/userSlide";
 import { useSelector } from "react-redux";
 
 const PayButton = ({ bill }) => {
+  console.log("The inputs that e are passsing", bill);
   const userId = useSelector(selectUserId);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const PayButton = ({ bill }) => {
 
     script.onload = () => {
       const stripe = window.Stripe(
-        "pk_test_51M1CnNHy4z3Ls6KKcAZWtBS4V6GgpTC6F9jY9v32usUI6nF8Q6rL1Mynn5Df2cSW4Yj9SHBlgrcSqC3B3gnFgfww00mtARqSmy" // Replace with your actual publishable key
+        "pk_test_51M1CnNHy4z3Ls6KKcAZWtBS4V6GgpTC6F9jY9v32usUI6nF8Q6rL1Mynn5Df2cSW4Yj9SHBlgrcSqC3B3gnFgfww00mtARqSmy"
       );
     };
 
