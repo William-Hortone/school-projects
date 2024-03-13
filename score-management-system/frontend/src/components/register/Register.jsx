@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import "./register.css";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+    username: "",
+    name: "",
+  });
 
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("the inputs", inputs);
+
+    axios
+      .post("localhost:5003/api/register", inputs)
+      .then((res) => {
+        // console.log();
+        console.log("the data", res.data);
+        // navigate("/");
+      })
+      .catch((err) => {
+        console.log("the error is ", err);
+      });
+  };
   return (
     <div className="app__register">
       <div className="app__register-content">
@@ -24,15 +55,18 @@ const Register = () => {
       </div>
       {/* <span></span> */}
       <div className="app__register-form">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="field-wrapper">
             <label htmlFor="name">Your Full Name</label>
             <input
               type="text"
+              value={inputs.name}
+              name="name"
               placeholder="Your full name"
               id="name"
               required
               className="input"
+              onChange={handleOnChange}
             />
           </div>
           <div className="field-wrapper">
@@ -41,8 +75,11 @@ const Register = () => {
               type="text"
               placeholder="Your Username"
               id="username"
+              value={inputs.username}
+              name="username"
               className="input"
               required
+              onChange={handleOnChange}
             />
           </div>
 
@@ -52,8 +89,11 @@ const Register = () => {
               type="email"
               placeholder="Your email"
               id="email"
+              value={inputs.email}
+              name="email"
               className="input"
               required
+              onChange={handleOnChange}
             />
           </div>
           <div className="field-wrapper">
@@ -63,8 +103,11 @@ const Register = () => {
               id="password"
               className="input"
               type="password"
+              value={inputs.password}
+              name="password"
               placeholder="Your Password"
               required
+              onChange={handleOnChange}
             />
           </div>
           <button

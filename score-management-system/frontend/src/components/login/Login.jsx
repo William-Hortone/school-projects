@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./login.css";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
   return (
     <div className="app__login">
       <div className="app__login-form">
@@ -22,6 +27,8 @@ const Login = () => {
           <div className="field-wrapper">
             <label htmlFor="email">Your Email</label>
             <input
+              value={inputs.email}
+              name="email"
               type="email"
               placeholder="Your email"
               id="email"
@@ -34,6 +41,8 @@ const Login = () => {
 
             <input
               id="password"
+              value={inputs.password}
+              name="password"
               className="input"
               type="password"
               placeholder="Your Password"
