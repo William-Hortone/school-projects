@@ -3,6 +3,7 @@ import "./register.css";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BASE_URL from "./../../hooks/config";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,22 +22,24 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("the inputs", inputs);
-
-    axios
-      .post("localhost:5003/api/register", inputs)
-      .then((res) => {
-        // console.log();
-        console.log("the data", res.data);
-        // navigate("/");
-      })
-      .catch((err) => {
-        console.log("the error is ", err);
+    try {
+      const response = await axios.post(`${BASE_URL}register`, {
+        name: inputs.name,
+        password: inputs.password,
+        username: inputs.username,
+        email: inputs.email,
       });
+      console.log("Response:", response.data);
+
+      navigate("/connection/login");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
+
   return (
     <div className="app__register">
       <div className="app__register-content">
@@ -111,7 +114,8 @@ const Register = () => {
             />
           </div>
           <button
-            onClick={() => navigate("/connection/login")}
+            onClick={() => {}}
+            // onClick={() => navigate("/connection/login")}
             className="submit-btn"
             type="submit"
           >

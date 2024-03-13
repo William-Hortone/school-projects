@@ -5,12 +5,13 @@ const CryptoJs = require("crypto-js");
 
 module.exports = {
   createUser: async (req, res, next) => {
+    const { username, email, name, password } = req.body;
     const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
-      name: req.body.name,
+      username,
+      email,
+      name,
       password: CryptoJs.AES.encrypt(
-        req.body.password,
+        password,
         process.env.SECRET_KEY
       ).toString(),
     });
