@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap");
+
+@font-face {
+  font-family: "CustomFontFamily";
+  src: url("./assets/fonts/Redwing-Medium.otf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+:root {
+  --font-base: "CustomFontFamily", serif;
+  --font-alt: "Open Sans", sans-serif;
+  --font-title: "Cormorant Upright", serif;
+  --color-primary: #135d6c;
+  --color-secondary: #1d1a45;
+  --color-tertial: #77b4c7;
+  --color-white: #ffffff;
+  --color-bg: #e9e9e9;
+}
