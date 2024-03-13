@@ -14,9 +14,9 @@ import ShowOnLogin, { ShowOnLogout } from "../hiddenLinks/HiddenLinks";
 import Loader from "../loader/Loader";
 
 const Header = () => {
-  const [displayName, setDisplayName] = useState("");
+  // const [displayName, setDisplayName] = useState("");
   const [showUserProfile, setShowUserProfile] = useState(false);
-  const [signInDate, setSignInDate] = useState("");
+  // const [signInDate, setSignInDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const activeLink = ({ isActive }) =>
