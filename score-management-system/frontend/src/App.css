@@ -4,3 +4,8 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+.displayFlex {
+  display: flex;
+  align-items: center;
+  /* gap: ; */
+}

@@ -3,7 +3,7 @@ import "./register.css";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import BASE_URL from "./../../hooks/config";
+import { BASE_URL } from "./../../hooks/config";
 
 const Register = () => {
   const navigate = useNavigate();
