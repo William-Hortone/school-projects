@@ -1,0 +1,115 @@
+.app__login {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.app__login-form {
+  width: 70%;
+  height: 100%;
+  background-color: #000000;
+  border-radius: 10px 0 0 10px;
+  padding: 4rem;
+  z-index: 4;
+}
+.app__login-form form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.field-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+.field-wrapper label {
+  color: white;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.384);
+  border-radius: 8px;
+  outline: none;
+  margin-top: 0.5rem;
+}
+.submit-btn {
+  width: 70%;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.384);
+  border-radius: 8px;
+  outline: none;
+  margin: 2.5rem auto 0 auto;
+  cursor: pointer;
+  font-weight: 900;
+  background: var(--color-primary);
+  color: white;
+}
+
+.app__login-content {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30%;
+  height: 100%;
+  padding: 2rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 0 10px 10px 0;
+  z-index: 1;
+  transition: all 0.5s ease;
+  animation: connection-animation 1s ease forwards;
+}
+.app__login-content h2 {
+  font-family: var(--font-base);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.app__login-content h3 {
+  font-family: var(--font-alt);
+  font-size: 1.7rem;
+  color: var(--color-lightWithe);
+  margin-bottom: 2rem;
+}
+.google-btn {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+.app__login-content p {
+  font-family: var(--font-alt);
+
+  color: var(--color-lightWithe);
+  margin-bottom: 0.5rem;
+  color: #efefef70;
+}
+.app__login-content p span {
+  font-family: var(--font-alt);
+  color: #fff0ec;
+  cursor: pointer;
+}
+
+@keyframes connection-animation {
+  0% {
+    right: 30%;
+    opacity: 0.7;
+  }
+  100% {
+    right: 0;
+    opacity: 1;
+  }
+}
