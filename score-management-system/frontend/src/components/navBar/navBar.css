@@ -4,8 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 4rem;
-  background: var(--color-lightWhite);
+  padding: 0 8rem;
+  /* background: var(--color-lightWhite); */
   background-color: yellow;
   position: relative;
 }
