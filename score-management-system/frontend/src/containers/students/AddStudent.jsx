@@ -3,21 +3,25 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button } from "../../components";
 import "./addStudent.css";
+import { toast } from "react-toastify";
+
+import BASE_URL from "./../../hooks/config";
+import axios from "axios";
 
 const AddStudent = () => {
   const [inputs, setInputs] = useState({
     name: "",
     dOB: "",
     major: "",
-    input: "",
     gender: "",
+    studentNumber: "",
     schoolingYears: "",
   });
   const [selectedDate, setSelectedDate] = useState("");
-  const [startDate, setStartDate] = useState();
+  const [filterDate, setFilterDate] = useState();
 
   const handleOnChange = (e) => {
-    const { name, value } = e.target.value;
+    const { name, value } = e.target;
 
     setInputs({
       ...inputs,
@@ -26,19 +30,44 @@ const AddStudent = () => {
   };
 
   useEffect(() => {
-    console.log("selectedDate", selectedDate);
+    setInputs((prev) => ({
+      ...prev,
+      dOB: filterDate,
+    }));
+  }, [filterDate]);
+
+  useEffect(() => {
+    console.log("inputs", inputs);
+  }, [inputs]);
+
+  useEffect(() => {
+    // console.log("selectedDate", selectedDate);
+
+    if (selectedDate) {
+      const result = selectedDate.toString().slice(3, 15);
+      setFilterDate(result);
+      console.log("filterDate", result);
+    }
   }, [selectedDate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("the inputs", inputs);
+    if (inputs.schoolingYears <= 0) {
+      return toast.error("Please provide a valid schooling year");
+    }
+    // console.log("the inputs", inputs);
+    try {
+      const response = await axios.post(
+        `${BASE_URL}student/addStudent`,
+        inputs
+      );
 
-    // try {
-
-    // } catch (error) {
-
-    // }
+      toast.success(response.data.message);
+      console.log("response", response.data);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -70,7 +99,7 @@ const AddStudent = () => {
               <input
                 type="text"
                 className="input"
-                placeholder="Date of Birth"
+                placeholder="Student Number"
                 value={inputs.studentNumber}
                 name="studentNumber"
                 id="studentNumber"
@@ -113,7 +142,7 @@ const AddStudent = () => {
                 className="input"
                 placeholder="Your Major"
                 value={inputs.major}
-                name="name"
+                name="major"
                 id="major"
                 required
                 onChange={handleOnChange}

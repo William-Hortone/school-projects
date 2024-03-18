@@ -1,15 +1,16 @@
-import { useState } from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { About, Home, Welcome, Connection, Student } from "./pages";
 import { Login, Register } from "./components";
+import { AddStudent, EditStudent } from "./containers";
 import AddScore from "./containers/scores/AddScore";
 import { AuthProvider } from "./hooks/AuthContext";
-import { AddStudent, EditStudent } from "./containers";
-
+import { About, Connection, Home, Student, Welcome } from "./pages";
 function App() {
   return (
     <>
+      <ToastContainer />
       <BrowserRouter>
         <AuthProvider>
           <Routes>
