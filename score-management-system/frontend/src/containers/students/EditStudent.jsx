@@ -5,6 +5,7 @@ import { Button } from "../../components";
 import "./addStudent.css";
 import axios from "axios";
 import BASE_URL from "../../hooks/config";
+import { toast } from "react-toastify";
 
 const EditStudent = () => {
   const [inputs, setInputs] = useState({
@@ -17,6 +18,7 @@ const EditStudent = () => {
     schoolingYears: "",
   });
   const [selectedDate, setSelectedDate] = useState("");
+  const [id, setId] = useState("");
   const [allStudents, setAllStudents] = useState([]);
 
   // To Get all the available students
@@ -32,13 +34,17 @@ const EditStudent = () => {
   }, []);
 
   const handleOnChange = (e) => {
-    const { name, value } = e.target.value;
+    const { name, value } = e.target;
 
     setInputs({
       ...inputs,
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    setId(inputs.studentId);
+  }, [inputs.studentId]);
 
   useEffect(() => {
     console.log("selectedDate", selectedDate);
@@ -49,11 +55,22 @@ const EditStudent = () => {
 
     console.log("the inputs", inputs);
 
-    // try {
+    if (inputs.schoolingYears <= 0) {
+      return toast.error("Please provide a valid schooling year");
+    }
+    // console.log("the inputs", inputs);
+    try {
+      const response = await axios.put(
+        `${BASE_URL}student/editStudent/${id}`,
+        inputs
+      );
 
-    // } catch (error) {
-
-    // }
+      toast.success(response.data.message);
+      console.log("response", response.data);
+    } catch (error) {
+      toast.error(error.message);
+      console.log("error", error);
+    }
   };
 
   const handleOnClick = (student) => {

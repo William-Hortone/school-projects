@@ -25,10 +25,11 @@ module.exports = {
   editStudent: async (req, res, next) => {
     try {
       const updatedData = req.body;
-      const studentId = req.params.id;
+      const id = req.params.id;
+      // const studentId = req.params.id;
 
       const student = await Student.findOneAndUpdate(
-        { _id: studentId },
+        { _id: id },
         { $set: updatedData },
         { new: true }
       );
