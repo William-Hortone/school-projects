@@ -46,4 +46,19 @@ module.exports = {
       return next(error);
     }
   },
+  getStudents: async (req, res, next) => {
+    try {
+      const students = await Student.find();
+
+      if (!students) {
+        return res
+          .status(404)
+          .json({ status: false, message: "User not found" });
+      }
+
+      return res.status(200).json({ status: true, students });
+    } catch (error) {
+      return next(error);
+    }
+  },
 };

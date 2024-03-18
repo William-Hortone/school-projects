@@ -23,9 +23,11 @@ const NavBar = () => {
 
   return (
     <nav className="app__navBar">
-      <div className="app__logo">
-        <img src={images.logo} alt="university logo" />
-      </div>
+      <NavLink to="/home" className="link">
+        <div className="app__logo">
+          <img src={images.logo} alt="university logo" />
+        </div>
+      </NavLink>
 
       <ul className="app__navBar-links">
         <NavLink to="/about" className="link">

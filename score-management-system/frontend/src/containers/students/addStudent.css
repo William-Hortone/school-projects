@@ -33,3 +33,11 @@
   margin-top: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.384);
 }
+.table-row {
+  transition: all 0.3s ease;
+}
+.table-row:hover {
+  background-color: #3e5ce0a9;
+  color: white;
+  cursor: pointer;
+}
