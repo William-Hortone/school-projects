@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "./addStudent.css";
-import { Button, Header, NavBar } from "../../components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Button } from "../../components";
+import "./addStudent.css";
 
-const AddStudent = () => {
+const EditStudent = () => {
   const [inputs, setInputs] = useState({
+    studentId: "",
     name: "",
     dOB: "",
     major: "",
@@ -43,12 +44,26 @@ const AddStudent = () => {
 
   return (
     <>
-      <Header />
-      <NavBar />
       <div className="app__addStudent section-padding">
-        <h2 className="page-title">Add a student</h2>
+        <h2 className="page-title">Edit a student</h2>
         <form onSubmit={handleSubmit}>
           <div className="wrapper">
+            <div className="wrapper-input">
+              <label htmlFor="studentId" className="label">
+                Student Id
+              </label>
+              <input
+                type="text"
+                className="input"
+                placeholder="Student Id"
+                value={inputs.studentId}
+                name="studentId"
+                id="studentId"
+                onChange={handleOnChange}
+                required
+              />
+            </div>
+
             <div className="wrapper-input">
               <label htmlFor="name" className="label">
                 Name
@@ -78,25 +93,6 @@ const AddStudent = () => {
                 id="studentNumber"
                 onChange={handleOnChange}
                 required
-              />
-            </div>
-            <div className="wrapper-input">
-              <label htmlFor="dOB" className="label">
-                Date of Birth
-              </label>
-              <br />
-
-              <DatePicker
-                value={selectedDate}
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
-                dateFormat="EEE MMM dd yyyy"
-                showYearDropdown
-                scrollableMonthYearDropdowns
-                yearDropdownItemNumber={10}
-                yearDropdownMinLength={5}
-                maxDate={new Date()}
-                className="picker-date"
               />
             </div>
 
@@ -154,11 +150,56 @@ const AddStudent = () => {
                 onChange={handleOnChange}
               />
             </div>
+            <div className="wrapper-input">
+              <label htmlFor="dOB" className="label">
+                Date of Birth
+              </label>
+              <br />
+
+              <DatePicker
+                value={selectedDate}
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                dateFormat="EEE MMM dd yyyy"
+                showYearDropdown
+                scrollableMonthYearDropdowns
+                yearDropdownItemNumber={10}
+                yearDropdownMinLength={5}
+                maxDate={new Date()}
+                className="picker-date"
+              />
+            </div>
           </div>
         </form>
+
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Student ID </th>
+              <th>Student Name </th>
+              <th>Student Number</th>
+              <th>Major</th>
+              <th>Gender</th>
+              <th>Schooling Years</th>
+              <th>Date of Birth</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Student ID </td>
+              <td>Student Name </td>
+              <td>Student Number</td>
+              <td>Major</td>
+              <td>Gender</td>
+              <td>Schooling Years</td>
+              <td>Date of Birth</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </>
   );
 };
 
-export default AddStudent;
+export default EditStudent;

@@ -15,8 +15,8 @@ const NavBar = () => {
     { title: "Delete score", link: "/addScore" },
   ];
   const studentInfos = [
-    { title: "Add student", link: "/AddStudent" },
-    { title: "Edit student infos", link: "/addScore" },
+    { title: "Add student", link: "/student/addStudent" },
+    { title: "Edit student infos", link: "/student/editStudent" },
     { title: "View all Students", link: "/addScore" },
     { title: "Delete student", link: "/addScore" },
   ];
