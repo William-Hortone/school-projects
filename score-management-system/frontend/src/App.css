@@ -14,3 +14,15 @@
   height: calc(100vh - 100px);
   /* background-color: red; */
 }
+
+.section-padding {
+  padding: 4rem 6rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-family: var(--font-base);
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}

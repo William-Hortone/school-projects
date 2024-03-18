@@ -5,6 +5,7 @@ import { About, Home, Welcome, Connection } from "./pages";
 import { Login, Register } from "./components";
 import AddScore from "./containers/scores/AddScore";
 import { AuthProvider } from "./hooks/AuthContext";
+import AddStudent from "./pages/student/AddStudent";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             </Route>
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/AddStudent" element={<AddStudent />} />
             <Route path="/addScore" element={<AddScore />} />
           </Routes>
         </AuthProvider>

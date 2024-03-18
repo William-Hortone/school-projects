@@ -15,7 +15,7 @@ const NavBar = () => {
     { title: "Delete score", link: "/addScore" },
   ];
   const studentInfos = [
-    { title: "Add student", link: "/addScore" },
+    { title: "Add student", link: "/AddStudent" },
     { title: "Edit student infos", link: "/addScore" },
     { title: "View all Students", link: "/addScore" },
     { title: "Delete student", link: "/addScore" },
@@ -49,7 +49,7 @@ const NavBar = () => {
           src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
           alt="profile picture"
         />
-        <h4>{userInfo.username}</h4>
+        <h4>{userInfo ? userInfo.username : ""}</h4>
       </div>
     </nav>
   );
