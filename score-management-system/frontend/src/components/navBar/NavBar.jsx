@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./navBar.css";
 import { NavLink } from "react-router-dom";
 import images from "../../constants/images";
 import Menu from "./Menu";
+import { AuthContext } from "../../hooks/AuthContext";
 
 const NavBar = () => {
+  const { userInfo, errorMessage, isLoading } = useContext(AuthContext);
+
   const scoreInfos = [
     { title: "Add score", link: "/addScore" },
     { title: "Edit score", link: "/addScore" },
@@ -12,8 +15,8 @@ const NavBar = () => {
     { title: "Delete score", link: "/addScore" },
   ];
   const studentInfos = [
-    { title: "Add student", link: "/addScore" },
-    { title: "Edit student infos", link: "/addScore" },
+    { title: "Add student", link: "/student/addStudent" },
+    { title: "Edit student infos", link: "/student/editStudent" },
     { title: "View all Students", link: "/addScore" },
     { title: "Delete student", link: "/addScore" },
   ];
@@ -46,7 +49,7 @@ const NavBar = () => {
           src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
           alt="profile picture"
         />
-        <h4>WWilliam Hortone</h4>
+        <h4>{userInfo ? userInfo.username : ""}</h4>
       </div>
     </nav>
   );

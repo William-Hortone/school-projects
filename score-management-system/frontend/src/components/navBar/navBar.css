@@ -4,9 +4,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 4rem;
+  padding: 0 8rem;
   background: var(--color-lightWhite);
-  background-color: yellow;
+  /* background-color: yellow; */
   position: relative;
 }
 .app__logo {
@@ -39,6 +39,7 @@
   position: absolute;
   top: 100%;
   left: 0;
+  z-index: 10;
 }
 .link:hover .show-links {
   display: block;

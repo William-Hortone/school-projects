@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./login.css";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL } from "./../../hooks/config";
+// import { BASE_URL } from "./../../hooks/config";
+import { AuthContext } from "../../hooks/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const { login, errorMessage, isLoading } = useContext(AuthContext);
 
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputs({
@@ -21,26 +25,30 @@ const Login = () => {
     console.log(inputs);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  if (isLoading) {
+    return <h2>Is Loading....</h2>;
+  }
 
-    try {
-      const response = await axios.post(`${BASE_URL}login`, {
-        name: inputs.name,
-        password: inputs.password,
-        username: inputs.username,
-        email: inputs.email,
-      });
-      console.log("Response:", response.data);
-      navigate("/home");
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await axios.post(`${BASE_URL}login`, {
+  //       name: inputs.name,
+  //       password: inputs.password,
+  //       username: inputs.username,
+  //       email: inputs.email,
+  //     });
+  //     console.log("Response:", response.data);
+  //     navigate("/home");
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
   return (
     <div className="app__login">
       <div className="app__login-form">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={() => login(inputs)}>
           {/* <div className="field-wrapper">
             <label htmlFor="username"> Your Username</label>
             <input
