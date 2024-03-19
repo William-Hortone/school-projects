@@ -8,10 +8,13 @@ const ViewStudentScore = () => {
   const student = location.state.student;
   console.log("the student", student);
 
-  const [allStudents, setAllStudents] = useState([]);
+  //   const [allStudents, setAllStudents] = useState([]);
   const [allScores, setAllScores] = useState([]);
   const [filteredScores, setFilteredScores] = useState([]);
   const [totalCredit, setTotalCredit] = useState();
+  const [totalHours, setTotalHours] = useState();
+  const [score, setScore] = useState();
+  const [finalScore, setFinalScore] = useState();
   //   const navigate = useNavigate();
   // To Get all the available students
   const API_URL = `${BASE_URL}score/getScores`;
@@ -25,11 +28,21 @@ const ViewStudentScore = () => {
     fetchData();
   }, []);
 
+  // Filter scores according to the student id
   useEffect(() => {
-    console.log("the allScores", allScores);
-  }, [allScores]);
+    const totalCredit = filteredScores.reduce(
+      (acc, current) => acc + current.credit,
+      0
+    );
+    const totalHours = filteredScores.reduce(
+      (acc, current) => acc + current.hours,
+      0
+    );
+    setTotalCredit(totalCredit);
+    setTotalHours(totalHours);
+  }, [filteredScores]);
 
-  //   Filter scores according to the student id
+  // Filter scores according to the student id
   useEffect(() => {
     const filterScore = allScores.filter(
       (score) => score.student_id === student._id
@@ -37,87 +50,25 @@ const ViewStudentScore = () => {
     setFilteredScores(filterScore);
   }, [allScores, student._id]);
 
-  // Filter scores according to the student id
   useEffect(() => {
-    //   const filterCredit = filteredScores.filter(
-    //     (score) => score.student_id === student._id
+    let totalScore = 0;
+    // Calculate total score for each course
+    filteredScores.forEach((course) => {
+      totalScore += course.score * course.credit;
 
-    //   );
+      //   console.log(`Total score for ${course.courseName}: ${totalScore}`);
 
-    const totalCredit = filteredScores.reduce(
-      (acc, current) => acc + current.credit,
-      0
-    );
-    setTotalCredit(totalCredit);
-    console.log("Total credit:", totalCredit);
-    //   setFilteredScores(filterScore);
-  }, [filteredScores]);
+      setScore(totalScore);
+    });
+    // console.log(`Total score for :`, score);
+  }, [filteredScores, score]);
 
-  // const array =[
-
-  // {academicYear
-  // :
-  // "2023-2024-1"
-  // courseName
-  // :
-  // "Matematics"
-  // credit
-  // :
-  // 4
-  // displayIt
-  // :
-  // true
-  // hours
-  // :
-  // 72
-  // score
-  // :
-  // 89
-  // student_id
-  // :
-  // "65f86dd096493b1284950dc4"
-  // type
-  // :
-  // "C"
-  // __v
-  // :
-  // 0
-  // _id
-  // :
-  // "65f9d9c87a4305056c7cdfe1"},
-
-  // {
-  // academicYear
-  // :
-  // "2023-2024-1"
-  // courseName
-  // :
-  // "Physics"
-  // credit
-  // :
-  // 3
-  // displayIt
-  // :
-  // true
-  // hours
-  // :
-  // 54
-  // score
-  // :
-  // 80
-  // student_id
-  // :
-  // "65f86dd096493b1284950dc4"
-  // type
-  // :
-  // "C",
-  // _id
-  // :
-  // "65f9da487a4305056c7cdfe3"
-  // }
-
-  // ]
-
+  //Calculate the final score
+  useEffect(() => {
+    let result = score / totalCredit;
+    result = Math.floor(result);
+    setFinalScore(result);
+  }, [score, totalCredit]);
   return (
     <>
       <section className="app__score section-padding">
@@ -183,15 +134,15 @@ const ViewStudentScore = () => {
             })}
             <tr className="table-column">
               <td>Total Credit</td>
-              <td>Compulsory Credit</td>
+              <td>Average Score</td>
               <td>Major Optional Credit</td>
-              <td>Public Optional Credit</td>
+              <td>Total Hours</td>
             </tr>
             <tr className="score">
               <td>{totalCredit}</td>
-              <td>26.6</td>
+              <td>{finalScore}</td>
               <td>67</td>
-              <td>89.0</td>
+              <td>{totalHours}</td>
             </tr>
             {/* <tr>
               <td>Major Optional Credit</td>

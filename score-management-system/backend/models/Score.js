@@ -37,20 +37,4 @@ const ScoreSchema = new mongoose.Schema({
   },
 });
 
-// Pre-save hook to set the student_id based on the score_id
-// ScoreSchema.pre("save", async function (next) {
-//   try {
-//     // Find the student corresponding to the student_id in the score
-//     const student = await Student.findOne({ _id: this.student_id });
-
-//     // If student found, set the student_id of the score to the student_id of the student
-//     if (student) {
-//       this.student_id = student._id;
-//     }
-
-//     next();
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 module.exports = mongoose.model("Scores", ScoreSchema);
