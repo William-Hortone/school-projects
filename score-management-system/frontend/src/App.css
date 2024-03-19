@@ -37,6 +37,19 @@
   height: 50px;
   background-color: var(--color-secondary);
 }
+.table-column td {
+  background-color: #000000c2;
+  font-size: 14px;
+  font-family: var(--font-alt);
+  font-weight: 900;
+  color: white;
+}
+.score {
+  font-size: 14px;
+  font-family: var(--font-alt);
+  font-weight: 900;
+  color: black;
+}
 
 .table th {
   border-bottom: 1px solid #000;

@@ -9,15 +9,10 @@ import "../students/addStudent.css";
 const AddStudentScore = () => {
   const location = useLocation();
   const student = location.state.student;
-  console.log("the student", student);
+  //   console.log("the student", student);
 
   const [inputs, setInputs] = useState({
-    name: "",
-    dOB: "",
-    major: "",
-    gender: "",
-    studentNumber: "",
-    schoolingYears: "",
+    student_id: "",
     academicYear: "",
     courseName: "",
     type: "",
@@ -25,8 +20,8 @@ const AddStudentScore = () => {
     credit: "",
     score: "",
   });
-  const [selectedDate, setSelectedDate] = useState("");
-  const [filterDate, setFilterDate] = useState();
+  //   const [selectedDate, setSelectedDate] = useState("");
+  //   const [filterDate, setFilterDate] = useState();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -40,36 +35,23 @@ const AddStudentScore = () => {
   useEffect(() => {
     setInputs((prev) => ({
       ...prev,
-      dOB: filterDate,
+      student_id: student._id,
     }));
-  }, [filterDate]);
+  }, [student._id]);
 
-  useEffect(() => {
-    console.log("inputs", inputs);
-  }, [inputs]);
-
-  useEffect(() => {
-    // console.log("selectedDate", selectedDate);
-
-    if (selectedDate) {
-      const result = selectedDate.toString().slice(3, 15);
-      setFilterDate(result);
-      console.log("filterDate", result);
-    }
-  }, [selectedDate]);
+  //   useEffect(() => {
+  //     console.log("inputs", inputs);
+  //   }, [inputs]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (inputs.schoolingYears <= 0) {
-      return toast.error("Please provide a valid schooling year");
+    if (inputs.credit <= 0 || inputs.score <= 0 || inputs.hours <= 0) {
+      return toast.error("Please provide a valid values");
     }
-    // console.log("the inputs", inputs);
+    console.log("the inputs", inputs);
     try {
-      const response = await axios.post(
-        `${BASE_URL}student/addStudent`,
-        inputs
-      );
+      const response = await axios.post(`${BASE_URL}score/addScore`, inputs);
 
       toast.success(response.data.message);
       console.log("response", response.data);

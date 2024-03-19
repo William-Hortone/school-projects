@@ -11,7 +11,7 @@ const NavBar = () => {
   const scoreInfos = [
     { title: "Add score", link: "/score/addScore" },
     { title: "Edit score", link: "/score/addScore" },
-    { title: "View all scores", link: "/score/addScore" },
+    { title: "View all scores", link: "/score/viewScore" },
     { title: "Delete score", link: "/score/addScore" },
   ];
   const studentInfos = [
