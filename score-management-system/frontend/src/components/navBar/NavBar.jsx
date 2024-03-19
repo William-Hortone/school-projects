@@ -17,7 +17,7 @@ const NavBar = () => {
   const studentInfos = [
     { title: "Add student", link: "/student/addStudent" },
     { title: "Edit student infos", link: "/student/editStudent" },
-    { title: "View all Students", link: "/addScore" },
+    { title: "View all Students", link: "/student/viewStudents" },
     { title: "Delete student", link: "/addScore" },
   ];
 
