@@ -9,7 +9,7 @@ const NavBar = () => {
   const { userInfo, errorMessage, isLoading } = useContext(AuthContext);
 
   const scoreInfos = [
-    { title: "Add score", link: "/addScore" },
+    { title: "Add score", link: "/score/addScore" },
     { title: "Edit score", link: "/addScore" },
     { title: "View all scores", link: "/addScore" },
     { title: "Delete score", link: "/addScore" },
@@ -18,7 +18,7 @@ const NavBar = () => {
     { title: "Add student", link: "/student/addStudent" },
     { title: "Edit student infos", link: "/student/editStudent" },
     { title: "View all Students", link: "/student/viewStudents" },
-    { title: "Delete student", link: "/addScore" },
+    { title: "Delete student", link: "/student/deleteStudent" },
   ];
 
   return (

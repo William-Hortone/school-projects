@@ -46,19 +46,13 @@ const EditStudent = () => {
     setId(inputs.studentId);
   }, [inputs.studentId]);
 
-  useEffect(() => {
-    console.log("selectedDate", selectedDate);
-  }, [selectedDate]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("the inputs", inputs);
 
     if (inputs.schoolingYears <= 0) {
       return toast.error("Please provide a valid schooling year");
     }
-    // console.log("the inputs", inputs);
+
     try {
       const response = await axios.put(
         `${BASE_URL}student/editStudent/${id}`,

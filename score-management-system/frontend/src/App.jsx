@@ -3,7 +3,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import { Login, Register } from "./components";
-import { AddStudent, EditStudent, ViewStudents } from "./containers";
+import {
+  AddStudent,
+  DeleteStudent,
+  EditStudent,
+  ViewStudents,
+} from "./containers";
 import AddScore from "./containers/scores/AddScore";
 import { AuthProvider } from "./hooks/AuthContext";
 import { About, Connection, Home, Student, Welcome } from "./pages";
@@ -24,6 +29,10 @@ function App() {
               <Route path="/student/addStudent" element={<AddStudent />} />
               <Route path="/student/editStudent" element={<EditStudent />} />
               <Route path="/student/viewStudents" element={<ViewStudents />} />
+              <Route
+                path="/student/deleteStudent"
+                element={<DeleteStudent />}
+              />
             </Route>
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />

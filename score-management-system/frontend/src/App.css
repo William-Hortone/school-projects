@@ -61,3 +61,42 @@
 
   text-align: center;
 }
+.popup-delete {
+  width: 450px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #efefef;
+  border-radius: 15px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+.popup-delete h2 {
+  font-family: var(--font-base);
+  color: #72141b;
+}
+.btn {
+  width: 100px;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.384);
+  border-radius: 8px;
+  outline: none;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #72141b;
+}
+.delete-btn {
+  background-color: var(--color-secondary);
+}
