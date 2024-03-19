@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import BASE_URL from "../../hooks/config";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Button } from "../../components";
+import "../students/addStudent.css";
 
-const AddScore = () => {
+const ViewScore = () => {
   const [allStudents, setAllStudents] = useState([]);
   const navigate = useNavigate();
   // To Get all the available students
@@ -19,7 +22,7 @@ const AddScore = () => {
   }, []);
 
   const handleNavigate = (student) => {
-    navigate("/score/addStudentScore", { state: { student } });
+    navigate("/score/viewStudentScore", { state: { student } });
   };
   return (
     <>
@@ -64,4 +67,4 @@ const AddScore = () => {
   );
 };
 
-export default AddScore;
+export default ViewScore;

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Header, NavBar } from "../../components";
 import BASE_URL from "../../hooks/config";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-const AddScore = () => {
+const ViewStudents = () => {
   const [allStudents, setAllStudents] = useState([]);
-  const navigate = useNavigate();
+
   // To Get all the available students
   const API_URL = `${BASE_URL}student/getStudents`;
 
@@ -18,13 +18,11 @@ const AddScore = () => {
     fetchData();
   }, []);
 
-  const handleNavigate = (student) => {
-    navigate("/score/addStudentScore", { state: { student } });
-  };
   return (
     <>
-      <section className="app__score section-padding">
-        <h2 className="page-title">Add a Score To a student</h2>
+      <div className="app__viewStudents  section-padding">
+        <h2 className="page-title">View All Students</h2>
+
         {/* Student Table */}
         <table className="table">
           <thead>
@@ -42,11 +40,7 @@ const AddScore = () => {
           <tbody>
             {allStudents.map((student, index) => {
               return (
-                <tr
-                  key={index}
-                  className="table-row"
-                  onClick={() => handleNavigate(student)}
-                >
+                <tr key={index}>
                   <td>{student._id}</td>
                   <td>{student.name}</td>
                   <td>{student.studentNumber}</td>
@@ -59,9 +53,9 @@ const AddScore = () => {
             })}
           </tbody>
         </table>
-      </section>
+      </div>
     </>
   );
 };
 
-export default AddScore;
+export default ViewStudents;

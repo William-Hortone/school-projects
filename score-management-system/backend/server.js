@@ -6,6 +6,7 @@ const errorHandler = require("./middleware/errorHandling");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const studentRouter = require("./routes/student");
+const scoreRouter = require("./routes/score");
 const cors = require("cors");
 const port = 3000;
 
@@ -24,6 +25,7 @@ app.use(errorHandler);
 app.use("/api/", authRouter);
 app.use("/api/users/", userRouter);
 app.use("/api/student/", studentRouter);
+app.use("/api/score/", scoreRouter);
 
 app.get("/", (req, res) => res.send("William Hortone!"));
 app.listen(process.env.PORT || port, () =>

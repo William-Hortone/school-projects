@@ -25,10 +25,11 @@ module.exports = {
   editStudent: async (req, res, next) => {
     try {
       const updatedData = req.body;
-      const studentId = req.params.id;
+      const id = req.params.id;
+      // const studentId = req.params.id;
 
       const student = await Student.findOneAndUpdate(
-        { _id: studentId },
+        { _id: id },
         { $set: updatedData },
         { new: true }
       );
@@ -42,6 +43,44 @@ module.exports = {
       return res
         .status(200)
         .json({ status: true, message: "Student updated successfully" });
+    } catch (error) {
+      return next(error);
+    }
+  },
+  getStudents: async (req, res, next) => {
+    try {
+      const students = await Student.find({ displayIt: true });
+
+      if (!students) {
+        return res
+          .status(404)
+          .json({ status: false, message: "User not found" });
+      }
+
+      return res.status(200).json({ status: true, students });
+    } catch (error) {
+      return next(error);
+    }
+  },
+  deleteStudent: async (req, res, next) => {
+    const id = req.params.id;
+
+    try {
+      const student = await Student.findOneAndUpdate(
+        { _id: id },
+        { $set: { displayIt: false } },
+        { new: true }
+      );
+
+      if (!student) {
+        return res
+          .status(404)
+          .json({ status: false, message: "User not found" });
+      }
+
+      return res
+        .status(200)
+        .json({ status: true, message: "Student Deleted successfully" });
     } catch (error) {
       return next(error);
     }
