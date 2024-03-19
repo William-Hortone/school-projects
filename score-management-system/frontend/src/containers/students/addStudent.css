@@ -1,10 +1,12 @@
-.app__addStudent {
+.app__addStudent,
+.app__score {
   width: 100%;
   /* padding: ; */
   /* display: flex; */
   /* background-color: rebeccapurple; */
 }
-.app__addStudent form {
+.app__addStudent form,
+.app__score form {
   display: flex;
   width: 100%;
   gap: 1rem;

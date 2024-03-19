@@ -8,10 +8,12 @@ import {
   DeleteStudent,
   EditStudent,
   ViewStudents,
+  AddScore,
+  AddStudentScore,
 } from "./containers";
-import AddScore from "./containers/scores/AddScore";
+
 import { AuthProvider } from "./hooks/AuthContext";
-import { About, Connection, Home, Student, Welcome } from "./pages";
+import { About, Connection, Home, Score, Student, Welcome } from "./pages";
 
 function App() {
   return (
@@ -34,9 +36,16 @@ function App() {
                 element={<DeleteStudent />}
               />
             </Route>
+            <Route path="/score" element={<Score />}>
+              <Route path="/score/addScore" element={<AddScore />} />
+              <Route
+                path="/score/addStudentScore"
+                element={<AddStudentScore />}
+              />
+            </Route>
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/addScore" element={<AddScore />} />
+            {/* <Route path="/addScore" element={<AddScore />} /> */}
           </Routes>
         </AuthProvider>
       </BrowserRouter>
