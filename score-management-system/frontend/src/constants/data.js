@@ -1,6 +1,6 @@
 const scoreInfos = [
   { title: "Add score", link: "/score/addScore" },
-  { title: "Edit score", link: "/score/addScore" },
+  { title: "Edit score", link: "/score/editScore" },
   { title: "View all scores", link: "/score/viewScore" },
   { title: "Delete score", link: "/score/addScore" },
 ];

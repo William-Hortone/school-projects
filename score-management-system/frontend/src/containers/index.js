@@ -6,6 +6,7 @@ import AddScore from "./scores/AddScore";
 import AddStudentScore from "./scores/AddStudentScore";
 import ViewStudentScore from "./scores/ViewStudentScore";
 import ViewScore from "./scores/ViewScores";
+import EditScore from "./scores/EditScore";
 
 export {
   AddStudent,
@@ -16,4 +17,5 @@ export {
   AddStudentScore,
   ViewStudentScore,
   ViewScore,
+  EditScore,
 };

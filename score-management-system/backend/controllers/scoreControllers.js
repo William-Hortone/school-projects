@@ -23,9 +23,31 @@ module.exports = {
       return next(error);
     }
   },
+
+  //  to find all scores
   getScores: async (req, res, next) => {
     try {
       const scores = await Score.find({ displayIt: true });
+
+      if (!scores) {
+        return res
+          .status(404)
+          .json({ status: false, message: "Score not found" });
+      }
+
+      return res.status(200).json({ status: true, scores });
+    } catch (error) {
+      return next(error);
+    }
+  },
+
+  // To find scores according to the studentId
+  getStudentScore: async (req, res, next) => {
+    const studentId = req.params.studentID;
+    try {
+      const scores = await Score.find({
+        student_id: studentId,
+      });
 
       if (!scores) {
         return res

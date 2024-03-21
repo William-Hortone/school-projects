@@ -56,7 +56,8 @@ const Register = () => {
           <span onClick={() => navigate("/connection/login")}>Login</span>
         </p>
       </div>
-      {/* <span></span> */}
+
+      {/* Register form */}
       <div className="app__register-form">
         <form onSubmit={handleSubmit}>
           <div className="field-wrapper">
@@ -113,12 +114,7 @@ const Register = () => {
               onChange={handleOnChange}
             />
           </div>
-          <button
-            onClick={() => {}}
-            // onClick={() => navigate("/connection/login")}
-            className="submit-btn"
-            type="submit"
-          >
+          <button className="submit-btn" type="submit">
             Register
           </button>
         </form>

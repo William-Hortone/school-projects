@@ -12,6 +12,7 @@ import {
   AddStudentScore,
   ViewStudentScore,
   ViewScore,
+  EditScore,
 } from "./containers";
 
 import { AuthProvider } from "./hooks/AuthContext";
@@ -49,6 +50,7 @@ function App() {
                 element={<ViewStudentScore />}
               />
               <Route path="/score/viewScore" element={<ViewScore />} />
+              <Route path="/score/editScore" element={<EditScore />} />
             </Route>
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
