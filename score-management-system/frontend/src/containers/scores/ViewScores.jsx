@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import BASE_URL from "../../hooks/config";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { Button } from "../../components";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import BASE_URL from "../../hooks/config";
 import "../students/addStudent.css";
 
 const ViewScore = () => {
@@ -27,7 +25,7 @@ const ViewScore = () => {
   return (
     <>
       <section className="app__score section-padding">
-        <h2 className="page-title">Add a Score To a student</h2>
+        <h2 className="page-title">View students Scores </h2>
         {/* Student Table */}
         <table className="table">
           <thead>
