@@ -135,13 +135,13 @@ const ViewStudentScore = () => {
             <tr className="table-column">
               <td>Total Credit</td>
               <td>Average Score</td>
-              <td>Major Optional Credit</td>
+              {/* <td>Major Optional Credit</td> */}
               <td>Total Hours</td>
             </tr>
             <tr className="score">
               <td>{totalCredit}</td>
               <td>{finalScore}</td>
-              <td>67</td>
+              {/* <td>67</td> */}
               <td>{totalHours}</td>
             </tr>
             {/* <tr>

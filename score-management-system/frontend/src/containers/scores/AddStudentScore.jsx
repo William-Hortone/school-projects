@@ -18,7 +18,10 @@ const AddStudentScore = () => {
     type: "",
     hours: "",
     credit: "",
-    score: "",
+    finalExam: "",
+    homework: "",
+    attendance: "",
+    participation: "",
   });
   //   const [selectedDate, setSelectedDate] = useState("");
   //   const [filterDate, setFilterDate] = useState();
@@ -125,16 +128,31 @@ const AddStudentScore = () => {
             />
           </div>
           <div className="wrapper-input">
-            <label htmlFor="score" className="label">
-              Score
+            <label htmlFor="participation" className="label">
+              Participation
             </label>
             <input
               type="number"
               className="input"
-              placeholder="Score"
-              value={inputs.score}
-              name="score"
-              id="score"
+              placeholder="Participation"
+              value={inputs.participation}
+              name="participation"
+              id="participation"
+              onChange={handleOnChange}
+              required
+            />
+          </div>
+          <div className="wrapper-input">
+            <label htmlFor="finalExam" className="label">
+              Final Exam
+            </label>
+            <input
+              type="number"
+              className="input"
+              placeholder="Final Exam"
+              value={inputs.finalExam}
+              name="finalExam"
+              id="finalExam"
               onChange={handleOnChange}
               required
             />
@@ -191,6 +209,36 @@ const AddStudentScore = () => {
               step="any"
               required
               onChange={handleOnChange}
+            />
+          </div>
+          <div className="wrapper-input">
+            <label htmlFor="attendance" className="label">
+              Attendance
+            </label>
+            <input
+              type="number"
+              className="input"
+              placeholder="Attendance"
+              value={inputs.attendance}
+              name="attendance"
+              id="attendance"
+              onChange={handleOnChange}
+              required
+            />
+          </div>
+          <div className="wrapper-input">
+            <label htmlFor="homework" className="label">
+              Homework
+            </label>
+            <input
+              type="number"
+              className="input"
+              placeholder="Homework"
+              value={inputs.homework}
+              name="homework"
+              id="homework"
+              onChange={handleOnChange}
+              required
             />
           </div>
         </div>

@@ -27,7 +27,19 @@ const ScoreSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  score: {
+  attendance: {
+    type: Number,
+    required: true,
+  },
+  homework: {
+    type: Number,
+    required: true,
+  },
+  finalExam: {
+    type: Number,
+    required: true,
+  },
+  participation: {
     type: Number,
     required: true,
   },

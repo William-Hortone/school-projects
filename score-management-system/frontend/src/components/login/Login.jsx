@@ -1,10 +1,8 @@
 import React, { useContext, useState } from "react";
-import "./login.css";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-// import { BASE_URL } from "./../../hooks/config";
 import { AuthContext } from "../../hooks/AuthContext";
+import "./login.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,36 +27,10 @@ const Login = () => {
     return <h2>Is Loading....</h2>;
   }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const response = await axios.post(`${BASE_URL}login`, {
-  //       name: inputs.name,
-  //       password: inputs.password,
-  //       username: inputs.username,
-  //       email: inputs.email,
-  //     });
-  //     console.log("Response:", response.data);
-  //     navigate("/home");
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
   return (
     <div className="app__login">
       <div className="app__login-form">
         <form onSubmit={() => login(inputs)}>
-          {/* <div className="field-wrapper">
-            <label htmlFor="username"> Your Username</label>
-            <input
-              type="text"
-              placeholder="Your Username"
-              id="username"
-              className="input"
-              // required
-            />
-          </div> */}
           <div className="field-wrapper">
             <label htmlFor="email">Your Email</label>
             <input
