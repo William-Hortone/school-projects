@@ -34,9 +34,12 @@ const Home = () => {
         <div className="home__wrapper">
           <div className="container-text">
             <h2 className="title-primary">Score</h2>
-            <h2 className="title-primary">Management</h2>
-            {/* <h2 className="title-primary">ment</h2> */}
-            <h2 className="title-second">System</h2>
+            <h2 className="title-primary">Manage-</h2>
+            <h2>
+              <span className="title-primary">ment</span>
+              <span className="title-second">&nbsp;System</span>
+            </h2>
+            {/* <h2 className="title-second">System</h2> */}
           </div>
           <div className="container-image">
             <img

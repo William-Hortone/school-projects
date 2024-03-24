@@ -29,7 +29,7 @@ const AddScore = () => {
         <table className="table">
           <thead>
             <tr>
-              <th>Student ID </th>
+              {/* <th>Student ID </th> */}
               <th>Student Name </th>
               <th>Student Number</th>
               <th>Major</th>
@@ -47,7 +47,7 @@ const AddScore = () => {
                   className="table-row"
                   onClick={() => handleNavigate(student)}
                 >
-                  <td>{student._id}</td>
+                  {/* <td>{student._id}</td> */}
                   <td>{student.name}</td>
                   <td>{student.studentNumber}</td>
                   <td>{student.major}</td>
