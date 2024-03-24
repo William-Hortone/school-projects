@@ -1,6 +1,6 @@
 .navBar_menu {
   width: 100%;
-  background-color: var(--color-secondary);
+  background-color: #212121;
   position: absolute;
   left: 0;
   top: calc(100% - 1.5rem);
@@ -19,8 +19,8 @@
   font-size: 1.5rem;
   font-family: var(--font-alt);
   color: var(--color-lightWhite);
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }
 .menu-link:hover {
-  color: #3e5ce0;
+  color: var(--color-secondary);
 }

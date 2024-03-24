@@ -65,7 +65,10 @@ const Login = () => {
       </div>
 
       <div className="app__login-content">
-        <h2>Welcome To University Omar Bongo</h2>
+        <h2>
+          Welcome <br /> To Score managem- <br />
+          ent system
+        </h2>
         <h3>Login</h3>
         <p>-- Or --</p>
 

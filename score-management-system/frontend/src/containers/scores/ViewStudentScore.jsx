@@ -1,21 +1,20 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import BASE_URL from "../../hooks/config";
-import axios from "axios";
 
 const ViewStudentScore = () => {
   const location = useLocation();
   const student = location.state.student;
   console.log("the student", student);
 
-  //   const [allStudents, setAllStudents] = useState([]);
   const [allScores, setAllScores] = useState([]);
   const [filteredScores, setFilteredScores] = useState([]);
   const [totalCredit, setTotalCredit] = useState();
   const [totalHours, setTotalHours] = useState();
   const [score, setScore] = useState();
   const [finalScore, setFinalScore] = useState();
-  //   const navigate = useNavigate();
+
   // To Get all the available students
   const API_URL = `${BASE_URL}score/getScores`;
 
@@ -50,20 +49,23 @@ const ViewStudentScore = () => {
     setFilteredScores(filterScore);
   }, [allScores, student._id]);
 
+  // Calculate total score for each course
   useEffect(() => {
     let totalScore = 0;
-    // Calculate total score for each course
     filteredScores.forEach((course) => {
-      totalScore += course.score * course.credit;
-
-      //   console.log(`Total score for ${course.courseName}: ${totalScore}`);
+      totalScore +=
+        (course.attendance +
+          course.homework +
+          course.participation +
+          course.finalExam) *
+        course.credit;
 
       setScore(totalScore);
     });
-    // console.log(`Total score for :`, score);
+    // console.log(`Total score for :`, totalScore);
   }, [filteredScores, score]);
 
-  //Calculate the final score
+  //Calculate the final average score
   useEffect(() => {
     let result = score / totalCredit;
     result = Math.floor(result);
@@ -78,7 +80,6 @@ const ViewStudentScore = () => {
         <table className="table">
           <thead>
             <tr>
-              <th>Student ID </th>
               <th>Student Name </th>
               <th>Student Number</th>
               <th>Major</th>
@@ -90,7 +91,6 @@ const ViewStudentScore = () => {
 
           <tbody>
             <tr>
-              <td>{student._id}</td>
               <td>{student.name}</td>
               <td>{student.studentNumber}</td>
               <td>{student.major}</td>
@@ -106,50 +106,54 @@ const ViewStudentScore = () => {
           <thead>
             <tr>
               <th>Academic Year</th>
-              {/* <th>Student ID </th> */}
               <th>Course Name </th>
               <th>Type</th>
               <th>Hours</th>
               <th>Credit</th>
-              <th>Score</th>
+              <th>Attendance / 20</th>
+              <th>Homework / 20 </th>
+              <th>Participation / 20</th>
+              <th>Final Exam / 40</th>
+              <th>Total / 100</th>
             </tr>
           </thead>
 
           <tbody>
             {filteredScores.map((score, index) => {
               return (
-                <tr
-                  key={index}
-                  className="table-row"
-                  //   onClick={() => handleNavigate(score)}
-                >
+                <tr key={index} className="table-row">
                   <td>{score.academicYear}</td>
                   <td>{score.courseName}</td>
                   <td>{score.type}</td>
                   <td>{score.hours}</td>
                   <td>{score.credit}</td>
-                  <td>{score.score}</td>
+                  <td>{score.attendance}</td>
+                  <td>{score.homework}</td>
+                  <td>{score.participation}</td>
+                  <td>{score.finalExam}</td>
+                  <td>
+                    {`${
+                      score.attendance +
+                      score.homework +
+                      score.finalExam +
+                      score.participation
+                    }`}
+                  </td>
                 </tr>
               );
             })}
             <tr className="table-column">
               <td>Total Credit</td>
               <td>Average Score</td>
-              {/* <td>Major Optional Credit</td> */}
               <td>Total Hours</td>
+              <td>Decision</td>
             </tr>
             <tr className="score">
               <td>{totalCredit}</td>
-              <td>{finalScore}</td>
-              {/* <td>67</td> */}
+              <td>{isNaN(finalScore) ? "0" : finalScore}</td>
               <td>{totalHours}</td>
+              <td>{finalScore >= 60 ? "Success" : "Failed"}</td>
             </tr>
-            {/* <tr>
-              <td>Major Optional Credit</td>
-              <td>26.6</td>
-              <td>Public Optional Credit</td>
-              <td>89.0</td>
-            </tr> */}
           </tbody>
         </table>
       </section>

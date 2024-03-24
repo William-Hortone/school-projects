@@ -49,15 +49,21 @@ const AddStudentScore = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (inputs.credit <= 0 || inputs.score <= 0 || inputs.hours <= 0) {
+    if (
+      inputs.credit <= 0 ||
+      inputs.finalExam <= 0 ||
+      inputs.participation <= 0 ||
+      inputs.homework <= 0 ||
+      inputs.attendance <= 0 ||
+      inputs.hours <= 0
+    ) {
       return toast.error("Please provide a valid values");
     }
-    console.log("the inputs", inputs);
+
     try {
       const response = await axios.post(`${BASE_URL}score/addScore`, inputs);
 
       toast.success(response.data.message);
-      console.log("response", response.data);
     } catch (error) {
       toast.error(error.message);
     }

@@ -43,7 +43,10 @@ const Register = () => {
   return (
     <div className="app__register">
       <div className="app__register-content">
-        <h2>Welcome To University Omar Bongo</h2>
+        <h2>
+          Welcome <br /> To Score managem- <br />
+          ent system
+        </h2>
         <h3>Register</h3>
         <p>-- Or --</p>
 

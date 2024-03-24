@@ -8,7 +8,9 @@ const Header = () => {
   return (
     <div className="app__header">
       <p>Student</p>
-      <button onClick={() => logOut()}>Logout</button>
+      <p className="logout" onClick={() => logOut()}>
+        Logout
+      </p>
     </div>
   );
 };
