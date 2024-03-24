@@ -33,7 +33,7 @@
 .button:hover {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.7),
-    rgba(173, 216, 230, 0.7)
+    rgba(92, 83, 83, 0.7),
+    rgba(27, 95, 117, 0.7)
   );
 }

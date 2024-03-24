@@ -2,8 +2,19 @@ const Score = require("../models/Score");
 
 module.exports = {
   addScore: async (req, res, next) => {
-    const { courseName, student_id, academicYear, type, hours, score, credit } =
-      req.body;
+    const {
+      courseName,
+      student_id,
+      academicYear,
+      type,
+      homework,
+      participation,
+      attendance,
+      hours,
+      finalExam,
+      participation,
+      credit,
+    } = req.body;
 
     const newScore = new Score({
       courseName,
@@ -11,8 +22,12 @@ module.exports = {
       academicYear,
       type,
       hours,
-      score,
+      participation,
       credit,
+      finalExam,
+      homework,
+      attendance,
+      participation,
     });
     try {
       await newScore.save();
