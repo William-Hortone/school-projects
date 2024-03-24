@@ -1,0 +1,109 @@
+.app__home {
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-secondary);
+}
+
+.app__home-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  /* padding: 4rem; */
+}
+.home__wrapper {
+  width: 100%;
+  height: 100%;
+  /* background-color: blue; */
+  padding: 4rem 0 0 4rem;
+  display: flex;
+}
+.title-primary {
+  color: #f9dcc5;
+  font-family: var(--font-base);
+  font-size: 7vw;
+}
+.title-second {
+  font-size: 7vw;
+  color: transparent;
+  font-family: var(--font-base);
+  -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: #f9dcc5;
+  text-transform: uppercase;
+}
+.container-image {
+  /* width: 50%; */
+  /* height: 100%; */
+  flex: 1;
+  position: relative;
+  /* overflow: hidden; */
+  /* background-color: aquamarine; */
+}
+.container-image img {
+  width: 70%;
+  /* aspect-ratio: 1/1; */
+  /* height: 100%; */
+  object-fit: cover;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  /* border-radius: 50%; */
+}
+
+.app__slidingText {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.app__slidingText-container {
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.sliding-content {
+  display: flex;
+  animation: move 15s linear infinite;
+  color: #000;
+  padding: 1rem 0;
+}
+@keyframes move {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.sliding-content span {
+  font-size: 3rem;
+  white-space: nowrap;
+  font-family: var(--font-base);
+  color: #f9dcc5;
+  text-transform: uppercase;
+}
+@media screen and (min-width: 2000px) {
+  .sliding-content span {
+    font-size: 8rem;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .sliding-content span {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 800px) {
+  .sliding-content span {
+    font-size: 4rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  .sliding-content span {
+    font-size: 3rem;
+  }
+}

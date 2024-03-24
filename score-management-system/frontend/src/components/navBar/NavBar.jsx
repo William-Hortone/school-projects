@@ -11,12 +11,10 @@ const NavBar = () => {
 
   return (
     <nav className="app__navBar">
-      <NavLink to="/home" className="link">
+      <NavLink to="/home" className="logo">
         <div className="app__logo">
-          <div className="app__logo-image">
-            <img src={images.logo} alt="university logo" />
-          </div>
-          <h4>University Omar Bongo</h4>
+          <h4>Score Management</h4>
+          <h4>System</h4>
         </div>
       </NavLink>
 

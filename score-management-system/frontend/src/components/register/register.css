@@ -13,7 +13,7 @@
   border-radius: 0 10px 10px 0;
   padding: 4rem;
   z-index: 4;
-  background-color: #000000;
+  background-color: #fceadb;
   animation: register-animation2 1s ease forwards;
 }
 .app__register-form form {
@@ -27,9 +27,6 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-}
-.field-wrapper label {
-  color: white;
 }
 
 .input {
@@ -54,7 +51,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-secondary);
-  color: white;
+  color: #f9dcc5;
   border-radius: 10px 0 0 10px;
   z-index: 10;
   transition: all 1s ease;
@@ -62,8 +59,9 @@
 }
 .app__register-content h2 {
   font-family: var(--font-base);
-  font-size: 2rem;
+  font-size: 1.7rem;
   margin-bottom: 2rem;
+  line-height: 1.5;
 }
 .app__register-content h3 {
   font-family: var(--font-alt);
@@ -81,6 +79,7 @@
   align-items: center;
   gap: 1rem;
   cursor: pointer;
+  background: #fceadb;
 }
 .app__register-content p {
   font-family: var(--font-alt);

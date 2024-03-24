@@ -111,7 +111,11 @@ const ViewStudentScore = () => {
               <th>Type</th>
               <th>Hours</th>
               <th>Credit</th>
-              <th>Score</th>
+              <th>Attendance (20)</th>
+              <th>Homework (20) </th>
+              <th>Participation (20)</th>
+              <th>Final Exam (40)</th>
+              <th>Total (100)</th>
             </tr>
           </thead>
 
@@ -128,7 +132,18 @@ const ViewStudentScore = () => {
                   <td>{score.type}</td>
                   <td>{score.hours}</td>
                   <td>{score.credit}</td>
-                  <td>{score.score}</td>
+                  <td>{score.attendance}</td>
+                  <td>{score.homework}</td>
+                  <td>{score.participation}</td>
+                  <td>{score.finalExam}</td>
+                  <td>
+                    {`${
+                      score.attendance +
+                      score.homework +
+                      score.finalExam +
+                      score.participation
+                    }`}
+                  </td>
                 </tr>
               );
             })}

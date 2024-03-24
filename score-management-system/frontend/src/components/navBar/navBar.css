@@ -10,32 +10,56 @@
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
+
+.logo {
+  text-decoration: none;
+}
 .app__logo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
-.app__logo h4 {
-  font-size: 1rem;
+.app__logo h4:nth-of-type(1) {
+  font-size: 0.8rem;
+  border-bottom: 2.5px solid black;
+  /* color: #3e5ce0; */
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: black;
+  font-family: var(--font-base);
+  text-decoration: none;
 }
-.app__logo-image {
-  width: 90px;
-  height: 90px;
+.app__logo h4:nth-of-type(2) {
+  position: absolute;
+  top: 16px;
+  right: 0;
+  font-size: 1.5rem;
+  color: var(--color-secondary);
+  /* padding-left: 4rem; */
+  text-transform: uppercase;
+  font-family: var(--font-base);
+
+  /* background-color: #3e5ce0; */
 }
-.app__logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+.app__logo h4:nth-of-type(2)::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: -55px;
+  width: 55px;
+  height: 2.5px;
+  background-color: black;
 }
+
 .app__navBar-links {
   display: flex;
   align-items: center;
   gap: 2rem;
 }
 .link {
-  font-size: 1.5rem;
-  font-family: var(--font-alt);
+  font-size: 1rem;
+  font-family: var(--font-base);
   color: black;
   text-decoration: none;
   font-weight: 600;
@@ -54,7 +78,8 @@
   display: block;
 }
 .link:hover {
-  border-top: 2px solid #3e5ce0;
+  color: var(--color-secondary);
+  border-top: 2px solid var(--color-secondary);
 }
 
 .app__navBar-profile {

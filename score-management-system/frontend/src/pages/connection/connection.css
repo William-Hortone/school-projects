@@ -1,11 +1,20 @@
 .app__connection {
   width: 100%;
   height: 100vh;
-  background: var(--color-lightWhite);
+  /* background: url("https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient.jpg"); */
+  /* <img src="https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient.jpg" loading="lazy" sizes="100vw" srcset="https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient-p-500.jpg 500w, https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient-p-800.jpg 800w, https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient-p-1080.jpg 1080w, https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient-p-1600.jpg 1600w, https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient-p-2000.jpg 2000w, https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient.jpg 2563w" alt="" class="absolute-image"> */
   /* background: red; */
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+.absolute-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 .app__connection-container {
   width: 70%;
