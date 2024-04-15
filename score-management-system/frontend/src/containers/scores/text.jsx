@@ -1,25 +1,14 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
 
-const VideoComponent = ({ video }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-const navigate=  useNavigate()
-
-
-
-  const handleSelectVideo = () => {
-
-  };
-
+const VideoComponent = ({ video,onClick }) => {
 
   return (
     <div className="">
       <video
-
         controls
         width="100%"
         height="100%"
-        onClick={handleSelectVideo}
+        onClick={onClick}
       >
         <source src={video.videoSource} type="video/mp4" />
       </video>
@@ -42,6 +31,12 @@ export default VideoComponent;
 
 
 
+const navigate=  useNavigate()
+
+
+const onClick = (video) => {
+  navigate('playVideo', {state:{video}})
+};
 
 import React, { useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';

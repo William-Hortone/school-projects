@@ -19,7 +19,14 @@ mongoose
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://score-management-api.vercel.app/"],
+    methods: ["GET", "POST", "PUT"],
+    credentials: true,
+  })
+);
+
 app.use(errorHandler);
 
 app.use("/api/", authRouter);
