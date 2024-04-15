@@ -26,6 +26,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(errorHandler);
 
 app.use("/api/", authRouter);
