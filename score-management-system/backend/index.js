@@ -21,7 +21,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(
   cors({
-    origin: ["https://score-management-api.vercel.app/"],
+    origin: ["https://score-management-client.vercel.app"],
     methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
