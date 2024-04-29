@@ -6,7 +6,6 @@ import BASE_URL from "../../hooks/config";
 const ViewStudentScore = () => {
   const location = useLocation();
   const student = location.state.student;
-  console.log("the student", student);
 
   const [allScores, setAllScores] = useState([]);
   const [filteredScores, setFilteredScores] = useState([]);
@@ -102,7 +101,7 @@ const ViewStudentScore = () => {
         </table>
 
         {/* Score table */}
-        <table className="table">
+        <table className="table score-table">
           <thead>
             <tr>
               <th>Academic Year</th>

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Header, NavBar } from "../../components";
-import BASE_URL from "../../hooks/config";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import BASE_URL from "../../hooks/config";
 
 const ViewStudents = () => {
   const [allStudents, setAllStudents] = useState([]);

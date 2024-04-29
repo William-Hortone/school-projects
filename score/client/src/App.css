@@ -4,6 +4,9 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+body {
+  overflow-x: hidden !important;
+}
 .displayFlex {
   display: flex;
   align-items: center;
@@ -30,13 +33,11 @@
   margin-block: 2rem;
 }
 .table thead {
-  padding: 2rem;
   height: 50px;
   background-color: var(--color-secondary);
 }
 .table-column td {
   background-color: #000000c2;
-  font-size: 14px;
   font-family: var(--font-alt);
   font-weight: 900;
   color: white;
@@ -59,11 +60,12 @@
 
 .table td {
   height: 35px;
-  max-width: 100px;
-  padding: 15px;
+  /* flex: 1; */
+  /* max-width: 100px; */
+  padding: 15px 0;
   overflow: hidden;
   white-space: nowrap;
-  width: 100px;
+  /* width: 100px; */
   border-left: solid 1px #66666671;
   border-bottom: solid 1px #66666671;
 
@@ -103,8 +105,93 @@
 }
 
 .cancel-btn {
-  background-color: #72141b;
+  background-color: #163e70;
 }
 .delete-btn {
   background-color: var(--color-secondary);
+}
+.second-btn {
+  display: none !important;
+}
+.react-datepicker-wrapper {
+  display: block !important;
+}
+@media screen and (max-width: 1000px) {
+  .score-table td,
+  .score-table th {
+    max-width: 10px !important;
+  }
+}
+@media screen and (max-width: 900px) {
+  .page-title {
+    font-size: 1.2rem;
+  }
+  .section-padding {
+    padding: 3rem;
+  }
+  .table {
+    overflow-x: hidden;
+    font-size: 12px !important;
+  }
+  .popup-delete {
+    width: 350px;
+    height: 250px;
+  }
+  .popup-delete h2 {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 750px) {
+  .app__addStudent form {
+    flex-direction: column;
+  }
+  .second-btn {
+    display: block !important;
+  }
+  .first-btn {
+    display: none !important;
+  }
+  .react-datepicker-wrapper {
+    display: block !important;
+  }
+  .table {
+    overflow-x: hidden;
+    font-size: 10px !important;
+  }
+  .score-table td,
+  .score-table th {
+    max-width: 10px !important;
+  }
+}
+@media screen and (max-width: 550px) {
+  .page-title {
+    font-size: 1rem;
+  }
+  .section-padding {
+    padding: 3rem 1rem;
+  }
+
+  .table th,
+  .table td {
+    max-width: 50px;
+  }
+  .score-table td,
+  .score-table th {
+    max-width: 10px !important;
+  }
+  .popup-delete {
+    width: 50%;
+    height: auto;
+    padding: 2rem 1rem;
+  }
+  .popup-delete h2 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  .popup-delete .btn {
+    width: auto;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    font-size: 10px;
+  }
 }

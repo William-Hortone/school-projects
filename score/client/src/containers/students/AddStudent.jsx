@@ -127,7 +127,7 @@ const AddStudent = () => {
               />
             </div>
 
-            <div className="wrapper-btn">
+            <div className="wrapper-btn first-btn">
               <Button text="Submit" type="submit" />
             </div>
           </div>
@@ -181,6 +181,10 @@ const AddStudent = () => {
                 onChange={handleOnChange}
               />
             </div>
+          </div>
+
+          <div className="wrapper-btn second-btn">
+            <Button text="Submit" type="submit" />
           </div>
         </form>
       </div>

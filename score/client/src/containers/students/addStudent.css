@@ -1,9 +1,7 @@
 .app__addStudent,
 .app__score {
   width: 100%;
-  /* padding: ; */
-  /* display: flex; */
-  /* background-color: rebeccapurple; */
+  /* background-color: rgba(255, 0, 0, 0.103); */
 }
 .app__addStudent form,
 .app__score form {
