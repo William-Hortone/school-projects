@@ -85,22 +85,6 @@ const EditStudent = () => {
         <h2 className="page-title">Edit a student</h2>
         <form onSubmit={handleSubmit}>
           <div className="wrapper">
-            {/* <div className="wrapper-input">
-              <label htmlFor="studentId" className="label">
-                Student Id
-              </label>
-              <input
-                type="text"
-                className="input"
-                placeholder="Student Id"
-                value={inputs.studentId}
-                name="studentId"
-                id="studentId"
-                onChange={handleOnChange}
-                required
-              />
-            </div> */}
-
             <div className="wrapper-input">
               <label htmlFor="name" className="label">
                 Name
@@ -148,7 +132,7 @@ const EditStudent = () => {
               />
             </div>
 
-            <div className="wrapper-btn">
+            <div className="wrapper-btn first-btn">
               <Button text="Submit" type="submit" />
             </div>
           </div>
@@ -206,6 +190,9 @@ const EditStudent = () => {
                 className="picker-date"
               />
             </div>
+          </div>
+          <div className="wrapper-btn second-btn">
+            <Button text="Submit" type="submit" />
           </div>
         </form>
 

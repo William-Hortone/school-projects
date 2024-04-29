@@ -97,3 +97,93 @@
 .app__navBar-profile h4 {
   font-size: 12px;
 }
+.burger-menu {
+  display: none;
+}
+.wrapper-links {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  z-index: 100;
+  padding: 2rem;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  background-color: var(--color-secondary);
+}
+.wrapper-links.show-menu {
+  top: 0;
+}
+.wrapper-links .smallScreen-links {
+  display: flex;
+  flex-direction: column;
+}
+.smallScreen-links .title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-family: var(--font-alt);
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 0;
+}
+.smallScreen-links .link {
+  font-size: 1.2rem;
+  font-weight: 900;
+  font-family: var(--font-alt);
+  color: #efefefc4;
+  margin-left: 1rem;
+  padding: 0.4rem 0;
+}
+.closeBtn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+  .app__navBar {
+    padding: 0 4rem;
+  }
+}
+@media screen and (max-width: 900px) {
+  .app__navBar {
+    padding: 0 2rem;
+  }
+  .bigScreen,
+  .app__navBar-profile {
+    display: none;
+  }
+  .burger-menu {
+    display: block;
+  }
+  .app__navBar-profile img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .app__logo h4:nth-of-type(2) {
+    font-size: 1.3rem;
+  }
+  .app__logo h4:nth-of-type(2)::after {
+    left: -73px;
+    width: 70px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .app__navBar {
+    height: 70px;
+  }
+  .app__logo h4:nth-of-type(1) {
+    font-size: 0.5rem;
+  }
+  .app__logo h4:nth-of-type(2) {
+    font-size: 0.8rem;
+  }
+  .app__logo h4:nth-of-type(2)::after {
+    left: -43px;
+    width: 40px;
+    top: 2px;
+  }
+}

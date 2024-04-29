@@ -1,7 +1,5 @@
 import React from "react";
-import { Header, NavBar, SlideCard } from "../components";
-import Carousel from "react-elastic-carousel";
-import images from "../constants/images";
+import { Header, NavBar } from "../components";
 import "./home.css";
 
 const Home = () => {
@@ -11,6 +9,7 @@ const Home = () => {
       <NavBar />
 
       <section className="app__home-container">
+        {/* Sliding text */}
         <div className="content">
           <div className="app__slidingText">
             <div className="app__slidingText-container">
@@ -31,6 +30,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+
         <div className="home__wrapper">
           <div className="container-text">
             <h2 className="title-primary">Score</h2>
@@ -39,7 +39,6 @@ const Home = () => {
               <span className="title-primary">ment</span>
               <span className="title-second">&nbsp;System</span>
             </h2>
-            {/* <h2 className="title-second">System</h2> */}
           </div>
           <div className="container-image">
             <img
@@ -51,16 +50,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* <div className="container"> */}
-      {/* <Carousel itemsToShow={1} className="container">
-        <SlideCard img={images.img1} />
-        <SlideCard img={images.img2} />
-        <SlideCard img={images.img3} />
-        <SlideCard img={images.img1} />
-        <SlideCard img={images.img1} />
-        <SlideCard img={images.img1} />
-      </Carousel> */}
     </div>
   );
 };

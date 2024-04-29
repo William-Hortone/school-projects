@@ -25,3 +25,19 @@
   font-size: 14px;
   border: none;
 }
+@media screen and (max-width: 1200px) {
+  .app__header {
+    padding: 0 4rem;
+  }
+}
+@media screen and (max-width: 900px) {
+  .app__header {
+    padding: 0 2rem;
+  }
+}
+@media screen and (max-width: 550px) {
+  .app__header {
+    height: 35px;
+    font-size: 0.6rem !important;
+  }
+}

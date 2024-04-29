@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Button, Header, NavBar } from "../../components";
 import BASE_URL from "../../hooks/config";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -22,12 +21,6 @@ const DeleteStudent = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log("the id is", id);
-    console.log("the id is", studentNumber);
-  }, [id, studentNumber]);
-
-  //   Function to show the delete popup
   const handleShowPopup = (id, name) => {
     setShowDeletePopup(true);
     setId(id);
@@ -58,7 +51,6 @@ const DeleteStudent = () => {
         <table className="table">
           <thead>
             <tr>
-              <th>Student ID </th>
               <th>Student Name </th>
               <th>Student Number</th>
               <th>Major</th>
@@ -78,7 +70,6 @@ const DeleteStudent = () => {
                     handleShowPopup(student._id, student.studentNumber)
                   }
                 >
-                  <td>{student._id}</td>
                   <td>{student.name}</td>
                   <td>{student.studentNumber}</td>
                   <td>{student.major}</td>

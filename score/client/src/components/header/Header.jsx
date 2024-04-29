@@ -3,7 +3,7 @@ import "./header.css";
 import { AuthContext } from "../../hooks/AuthContext";
 
 const Header = () => {
-  const { logOut, errorMessage, isLoading } = useContext(AuthContext);
+  const { logOut } = useContext(AuthContext);
 
   return (
     <div className="app__header">

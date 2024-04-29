@@ -10,7 +10,6 @@ import { useLocation } from "react-router-dom";
 const AddStudentScore = () => {
   const location = useLocation();
   const student = location.state.student;
-  console.log("student", student);
 
   const [inputs, setInputs] = useState({
     student_id: "",
