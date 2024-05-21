@@ -7,14 +7,22 @@ const Welcome = () => {
   const navigate = useNavigate();
   return (
     <div className="app__welcome">
-      <h2>University Omar Bongo</h2>
-      {/* <div className="container"> */}
+      <img
+        src="https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient.jpg"
+        loading="lazy"
+        sizes="100vw"
+        srcset="https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient-p-500.jpg 500w, https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient-p-800.jpg 800w, https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient-p-1080.jpg 1080w, https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient-p-1600.jpg 1600w, https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient-p-2000.jpg 2000w, https://assets-global.website-files.com/6471ddcb5282041b072c6552/64a6d9e3b3affa8513290f40_account-gradient.jpg 2563w"
+        alt=""
+        class="absolute-image"
+      ></img>
+      <h2>Score management system</h2>
+
       <Button
         text="Let's started"
         onClick={() => navigate("/connection/login")}
       />
-      {/* </div> */}
-      <span className="blur"></span>
+
+      {/* <span className="blur"></span> */}
     </div>
   );
 };

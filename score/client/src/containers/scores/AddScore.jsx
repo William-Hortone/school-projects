@@ -14,9 +14,9 @@ const AddScore = () => {
     const { data } = await axios.get(API_URL);
     setAllStudents(data.students);
   };
-  useEffect(() => {
-    console.log("all students", allStudents);
-  }, [allStudents]);
+  // useEffect(() => {
+  //   console.log("all students", allStudents);
+  // }, [allStudents]);
 
   useEffect(() => {
     fetchData();

@@ -5,7 +5,7 @@ import "./home.css";
 const Home = () => {
   return (
     <div className="app__home">
-      <Header />
+      <Header title="Student" />
       <NavBar />
 
       <section className="app__home-container">

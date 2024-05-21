@@ -13,10 +13,22 @@ import {
   ViewStudentScore,
   ViewScore,
   EditScore,
+  EditStudentScore,
+  DeleteCourse,
+  DeleteStudentCourse,
+  ViewScores,
+  ViewInfos,
 } from "./containers";
-
 import { AuthProvider } from "./hooks/AuthContext";
-import { About, Connection, Home, Score, Student, Welcome } from "./pages";
+import {
+  About,
+  Connection,
+  Home,
+  Score,
+  Student,
+  StudentHome,
+  Welcome,
+} from "./pages";
 
 function App() {
   return (
@@ -50,10 +62,22 @@ function App() {
                 element={<ViewStudentScore />}
               />
               <Route path="/score/viewScore" element={<ViewScore />} />
+              <Route path="/score/deleteCourse" element={<DeleteCourse />} />
+              <Route
+                path="/score/deleteStudentCourse"
+                element={<DeleteStudentCourse />}
+              />
               <Route path="/score/editScore" element={<EditScore />} />
+              <Route
+                path="/score/editStudentScore"
+                element={<EditStudentScore />}
+              />
             </Route>
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/HomeStudent" element={<StudentHome />} />
+            <Route path="/ViewScores" element={<ViewScores />} />
+            <Route path="/ViewInfos" element={<ViewInfos />} />
             {/* <Route path="/addScore" element={<AddScore />} /> */}
           </Routes>
         </AuthProvider>

@@ -18,7 +18,6 @@ const ScoreSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   hours: {
     type: Number,
     required: true,
@@ -35,14 +34,26 @@ const ScoreSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  finalExam: {
+  questionOne: {
     type: Number,
     required: true,
   },
-  participation: {
+  questionTwo: {
     type: Number,
     required: true,
   },
+  questionThree: {
+    type: Number,
+    required: true,
+  },
+  questionFour: {
+    type: Number,
+    required: true,
+  },
+  // participation: {
+  //   type: Number,
+  //   required: true,
+  // },
   displayIt: {
     type: Boolean,
     default: true,

@@ -93,6 +93,9 @@
   cursor: pointer;
 }
 
+.smallScreen-text {
+  display: none;
+}
 @keyframes register-animation {
   0% {
     left: 30%;
@@ -107,5 +110,58 @@
   }
   100% {
     right: 0;
+  }
+}
+@media screen and (max-width: 1260px) {
+  .app__login-content h2 {
+    font-size: 1.3rem;
+  }
+}
+@media screen and (max-width: 800px) {
+  .app__register-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .app__register-content h3 {
+    font-size: 1.3rem;
+  }
+  .google-btn {
+    padding: 0.7rem;
+    font-size: 10px;
+  }
+  .wrapper-role {
+    width: 55%;
+    height: 40px;
+  }
+  .role {
+    font-size: 8px;
+  }
+}
+@media screen and (max-width: 650px) {
+  .app__login {
+    flex-direction: column;
+  }
+  .app__register-content {
+    display: none;
+  }
+  .app__register-form {
+    width: 100%;
+    border-radius: 10px;
+    padding: 2rem;
+  }
+  .app__register-form form {
+    height: auto;
+    margin-top: 2.2rem;
+  }
+  .input {
+    width: 100%;
+    padding: 0.5rem;
+
+    margin-top: 0.5rem;
+  }
+  .smallScreen-text {
+    text-align: center;
+    margin-top: 1rem;
+    display: block;
   }
 }
