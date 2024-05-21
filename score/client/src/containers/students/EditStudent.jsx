@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { Button } from "../../components";
-import "./addStudent.css";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateField } from "@mui/x-date-pickers/DateField";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import axios from "axios";
-import BASE_URL from "../../hooks/config";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
+import { Button } from "../../components";
+import BASE_URL from "../../hooks/config";
+import "./addStudent.css";
 
 const EditStudent = () => {
   const [inputs, setInputs] = useState({
@@ -17,9 +20,11 @@ const EditStudent = () => {
     gender: "",
     schoolingYears: "",
   });
-  const [selectedDate, setSelectedDate] = useState("");
+  // const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState();
   const [id, setId] = useState("");
   const [allStudents, setAllStudents] = useState([]);
+  const [filterDate, setFilterDate] = useState();
 
   // To Get all the available students
   const API_URL = `${BASE_URL}student/getStudents`;
@@ -42,10 +47,30 @@ const EditStudent = () => {
     });
   };
 
+  //  Function when data change
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+  };
+
   useEffect(() => {
     setId(inputs.studentId);
   }, [inputs.studentId]);
 
+  useEffect(() => {
+    setInputs((prev) => ({
+      ...prev,
+      dOB: filterDate,
+    }));
+  }, [filterDate]);
+
+  useEffect(() => {
+    if (selectedDate) {
+      const result = selectedDate.toString().slice(4, 17);
+      setFilterDate(result);
+    }
+  }, [selectedDate]);
+
+  // Function to  Edit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -60,13 +85,12 @@ const EditStudent = () => {
       );
 
       toast.success(response.data.message);
-      console.log("response", response.data);
     } catch (error) {
       toast.error(error.message);
-      console.log("error", error);
     }
   };
 
+  // To automatically fill the input when  a student is selected
   const handleOnClick = (student) => {
     setInputs({
       studentId: student._id,
@@ -76,7 +100,6 @@ const EditStudent = () => {
       gender: student.gender,
       schoolingYears: student.schoolingYears,
     });
-    // setSelectedDate(student.dOB);
   };
 
   return (
@@ -177,6 +200,21 @@ const EditStudent = () => {
               </label>
               <br />
 
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateField
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  disableFuture
+                />
+              </LocalizationProvider>
+            </div>
+
+            {/* <div className="wrapper-input">
+              <label htmlFor="dOB" className="label">
+                Date of Birth
+              </label>
+              <br />
+
               <DatePicker
                 value={selectedDate}
                 selected={selectedDate}
@@ -189,7 +227,7 @@ const EditStudent = () => {
                 maxDate={new Date()}
                 className="picker-date"
               />
-            </div>
+            </div> */}
           </div>
           <div className="wrapper-btn second-btn">
             <Button text="Submit" type="submit" />

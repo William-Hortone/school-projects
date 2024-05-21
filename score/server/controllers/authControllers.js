@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Student = require("../models/Student");
 
 const jwt = require("jsonwebtoken");
 const CryptoJs = require("crypto-js");
@@ -25,7 +26,6 @@ module.exports = {
       return next(error);
     }
   },
-
   loginUser: async (req, res, next) => {
     try {
       const user = await User.findOne({ email: req.body.email });
@@ -57,10 +57,51 @@ module.exports = {
         status: true,
         id: user_id,
         username: user.username,
+        role: user.role,
         token: userToken,
       });
     } catch (error) {
       return next(error);
+    }
+  },
+  loginStudent: async (req, res, next) => {
+    try {
+      const student = await Student.findOne({
+        studentNumber: req.body.studentNumber,
+      });
+
+      if (!student) {
+        return res
+          .status(404)
+          .json({ status: false, message: "Student not found" });
+      }
+
+      if (student.password !== req.body.studentPassword) {
+        return res
+          .status(401)
+          .json({ status: false, message: "Wrong password" });
+      }
+
+      // If the passwords match, proceed with authentication
+      const studentToken = jwt.sign(
+        { id: student._id },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "21d",
+        }
+      );
+
+      res.status(200).json({
+        status: true,
+        id: student._id,
+        username: student.name,
+        role: student.role,
+        token: studentToken,
+      });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ status: false, message: "Internal server error" });
     }
   },
 };

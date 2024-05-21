@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import BASE_URL from "../../hooks/config";
 import "../students/addStudent.css";
 
-const EditScore = () => {
-  const [allStudents, setAllStudents] = useState([]);
+const DeleteCourse = () => {
   const navigate = useNavigate();
+
+  const [allStudents, setAllStudents] = useState([]);
 
   // To Get all the available students
   const API_URL = `${BASE_URL}student/getStudents`;
@@ -20,14 +21,13 @@ const EditScore = () => {
     fetchData();
   }, []);
 
-  const handleSelectStudent = async (student) => {
-    navigate("/score/editStudentScore", { state: { student } });
+  const handleNavigate = (student) => {
+    navigate("/score/deleteStudentCourse", { state: { student } });
   };
-
   return (
     <>
-      <div className="app__score section-padding">
-        <h2 className="page-title">Edit Student Score</h2>
+      <section className="app__score section-padding">
+        <h2 className="page-title">Delete Scores </h2>
 
         {/* Student Table */}
         <table className="table">
@@ -48,7 +48,7 @@ const EditScore = () => {
                 <tr
                   key={index}
                   className="table-row"
-                  onClick={() => handleSelectStudent(student)}
+                  onClick={() => handleNavigate(student)}
                 >
                   <td>{student.name}</td>
                   <td>{student.studentNumber}</td>
@@ -61,9 +61,9 @@ const EditScore = () => {
             })}
           </tbody>
         </table>
-      </div>
+      </section>
     </>
   );
 };
 
-export default EditScore;
+export default DeleteCourse;

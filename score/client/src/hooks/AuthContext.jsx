@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 import BASE_URL from "./config";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -23,6 +24,7 @@ export const AuthProvider = ({ children }) => {
         password: inputs.password,
       })
       .then((response) => {
+        toast.success("Login successful");
         setUserToken(response.data.token);
         localStorage.setItem("userToken", response.data.token);
         console.log("the res from back", response.data);
@@ -35,7 +37,36 @@ export const AuthProvider = ({ children }) => {
       .catch((error) => {
         setIsLoading(false);
         setErrorMessage(error.message);
-        console.error("Login Error:", error.message);
+        toast.error("Error while login");
+        // console.error("Login Error:", error.message);
+      });
+  };
+
+  // Login as a student
+  const loginStudent = (inputs) => {
+    console.log("inputs is", inputs);
+
+    setIsLoading(true);
+    axios
+      .post(`${BASE_URL}loginStudent`, {
+        studentNumber: inputs.studentNumber,
+        studentPassword: inputs.studentPassword,
+      })
+      .then((response) => {
+        setUserToken(response.data.token);
+        localStorage.setItem("userToken", response.data.token);
+        // console.log("the res from back", response.data);
+        toast.success("Login successful");
+        setUserInfo(response.data);
+        localStorage.setItem("userInfo", JSON.stringify(response.data));
+        setIsLoading(false);
+        navigate("/HomeStudent");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setErrorMessage(error.message);
+        toast.error("Error while login");
+        console.error("Login Error:", error);
       });
   };
 
@@ -70,7 +101,15 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ login, logOut, userInfo, isLoading, userToken, errorMessage }}
+      value={{
+        login,
+        logOut,
+        loginStudent,
+        userInfo,
+        isLoading,
+        userToken,
+        errorMessage,
+      }}
     >
       {children}
     </AuthContext.Provider>

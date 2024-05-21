@@ -1,9 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
-import "./register.css";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import BASE_URL from "./../../hooks/config";
+import "./register.css";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -62,6 +62,10 @@ const Register = () => {
 
       {/* Register form */}
       <div className="app__register-form">
+        <div className="intro">
+          <h2>Score management system</h2>
+          <h3>Register</h3>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="field-wrapper">
             <label htmlFor="name">Your Full Name</label>
@@ -120,6 +124,11 @@ const Register = () => {
           <button className="submit-btn" type="submit">
             Register
           </button>
+
+          <p className="smallScreen-text">
+            You have an account ?
+            <span onClick={() => navigate("/connection/login")}>Login</span>
+          </p>
         </form>
       </div>
     </div>

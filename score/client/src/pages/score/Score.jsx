@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 const Score = () => {
   return (
     <>
-      <Header />
+      <Header title="student" />
       <NavBar />
       <div className="app__Score">
         <Outlet />

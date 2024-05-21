@@ -3,6 +3,7 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
 }
 .app__login-form {
   width: 70%;
@@ -15,13 +16,16 @@
   flex-direction: column;
   align-items: center;
 }
+.intro,
+.login-content {
+  display: none;
+}
 .wrapper-role {
   width: 30%;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: ; */
   border-radius: 15px;
   border: 1px solid rgba(0, 0, 0, 0.384);
 }
@@ -39,9 +43,9 @@
   font-family: var(--font-base);
   font-size: 10px;
 }
-.active {
+.active-role {
   background-color: var(--color-secondary);
-  color: white;
+  color: white !important;
 }
 .app__login-form form {
   width: 100%;
@@ -57,6 +61,11 @@
 }
 .field-wrapper label {
   color: black;
+}
+.field-wrapper span {
+  font-size: 12px;
+  margin-left: 0.4rem;
+  font-weight: 100;
 }
 
 .input {
@@ -142,5 +151,90 @@
   100% {
     right: 0;
     opacity: 1;
+  }
+}
+@media screen and (max-width: 1260px) {
+  .app__login-content h2 {
+    font-size: 1.3rem;
+  }
+}
+@media screen and (max-width: 800px) {
+  .app__login-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .app__login-content h3 {
+    font-size: 1.3rem;
+  }
+  .google-btn {
+    padding: 0.7rem;
+    font-size: 10px;
+  }
+  .wrapper-role {
+    width: 55%;
+    height: 40px;
+  }
+  .role {
+    font-size: 8px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .app__login {
+    flex-direction: column;
+  }
+  .app__login-content {
+    display: none;
+  }
+  .app__login-form {
+    width: 100%;
+    border-radius: 10px;
+    padding: 2rem;
+  }
+  .login-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .login-content .google-btn {
+    background-color: #f0c5a2;
+    margin-top: 1rem;
+  }
+  .field-wrapper {
+    margin-bottom: 1rem !important;
+  }
+  .intro {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .intro h2 {
+    font-family: var(--font-base);
+    font-size: 14px;
+    text-align: center;
+  }
+  .intro h3 {
+    font-family: var(--font-base);
+    font-size: 12px;
+  }
+  .input {
+    width: 100%;
+    padding: 0.5rem;
+
+    margin-top: 0.5rem;
+  }
+  .submit-btn {
+    width: 50%;
+    padding: 0.7rem;
+    margin: 1rem auto 0 auto;
+  }
+  .field-wrapper label {
+    color: black;
+    font-size: 14px;
   }
 }

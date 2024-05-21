@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { Button } from "../../components";
-import "./addStudent.css";
-import { toast } from "react-toastify";
-
-import BASE_URL from "./../../hooks/config";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateField } from "@mui/x-date-pickers/DateField";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import axios from "axios";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
+import { Button } from "../../components";
+import BASE_URL from "./../../hooks/config";
+import "./addStudent.css";
 
 const AddStudent = () => {
   const [inputs, setInputs] = useState({
@@ -17,8 +19,14 @@ const AddStudent = () => {
     studentNumber: "",
     schoolingYears: "",
   });
-  const [selectedDate, setSelectedDate] = useState("");
+
   const [filterDate, setFilterDate] = useState();
+
+  const [selectedDate, setSelectedDate] = useState();
+  // Handler function to update selected date
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+  };
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -37,26 +45,23 @@ const AddStudent = () => {
   }, [filterDate]);
 
   useEffect(() => {
-    console.log("inputs", inputs);
-  }, [inputs]);
-
-  useEffect(() => {
-    // console.log("selectedDate", selectedDate);
-
     if (selectedDate) {
-      const result = selectedDate.toString().slice(3, 15);
+      const result = selectedDate.toString().slice(4, 17);
       setFilterDate(result);
-      console.log("filterDate", result);
     }
   }, [selectedDate]);
 
+  //  Function to add a  student
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (inputs.schoolingYears <= 0) {
       return toast.error("Please provide a valid schooling year");
     }
-    // console.log("the inputs", inputs);
+    if (!/^\d{9}$/.test(inputs.studentNumber)) {
+      return toast.error("A student number must have exactly 9 digits");
+    }
+
     try {
       const response = await axios.post(
         `${BASE_URL}student/addStudent`,
@@ -64,7 +69,16 @@ const AddStudent = () => {
       );
 
       toast.success(response.data.message);
-      console.log("response", response.data);
+
+      // Empty the form
+      setInputs({
+        name: "",
+        dOB: "",
+        major: "",
+        gender: "",
+        studentNumber: "",
+        schoolingYears: "",
+      });
     } catch (error) {
       toast.error(error.message);
     }
@@ -113,18 +127,13 @@ const AddStudent = () => {
               </label>
               <br />
 
-              <DatePicker
-                value={selectedDate}
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
-                dateFormat="EEE MMM dd yyyy"
-                showYearDropdown
-                scrollableMonthYearDropdowns
-                yearDropdownItemNumber={10}
-                yearDropdownMinLength={5}
-                maxDate={new Date()}
-                className="picker-date"
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateField
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  disableFuture
+                />
+              </LocalizationProvider>
             </div>
 
             <div className="wrapper-btn first-btn">

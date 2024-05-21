@@ -1,20 +1,20 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import BASE_URL from "../../hooks/config";
-import { GoBackBtn } from "../../components";
+import React, { useContext, useEffect, useState } from "react";
+import { Header, NavBarStudent } from "../../../components";
+import { AuthContext } from "../../../hooks/AuthContext";
+import BASE_URL from "../../../hooks/config";
 
-const ViewStudentScore = () => {
-  const location = useLocation();
-  const student = location.state.student;
+const ViewScores = () => {
+  const { userInfo } = useContext(AuthContext);
 
   const [allScores, setAllScores] = useState([]);
   const [filteredScores, setFilteredScores] = useState([]);
-  const [totalCredit, setTotalCredit] = useState(0);
-  const [totalHours, setTotalHours] = useState(0);
-  const [score, setScore] = useState(0);
-  const [finalScore, setFinalScore] = useState(0);
+  const [totalCredit, setTotalCredit] = useState();
+  const [totalHours, setTotalHours] = useState();
+  const [score, setScore] = useState();
+  const [finalScore, setFinalScore] = useState();
 
+  // To Get all the available students
   const API_URL = `${BASE_URL}score/getScores`;
 
   const fetchData = async () => {
@@ -26,7 +26,7 @@ const ViewStudentScore = () => {
     fetchData();
   }, []);
 
-  //   To get the total credit and total hours
+  // Filter scores according to the student id
   useEffect(() => {
     const totalCredit = filteredScores.reduce(
       (acc, current) => acc + current.credit,
@@ -40,18 +40,17 @@ const ViewStudentScore = () => {
     setTotalHours(totalHours);
   }, [filteredScores]);
 
-  // filter scores according to the current student id
+  // Filter scores according to the student id
   useEffect(() => {
     const filterScore = allScores.filter(
-      (score) => score.student_id === student._id
+      (score) => score.student_id === userInfo?.id
     );
     setFilteredScores(filterScore);
-  }, [allScores, student._id]);
+  }, [allScores, userInfo?.id]);
 
-  // To calculate the total score  of each course
+  // Calculate total score for each course
   useEffect(() => {
     let totalScore = 0;
-
     filteredScores.forEach((course) => {
       totalScore +=
         ((course.attendance * 10) / 100 +
@@ -63,52 +62,25 @@ const ViewStudentScore = () => {
             60) /
             100) *
         course.credit;
+
+      setScore(totalScore);
     });
+  }, [filteredScores, score]);
 
-    setScore(totalScore);
-  }, [filteredScores]);
-
-  // To calculate the average score
+  //Calculate the final average score
   useEffect(() => {
-    if (totalCredit > 0) {
-      const result = Math.floor(score / totalCredit);
-      setFinalScore(result);
-    }
+    let result = score / totalCredit;
+    result = Math.floor(result);
+    setFinalScore(result);
   }, [score, totalCredit]);
-
   return (
     <>
+      <Header title="Teacher" />
+      <NavBarStudent />
       <section className="app__score section-padding">
-        <h2 className="page-title">View Student Score</h2>
+        <h2 className="page-title"> Student Score</h2>
 
-        <GoBackBtn />
-
-        {/* Table for the student information */}
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Student Name </th>
-              <th>Student Number</th>
-              <th>Major</th>
-              <th>Gender</th>
-              <th>Schooling Years</th>
-              <th>Date of Birth</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>{student.name}</td>
-              <td>{student.studentNumber}</td>
-              <td>{student.major}</td>
-              <td>{student.gender}</td>
-              <td>{student.schoolingYears}</td>
-              <td>{student.dOB}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        {/* Table for the student scores */}
+        {/* Score table */}
         <table className="table score-table">
           <thead>
             <tr>
@@ -178,4 +150,4 @@ const ViewStudentScore = () => {
   );
 };
 
-export default ViewStudentScore;
+export default ViewScores;

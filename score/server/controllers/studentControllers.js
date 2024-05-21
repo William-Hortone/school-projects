@@ -1,6 +1,9 @@
 const Student = require("../models/Student");
-
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 module.exports = {
+  // To add a student
   addStudent: async (req, res, next) => {
     const { studentNumber, name, major, dOB, gender, schoolingYears } =
       req.body;
@@ -22,6 +25,7 @@ module.exports = {
       return next(error);
     }
   },
+  // To Edit a Student
   editStudent: async (req, res, next) => {
     try {
       const updatedData = req.body;
@@ -47,6 +51,7 @@ module.exports = {
       return next(error);
     }
   },
+  // To get all students
   getStudents: async (req, res, next) => {
     try {
       const students = await Student.find({ displayIt: true });
@@ -62,6 +67,24 @@ module.exports = {
       return next(error);
     }
   },
+  // To get a one student
+  getOneStudent: async (req, res, next) => {
+    const id = req.params.id;
+    try {
+      const student = await Student.findOne({ _id: id, displayIt: true });
+
+      if (!student) {
+        return res
+          .status(404)
+          .json({ status: false, message: "User not found" });
+      }
+
+      return res.status(200).json({ status: true, student });
+    } catch (error) {
+      return next(error);
+    }
+  },
+  // To delete a student
   deleteStudent: async (req, res, next) => {
     const id = req.params.id;
 

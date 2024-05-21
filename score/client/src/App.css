@@ -27,6 +27,12 @@ body {
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
+.about-title {
+  font-size: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 1.5rem 0;
+}
 
 .table {
   width: 100%;
@@ -60,15 +66,11 @@ body {
 
 .table td {
   height: 35px;
-  /* flex: 1; */
-  /* max-width: 100px; */
   padding: 15px 0;
   overflow: hidden;
   white-space: nowrap;
-  /* width: 100px; */
   border-left: solid 1px #66666671;
   border-bottom: solid 1px #66666671;
-
   text-align: center;
 }
 .popup-delete {
@@ -92,6 +94,9 @@ body {
   font-family: var(--font-base);
   color: #72141b;
 }
+.active {
+  color: #72141b;
+}
 .btn {
   width: 100px;
   padding: 1rem;
@@ -103,7 +108,20 @@ body {
   transition: all 0.4s ease;
   color: white;
 }
-
+.goBackBtn {
+  /* width: 70px; */
+  height: 36px;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  color: white;
+  gap: 0.2rem;
+  background-color: var(--color-secondary);
+}
 .cancel-btn {
   background-color: #163e70;
 }
@@ -115,6 +133,30 @@ body {
 }
 .react-datepicker-wrapper {
   display: block !important;
+}
+.small-menu {
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.form-container {
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  /* background-color: red !important; */
+}
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  gap: 2rem;
+}
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: #00000033;
+  margin: 1rem 0;
 }
 @media screen and (max-width: 1000px) {
   .score-table td,
@@ -164,7 +206,8 @@ body {
   }
 }
 @media screen and (max-width: 550px) {
-  .page-title {
+  .page-title,
+  .about-title {
     font-size: 1rem;
   }
   .section-padding {

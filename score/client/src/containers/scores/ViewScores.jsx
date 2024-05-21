@@ -5,8 +5,10 @@ import BASE_URL from "../../hooks/config";
 import "../students/addStudent.css";
 
 const ViewScore = () => {
-  const [allStudents, setAllStudents] = useState([]);
   const navigate = useNavigate();
+
+  const [allStudents, setAllStudents] = useState([]);
+
   // To Get all the available students
   const API_URL = `${BASE_URL}student/getStudents`;
 
@@ -26,11 +28,11 @@ const ViewScore = () => {
     <>
       <section className="app__score section-padding">
         <h2 className="page-title">View students Scores </h2>
+
         {/* Student Table */}
         <table className="table">
           <thead>
             <tr>
-              <th>Student ID </th>
               <th>Student Name </th>
               <th>Student Number</th>
               <th>Major</th>
@@ -48,7 +50,6 @@ const ViewScore = () => {
                   className="table-row"
                   onClick={() => handleNavigate(student)}
                 >
-                  <td>{student._id}</td>
                   <td>{student.name}</td>
                   <td>{student.studentNumber}</td>
                   <td>{student.major}</td>

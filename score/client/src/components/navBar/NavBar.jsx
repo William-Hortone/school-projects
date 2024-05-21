@@ -83,7 +83,11 @@ const NavBar = () => {
             >
               Edit Scores
             </NavLink>
-            <NavLink to="" onClick={() => setShowMenu(false)} className="link">
+            <NavLink
+              to="/score/deleteCourse"
+              onClick={() => setShowMenu(false)}
+              className="link"
+            >
               Delete Scores
             </NavLink>
 

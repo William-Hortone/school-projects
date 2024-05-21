@@ -7,6 +7,11 @@ import AddStudentScore from "./scores/AddStudentScore";
 import ViewStudentScore from "./scores/ViewStudentScore";
 import ViewScore from "./scores/ViewScores";
 import EditScore from "./scores/EditScore";
+import EditStudentScore from "./scores/EditStudentScore";
+import DeleteCourse from "./scores/DeleteCourse";
+import DeleteStudentCourse from "./scores/DeleteStudentCourse";
+import ViewScores from "./students/studentPage/ViewScores";
+import ViewInfos from "./students/studentPage/ViewInfos";
 
 export {
   AddStudent,
@@ -18,4 +23,9 @@ export {
   ViewStudentScore,
   ViewScore,
   EditScore,
+  EditStudentScore,
+  DeleteCourse,
+  DeleteStudentCourse,
+  ViewScores,
+  ViewInfos,
 };
