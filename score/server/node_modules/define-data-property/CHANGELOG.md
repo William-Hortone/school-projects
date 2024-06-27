@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.4](https://github.com/ljharb/define-data-property/compare/v1.1.3...v1.1.4) - 2024-02-13
+
+### Commits
+
+- [Refactor] use `es-define-property` [`90f2f4c`](https://github.com/ljharb/define-data-property/commit/90f2f4cc20298401e71c28e1e08888db12021453)
+- [Dev Deps] update `@types/object.getownpropertydescriptors` [`cd929d9`](https://github.com/ljharb/define-data-property/commit/cd929d9a04f5f2fdcfa9d5be140940b91a083153)
+
 ## [v1.1.3](https://github.com/ljharb/define-data-property/compare/v1.1.2...v1.1.3) - 2024-02-12
 
 ### Commits
